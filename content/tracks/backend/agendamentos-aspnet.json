@@ -1,0 +1,366 @@
+{
+  "id": "agendamentos-aspnet",
+  "track": "backend",
+  "order": 4,
+  "title": {
+    "pt": "API de agendamentos com C# e ASP.NET Core",
+    "en": "Booking API with C# and ASP.NET Core"
+  },
+  "level": 3,
+  "stack": [
+    "C#",
+    ".NET",
+    "ASP.NET Core",
+    "Entity Framework Core",
+    "PostgreSQL ou SQL Server",
+    "xUnit",
+    "JWT",
+    "Docker"
+  ],
+  "whatYouBuild": {
+    "pt": "Uma API de agendamentos para uma clínica ou salão: profissionais, serviços, horários de atendimento e agendamentos que nunca se sobrepõem. Cancelamentos seguem uma regra de antecedência, profissionais entram com token JWT e as regras de tempo são testadas sem depender do relógio de verdade.",
+    "en": "A booking API for a clinic or salon: professionals, services, working hours and bookings that never overlap. Cancellations follow an advance-notice rule, professionals sign in with a JWT and the time rules are tested without depending on the real clock."
+  },
+  "whatYouLearn": [
+    {
+      "pt": "C# e o ecossistema .NET: SDK, projetos e pacotes NuGet",
+      "en": "C# and the .NET ecosystem: SDK, projects and NuGet packages"
+    },
+    {
+      "pt": "ASP.NET Core Minimal APIs e injeção de dependências",
+      "en": "ASP.NET Core Minimal APIs and dependency injection"
+    },
+    {
+      "pt": "Entity Framework Core: DbContext, migrations e LINQ",
+      "en": "Entity Framework Core: DbContext, migrations and LINQ"
+    },
+    {
+      "pt": "Datas e fusos horários sem bugs",
+      "en": "Dates and time zones without bugs"
+    },
+    {
+      "pt": "Autenticação com JWT e testes com xUnit",
+      "en": "JWT authentication and tests with xUnit"
+    }
+  ],
+  "prerequisites": [
+    "api-biblioteca-node"
+  ],
+  "steps": [
+    {
+      "id": "dotnet-setup",
+      "title": {
+        "pt": "O SDK do .NET e o primeiro projeto",
+        "en": "The .NET SDK and the first project"
+      },
+      "goal": {
+        "pt": "O projeto criado com `dotnet new webapi` roda e a documentação OpenAPI da API de exemplo abre no navegador.",
+        "en": "The project created with `dotnet new webapi` runs and the sample API's OpenAPI docs open in the browser."
+      },
+      "estimatedMinutes": 60,
+      "instructions": {
+        "pt": "- Instale o SDK do .NET na versão LTS mais recente. Se C# for novo, leia o tour da linguagem: lembra Java e TypeScript.\n- Crie o projeto com `dotnet new webapi` e rode com `dotnet watch`, que recompila ao salvar.\n- Explore os arquivos: `Program.cs` (onde tudo é configurado), `appsettings.json` (configuração) e o arquivo `.csproj` (dependências).\n- Abra a documentação gerada e teste o endpoint de exemplo. Depois apague-o.\n- Crie o repositório no GitHub e faça commits pequenos a cada parte que funcionar: o histórico conta a história do projeto.",
+        "en": "- Install the latest LTS .NET SDK. If C# is new to you, read the language tour: it resembles Java and TypeScript.\n- Create the project with `dotnet new webapi` and run it with `dotnet watch`, which recompiles on save.\n- Explore the files: `Program.cs` (where everything is configured), `appsettings.json` (configuration) and the `.csproj` file (dependencies).\n- Open the generated docs and test the sample endpoint. Then delete it.\n- Create the GitHub repository and make small commits each time a part works: the history tells the project's story."
+      },
+      "resources": [
+        "dotnet-learn",
+        "csharp-tour-pt",
+        "aspnet-minimal-api-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "SDK do .NET instalado",
+          "en": ".NET SDK installed"
+        },
+        {
+          "pt": "Projeto rodando com `dotnet watch`",
+          "en": "Project running with `dotnet watch`"
+        },
+        {
+          "pt": "Sabe o papel de `Program.cs`, `appsettings.json` e `.csproj`",
+          "en": "Knows the role of `Program.cs`, `appsettings.json` and `.csproj`"
+        },
+        {
+          "pt": "Repositório no GitHub com o primeiro commit",
+          "en": "GitHub repository with the first commit"
+        }
+      ]
+    },
+    {
+      "id": "ef-core",
+      "title": {
+        "pt": "Banco com Entity Framework Core",
+        "en": "Database with Entity Framework Core"
+      },
+      "goal": {
+        "pt": "As tabelas de profissional, serviço, horário de atendimento e agendamento são criadas por migrations no banco.",
+        "en": "The professional, service, working hours and booking tables are created by migrations in the database."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Suba um PostgreSQL (ou SQL Server) com Docker e instale o provedor do EF Core correspondente.\n- Crie as classes das entidades e um `DbContext` com os `DbSet`s. Configure relacionamentos e restrições.\n- Gere e aplique migrations com a ferramenta `dotnet ef`. Abra o banco e veja as tabelas criadas.\n- A string de conexão fica fora do código: use os *user secrets* em desenvolvimento e variáveis de ambiente em produção.\n- Crie dados iniciais (profissionais e serviços) para testar.",
+        "en": "- Run PostgreSQL (or SQL Server) with Docker and install the matching EF Core provider.\n- Create the entity classes and a `DbContext` with the `DbSet`s. Configure relationships and constraints.\n- Generate and apply migrations with the `dotnet ef` tool. Open the database and look at the created tables.\n- The connection string stays out of the code: use *user secrets* in development and environment variables in production.\n- Create seed data (professionals and services) for testing."
+      },
+      "resources": [
+        "ef-core-docs-pt",
+        "postgres-docker-image"
+      ],
+      "checklist": [
+        {
+          "pt": "DbContext com as entidades",
+          "en": "DbContext with the entities"
+        },
+        {
+          "pt": "Migrations aplicadas",
+          "en": "Migrations applied"
+        },
+        {
+          "pt": "String de conexão em user secrets",
+          "en": "Connection string in user secrets"
+        },
+        {
+          "pt": "Dados iniciais para teste",
+          "en": "Seed data for testing"
+        }
+      ]
+    },
+    {
+      "id": "endpoints",
+      "title": {
+        "pt": "Endpoints com Minimal APIs",
+        "en": "Endpoints with Minimal APIs"
+      },
+      "goal": {
+        "pt": "A API lista e cadastra profissionais, serviços e horários de atendimento, com validação e respostas tipadas.",
+        "en": "The API lists and creates professionals, services and working hours, with validation and typed responses."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Organize os endpoints em grupos (`MapGroup`) por recurso, em arquivos separados, em vez de deixar tudo no `Program.cs`.\n- Use `record`s como DTOs de entrada e saída e `TypedResults` para a documentação saber exatamente o que cada rota devolve.\n- Valide a entrada (com data annotations ou uma biblioteca como FluentValidation) e responda 400 com os detalhes.\n- Consulte o banco com LINQ e projete só os campos que a resposta precisa.",
+        "en": "- Organize endpoints into groups (`MapGroup`) per resource, in separate files, instead of leaving everything in `Program.cs`.\n- Use `record`s as input and output DTOs and `TypedResults` so the docs know exactly what each route returns.\n- Validate input (with data annotations or a library like FluentValidation) and respond 400 with the details.\n- Query the database with LINQ and project only the fields the response needs."
+      },
+      "resources": [
+        "aspnet-core-docs-pt",
+        "aspnet-minimal-api-pt",
+        "ef-core-docs-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Endpoints agrupados por recurso",
+          "en": "Endpoints grouped by resource"
+        },
+        {
+          "pt": "DTOs com `record` e `TypedResults`",
+          "en": "DTOs with `record` and `TypedResults`"
+        },
+        {
+          "pt": "Validação com resposta 400 detalhada",
+          "en": "Validation with a detailed 400 response"
+        },
+        {
+          "pt": "Consultas com LINQ projetando campos",
+          "en": "LINQ queries projecting fields"
+        }
+      ]
+    },
+    {
+      "id": "regras",
+      "title": {
+        "pt": "Agendamentos sem conflito",
+        "en": "Conflict-free bookings"
+      },
+      "goal": {
+        "pt": "Criar um agendamento que se sobrepõe a outro do mesmo profissional, ou fora do horário de atendimento, responde 409. Cancelar com menos de 24 h de antecedência é recusado.",
+        "en": "Creating a booking that overlaps another for the same professional, or falls outside working hours, responds 409. Cancelling with less than 24 h notice is refused."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Dois intervalos se sobrepõem quando um começa antes do outro terminar e termina depois do outro começar. Escreva essa regra como um método pequeno e fácil de testar.\n- Use `DateTimeOffset` e guarde tudo em UTC. Converta para o fuso da clínica só na exibição.\n- Confira também se o agendamento cabe no horário de atendimento e na duração do serviço.\n- Regra de cancelamento: só até 24 h antes. A mensagem de erro deve explicar o motivo.\n- Pense na corrida entre dois agendamentos simultâneos: uma transação com o nível de isolamento certo ou uma restrição no banco resolve.",
+        "en": "- Two intervals overlap when one starts before the other ends and ends after the other starts. Write that rule as a small, easy-to-test method.\n- Use `DateTimeOffset` and store everything in UTC. Convert to the clinic's time zone only for display.\n- Also check that the booking fits the working hours and the service duration.\n- Cancellation rule: only up to 24 h before. The error message should explain why.\n- Think about the race between two simultaneous bookings: a transaction with the right isolation level or a database constraint solves it."
+      },
+      "resources": [
+        "csharp-docs-pt",
+        "ef-core-docs-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Regra de sobreposição isolada num método",
+          "en": "Overlap rule isolated in a method"
+        },
+        {
+          "pt": "Datas em UTC com `DateTimeOffset`",
+          "en": "Dates in UTC with `DateTimeOffset`"
+        },
+        {
+          "pt": "Conflitos respondem 409 com mensagem clara",
+          "en": "Conflicts respond 409 with a clear message"
+        },
+        {
+          "pt": "Regra de cancelamento aplicada",
+          "en": "Cancellation rule enforced"
+        }
+      ],
+      "hint": {
+        "pt": "Os casos de borda que mais quebram: agendamento que termina exatamente quando o outro começa (não é conflito) e horários na virada do dia.",
+        "en": "The edge cases that break most often: a booking ending exactly when another starts (not a conflict) and slots around midnight."
+      }
+    },
+    {
+      "id": "di",
+      "title": {
+        "pt": "Serviços e injeção de dependências",
+        "en": "Services and dependency injection"
+      },
+      "goal": {
+        "pt": "As regras de negócio moram em classes de serviço registradas no contêiner de DI, e o relógio é injetado.",
+        "en": "Business rules live in service classes registered in the DI container, and the clock is injected."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Tire a lógica dos endpoints e coloque em serviços (`AgendamentoService`) com interfaces. Os endpoints só traduzem HTTP.\n- Registre os serviços no contêiner de injeção de dependências e entenda os tempos de vida: `Scoped`, `Transient` e `Singleton`. O `DbContext` é `Scoped` por um bom motivo: descubra qual.\n- Injete o relógio (`TimeProvider`) em vez de chamar a hora atual direto. Nos testes, você controla \"que horas são\".",
+        "en": "- Move the logic out of the endpoints into services (`BookingService`) with interfaces. Endpoints only translate HTTP.\n- Register the services in the dependency injection container and understand lifetimes: `Scoped`, `Transient` and `Singleton`. The `DbContext` is `Scoped` for a good reason: find out which.\n- Inject the clock (`TimeProvider`) instead of reading the current time directly. In tests, you control \"what time it is\"."
+      },
+      "resources": [
+        "aspnet-core-docs-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Lógica de negócio em serviços",
+          "en": "Business logic in services"
+        },
+        {
+          "pt": "Tempos de vida escolhidos e explicados",
+          "en": "Lifetimes chosen and explained"
+        },
+        {
+          "pt": "Relógio injetado com `TimeProvider`",
+          "en": "Clock injected with `TimeProvider`"
+        }
+      ]
+    },
+    {
+      "id": "jwt",
+      "title": {
+        "pt": "Login de profissionais com JWT",
+        "en": "Professional sign-in with JWT"
+      },
+      "goal": {
+        "pt": "Profissionais fazem login e recebem um token. Ver a própria agenda e cancelar exigem o token; agendar continua público.",
+        "en": "Professionals sign in and receive a token. Viewing their own schedule and cancelling require the token; booking stays public."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Crie um endpoint de login que confere a senha (guardada com hash, nunca em texto puro) e devolve um JWT assinado.\n- Configure a autenticação JWT do ASP.NET Core e proteja os endpoints com `RequireAuthorization`.\n- A chave de assinatura é um segredo: user secrets em desenvolvimento, variável de ambiente em produção.\n- Autorização: um profissional só vê e cancela a própria agenda. Teste tentando acessar a de outro.",
+        "en": "- Create a sign-in endpoint that checks the password (stored as a hash, never plain text) and returns a signed JWT.\n- Configure ASP.NET Core's JWT authentication and protect endpoints with `RequireAuthorization`.\n- The signing key is a secret: user secrets in development, environment variable in production.\n- Authorization: a professional only sees and cancels their own schedule. Test it by trying to access someone else's."
+      },
+      "resources": [
+        "aspnet-core-docs-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Senhas guardadas com hash",
+          "en": "Passwords stored as hashes"
+        },
+        {
+          "pt": "JWT emitido no login",
+          "en": "JWT issued on sign-in"
+        },
+        {
+          "pt": "Rotas protegidas exigem token",
+          "en": "Protected routes require a token"
+        },
+        {
+          "pt": "Profissional não acessa agenda alheia",
+          "en": "Professionals can't access others' schedules"
+        }
+      ]
+    },
+    {
+      "id": "testes",
+      "title": {
+        "pt": "Testes com xUnit",
+        "en": "Tests with xUnit"
+      },
+      "goal": {
+        "pt": "`dotnet test` roda testes das regras de tempo com relógio falso e testes de integração dos endpoints.",
+        "en": "`dotnet test` runs time-rule tests with a fake clock and endpoint integration tests."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Crie um projeto de testes com xUnit na mesma solução.\n- Teste a regra de sobreposição e a de cancelamento com um `TimeProvider` falso: \"são 10h do dia 5; cancelar o das 9h do dia 6 deve falhar\".\n- Para integração, use `WebApplicationFactory`: ela sobe a API em memória para você chamar os endpoints de verdade.\n- Use um banco isolado para os testes (um container ou o provedor em memória, sabendo das limitações dele).",
+        "en": "- Create an xUnit test project in the same solution.\n- Test the overlap and cancellation rules with a fake `TimeProvider`: \"it's 10am on the 5th; cancelling the 9am slot on the 6th must fail\".\n- For integration, use `WebApplicationFactory`: it runs the API in memory so you can call the real endpoints.\n- Use an isolated database for tests (a container or the in-memory provider, knowing its limitations)."
+      },
+      "resources": [
+        "xunit",
+        "aspnet-core-docs-pt",
+        "testcontainers"
+      ],
+      "checklist": [
+        {
+          "pt": "Projeto de testes na solução",
+          "en": "Test project in the solution"
+        },
+        {
+          "pt": "Regras testadas com relógio falso",
+          "en": "Rules tested with a fake clock"
+        },
+        {
+          "pt": "Testes de integração com `WebApplicationFactory`",
+          "en": "Integration tests with `WebApplicationFactory`"
+        }
+      ]
+    },
+    {
+      "id": "docker-readme",
+      "title": {
+        "pt": "Docker, README e deploy",
+        "en": "Docker, README and deploy"
+      },
+      "goal": {
+        "pt": "`docker compose up` sobe a API com o banco, e o README explica as regras e como testar.",
+        "en": "`docker compose up` starts the API with the database, and the README explains the rules and how to test."
+      },
+      "estimatedMinutes": 60,
+      "instructions": {
+        "pt": "- Escreva um Dockerfile em múltiplos estágios (SDK para compilar, imagem de runtime para rodar).\n- Crie o `compose.yaml` com a API e o banco, aplicando as migrations na subida.\n- Se quiser, faça o deploy num serviço de containers com plano gratuito.\n- README: regras de agendamento com exemplos, decisões sobre datas e fusos e como rodar os testes.",
+        "en": "- Write a multi-stage Dockerfile (SDK to build, runtime image to run).\n- Create the `compose.yaml` with the API and the database, applying migrations on startup.\n- If you like, deploy on a container service with a free tier.\n- README: booking rules with examples, decisions about dates and time zones and how to run the tests."
+      },
+      "resources": [
+        "docker-multistage",
+        "docker-compose-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Dockerfile em múltiplos estágios",
+          "en": "Multi-stage Dockerfile"
+        },
+        {
+          "pt": "Compose sobe API e banco",
+          "en": "Compose starts API and database"
+        },
+        {
+          "pt": "README com regras e decisões",
+          "en": "README with rules and decisions"
+        }
+      ]
+    }
+  ],
+  "extraChallenges": [
+    {
+      "pt": "Lista de espera quando o horário está cheio",
+      "en": "Waitlist when a slot is full"
+    },
+    {
+      "pt": "Notificações por e-mail com uma fila em segundo plano",
+      "en": "Email notifications with a background queue"
+    },
+    {
+      "pt": "Versão com controllers para comparar com Minimal APIs",
+      "en": "A controller-based version to compare with Minimal APIs"
+    }
+  ],
+  "portfolioTip": {
+    "pt": "Vagas de .NET são muito comuns em bancos e empresas grandes. Destaque o tratamento de datas e os testes com relógio falso: mostra que você pensa nos bugs antes de eles acontecerem.",
+    "en": ".NET jobs are very common at banks and large companies. Highlight the date handling and the fake-clock tests: it shows you think about bugs before they happen."
+  }
+}

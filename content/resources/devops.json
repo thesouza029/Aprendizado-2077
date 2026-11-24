@@ -1,0 +1,694 @@
+[
+  {
+    "id": "linux-journey",
+    "title": "Linux Journey",
+    "type": "course",
+    "url": "https://linuxjourney.com/",
+    "author": "Linux Journey",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "linux",
+      "terminal"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Aulas curtas e gratuitas sobre Linux: comandos, permissões, processos, rede.",
+      "en": "Short free lessons on Linux: commands, permissions, processes, networking."
+    },
+    "verified": true
+  },
+  {
+    "id": "guia-foca",
+    "title": "Guia Foca GNU/Linux",
+    "type": "book",
+    "url": "https://www.guiafoca.org/",
+    "author": "Gleydson Mazioli da Silva",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "linux",
+      "terminal"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Guia clássico brasileiro e gratuito de Linux, do iniciante ao avançado.",
+      "en": "A classic free Brazilian Linux guide, from beginner to advanced."
+    },
+    "verified": true
+  },
+  {
+    "id": "overthewire-bandit",
+    "title": "OverTheWire: Bandit",
+    "type": "interactive",
+    "url": "https://overthewire.org/wargames/bandit/",
+    "author": "OverTheWire",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "linux",
+      "terminal",
+      "ssh"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Jogo em que você entra por SSH num servidor real e avança usando comandos.",
+      "en": "A game where you SSH into a real server and progress using commands."
+    },
+    "verified": true
+  },
+  {
+    "id": "explainshell",
+    "title": "explainshell",
+    "type": "interactive",
+    "url": "https://explainshell.com/",
+    "author": "Idan Kamara",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "terminal",
+      "bash"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Cole um comando e veja o que cada parte significa.",
+      "en": "Paste a command and see what each part means."
+    },
+    "verified": true
+  },
+  {
+    "id": "tldr-pages",
+    "title": "tldr pages",
+    "type": "docs",
+    "url": "https://tldr.sh/",
+    "author": "Comunidade tldr",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "terminal",
+      "linux"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Exemplos práticos e curtos dos comandos mais usados (um man page simplificado).",
+      "en": "Short practical examples of common commands (simplified man pages)."
+    },
+    "verified": true
+  },
+  {
+    "id": "wsl-install-pt",
+    "title": "Instalar o WSL",
+    "type": "docs",
+    "url": "https://learn.microsoft.com/pt-br/windows/wsl/install",
+    "author": "Microsoft",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "linux",
+      "windows"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Como ter um Linux de verdade dentro do Windows, oficialmente.",
+      "en": "How to get a real Linux inside Windows, officially."
+    },
+    "verified": true
+  },
+  {
+    "id": "github-ssh-pt",
+    "title": "GitHub: Conectar com SSH",
+    "type": "docs",
+    "url": "https://docs.github.com/pt/authentication/connecting-to-github-with-ssh",
+    "author": "GitHub",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "ssh",
+      "git",
+      "github"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Gerar chaves SSH e usá-las para autenticar no GitHub.",
+      "en": "Generate SSH keys and use them to authenticate with GitHub."
+    },
+    "verified": true
+  },
+  {
+    "id": "shellcheck",
+    "title": "ShellCheck",
+    "type": "interactive",
+    "url": "https://www.shellcheck.net/",
+    "author": "Vidar Holen",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "bash"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Encontra bugs e más práticas em scripts de shell automaticamente.",
+      "en": "Automatically finds bugs and bad practices in shell scripts."
+    },
+    "verified": true
+  },
+  {
+    "id": "bash-beginners-guide",
+    "title": "Bash Guide for Beginners",
+    "type": "book",
+    "url": "https://tldp.org/LDP/Bash-Beginners-Guide/html/",
+    "author": "Machtelt Garrels (The Linux Documentation Project)",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "bash",
+      "linux"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Guia gratuito para começar a escrever scripts em Bash.",
+      "en": "Free guide to start writing Bash scripts."
+    },
+    "verified": true
+  },
+  {
+    "id": "docker-get-started",
+    "title": "Docker: Get started",
+    "type": "docs",
+    "url": "https://docs.docker.com/get-started/",
+    "author": "Docker",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "docker"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Guia oficial: o que são contêineres, imagens e como rodar seu primeiro app.",
+      "en": "Official guide: what containers and images are and how to run your first app."
+    },
+    "verified": true
+  },
+  {
+    "id": "docker-curriculum",
+    "title": "Docker for Beginners",
+    "type": "course",
+    "url": "https://docker-curriculum.com/",
+    "author": "Prakhar Srivastav",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "docker"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Tutorial gratuito e prático de Docker, do zero ao deploy.",
+      "en": "Free hands-on Docker tutorial, from zero to deployment."
+    },
+    "verified": true
+  },
+  {
+    "id": "play-with-docker",
+    "title": "Play with Docker",
+    "type": "interactive",
+    "url": "https://labs.play-with-docker.com/",
+    "author": "Docker",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "docker"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Ambiente Docker no navegador para treinar sem instalar nada.",
+      "en": "In-browser Docker playground to practice without installing anything."
+    },
+    "verified": true
+  },
+  {
+    "id": "docker-compose-docs",
+    "title": "Docker Compose",
+    "type": "docs",
+    "url": "https://docs.docker.com/compose/",
+    "author": "Docker",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "docker"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Define e sobe vários containers juntos (API, banco, cache) com um arquivo só.",
+      "en": "Defines and runs several containers together (API, database, cache) with a single file."
+    },
+    "verified": true
+  },
+  {
+    "id": "dockerfile-reference",
+    "title": "Referência do Dockerfile",
+    "type": "docs",
+    "url": "https://docs.docker.com/reference/dockerfile/",
+    "author": "Docker",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "docker"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Cada instrução do Dockerfile explicada: FROM, COPY, RUN, CMD, HEALTHCHECK e outras.",
+      "en": "Every Dockerfile instruction explained: FROM, COPY, RUN, CMD, HEALTHCHECK and more."
+    },
+    "verified": true
+  },
+  {
+    "id": "docker-multistage",
+    "title": "Builds em múltiplos estágios",
+    "type": "docs",
+    "url": "https://docs.docker.com/build/building/multi-stage/",
+    "author": "Docker",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "docker"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Como gerar imagens pequenas separando a etapa de build da imagem final.",
+      "en": "How to produce small images by separating the build stage from the final image."
+    },
+    "verified": true
+  },
+  {
+    "id": "docker-para-devs",
+    "title": "Docker para Desenvolvedores",
+    "type": "book",
+    "url": "https://github.com/gomex/docker-para-desenvolvedores",
+    "author": "Rafael Gomes",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "docker"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Livro gratuito em português sobre Docker no dia a dia de quem programa.",
+      "en": "Free book in Portuguese about Docker in a developer's daily work."
+    },
+    "verified": true
+  },
+  {
+    "id": "github-actions-pt",
+    "title": "Documentação do GitHub Actions",
+    "type": "docs",
+    "url": "https://docs.github.com/pt/actions",
+    "author": "GitHub",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "github-actions",
+      "github"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Workflows, jobs, eventos, segredos e ambientes, em português.",
+      "en": "Workflows, jobs, events, secrets and environments, in Portuguese."
+    },
+    "verified": true
+  },
+  {
+    "id": "act-local",
+    "title": "act: rode workflows localmente",
+    "type": "docs",
+    "url": "https://github.com/nektos/act",
+    "author": "nektos",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "github-actions",
+      "docker"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Executa workflows do GitHub Actions na sua máquina para testar mais rápido.",
+      "en": "Runs GitHub Actions workflows on your machine for faster testing."
+    },
+    "verified": true
+  },
+  {
+    "id": "aws-free",
+    "title": "AWS Free Tier",
+    "type": "docs",
+    "url": "https://aws.amazon.com/free/",
+    "author": "Amazon Web Services",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "aws",
+      "cloud"
+    ],
+    "free": true,
+    "description": {
+      "pt": "O que dá para usar de graça na AWS e por quanto tempo.",
+      "en": "What you can use for free on AWS and for how long."
+    },
+    "verified": true
+  },
+  {
+    "id": "azure-free",
+    "title": "Conta gratuita do Azure",
+    "type": "docs",
+    "url": "https://azure.microsoft.com/free/",
+    "author": "Microsoft",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "azure",
+      "cloud"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Serviços gratuitos do Azure e créditos iniciais.",
+      "en": "Azure free services and starter credits."
+    },
+    "verified": true
+  },
+  {
+    "id": "gcp-free",
+    "title": "Google Cloud Free Tier",
+    "type": "docs",
+    "url": "https://cloud.google.com/free",
+    "author": "Google",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "gcp",
+      "cloud"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Limites do plano gratuito do Google Cloud, incluindo Cloud Run.",
+      "en": "Google Cloud free tier limits, including Cloud Run."
+    },
+    "verified": true
+  },
+  {
+    "id": "fly-docs",
+    "title": "Fly.io: documentação",
+    "type": "docs",
+    "url": "https://fly.io/docs/",
+    "author": "Fly.io",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "deploy",
+      "docker",
+      "cloud"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Deploy de containers em vários países com poucos comandos.",
+      "en": "Deploy containers in many regions with a few commands."
+    },
+    "verified": true
+  },
+  {
+    "id": "twelve-factor-pt",
+    "title": "The Twelve-Factor App",
+    "type": "article",
+    "url": "https://12factor.net/pt_br/",
+    "author": "Adam Wiggins",
+    "language": "pt-BR",
+    "level": "intermediario",
+    "technologies": [
+      "deploy",
+      "cloud"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Doze princípios para apps que rodam bem na nuvem: configuração por ambiente, logs, processos.",
+      "en": "Twelve principles for apps that run well in the cloud: config via environment, logs, processes."
+    },
+    "verified": true
+  },
+  {
+    "id": "cloudflare-dns-pt",
+    "title": "O que é DNS?",
+    "type": "article",
+    "url": "https://www.cloudflare.com/pt-br/learning/dns/what-is-dns/",
+    "author": "Cloudflare",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "dns",
+      "cloud"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Explicação clara de como um domínio vira um endereço de servidor.",
+      "en": "Clear explanation of how a domain turns into a server address."
+    },
+    "verified": true
+  },
+  {
+    "id": "letsencrypt",
+    "title": "Let's Encrypt: primeiros passos",
+    "type": "docs",
+    "url": "https://letsencrypt.org/getting-started/",
+    "author": "Let's Encrypt",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "https",
+      "cloud"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Certificados HTTPS gratuitos e automáticos.",
+      "en": "Free, automated HTTPS certificates."
+    },
+    "verified": true
+  },
+  {
+    "id": "opentelemetry-docs",
+    "title": "OpenTelemetry",
+    "type": "docs",
+    "url": "https://opentelemetry.io/docs/",
+    "author": "CNCF",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "observabilidade"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Padrão aberto para logs, métricas e traces, com SDKs para várias linguagens.",
+      "en": "Open standard for logs, metrics and traces, with SDKs for many languages."
+    },
+    "verified": true
+  },
+  {
+    "id": "prometheus-docs",
+    "title": "Prometheus",
+    "type": "docs",
+    "url": "https://prometheus.io/docs/introduction/overview/",
+    "author": "CNCF",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "observabilidade"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Coleta e consulta de métricas: o padrão de mercado em monitoramento.",
+      "en": "Metrics collection and querying: the industry standard in monitoring."
+    },
+    "verified": true
+  },
+  {
+    "id": "grafana-docs",
+    "title": "Grafana",
+    "type": "docs",
+    "url": "https://grafana.com/docs/grafana/latest/",
+    "author": "Grafana Labs",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "observabilidade"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Painéis e alertas em cima de métricas e logs.",
+      "en": "Dashboards and alerts on top of metrics and logs."
+    },
+    "verified": true
+  },
+  {
+    "id": "uptime-kuma",
+    "title": "Uptime Kuma",
+    "type": "docs",
+    "url": "https://github.com/louislam/uptime-kuma",
+    "author": "Louis Lam",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "observabilidade",
+      "docker"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Monitor de disponibilidade de código aberto, fácil de subir com Docker.",
+      "en": "Open-source uptime monitor, easy to run with Docker."
+    },
+    "verified": true
+  },
+  {
+    "id": "sentry-docs",
+    "title": "Sentry",
+    "type": "docs",
+    "url": "https://docs.sentry.io/",
+    "author": "Sentry",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "observabilidade"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Captura de erros com contexto (stack trace, usuário, versão), com plano gratuito.",
+      "en": "Error tracking with context (stack trace, user, release), with a free tier."
+    },
+    "verified": true
+  },
+  {
+    "id": "pino-docs",
+    "title": "Pino",
+    "type": "docs",
+    "url": "https://getpino.io/",
+    "author": "Pino",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "observabilidade",
+      "node"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Logger rápido para Node.js que gera logs estruturados em JSON.",
+      "en": "Fast Node.js logger that outputs structured JSON logs."
+    },
+    "verified": true
+  },
+  {
+    "id": "kubernetes-docs-pt",
+    "title": "Documentação do Kubernetes",
+    "type": "docs",
+    "url": "https://kubernetes.io/pt-br/docs/home/",
+    "author": "CNCF",
+    "language": "pt-BR",
+    "level": "intermediario",
+    "technologies": [
+      "kubernetes"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Conceitos de Kubernetes em português: pods, deployments, services e mais.",
+      "en": "Kubernetes concepts in Portuguese: pods, deployments, services and more."
+    },
+    "verified": true
+  },
+  {
+    "id": "kubernetes-basics-pt",
+    "title": "Aprenda o básico de Kubernetes",
+    "type": "course",
+    "url": "https://kubernetes.io/pt-br/docs/tutorials/kubernetes-basics/",
+    "author": "CNCF",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "kubernetes"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Tutorial oficial: criar um cluster, fazer deploy, expor e escalar um app.",
+      "en": "Official tutorial: create a cluster, deploy, expose and scale an app."
+    },
+    "verified": true
+  },
+  {
+    "id": "kind",
+    "title": "kind: Kubernetes em Docker",
+    "type": "docs",
+    "url": "https://kind.sigs.k8s.io/",
+    "author": "Kubernetes SIGs",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "kubernetes",
+      "docker"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Cria um cluster Kubernetes local dentro de containers Docker.",
+      "en": "Creates a local Kubernetes cluster inside Docker containers."
+    },
+    "verified": true
+  },
+  {
+    "id": "killercoda",
+    "title": "Killercoda",
+    "type": "interactive",
+    "url": "https://killercoda.com/",
+    "author": "Killercoda",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "kubernetes",
+      "linux"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Laboratórios no navegador com terminal real, incluindo cenários de Kubernetes.",
+      "en": "In-browser labs with a real terminal, including Kubernetes scenarios."
+    },
+    "verified": true
+  },
+  {
+    "id": "terraform-tutorials",
+    "title": "Terraform: tutoriais",
+    "type": "course",
+    "url": "https://developer.hashicorp.com/terraform/tutorials",
+    "author": "HashiCorp",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "terraform",
+      "cloud"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Tutoriais oficiais de infraestrutura como código para AWS, Azure, GCP e Docker.",
+      "en": "Official infrastructure-as-code tutorials for AWS, Azure, GCP and Docker."
+    },
+    "verified": true
+  },
+  {
+    "id": "opentofu-docs",
+    "title": "OpenTofu",
+    "type": "docs",
+    "url": "https://opentofu.org/docs/",
+    "author": "Linux Foundation",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "terraform",
+      "cloud"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Alternativa de código aberto ao Terraform, compatível com a mesma linguagem.",
+      "en": "Open-source Terraform alternative, compatible with the same language."
+    },
+    "verified": true
+  }
+]

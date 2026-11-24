@@ -1,0 +1,216 @@
+[
+  {
+    "id": "fundamentos",
+    "order": 1,
+    "name": { "pt": "Distrito Fundamentos", "en": "Fundamentals District" },
+    "tagline": {
+      "pt": "Lógica, terminal, Git/GitHub, HTML/CSS, SQL e HTTP. Comece por aqui.",
+      "en": "Logic, terminal, Git/GitHub, HTML/CSS, SQL and HTTP. Start here."
+    },
+    "color": "#facc15",
+    "recommendedFirst": true,
+    "whyLearn": {
+      "points": [
+        {
+          "pt": "JavaScript (~66%), HTML/CSS e SQL estão entre as linguagens mais usadas por devs no mundo.",
+          "en": "JavaScript (~66%), HTML/CSS and SQL are among the most used languages by developers worldwide."
+        },
+        {
+          "pt": "Git é pré-requisito em praticamente toda vaga: é como times guardam e revisam código.",
+          "en": "Git is a prerequisite for virtually every job: it is how teams store and review code."
+        },
+        {
+          "pt": "Entender HTTP e terminal deixa todas as outras trilhas (web, backend, cloud) muito mais fáceis.",
+          "en": "Understanding HTTP and the terminal makes every other track (web, backend, cloud) much easier."
+        }
+      ],
+      "jobs": [
+        { "pt": "Estágio em desenvolvimento", "en": "Software development internship" },
+        { "pt": "Dev júnior (qualquer área)", "en": "Junior developer (any area)" },
+        { "pt": "Suporte técnico / QA júnior", "en": "Technical support / junior QA" }
+      ],
+      "sources": [
+        { "label": "Stack Overflow Developer Survey 2025", "url": "https://survey.stackoverflow.co/2025/technology/" }
+      ]
+    }
+  },
+  {
+    "id": "web",
+    "order": 2,
+    "name": { "pt": "Distrito Web", "en": "Web District" },
+    "tagline": {
+      "pt": "Front-end e Fullstack com JavaScript e TypeScript.",
+      "en": "Front-end and Fullstack with JavaScript and TypeScript."
+    },
+    "color": "#22d3ee",
+    "whyLearn": {
+      "points": [
+        {
+          "pt": "TypeScript virou a linguagem nº 1 do GitHub em 2025, passando Python e JavaScript.",
+          "en": "TypeScript became the #1 language on GitHub in 2025, overtaking Python and JavaScript."
+        },
+        {
+          "pt": "Node.js e React lideram o uso; Next.js, Express, Angular e Vue seguem fortes.",
+          "en": "Node.js and React lead usage; Next.js, Express, Angular and Vue remain strong."
+        },
+        {
+          "pt": "Tailwind domina o CSS, e Vitest e Playwright foram as ferramentas de teste que mais ganharam adoção.",
+          "en": "Tailwind dominates CSS, and Vitest and Playwright were the testing tools that gained the most adoption."
+        }
+      ],
+      "jobs": [
+        { "pt": "Dev front-end júnior", "en": "Junior front-end developer" },
+        { "pt": "Dev fullstack júnior", "en": "Junior fullstack developer" },
+        { "pt": "Dev React / Next.js", "en": "React / Next.js developer" }
+      ],
+      "sources": [
+        {
+          "label": "GitHub Octoverse 2025",
+          "url": "https://github.blog/news-insights/octoverse/octoverse-a-new-developer-joins-github-every-second-as-ai-leads-typescript-to-1/"
+        },
+        { "label": "Stack Overflow Developer Survey 2025", "url": "https://survey.stackoverflow.co/2025/technology/" },
+        { "label": "State of JavaScript 2025", "url": "https://2025.stateofjs.com/en-US/" }
+      ]
+    }
+  },
+  {
+    "id": "backend",
+    "order": 3,
+    "name": { "pt": "Distrito Backend", "en": "Backend District" },
+    "tagline": {
+      "pt": "APIs em Node, Python, Java, C#, PHP e Go. A mesma ideia em várias linguagens.",
+      "en": "APIs in Node, Python, Java, C#, PHP and Go. The same idea in several languages."
+    },
+    "color": "#4ade80",
+    "whyLearn": {
+      "points": [
+        {
+          "pt": "Python teve a maior alta entre as linguagens (+7 pontos, ~58% de uso), e FastAPI foi o framework que mais cresceu.",
+          "en": "Python had the biggest rise among languages (+7 points, ~58% usage), and FastAPI was the fastest-growing framework."
+        },
+        {
+          "pt": "PostgreSQL é o banco mais usado e o mais desejado e admirado desde 2023; Redis foi o que mais cresceu entre os 5 primeiros.",
+          "en": "PostgreSQL is the most used database and the most desired and admired since 2023; Redis grew the most among the top 5."
+        },
+        {
+          "pt": "ASP.NET Core (~20%), Spring e Laravel seguem enormes no mercado corporativo e de e-commerce.",
+          "en": "ASP.NET Core (~20%), Spring and Laravel remain huge in enterprise and e-commerce."
+        }
+      ],
+      "jobs": [
+        { "pt": "Dev backend júnior", "en": "Junior backend developer" },
+        { "pt": "Dev Java / C# em empresas", "en": "Enterprise Java / C# developer" },
+        { "pt": "Dev PHP / Laravel", "en": "PHP / Laravel developer" }
+      ],
+      "sources": [
+        { "label": "Stack Overflow Developer Survey 2025", "url": "https://survey.stackoverflow.co/2025/technology/" }
+      ]
+    }
+  },
+  {
+    "id": "mobile",
+    "order": 4,
+    "name": { "pt": "Distrito Mobile", "en": "Mobile District" },
+    "tagline": {
+      "pt": "Apps com React Native, Flutter e Kotlin.",
+      "en": "Apps with React Native, Flutter and Kotlin."
+    },
+    "color": "#f472b6",
+    "whyLearn": {
+      "points": [
+        {
+          "pt": "React Native reaproveita JavaScript/TypeScript e React, que lideram o uso na web.",
+          "en": "React Native reuses JavaScript/TypeScript and React, which lead usage on the web."
+        },
+        {
+          "pt": "Flutter gera apps para Android, iOS e web a partir de um único código em Dart.",
+          "en": "Flutter builds Android, iOS and web apps from a single Dart codebase."
+        },
+        {
+          "pt": "Kotlin é a linguagem recomendada pelo Google para apps Android nativos.",
+          "en": "Kotlin is Google's recommended language for native Android apps."
+        }
+      ],
+      "jobs": [
+        { "pt": "Dev mobile júnior", "en": "Junior mobile developer" },
+        { "pt": "Dev React Native", "en": "React Native developer" },
+        { "pt": "Dev Android (Kotlin)", "en": "Android developer (Kotlin)" }
+      ],
+      "sources": [
+        { "label": "Stack Overflow Developer Survey 2025", "url": "https://survey.stackoverflow.co/2025/technology/" }
+      ]
+    }
+  },
+  {
+    "id": "devops",
+    "order": 5,
+    "name": { "pt": "Distrito Cloud & DevOps", "en": "Cloud & DevOps District" },
+    "tagline": {
+      "pt": "Linux, Docker, CI/CD, nuvem e observabilidade.",
+      "en": "Linux, Docker, CI/CD, cloud and observability."
+    },
+    "color": "#fb923c",
+    "whyLearn": {
+      "points": [
+        {
+          "pt": "Docker é usado por ~71% dos devs (+17 pontos): o maior crescimento de todo o survey.",
+          "en": "Docker is used by ~71% of developers (+17 points): the biggest growth in the whole survey."
+        },
+        {
+          "pt": "Saber colocar o próprio projeto no ar (CI/CD, nuvem, domínio) diferencia muito um júnior.",
+          "en": "Knowing how to ship your own project (CI/CD, cloud, domain) sets a junior apart."
+        },
+        {
+          "pt": "Kubernetes e Terraform aparecem cada vez mais em vagas, mesmo como diferencial.",
+          "en": "Kubernetes and Terraform show up more and more in job posts, even as a plus."
+        }
+      ],
+      "jobs": [
+        { "pt": "DevOps / SRE júnior", "en": "Junior DevOps / SRE" },
+        { "pt": "Analista de infraestrutura cloud", "en": "Cloud infrastructure analyst" },
+        { "pt": "Dev backend com foco em plataforma", "en": "Platform-focused backend developer" }
+      ],
+      "sources": [
+        { "label": "Stack Overflow Developer Survey 2025", "url": "https://survey.stackoverflow.co/2025/technology/" }
+      ]
+    }
+  },
+  {
+    "id": "ia",
+    "order": 6,
+    "name": { "pt": "Distrito IA", "en": "AI District" },
+    "tagline": {
+      "pt": "Apps com LLM, RAG, agentes e APIs de IA.",
+      "en": "LLM apps, RAG, agents and AI APIs."
+    },
+    "color": "#e879f9",
+    "whyLearn": {
+      "points": [
+        {
+          "pt": "Uso de LLMs virou mainstream: a grande maioria dos devs já usa ou pretende usar ferramentas de IA.",
+          "en": "LLM usage went mainstream: the vast majority of developers already use or plan to use AI tools."
+        },
+        {
+          "pt": "Mais de 1,1 milhão de repositórios públicos no GitHub já importam SDKs de LLM (+178% em um ano).",
+          "en": "Over 1.1 million public GitHub repositories now import LLM SDKs (+178% in one year)."
+        },
+        {
+          "pt": "RAG e agentes estão entre os temas mais pedidos para integrar IA a produtos reais.",
+          "en": "RAG and agents are among the most requested topics for bringing AI into real products."
+        }
+      ],
+      "jobs": [
+        { "pt": "Dev de aplicações com IA", "en": "AI application developer" },
+        { "pt": "Engenheiro(a) de IA júnior", "en": "Junior AI engineer" },
+        { "pt": "Dev fullstack com IA", "en": "Fullstack developer with AI" }
+      ],
+      "sources": [
+        {
+          "label": "GitHub Octoverse 2025",
+          "url": "https://github.blog/news-insights/octoverse/octoverse-a-new-developer-joins-github-every-second-as-ai-leads-typescript-to-1/"
+        },
+        { "label": "Stack Overflow Developer Survey 2025", "url": "https://survey.stackoverflow.co/2025/technology/" }
+      ]
+    }
+  }
+]

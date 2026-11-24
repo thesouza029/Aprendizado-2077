@@ -1,0 +1,380 @@
+{
+  "id": "mini-saas",
+  "track": "web",
+  "order": 4,
+  "title": {
+    "pt": "Mini-SaaS de agendamentos com Next.js, PostgreSQL e Stripe",
+    "en": "Booking mini-SaaS with Next.js, PostgreSQL and Stripe"
+  },
+  "level": 4,
+  "stack": [
+    "Next.js",
+    "TypeScript",
+    "PostgreSQL",
+    "Drizzle ou Prisma",
+    "Auth.js",
+    "Stripe (modo teste)",
+    "Playwright",
+    "Vercel"
+  ],
+  "whatYouBuild": {
+    "pt": "Um pequeno SaaS de agendamentos para profissionais autônomos (barbeiro, personal, professora particular): a pessoa entra com login, cadastra serviços e horários, compartilha um link público e os clientes agendam sozinhos, sem dois agendamentos no mesmo horário. O plano gratuito tem limite de agendamentos por mês e o plano Pro é pago com Stripe em modo de teste. Os fluxos principais têm testes ponta a ponta.",
+    "en": "A small booking SaaS for freelancers (barber, personal trainer, private tutor): they sign in, set up services and hours, share a public link and clients book on their own, with no two bookings at the same time. The free plan has a monthly booking limit and the Pro plan is paid with Stripe in test mode. The main flows have end-to-end tests."
+  },
+  "whatYouLearn": [
+    {
+      "pt": "Arquitetura fullstack com Next.js: Server Components e Server Actions",
+      "en": "Full-stack architecture with Next.js: Server Components and Server Actions"
+    },
+    {
+      "pt": "Banco relacional com ORM, migrations e restrições de integridade",
+      "en": "Relational database with an ORM, migrations and integrity constraints"
+    },
+    {
+      "pt": "Autenticação e autorização (quem pode ver e mudar o quê)",
+      "en": "Authentication and authorization (who can see and change what)"
+    },
+    {
+      "pt": "Pagamentos com Stripe: checkout, webhooks e modo de teste",
+      "en": "Payments with Stripe: checkout, webhooks and test mode"
+    },
+    {
+      "pt": "Testes ponta a ponta com Playwright",
+      "en": "End-to-end tests with Playwright"
+    }
+  ],
+  "prerequisites": [
+    "blog-nextjs-mdx",
+    "api-biblioteca-node"
+  ],
+  "steps": [
+    {
+      "id": "escopo",
+      "title": {
+        "pt": "Defina o escopo e os dados",
+        "en": "Define the scope and the data"
+      },
+      "goal": {
+        "pt": "Existe um documento curto com as histórias de usuário do MVP, o diagrama das tabelas e o projeto Next.js criado no GitHub.",
+        "en": "There's a short document with the MVP user stories, the table diagram and the Next.js project created on GitHub."
+      },
+      "estimatedMinutes": 60,
+      "instructions": {
+        "pt": "- Escreva as histórias do MVP, no formato \"como profissional, quero ... para ...\". Corte tudo o que não for essencial: SaaS de iniciante morre por excesso de escopo.\n- Modele as entidades: usuário, serviço (nome, duração, preço), disponibilidade semanal, agendamento e assinatura. Desenhe no dbdiagram.\n- Pense já nas regras: um horário não pode ter dois agendamentos; só o dono vê e edita os próprios serviços.\n- Crie o projeto Next.js e o repositório. Trabalhe em branches, com commits pequenos e pull requests desde o começo.",
+        "en": "- Write the MVP stories in the form \"as a professional, I want ... so that ...\". Cut everything that isn't essential: beginner SaaS projects die from too much scope.\n- Model the entities: user, service (name, duration, price), weekly availability, booking and subscription. Draw them in dbdiagram.\n- Think about the rules now: a time slot can't have two bookings; only the owner sees and edits their services.\n- Create the Next.js project and the repository. Work with branches, small commits and pull requests from the start."
+      },
+      "resources": [
+        "dbdiagram",
+        "nextjs-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Histórias do MVP escritas",
+          "en": "MVP stories written"
+        },
+        {
+          "pt": "Diagrama das tabelas",
+          "en": "Table diagram"
+        },
+        {
+          "pt": "Regras de negócio listadas",
+          "en": "Business rules listed"
+        },
+        {
+          "pt": "Repositório criado com fluxo de pull requests",
+          "en": "Repository created with a pull request flow"
+        }
+      ]
+    },
+    {
+      "id": "banco-orm",
+      "title": {
+        "pt": "Banco e ORM",
+        "en": "Database and ORM"
+      },
+      "goal": {
+        "pt": "As tabelas existem no PostgreSQL via migrations, e um script de seed cria dados de exemplo.",
+        "en": "The tables exist in PostgreSQL through migrations, and a seed script creates sample data."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Suba um PostgreSQL local com Docker ou crie um banco gratuito no Supabase.\n- Escolha um ORM: Drizzle (mais próximo do SQL) ou Prisma (mais abstrato). Os dois geram tipos TypeScript a partir do schema.\n- Escreva o schema e gere a primeira migration. Migrations versionam o banco junto com o código.\n- Coloque a regra de horário único **no banco**, com uma restrição de unicidade. Validar só no código não basta quando dois clientes clicam ao mesmo tempo.\n- A URL do banco vai numa variável de ambiente, nunca no código.",
+        "en": "- Run a local PostgreSQL with Docker or create a free database on Supabase.\n- Pick an ORM: Drizzle (closer to SQL) or Prisma (more abstract). Both generate TypeScript types from the schema.\n- Write the schema and generate the first migration. Migrations version the database along with the code.\n- Put the unique-slot rule **in the database**, with a unique constraint. Validating only in code isn't enough when two clients click at the same time.\n- The database URL goes in an environment variable, never in the code."
+      },
+      "resources": [
+        "drizzle-docs",
+        "prisma-docs",
+        "supabase-docs",
+        "postgres-docker-image"
+      ],
+      "checklist": [
+        {
+          "pt": "Migrations criam todas as tabelas",
+          "en": "Migrations create every table"
+        },
+        {
+          "pt": "Restrição de unicidade para o horário",
+          "en": "Unique constraint for the time slot"
+        },
+        {
+          "pt": "Seed com dados de exemplo",
+          "en": "Seed with sample data"
+        },
+        {
+          "pt": "URL do banco em variável de ambiente",
+          "en": "Database URL in an environment variable"
+        }
+      ]
+    },
+    {
+      "id": "autenticacao",
+      "title": {
+        "pt": "Login com Auth.js",
+        "en": "Sign-in with Auth.js"
+      },
+      "goal": {
+        "pt": "O profissional entra com GitHub (ou e-mail), o painel em `/dashboard` só abre para quem está logado e o usuário fica salvo no banco.",
+        "en": "The professional signs in with GitHub (or email), the `/dashboard` panel only opens for signed-in users and the user is saved in the database."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Configure o Auth.js com um provedor (GitHub é o mais simples para testar) e o adaptador do seu ORM para salvar usuários e sessões.\n- Proteja as rotas do painel: no middleware ou no próprio Server Component, redirecione quem não tem sessão.\n- Entenda a diferença entre **autenticação** (quem é você) e **autorização** (o que você pode fazer). A segunda vem na próxima etapa.\n- Segredos (`AUTH_SECRET`, chaves do provedor) ficam no `.env.local`, que não vai para o Git.",
+        "en": "- Configure Auth.js with a provider (GitHub is the easiest to test) and your ORM's adapter to store users and sessions.\n- Protect the dashboard routes: in middleware or in the Server Component itself, redirect anyone without a session.\n- Understand the difference between **authentication** (who you are) and **authorization** (what you're allowed to do). The second comes in the next step.\n- Secrets (`AUTH_SECRET`, provider keys) live in `.env.local`, which stays out of Git."
+      },
+      "resources": [
+        "authjs-docs",
+        "nextjs-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Login e logout funcionando",
+          "en": "Sign-in and sign-out working"
+        },
+        {
+          "pt": "Usuário salvo no banco",
+          "en": "User saved in the database"
+        },
+        {
+          "pt": "Painel inacessível sem login",
+          "en": "Dashboard inaccessible without signing in"
+        },
+        {
+          "pt": "Segredos fora do repositório",
+          "en": "Secrets kept out of the repository"
+        }
+      ]
+    },
+    {
+      "id": "painel-servicos",
+      "title": {
+        "pt": "Painel: serviços e horários",
+        "en": "Dashboard: services and hours"
+      },
+      "goal": {
+        "pt": "O profissional cria, edita e remove serviços e define os horários de atendimento da semana, e ninguém consegue mexer nos dados de outra pessoa.",
+        "en": "The professional creates, edits and deletes services and sets weekly working hours, and nobody can touch someone else's data."
+      },
+      "estimatedMinutes": 150,
+      "instructions": {
+        "pt": "- Use Server Actions para criar e editar: o formulário chama uma função que roda no servidor, sem você escrever uma API separada.\n- Valide toda entrada no servidor com zod, mesmo que o formulário já valide no navegador.\n- Autorização: toda consulta e alteração filtra pelo id do usuário da sessão. Teste tentando editar o serviço de outro usuário mudando o id na mão.\n- Guarde preços em centavos (número inteiro), nunca em ponto flutuante.\n- Depois de salvar, atualize a tela com `revalidatePath` e mostre uma mensagem de sucesso ou erro.",
+        "en": "- Use Server Actions to create and edit: the form calls a function that runs on the server, without writing a separate API.\n- Validate every input on the server with zod, even if the form already validates in the browser.\n- Authorization: every query and change filters by the session user's id. Test it by trying to edit another user's service by changing the id by hand.\n- Store prices in cents (integers), never as floating point.\n- After saving, refresh the screen with `revalidatePath` and show a success or error message."
+      },
+      "resources": [
+        "nextjs-docs",
+        "zod-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "CRUD de serviços com Server Actions",
+          "en": "Service CRUD with Server Actions"
+        },
+        {
+          "pt": "Disponibilidade semanal configurável",
+          "en": "Configurable weekly availability"
+        },
+        {
+          "pt": "Validação no servidor com zod",
+          "en": "Server-side validation with zod"
+        },
+        {
+          "pt": "Impossível alterar dados de outro usuário",
+          "en": "Impossible to change another user's data"
+        }
+      ]
+    },
+    {
+      "id": "agendamento-publico",
+      "title": {
+        "pt": "Página pública de agendamento",
+        "en": "Public booking page"
+      },
+      "goal": {
+        "pt": "Em `/[usuario]`, um cliente vê os horários livres, agenda, e um segundo cliente não consegue pegar o mesmo horário.",
+        "en": "At `/[user]`, a client sees the free slots and books, and a second client can't take the same slot."
+      },
+      "estimatedMinutes": 150,
+      "instructions": {
+        "pt": "- Calcule os horários livres: disponibilidade da semana, menos os agendamentos existentes, respeitando a duração do serviço. Escreva isso como função pura e teste com casos de borda (último horário do dia, serviço que não cabe).\n- Fuso horário é armadilha: guarde datas em UTC no banco e converta só na hora de mostrar.\n- Ao agendar, confie na restrição do banco: se dois pedidos chegarem juntos, um falha. Trate esse erro e mostre \"esse horário acabou de ser reservado\".\n- O cliente não precisa de conta: peça nome e e-mail, com validação.",
+        "en": "- Compute the free slots: weekly availability minus existing bookings, respecting the service duration. Write it as a pure function and test edge cases (last slot of the day, a service that doesn't fit).\n- Time zones are a trap: store dates in UTC in the database and convert only when displaying.\n- When booking, rely on the database constraint: if two requests arrive together, one fails. Handle that error and show \"this slot was just taken\".\n- Clients don't need an account: ask for name and email, with validation."
+      },
+      "resources": [
+        "postgresql-docs",
+        "vitest-guide"
+      ],
+      "checklist": [
+        {
+          "pt": "Cálculo de horários livres com testes",
+          "en": "Free-slot calculation with tests"
+        },
+        {
+          "pt": "Datas em UTC no banco",
+          "en": "Dates in UTC in the database"
+        },
+        {
+          "pt": "Agendamento duplo impedido e tratado",
+          "en": "Double booking prevented and handled"
+        },
+        {
+          "pt": "Cliente agenda sem criar conta",
+          "en": "Clients book without an account"
+        }
+      ],
+      "hint": {
+        "pt": "Para testar a corrida, dispare duas requisições quase ao mesmo tempo (dois `fetch` com `Promise.all`) e confira se só uma vira agendamento.",
+        "en": "To test the race, fire two requests almost at the same time (two `fetch` calls with `Promise.all`) and check that only one becomes a booking."
+      }
+    },
+    {
+      "id": "stripe",
+      "title": {
+        "pt": "Plano Pro com Stripe (modo teste)",
+        "en": "Pro plan with Stripe (test mode)"
+      },
+      "goal": {
+        "pt": "O plano gratuito bloqueia agendamentos acima do limite do mês, e o profissional assina o Pro pelo Stripe Checkout com cartão de teste, sem dinheiro de verdade.",
+        "en": "The free plan blocks bookings above the monthly limit, and the professional subscribes to Pro through Stripe Checkout with a test card, with no real money."
+      },
+      "estimatedMinutes": 150,
+      "instructions": {
+        "pt": "- Crie uma conta na Stripe e fique **sempre no modo de teste**. Use as chaves de teste e os cartões de teste da documentação.\n- Crie um produto e um preço recorrente e redirecione o usuário para o Stripe Checkout.\n- O status da assinatura deve ser atualizado por **webhook**, não pela página de \"obrigado\": o usuário pode fechar a aba antes de voltar. Verifique a assinatura do webhook.\n- Teste webhooks localmente com a Stripe CLI.\n- Aplique o limite do plano gratuito no servidor, no momento de criar o agendamento.",
+        "en": "- Create a Stripe account and stay **always in test mode**. Use the test keys and the test cards from the docs.\n- Create a product and a recurring price and redirect the user to Stripe Checkout.\n- The subscription status must be updated by **webhook**, not by the \"thank you\" page: the user may close the tab before coming back. Verify the webhook signature.\n- Test webhooks locally with the Stripe CLI.\n- Enforce the free plan limit on the server, at the moment the booking is created."
+      },
+      "resources": [
+        "stripe-checkout-quickstart",
+        "stripe-testing"
+      ],
+      "checklist": [
+        {
+          "pt": "Checkout em modo teste funcionando",
+          "en": "Checkout in test mode working"
+        },
+        {
+          "pt": "Assinatura atualizada por webhook verificado",
+          "en": "Subscription updated by a verified webhook"
+        },
+        {
+          "pt": "Limite do plano gratuito aplicado no servidor",
+          "en": "Free plan limit enforced on the server"
+        },
+        {
+          "pt": "Nenhuma chave de produção no projeto",
+          "en": "No production keys in the project"
+        }
+      ]
+    },
+    {
+      "id": "e2e-playwright",
+      "title": {
+        "pt": "Testes ponta a ponta com Playwright",
+        "en": "End-to-end tests with Playwright"
+      },
+      "goal": {
+        "pt": "`npx playwright test` roda os fluxos principais num navegador real: entrar, criar um serviço, agendar como cliente e ver o agendamento duplo ser bloqueado.",
+        "en": "`npx playwright test` runs the main flows in a real browser: sign in, create a service, book as a client and see the double booking get blocked."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Instale o Playwright e use o gerador de testes (`codegen`) para ter um ponto de partida, depois limpe o código gerado.\n- Login com provedor externo é difícil em teste: crie uma forma de autenticar só em ambiente de teste (um usuário de teste com sessão criada direto no banco) e salve o estado de login para reaproveitar.\n- Use um banco separado para testes e recrie os dados antes de cada execução.\n- Prefira localizar elementos por papel e texto (`getByRole`, `getByLabel`), como o usuário.\n- Rode também no CI e guarde o relatório HTML quando falhar.",
+        "en": "- Install Playwright and use the test generator (`codegen`) as a starting point, then clean up the generated code.\n- Signing in with an external provider is hard in tests: create a test-only way to authenticate (a test user with a session created straight in the database) and save the signed-in state to reuse.\n- Use a separate database for tests and recreate the data before each run.\n- Prefer locating elements by role and text (`getByRole`, `getByLabel`), like a user would.\n- Also run them in CI and keep the HTML report when they fail."
+      },
+      "resources": [
+        "playwright-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Fluxo de login automatizado",
+          "en": "Automated sign-in flow"
+        },
+        {
+          "pt": "Teste de criar serviço e agendar",
+          "en": "Test for creating a service and booking"
+        },
+        {
+          "pt": "Teste de agendamento duplo bloqueado",
+          "en": "Test for a blocked double booking"
+        },
+        {
+          "pt": "Banco de teste isolado",
+          "en": "Isolated test database"
+        }
+      ]
+    },
+    {
+      "id": "deploy",
+      "title": {
+        "pt": "Deploy, README e demonstração",
+        "en": "Deploy, README and demo"
+      },
+      "goal": {
+        "pt": "O SaaS está no ar com banco gerenciado, login e webhook da Stripe funcionando em produção (modo teste), e o README explica a arquitetura.",
+        "en": "The SaaS is live with a managed database, sign-in and the Stripe webhook working in production (test mode), and the README explains the architecture."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Faça o deploy na Vercel e configure as variáveis de ambiente de produção: banco, Auth.js, Stripe (chaves de teste).\n- Rode as migrations no banco de produção como um passo do deploy, não na mão.\n- Cadastre a URL do webhook de produção no painel da Stripe e faça um pagamento de teste ponta a ponta.\n- README: diagrama da arquitetura, decisões (por que a regra está no banco, por que webhook), como rodar local, como rodar os testes e um usuário de demonstração.\n- Grave um vídeo curto do fluxo completo.",
+        "en": "- Deploy on Vercel and set the production environment variables: database, Auth.js, Stripe (test keys).\n- Run migrations on the production database as a deploy step, not by hand.\n- Register the production webhook URL in the Stripe dashboard and make an end-to-end test payment.\n- README: architecture diagram, decisions (why the rule lives in the database, why webhooks), how to run locally, how to run the tests and a demo user.\n- Record a short video of the full flow."
+      },
+      "resources": [
+        "vercel-docs",
+        "vercel-env-vars",
+        "stripe-testing"
+      ],
+      "checklist": [
+        {
+          "pt": "App no ar com banco gerenciado",
+          "en": "App live with a managed database"
+        },
+        {
+          "pt": "Migrations aplicadas no deploy",
+          "en": "Migrations applied during deploy"
+        },
+        {
+          "pt": "Pagamento de teste ponta a ponta em produção",
+          "en": "End-to-end test payment in production"
+        },
+        {
+          "pt": "README com arquitetura e vídeo",
+          "en": "README with architecture and video"
+        }
+      ]
+    }
+  ],
+  "extraChallenges": [
+    {
+      "pt": "Lembretes por e-mail um dia antes do horário",
+      "en": "Email reminders a day before the appointment"
+    },
+    {
+      "pt": "Cancelamento pelo cliente com link seguro",
+      "en": "Client cancellation via a secure link"
+    },
+    {
+      "pt": "Painel com métricas do mês (agendamentos, faturamento estimado)",
+      "en": "Dashboard with monthly metrics (bookings, estimated revenue)"
+    }
+  ],
+  "portfolioTip": {
+    "pt": "Este é o projeto principal do portfólio web. Mostre-o como produto: link no ar, conta de demonstração, vídeo de 1 minuto e um README que explique decisões de negócio e técnicas. Recrutadores adoram ver pagamentos e testes e2e funcionando.",
+    "en": "This is the main web portfolio project. Present it as a product: live link, demo account, a 1-minute video and a README explaining business and technical decisions. Recruiters love seeing payments and e2e tests working."
+  }
+}

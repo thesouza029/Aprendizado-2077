@@ -1,0 +1,324 @@
+{
+  "id": "clima-flutter",
+  "track": "mobile",
+  "order": 2,
+  "title": {
+    "pt": "App de clima com Flutter",
+    "en": "Weather app with Flutter"
+  },
+  "level": 2,
+  "stack": [
+    "Flutter",
+    "Dart",
+    "http",
+    "Open-Meteo",
+    "shared_preferences"
+  ],
+  "whatYouBuild": {
+    "pt": "Um app de clima feito em Flutter: você busca uma cidade, vê o clima atual e a previsão dos próximos dias com ícones e cores por condição. O app trata carregamento e erros, lembra a última cidade buscada, segue o tema claro ou escuro do aparelho e roda no Android, no iOS e na web com o mesmo código.",
+    "en": "A weather app built with Flutter: you search for a city and see the current weather and the forecast for the next days, with icons and colors per condition. The app handles loading and errors, remembers the last searched city, follows the device's light or dark theme and runs on Android, iOS and the web from the same code."
+  },
+  "whatYouLearn": [
+    {
+      "pt": "Dart: tipos, null safety, classes e async/await",
+      "en": "Dart: types, null safety, classes and async/await"
+    },
+    {
+      "pt": "Widgets do Flutter: layout, estado e composição",
+      "en": "Flutter widgets: layout, state and composition"
+    },
+    {
+      "pt": "Consumo de API HTTP e conversão de JSON",
+      "en": "Consuming an HTTP API and parsing JSON"
+    },
+    {
+      "pt": "Estados de carregamento, erro e vazio",
+      "en": "Loading, error and empty states"
+    },
+    {
+      "pt": "Persistência simples e acessibilidade no Flutter",
+      "en": "Simple persistence and accessibility in Flutter"
+    }
+  ],
+  "prerequisites": [
+    "lista-compras-expo",
+    "cli-api-http"
+  ],
+  "steps": [
+    {
+      "id": "setup",
+      "title": {
+        "pt": "Flutter instalado e primeiro app",
+        "en": "Flutter installed and first app"
+      },
+      "goal": {
+        "pt": "`flutter doctor` não mostra erros importantes e o app de exemplo roda num emulador, no celular ou no navegador com hot reload.",
+        "en": "`flutter doctor` shows no important errors and the sample app runs on an emulator, phone or browser with hot reload."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Instale o Flutter e rode `flutter doctor` até resolver o que ele aponta. Para começar rápido, rodar na web ou no Chrome já serve.\n- Antes de tudo, brinque com Dart no DartPad: variáveis, funções, classes e `null safety`. Se você sabe TypeScript, vai se sentir em casa.\n- Crie o app com `flutter create` e teste o *hot reload*: mude um texto e salve.\n- Faça o codelab oficial do primeiro app se quiser uma introdução guiada.\n- Crie o repositório no GitHub e faça commits pequenos a cada parte que funcionar: o histórico conta a história do projeto.",
+        "en": "- Install Flutter and run `flutter doctor` until you fix what it points out. To start quickly, running on the web or in Chrome is enough.\n- First, play with Dart on DartPad: variables, functions, classes and `null safety`. If you know TypeScript, you'll feel at home.\n- Create the app with `flutter create` and try *hot reload*: change some text and save.\n- Do the official first-app codelab if you want a guided introduction.\n- Create the GitHub repository and make small commits each time a part works: the history tells the project's story."
+      },
+      "resources": [
+        "flutter-docs",
+        "dartpad",
+        "dart-language",
+        "flutter-codelab-first"
+      ],
+      "checklist": [
+        {
+          "pt": "`flutter doctor` sem erros importantes",
+          "en": "`flutter doctor` with no important errors"
+        },
+        {
+          "pt": "App rodando com hot reload",
+          "en": "App running with hot reload"
+        },
+        {
+          "pt": "Básico de Dart praticado no DartPad",
+          "en": "Dart basics practiced on DartPad"
+        },
+        {
+          "pt": "Repositório no GitHub com o primeiro commit",
+          "en": "GitHub repository with the first commit"
+        }
+      ]
+    },
+    {
+      "id": "layout",
+      "title": {
+        "pt": "Tela com dados de mentira",
+        "en": "Screen with fake data"
+      },
+      "goal": {
+        "pt": "A tela principal mostra cidade, temperatura atual e a previsão de 7 dias usando dados fixos.",
+        "en": "The main screen shows city, current temperature and the 7-day forecast using fixed data."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Tudo no Flutter é widget. Monte a tela com `Column`, `Row`, `Expanded` e `ListView`.\n- Separe em widgets pequenos (cartão do clima atual, item da previsão) que recebem dados pelo construtor.\n- Comece com `StatelessWidget`. Só use `StatefulWidget` onde algo muda na tela.\n- Use o tema do Material 3 (`ColorScheme`) em vez de cores soltas pelo código.",
+        "en": "- Everything in Flutter is a widget. Build the screen with `Column`, `Row`, `Expanded` and `ListView`.\n- Split into small widgets (current weather card, forecast item) that receive data through the constructor.\n- Start with `StatelessWidget`. Only use `StatefulWidget` where something changes on screen.\n- Use the Material 3 theme (`ColorScheme`) instead of colors scattered through the code."
+      },
+      "resources": [
+        "flutter-docs",
+        "flutter-codelab-first"
+      ],
+      "checklist": [
+        {
+          "pt": "Tela montada com widgets de layout",
+          "en": "Screen built with layout widgets"
+        },
+        {
+          "pt": "Widgets pequenos e reutilizáveis",
+          "en": "Small, reusable widgets"
+        },
+        {
+          "pt": "Cores vindas do tema",
+          "en": "Colors coming from the theme"
+        }
+      ]
+    },
+    {
+      "id": "modelos",
+      "title": {
+        "pt": "Modelos em Dart a partir do JSON",
+        "en": "Dart models from JSON"
+      },
+      "goal": {
+        "pt": "Classes Dart convertem um JSON de exemplo da Open-Meteo em objetos tipados, com testes.",
+        "en": "Dart classes turn a sample Open-Meteo JSON into typed objects, with tests."
+      },
+      "estimatedMinutes": 60,
+      "instructions": {
+        "pt": "- Abra no navegador uma URL de previsão da Open-Meteo e salve o JSON de resposta como exemplo.\n- Crie classes para o clima atual e para cada dia da previsão, com um construtor `fromJson`.\n- Aproveite o `null safety`: decida o que é obrigatório e o que pode faltar.\n- Converta o código de condição do tempo (WMO) numa descrição e num ícone.\n- Escreva testes de unidade da conversão com o JSON salvo (`flutter test`).",
+        "en": "- Open an Open-Meteo forecast URL in the browser and save the response JSON as a sample.\n- Create classes for the current weather and for each forecast day, with a `fromJson` constructor.\n- Use `null safety`: decide what's required and what may be missing.\n- Convert the weather condition code (WMO) into a description and an icon.\n- Write unit tests for the parsing with the saved JSON (`flutter test`)."
+      },
+      "resources": [
+        "open-meteo",
+        "dart-language"
+      ],
+      "checklist": [
+        {
+          "pt": "Classes com `fromJson`",
+          "en": "Classes with `fromJson`"
+        },
+        {
+          "pt": "Campos obrigatórios e opcionais definidos",
+          "en": "Required and optional fields defined"
+        },
+        {
+          "pt": "Código do tempo vira descrição e ícone",
+          "en": "Weather code becomes description and icon"
+        },
+        {
+          "pt": "Testes da conversão passando",
+          "en": "Parsing tests passing"
+        }
+      ]
+    },
+    {
+      "id": "api",
+      "title": {
+        "pt": "Dados de verdade da API",
+        "en": "Real data from the API"
+      },
+      "goal": {
+        "pt": "O app busca o clima real de uma cidade fixa, mostra um indicador enquanto carrega e uma mensagem com botão de tentar de novo quando falha.",
+        "en": "The app fetches real weather for a fixed city, shows an indicator while loading and a message with a retry button when it fails."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Use o pacote `http` para chamar a API de previsão. Coloque as chamadas numa classe de serviço separada da tela.\n- Use `async`/`await` e mostre os três estados com `FutureBuilder`: carregando, erro e sucesso.\n- Teste o erro de propósito: desligue a internet ou erre a URL. O app deve mostrar algo útil, não uma tela vermelha.\n- Defina um tempo limite (*timeout*) para a requisição.",
+        "en": "- Use the `http` package to call the forecast API. Put the calls in a service class separate from the screen.\n- Use `async`/`await` and show the three states with `FutureBuilder`: loading, error and success.\n- Test the error on purpose: turn off the internet or break the URL. The app should show something useful, not a red screen.\n- Set a request timeout."
+      },
+      "resources": [
+        "flutter-fetch-data",
+        "pub-http",
+        "open-meteo"
+      ],
+      "checklist": [
+        {
+          "pt": "Chamadas numa classe de serviço",
+          "en": "Calls in a service class"
+        },
+        {
+          "pt": "Estados de carregamento, erro e sucesso",
+          "en": "Loading, error and success states"
+        },
+        {
+          "pt": "Botão de tentar de novo",
+          "en": "Retry button"
+        },
+        {
+          "pt": "Timeout definido",
+          "en": "Timeout set"
+        }
+      ]
+    },
+    {
+      "id": "busca",
+      "title": {
+        "pt": "Busca de cidades",
+        "en": "City search"
+      },
+      "goal": {
+        "pt": "Digitar um nome mostra as cidades encontradas (com estado e país), e tocar numa delas carrega o clima dela.",
+        "en": "Typing a name shows the matching cities (with state and country), and tapping one loads its weather."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Use a API de geocodificação da Open-Meteo para transformar o nome digitado em coordenadas.\n- Espere o usuário parar de digitar antes de buscar (*debounce*) para não disparar uma requisição por letra.\n- Mostre estado vazio (\"nenhuma cidade encontrada\") e de erro.\n- Quando o estado começar a ser compartilhado entre telas, conheça uma solução de gerenciamento de estado (como o Provider) em vez de passar tudo pelo construtor.",
+        "en": "- Use Open-Meteo's geocoding API to turn the typed name into coordinates.\n- Wait for the user to stop typing before searching (*debounce*) so you don't fire one request per letter.\n- Show empty (\"no city found\") and error states.\n- When state starts being shared between screens, learn a state management solution (like Provider) instead of passing everything through constructors."
+      },
+      "resources": [
+        "open-meteo",
+        "flutter-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Busca por nome com geocodificação",
+          "en": "Search by name with geocoding"
+        },
+        {
+          "pt": "Debounce na digitação",
+          "en": "Debounce while typing"
+        },
+        {
+          "pt": "Estados vazio e de erro",
+          "en": "Empty and error states"
+        }
+      ]
+    },
+    {
+      "id": "persistencia-tema",
+      "title": {
+        "pt": "Última cidade, tema e acessibilidade",
+        "en": "Last city, theme and accessibility"
+      },
+      "goal": {
+        "pt": "O app abre na última cidade buscada, segue o tema claro ou escuro do aparelho e funciona com fonte grande e leitor de tela.",
+        "en": "The app opens on the last searched city, follows the device's light or dark theme and works with large fonts and a screen reader."
+      },
+      "estimatedMinutes": 60,
+      "instructions": {
+        "pt": "- Salve a última cidade com `shared_preferences` e carregue ao abrir.\n- Configure `theme` e `darkTheme` no `MaterialApp` para seguir o sistema.\n- Aumente a fonte do aparelho ao máximo e confira se nada fica cortado.\n- Ícones de clima precisam de descrição para o leitor de tela (`Semantics`).",
+        "en": "- Save the last city with `shared_preferences` and load it on startup.\n- Configure `theme` and `darkTheme` on `MaterialApp` to follow the system.\n- Set the device font to the largest size and check that nothing gets cut off.\n- Weather icons need a description for screen readers (`Semantics`)."
+      },
+      "resources": [
+        "shared-preferences",
+        "flutter-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Última cidade salva e carregada",
+          "en": "Last city saved and loaded"
+        },
+        {
+          "pt": "Tema claro e escuro do sistema",
+          "en": "System light and dark theme"
+        },
+        {
+          "pt": "Layout aguenta fonte grande",
+          "en": "Layout handles large fonts"
+        },
+        {
+          "pt": "Ícones com descrição acessível",
+          "en": "Icons with accessible descriptions"
+        }
+      ]
+    },
+    {
+      "id": "build-readme",
+      "title": {
+        "pt": "Build, prints e README",
+        "en": "Build, screenshots and README"
+      },
+      "goal": {
+        "pt": "Existe um APK (ou uma versão web publicada) para testar e um README com prints do app nos temas claro e escuro.",
+        "en": "There's an APK (or a published web version) to try and a README with screenshots in light and dark themes."
+      },
+      "estimatedMinutes": 60,
+      "instructions": {
+        "pt": "- Gere o build de release para Android (`flutter build apk`) e instale no seu celular. Se não tiver Android, publique a versão web (`flutter build web`) num serviço de hospedagem estática.\n- Faça prints nos dois temas e com fonte grande.\n- README: o que o app faz, de onde vêm os dados (cite a Open-Meteo), como rodar e o que você aprendeu comparando com React Native.",
+        "en": "- Generate the Android release build (`flutter build apk`) and install it on your phone. If you don't have Android, publish the web version (`flutter build web`) to a static hosting service.\n- Take screenshots in both themes and with large fonts.\n- README: what the app does, where the data comes from (credit Open-Meteo), how to run it and what you learned comparing it with React Native."
+      },
+      "resources": [
+        "flutter-docs",
+        "github-pages-quickstart-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Build de release ou versão web publicada",
+          "en": "Release build or published web version"
+        },
+        {
+          "pt": "Prints nos dois temas",
+          "en": "Screenshots in both themes"
+        },
+        {
+          "pt": "README com fonte dos dados e comparação",
+          "en": "README with data source and comparison"
+        }
+      ]
+    }
+  ],
+  "extraChallenges": [
+    {
+      "pt": "Gráfico de temperatura das próximas 24 horas",
+      "en": "Temperature chart for the next 24 hours"
+    },
+    {
+      "pt": "Lista de cidades favoritas",
+      "en": "List of favorite cities"
+    },
+    {
+      "pt": "Usar a localização do aparelho, com permissão",
+      "en": "Use the device location, with permission"
+    }
+  ],
+  "portfolioTip": {
+    "pt": "Mostre o app rodando em mais de uma plataforma (celular e web) a partir do mesmo código: é o grande argumento do Flutter. Um GIF curto no README chama mais atenção que qualquer descrição.",
+    "en": "Show the app running on more than one platform (phone and web) from the same code: that's Flutter's big selling point. A short GIF in the README gets more attention than any description."
+  }
+}

@@ -1,0 +1,373 @@
+{
+  "id": "ecommerce-laravel",
+  "track": "backend",
+  "order": 5,
+  "title": {
+    "pt": "E-commerce simples com PHP e Laravel",
+    "en": "Simple e-commerce with PHP and Laravel"
+  },
+  "level": 3,
+  "stack": [
+    "PHP 8",
+    "Laravel",
+    "MySQL",
+    "Blade",
+    "Laravel Breeze",
+    "PHPUnit ou Pest",
+    "Laravel Sail (Docker)"
+  ],
+  "whatYouBuild": {
+    "pt": "Uma loja virtual completa em Laravel: catálogo com categorias, busca e paginação, carrinho, checkout que cria o pedido e baixa o estoque sem vender o que não tem, área administrativa para produtos e pedidos e e-mail de confirmação enviado em segundo plano.",
+    "en": "A complete online store in Laravel: catalog with categories, search and pagination, a cart, a checkout that creates the order and lowers stock without overselling, an admin area for products and orders and a confirmation email sent in the background."
+  },
+  "whatYouLearn": [
+    {
+      "pt": "PHP moderno e o padrão MVC do Laravel",
+      "en": "Modern PHP and Laravel's MVC pattern"
+    },
+    {
+      "pt": "Migrations, Eloquent e relacionamentos",
+      "en": "Migrations, Eloquent and relationships"
+    },
+    {
+      "pt": "Sessão, formulários e validação com Form Requests",
+      "en": "Sessions, forms and validation with Form Requests"
+    },
+    {
+      "pt": "Transações e bloqueio para não vender sem estoque",
+      "en": "Transactions and locking to avoid overselling"
+    },
+    {
+      "pt": "Filas, e-mails e testes de funcionalidade",
+      "en": "Queues, emails and feature tests"
+    }
+  ],
+  "prerequisites": [
+    "api-biblioteca-node"
+  ],
+  "steps": [
+    {
+      "id": "setup",
+      "title": {
+        "pt": "PHP, Composer e o projeto Laravel",
+        "en": "PHP, Composer and the Laravel project"
+      },
+      "goal": {
+        "pt": "A página inicial do Laravel abre no navegador e o projeto está conectado a um MySQL.",
+        "en": "Laravel's welcome page opens in the browser and the project is connected to MySQL."
+      },
+      "estimatedMinutes": 60,
+      "instructions": {
+        "pt": "- Instale PHP 8 e o Composer, ou use o Laravel Sail, que roda tudo em Docker (PHP, MySQL) sem instalar nada além do Docker.\n- Crie o projeto Laravel e rode o servidor de desenvolvimento.\n- Explore as pastas: `routes/` (rotas), `app/Http/Controllers` (controllers), `app/Models` (models), `resources/views` (telas) e `database/migrations`. Isso é o MVC na prática.\n- Configure o `.env` com o banco MySQL. O `.env` nunca vai para o Git.\n- Crie o repositório no GitHub e faça commits pequenos a cada parte que funcionar: o histórico conta a história do projeto.",
+        "en": "- Install PHP 8 and Composer, or use Laravel Sail, which runs everything in Docker (PHP, MySQL) without installing anything but Docker.\n- Create the Laravel project and run the development server.\n- Explore the folders: `routes/` (routes), `app/Http/Controllers` (controllers), `app/Models` (models), `resources/views` (screens) and `database/migrations`. That's MVC in practice.\n- Configure `.env` with the MySQL database. `.env` never goes into Git.\n- Create the GitHub repository and make small commits each time a part works: the history tells the project's story."
+      },
+      "resources": [
+        "laravel-docs",
+        "composer-docs",
+        "php-manual-pt",
+        "laravel-bootcamp"
+      ],
+      "checklist": [
+        {
+          "pt": "Projeto Laravel rodando",
+          "en": "Laravel project running"
+        },
+        {
+          "pt": "Conectado ao MySQL pelo `.env`",
+          "en": "Connected to MySQL through `.env`"
+        },
+        {
+          "pt": "Sabe onde ficam rotas, controllers, models e views",
+          "en": "Knows where routes, controllers, models and views live"
+        },
+        {
+          "pt": "Repositório no GitHub com o primeiro commit",
+          "en": "GitHub repository with the first commit"
+        }
+      ]
+    },
+    {
+      "id": "models",
+      "title": {
+        "pt": "Migrations, models e dados de exemplo",
+        "en": "Migrations, models and sample data"
+      },
+      "goal": {
+        "pt": "As tabelas de categorias, produtos, pedidos e itens existem, e `php artisan db:seed` enche a loja com produtos de exemplo.",
+        "en": "The categories, products, orders and items tables exist, and `php artisan db:seed` fills the store with sample products."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Crie as migrations com o Artisan. Guarde preços em centavos (inteiro) para não ter erro de arredondamento.\n- Crie os models Eloquent e os relacionamentos: categoria tem muitos produtos; pedido tem muitos itens; item pertence a um produto.\n- Use *factories* para gerar dados falsos realistas e *seeders* para popular o banco.\n- Teste os relacionamentos no `php artisan tinker` antes de criar telas.",
+        "en": "- Create the migrations with Artisan. Store prices in cents (integers) to avoid rounding errors.\n- Create the Eloquent models and relationships: a category has many products; an order has many items; an item belongs to a product.\n- Use *factories* to generate realistic fake data and *seeders* to populate the database.\n- Try the relationships in `php artisan tinker` before building screens."
+      },
+      "resources": [
+        "laravel-eloquent",
+        "laravel-docs",
+        "mysql-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Migrations de todas as tabelas",
+          "en": "Migrations for every table"
+        },
+        {
+          "pt": "Relacionamentos Eloquent",
+          "en": "Eloquent relationships"
+        },
+        {
+          "pt": "Factories e seeders",
+          "en": "Factories and seeders"
+        },
+        {
+          "pt": "Preços em centavos",
+          "en": "Prices in cents"
+        }
+      ]
+    },
+    {
+      "id": "catalogo",
+      "title": {
+        "pt": "Catálogo com busca e paginação",
+        "en": "Catalog with search and pagination"
+      },
+      "goal": {
+        "pt": "A loja lista produtos paginados, filtra por categoria e busca por nome, e cada produto tem sua página.",
+        "en": "The store lists paginated products, filters by category and searches by name, and each product has its own page."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Crie as rotas e os controllers do catálogo e as telas com Blade, usando um layout comum.\n- Pagine com o paginador do Eloquent e mantenha os filtros na URL (`?categoria=...&busca=...`).\n- Ative o log de queries e procure o problema N+1 ao mostrar a categoria de cada produto. Corrija com *eager loading* (`with`).\n- Use rotas com o slug do produto em vez do id: URLs mais legíveis e melhores para SEO.",
+        "en": "- Create the catalog routes and controllers and the Blade screens, using a shared layout.\n- Paginate with Eloquent's paginator and keep the filters in the URL (`?category=...&search=...`).\n- Turn on query logging and look for the N+1 problem when showing each product's category. Fix it with *eager loading* (`with`).\n- Use routes with the product slug instead of the id: more readable URLs and better for SEO."
+      },
+      "resources": [
+        "laravel-docs",
+        "laravel-eloquent"
+      ],
+      "checklist": [
+        {
+          "pt": "Listagem paginada com layout Blade",
+          "en": "Paginated listing with a Blade layout"
+        },
+        {
+          "pt": "Filtro por categoria e busca na URL",
+          "en": "Category filter and search in the URL"
+        },
+        {
+          "pt": "Problema N+1 corrigido",
+          "en": "N+1 problem fixed"
+        },
+        {
+          "pt": "Página de produto por slug",
+          "en": "Product page by slug"
+        }
+      ]
+    },
+    {
+      "id": "carrinho",
+      "title": {
+        "pt": "Carrinho de compras",
+        "en": "Shopping cart"
+      },
+      "goal": {
+        "pt": "Dá para adicionar, mudar a quantidade e remover itens do carrinho, que mostra o total e sobrevive à navegação.",
+        "en": "You can add, change quantities and remove items from the cart, which shows the total and survives navigation."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Guarde o carrinho na sessão: só os ids e quantidades. Preço e nome vêm sempre do banco, nunca do navegador.\n- Crie uma classe de serviço para o carrinho, para os controllers não ficarem cheios de lógica.\n- Não deixe colocar mais unidades do que o estoque disponível.\n- Toda ação que altera dados usa POST (ou PATCH/DELETE) com o token CSRF que o Laravel exige. Entenda por que ele existe.",
+        "en": "- Store the cart in the session: just ids and quantities. Price and name always come from the database, never from the browser.\n- Create a service class for the cart so controllers don't fill up with logic.\n- Don't allow more units than the available stock.\n- Every action that changes data uses POST (or PATCH/DELETE) with the CSRF token Laravel requires. Understand why it exists."
+      },
+      "resources": [
+        "laravel-docs",
+        "php-right-way-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Carrinho na sessão com ids e quantidades",
+          "en": "Cart in the session with ids and quantities"
+        },
+        {
+          "pt": "Preços sempre do banco",
+          "en": "Prices always from the database"
+        },
+        {
+          "pt": "Quantidade limitada ao estoque",
+          "en": "Quantity limited by stock"
+        },
+        {
+          "pt": "Ações protegidas por CSRF",
+          "en": "Actions protected by CSRF"
+        }
+      ]
+    },
+    {
+      "id": "checkout",
+      "title": {
+        "pt": "Checkout sem vender o que não tem",
+        "en": "Checkout without overselling"
+      },
+      "goal": {
+        "pt": "Finalizar a compra cria o pedido com os itens e baixa o estoque. Se o estoque acabar no meio do caminho, nada é gravado e o cliente vê uma mensagem clara.",
+        "en": "Checking out creates the order with its items and lowers stock. If stock runs out midway, nothing is saved and the customer sees a clear message."
+      },
+      "estimatedMinutes": 150,
+      "instructions": {
+        "pt": "- Valide os dados do cliente com uma *Form Request*: as regras ficam numa classe, não no controller.\n- Faça tudo numa transação (`DB::transaction`): criar o pedido, criar os itens e baixar o estoque.\n- Dentro da transação, leia os produtos com bloqueio (`lockForUpdate`) para dois checkouts simultâneos não venderem a última unidade duas vezes.\n- Guarde no item o preço do momento da compra: se o produto mudar de preço amanhã, o pedido antigo não muda.\n- Esvazie o carrinho só depois que tudo deu certo.",
+        "en": "- Validate customer data with a *Form Request*: the rules live in a class, not in the controller.\n- Do everything in a transaction (`DB::transaction`): create the order, create the items and lower the stock.\n- Inside the transaction, read products with a lock (`lockForUpdate`) so two simultaneous checkouts don't sell the last unit twice.\n- Store the price at purchase time on the item: if the product's price changes tomorrow, the old order doesn't.\n- Empty the cart only after everything succeeded."
+      },
+      "resources": [
+        "laravel-docs",
+        "mysql-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Validação com Form Request",
+          "en": "Validation with a Form Request"
+        },
+        {
+          "pt": "Pedido, itens e estoque na mesma transação",
+          "en": "Order, items and stock in the same transaction"
+        },
+        {
+          "pt": "Bloqueio contra venda dupla",
+          "en": "Locking against double selling"
+        },
+        {
+          "pt": "Preço gravado no item do pedido",
+          "en": "Price saved on the order item"
+        }
+      ],
+      "hint": {
+        "pt": "Para testar a corrida, deixe um produto com 1 unidade e finalize duas compras em abas diferentes quase ao mesmo tempo.",
+        "en": "To test the race, leave a product with 1 unit and check out twice from different tabs at almost the same time."
+      }
+    },
+    {
+      "id": "admin",
+      "title": {
+        "pt": "Login e área administrativa",
+        "en": "Sign-in and admin area"
+      },
+      "goal": {
+        "pt": "Um administrador entra, cadastra e edita produtos (com foto) e vê os pedidos. Clientes comuns não acessam essa área.",
+        "en": "An admin signs in, creates and edits products (with a photo) and sees orders. Regular customers can't access this area."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Instale o Laravel Breeze para ter login, cadastro e recuperação de senha prontos.\n- Proteja a área admin com um *middleware* ou um *Gate* que confere se o usuário é administrador.\n- Faça o CRUD de produtos com upload de imagem usando o sistema de arquivos do Laravel (`Storage`). Valide tipo e tamanho do arquivo.\n- Liste os pedidos com status (pendente, pago, enviado) e permita mudar o status.",
+        "en": "- Install Laravel Breeze to get sign-in, registration and password recovery ready-made.\n- Protect the admin area with a *middleware* or a *Gate* that checks whether the user is an admin.\n- Build product CRUD with image upload using Laravel's filesystem (`Storage`). Validate the file type and size.\n- List orders with a status (pending, paid, shipped) and allow changing the status."
+      },
+      "resources": [
+        "laravel-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Login com Breeze",
+          "en": "Sign-in with Breeze"
+        },
+        {
+          "pt": "Área admin protegida",
+          "en": "Protected admin area"
+        },
+        {
+          "pt": "Upload de imagem validado",
+          "en": "Validated image upload"
+        },
+        {
+          "pt": "Gestão de status dos pedidos",
+          "en": "Order status management"
+        }
+      ]
+    },
+    {
+      "id": "emails-filas",
+      "title": {
+        "pt": "E-mail de confirmação em fila",
+        "en": "Confirmation email in a queue"
+      },
+      "goal": {
+        "pt": "Ao finalizar a compra, um e-mail de confirmação é enviado por uma fila, sem deixar o checkout lento.",
+        "en": "On checkout, a confirmation email is sent through a queue, without slowing down checkout."
+      },
+      "estimatedMinutes": 60,
+      "instructions": {
+        "pt": "- Crie um *Mailable* com o resumo do pedido. Em desenvolvimento, use o mailer `log` (o e-mail vai para o arquivo de log) ou uma ferramenta que captura e-mails localmente.\n- Coloque o envio numa fila: o checkout responde na hora e um *worker* envia o e-mail depois. Rode o worker com `php artisan queue:work`.\n- Use um *evento* (`PedidoCriado`) para desacoplar: o checkout não precisa saber que existe e-mail.",
+        "en": "- Create a *Mailable* with the order summary. In development, use the `log` mailer (the email goes to the log file) or a tool that captures emails locally.\n- Put sending in a queue: checkout responds right away and a *worker* sends the email later. Run the worker with `php artisan queue:work`.\n- Use an *event* (`OrderCreated`) to decouple: checkout doesn't need to know email exists."
+      },
+      "resources": [
+        "laravel-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Mailable com resumo do pedido",
+          "en": "Mailable with the order summary"
+        },
+        {
+          "pt": "Envio em fila com worker",
+          "en": "Queued sending with a worker"
+        },
+        {
+          "pt": "Evento desacoplando o checkout",
+          "en": "Event decoupling checkout"
+        }
+      ]
+    },
+    {
+      "id": "testes-deploy",
+      "title": {
+        "pt": "Testes, README e deploy",
+        "en": "Tests, README and deploy"
+      },
+      "goal": {
+        "pt": "`php artisan test` passa com testes do checkout, do estoque e da área admin, e o README explica como rodar a loja.",
+        "en": "`php artisan test` passes with tests for checkout, stock and the admin area, and the README explains how to run the store."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Escreva testes de funcionalidade (*feature tests*) com PHPUnit ou Pest: checkout baixa o estoque; não dá para comprar mais do que tem; cliente comum recebe 403 na área admin.\n- Use o banco de testes com `RefreshDatabase` e as factories para preparar cada cenário.\n- Teste que o e-mail foi colocado na fila com os *fakes* do Laravel, sem enviar de verdade.\n- Se quiser publicar, escolha um serviço com suporte a PHP e MySQL. README com prints, regras de negócio e como rodar com Sail.",
+        "en": "- Write feature tests with PHPUnit or Pest: checkout lowers stock; you can't buy more than is available; a regular customer gets 403 in the admin area.\n- Use the test database with `RefreshDatabase` and the factories to set up each scenario.\n- Test that the email was queued using Laravel's *fakes*, without really sending it.\n- If you want to publish it, pick a service with PHP and MySQL support. README with screenshots, business rules and how to run with Sail."
+      },
+      "resources": [
+        "laravel-docs",
+        "exercism-php"
+      ],
+      "checklist": [
+        {
+          "pt": "Testes de checkout e estoque",
+          "en": "Checkout and stock tests"
+        },
+        {
+          "pt": "Teste de acesso à área admin",
+          "en": "Admin area access test"
+        },
+        {
+          "pt": "Fila testada com fakes",
+          "en": "Queue tested with fakes"
+        },
+        {
+          "pt": "README com como rodar e regras",
+          "en": "README with how to run and rules"
+        }
+      ]
+    }
+  ],
+  "extraChallenges": [
+    {
+      "pt": "Pagamento em modo teste com uma API de pagamentos",
+      "en": "Test-mode payments with a payments API"
+    },
+    {
+      "pt": "Cupons de desconto com validade",
+      "en": "Discount coupons with expiration"
+    },
+    {
+      "pt": "Interface reativa com Livewire",
+      "en": "Reactive interface with Livewire"
+    }
+  ],
+  "portfolioTip": {
+    "pt": "Muitas vagas de PHP são em e-commerce e agências. Uma loja funcionando, com testes e a explicação de como você evitou vender sem estoque, mostra que você entende o negócio além do código.",
+    "en": "Many PHP jobs are in e-commerce and agencies. A working store, with tests and an explanation of how you avoided overselling, shows you understand the business beyond the code."
+  }
+}

@@ -1,0 +1,1196 @@
+[
+  {
+    "id": "nodejs-api",
+    "title": "Node.js: documentação da API",
+    "type": "docs",
+    "url": "https://nodejs.org/api/",
+    "author": "OpenJS Foundation",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "node"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Referência oficial dos módulos do Node: fs, http, process, util e outros.",
+      "en": "Official reference for Node modules: fs, http, process, util and more."
+    },
+    "verified": true
+  },
+  {
+    "id": "express-docs-pt",
+    "title": "Express (documentação em português)",
+    "type": "docs",
+    "url": "https://expressjs.com/pt-br/",
+    "author": "OpenJS Foundation",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "node",
+      "express",
+      "api"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Documentação oficial do Express, o framework web mais usado no Node.",
+      "en": "Official docs for Express, the most used Node web framework."
+    },
+    "verified": true
+  },
+  {
+    "id": "fastify-docs",
+    "title": "Fastify: documentação",
+    "type": "docs",
+    "url": "https://fastify.dev/docs/latest/",
+    "author": "OpenJS Foundation",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "node",
+      "fastify",
+      "api"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Framework web rápido para Node, com validação por schema embutida.",
+      "en": "Fast Node web framework with built-in schema validation."
+    },
+    "verified": true
+  },
+  {
+    "id": "node-postgres",
+    "title": "node-postgres (pg)",
+    "type": "docs",
+    "url": "https://node-postgres.com/",
+    "author": "Brian Carlson e comunidade",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "node",
+      "postgresql",
+      "sql"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Biblioteca para conectar o Node ao PostgreSQL: pool, queries parametrizadas e transações.",
+      "en": "Library to connect Node to PostgreSQL: pools, parameterized queries and transactions."
+    },
+    "verified": true
+  },
+  {
+    "id": "zod-docs",
+    "title": "Zod",
+    "type": "docs",
+    "url": "https://zod.dev/",
+    "author": "Colin McDonnell e comunidade",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "typescript",
+      "javascript",
+      "api"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Validação de dados com tipos: garanta que o corpo da requisição tem o formato certo.",
+      "en": "Typed data validation: make sure request bodies have the right shape."
+    },
+    "verified": true
+  },
+  {
+    "id": "supertest",
+    "title": "Supertest",
+    "type": "docs",
+    "url": "https://github.com/ladjs/supertest",
+    "author": "Comunidade ladjs",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "node",
+      "testes",
+      "api"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Teste rotas HTTP do seu app Node sem subir um servidor de verdade.",
+      "en": "Test your Node app's HTTP routes without starting a real server."
+    },
+    "verified": true
+  },
+  {
+    "id": "render-docs",
+    "title": "Render: documentação",
+    "type": "docs",
+    "url": "https://render.com/docs",
+    "author": "Render",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "deploy",
+      "node",
+      "postgresql"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Plataforma com plano gratuito para publicar APIs e bancos PostgreSQL.",
+      "en": "Platform with a free plan to deploy APIs and PostgreSQL databases."
+    },
+    "verified": true
+  },
+  {
+    "id": "mdn-express-tutorial",
+    "title": "MDN: Framework Express (Node.js/JavaScript)",
+    "type": "course",
+    "url": "https://developer.mozilla.org/pt-BR/docs/Learn_web_development/Extensions/Server-side/Express_Nodejs",
+    "author": "Mozilla (MDN Web Docs)",
+    "language": "pt-BR",
+    "level": "intermediario",
+    "technologies": [
+      "node",
+      "express"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Tutorial completo da MDN, traduzido pela comunidade, construindo um site de biblioteca com Express.",
+      "en": "MDN's full tutorial, translated into Portuguese by the community, building a library website with Express."
+    },
+    "verified": true
+  },
+  {
+    "id": "node-best-practices",
+    "title": "Node.js Best Practices",
+    "type": "article",
+    "url": "https://github.com/goldbergyoni/nodebestpractices",
+    "author": "Yoni Goldberg e comunidade",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "node"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Lista comentada de boas práticas: estrutura, erros, segurança, testes e produção.",
+      "en": "Annotated best practices: structure, errors, security, testing and production."
+    },
+    "verified": true
+  },
+  {
+    "id": "postgres-docker-image",
+    "title": "Imagem oficial do PostgreSQL no Docker Hub",
+    "type": "docs",
+    "url": "https://hub.docker.com/_/postgres",
+    "author": "Docker e PostgreSQL",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "postgresql",
+      "docker"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Como subir um PostgreSQL local com um comando, sem instalar nada além do Docker.",
+      "en": "How to run a local PostgreSQL with one command, installing nothing but Docker."
+    },
+    "verified": true
+  },
+  {
+    "id": "fastapi-docs-pt",
+    "title": "FastAPI (documentação em português)",
+    "type": "docs",
+    "url": "https://fastapi.tiangolo.com/pt/",
+    "author": "Sebastián Ramírez e comunidade",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "python",
+      "fastapi",
+      "api"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Documentação do FastAPI, o framework Python que mais cresceu, com tutorial passo a passo.",
+      "en": "Docs for FastAPI, the fastest-growing Python framework, with a step-by-step tutorial."
+    },
+    "verified": true
+  },
+  {
+    "id": "python-tutorial-en",
+    "title": "The Python Tutorial",
+    "type": "docs",
+    "url": "https://docs.python.org/3/tutorial/",
+    "author": "Python Software Foundation",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "python"
+    ],
+    "free": true,
+    "description": {
+      "pt": "O tutorial oficial do Python, versão original em inglês.",
+      "en": "The official Python tutorial, original English version."
+    },
+    "verified": true
+  },
+  {
+    "id": "cs50p",
+    "title": "CS50's Introduction to Programming with Python",
+    "type": "course",
+    "url": "https://cs50.harvard.edu/python/",
+    "author": "Harvard University (David J. Malan)",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "python"
+    ],
+    "free": true,
+    "description": {
+      "pt": "O curso de Python de Harvard: funções, condicionais, loops, exceções, testes e bibliotecas.",
+      "en": "Harvard's Python course: functions, conditionals, loops, exceptions, tests and libraries."
+    },
+    "verified": true
+  },
+  {
+    "id": "think-python",
+    "title": "Think Python (3ª edição)",
+    "type": "book",
+    "url": "https://allendowney.github.io/ThinkPython/",
+    "author": "Allen B. Downey",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "python",
+      "logica"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Livro gratuito que ensina a pensar como cientista da computação usando Python.",
+      "en": "Free book that teaches you to think like a computer scientist using Python."
+    },
+    "verified": true
+  },
+  {
+    "id": "pense-em-python",
+    "title": "Pense em Python",
+    "type": "book",
+    "url": "https://penseallen.github.io/PensePython2e/",
+    "author": "Allen B. Downey (tradução da comunidade)",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "python",
+      "logica"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Tradução em português do Think Python (2ª edição).",
+      "en": "Portuguese translation of Think Python (2nd edition)."
+    },
+    "verified": true
+  },
+  {
+    "id": "exercism-python",
+    "title": "Exercism: Python",
+    "type": "interactive",
+    "url": "https://exercism.org/tracks/python",
+    "author": "Exercism",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "python"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Exercícios de Python com testes automáticos e mentoria gratuita.",
+      "en": "Python exercises with automated tests and free mentoring."
+    },
+    "verified": true
+  },
+  {
+    "id": "postgresql-docs",
+    "title": "PostgreSQL: documentação oficial",
+    "type": "docs",
+    "url": "https://www.postgresql.org/docs/current/",
+    "author": "PostgreSQL Global Development Group",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "postgresql",
+      "sql"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Referência completa do PostgreSQL: tipos, índices, transações e performance.",
+      "en": "Complete PostgreSQL reference: types, indexes, transactions and performance."
+    },
+    "verified": true
+  },
+  {
+    "id": "pydantic-docs",
+    "title": "Pydantic",
+    "type": "docs",
+    "url": "https://docs.pydantic.dev/latest/",
+    "author": "Pydantic",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "python",
+      "fastapi"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Validação de dados com type hints do Python: a base dos modelos do FastAPI.",
+      "en": "Data validation with Python type hints: the foundation of FastAPI models."
+    },
+    "verified": true
+  },
+  {
+    "id": "sqlmodel-docs",
+    "title": "SQLModel",
+    "type": "docs",
+    "url": "https://sqlmodel.tiangolo.com/",
+    "author": "Sebastián Ramírez",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "python",
+      "fastapi",
+      "sql"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Banco de dados em Python com os mesmos modelos do FastAPI (SQLAlchemy + Pydantic).",
+      "en": "Databases in Python with the same models as FastAPI (SQLAlchemy + Pydantic)."
+    },
+    "verified": true
+  },
+  {
+    "id": "pytest-docs",
+    "title": "pytest",
+    "type": "docs",
+    "url": "https://docs.pytest.org/",
+    "author": "pytest-dev",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "python",
+      "testes"
+    ],
+    "free": true,
+    "description": {
+      "pt": "O framework de testes mais usado em Python: fixtures, parametrização e plugins.",
+      "en": "The most used Python testing framework: fixtures, parametrization and plugins."
+    },
+    "verified": true
+  },
+  {
+    "id": "redis-docs",
+    "title": "Redis: documentação",
+    "type": "docs",
+    "url": "https://redis.io/docs/latest/",
+    "author": "Redis",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "redis"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Banco em memória usado como cache, fila e contador: tipos de dados, expiração e padrões de uso.",
+      "en": "In-memory database used as cache, queue and counter: data types, expiration and usage patterns."
+    },
+    "verified": true
+  },
+  {
+    "id": "redis-py",
+    "title": "redis-py",
+    "type": "docs",
+    "url": "https://redis.readthedocs.io/en/stable/",
+    "author": "Redis",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "redis",
+      "python"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Cliente oficial do Redis para Python, com suporte a async.",
+      "en": "Official Redis client for Python, with async support."
+    },
+    "verified": true
+  },
+  {
+    "id": "openapi-initiative",
+    "title": "OpenAPI Initiative",
+    "type": "docs",
+    "url": "https://www.openapis.org/",
+    "author": "OpenAPI Initiative",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "api",
+      "openapi"
+    ],
+    "free": true,
+    "description": {
+      "pt": "O padrão para descrever APIs HTTP: é o que gera as páginas de documentação interativa.",
+      "en": "The standard for describing HTTP APIs: it's what generates interactive documentation pages."
+    },
+    "verified": true
+  },
+  {
+    "id": "spring-boot",
+    "title": "Spring Boot",
+    "type": "docs",
+    "url": "https://spring.io/projects/spring-boot",
+    "author": "VMware/Broadcom",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "java",
+      "spring"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Página oficial do Spring Boot, com links para a referência e exemplos.",
+      "en": "Official Spring Boot page, with links to the reference and samples."
+    },
+    "verified": true
+  },
+  {
+    "id": "spring-guides",
+    "title": "Spring Guides",
+    "type": "course",
+    "url": "https://spring.io/guides",
+    "author": "VMware/Broadcom",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "java",
+      "spring"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Guias curtos e práticos: API REST, JPA, validação, testes e Docker com Spring.",
+      "en": "Short, practical guides: REST APIs, JPA, validation, testing and Docker with Spring."
+    },
+    "verified": true
+  },
+  {
+    "id": "spring-initializr",
+    "title": "Spring Initializr",
+    "type": "interactive",
+    "url": "https://start.spring.io/",
+    "author": "VMware/Broadcom",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "java",
+      "spring"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Gera o esqueleto de um projeto Spring Boot com as dependências que você escolher.",
+      "en": "Generates a Spring Boot project skeleton with the dependencies you pick."
+    },
+    "verified": true
+  },
+  {
+    "id": "spring-data-jpa",
+    "title": "Spring Data JPA",
+    "type": "docs",
+    "url": "https://spring.io/projects/spring-data-jpa",
+    "author": "VMware/Broadcom",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "java",
+      "spring",
+      "sql"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Repositórios que geram queries a partir do nome dos métodos, em cima do JPA/Hibernate.",
+      "en": "Repositories that generate queries from method names, on top of JPA/Hibernate."
+    },
+    "verified": true
+  },
+  {
+    "id": "dev-java-learn",
+    "title": "Learn Java (dev.java)",
+    "type": "course",
+    "url": "https://dev.java/learn/",
+    "author": "Oracle",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "java"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Trilha oficial de aprendizado do Java moderno: sintaxe, orientação a objetos, coleções e mais.",
+      "en": "Official modern Java learning path: syntax, object orientation, collections and more."
+    },
+    "verified": true
+  },
+  {
+    "id": "java-mooc",
+    "title": "Java Programming MOOC",
+    "type": "course",
+    "url": "https://java-programming.mooc.fi/",
+    "author": "Universidade de Helsinque",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "java",
+      "logica"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Curso universitário gratuito de Java com centenas de exercícios corrigidos automaticamente.",
+      "en": "Free university Java course with hundreds of auto-graded exercises."
+    },
+    "verified": true
+  },
+  {
+    "id": "exercism-java",
+    "title": "Exercism: Java",
+    "type": "interactive",
+    "url": "https://exercism.org/tracks/java",
+    "author": "Exercism",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "java"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Exercícios de Java com mentoria gratuita da comunidade.",
+      "en": "Java exercises with free community mentoring."
+    },
+    "verified": true
+  },
+  {
+    "id": "baeldung-spring-boot",
+    "title": "Baeldung: Spring Boot",
+    "type": "article",
+    "url": "https://www.baeldung.com/spring-boot",
+    "author": "Baeldung",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "java",
+      "spring"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Coleção de artigos práticos sobre Spring Boot, muito usada no dia a dia de devs Java.",
+      "en": "Collection of practical Spring Boot articles, widely used by Java developers."
+    },
+    "verified": true
+  },
+  {
+    "id": "testcontainers",
+    "title": "Testcontainers",
+    "type": "docs",
+    "url": "https://testcontainers.com/",
+    "author": "Testcontainers",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "testes",
+      "docker",
+      "java"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Sobe bancos e serviços reais em containers durante os testes, em Java, Go, .NET, Node e outros.",
+      "en": "Spins up real databases and services in containers during tests, in Java, Go, .NET, Node and more."
+    },
+    "verified": true
+  },
+  {
+    "id": "csharp-docs-pt",
+    "title": "Documentação do C#",
+    "type": "docs",
+    "url": "https://learn.microsoft.com/pt-br/dotnet/csharp/",
+    "author": "Microsoft",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "csharp",
+      "dotnet"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Documentação oficial do C# em português, com tutoriais para iniciantes.",
+      "en": "Official C# documentation in Portuguese, with beginner tutorials."
+    },
+    "verified": true
+  },
+  {
+    "id": "csharp-tour-pt",
+    "title": "Um tour pela linguagem C#",
+    "type": "docs",
+    "url": "https://learn.microsoft.com/pt-br/dotnet/csharp/tour-of-csharp/",
+    "author": "Microsoft",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "csharp",
+      "dotnet"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Visão geral da linguagem para quem já programa em outra linguagem.",
+      "en": "Language overview for people who already code in another language."
+    },
+    "verified": true
+  },
+  {
+    "id": "aspnet-core-docs-pt",
+    "title": "Documentação do ASP.NET Core",
+    "type": "docs",
+    "url": "https://learn.microsoft.com/pt-br/aspnet/core/",
+    "author": "Microsoft",
+    "language": "pt-BR",
+    "level": "intermediario",
+    "technologies": [
+      "csharp",
+      "dotnet",
+      "api"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Referência oficial do ASP.NET Core: APIs, injeção de dependência, configuração e segurança.",
+      "en": "Official ASP.NET Core reference: APIs, dependency injection, configuration and security."
+    },
+    "verified": true
+  },
+  {
+    "id": "aspnet-minimal-api-pt",
+    "title": "Tutorial: API mínima com ASP.NET Core",
+    "type": "docs",
+    "url": "https://learn.microsoft.com/pt-br/aspnet/core/tutorials/min-web-api",
+    "author": "Microsoft",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "csharp",
+      "dotnet",
+      "api"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Tutorial oficial de uma API com poucas linhas, usando Minimal APIs.",
+      "en": "Official tutorial for an API in a few lines, using Minimal APIs."
+    },
+    "verified": true
+  },
+  {
+    "id": "ef-core-docs-pt",
+    "title": "Entity Framework Core",
+    "type": "docs",
+    "url": "https://learn.microsoft.com/pt-br/ef/core/",
+    "author": "Microsoft",
+    "language": "pt-BR",
+    "level": "intermediario",
+    "technologies": [
+      "csharp",
+      "dotnet",
+      "sql"
+    ],
+    "free": true,
+    "description": {
+      "pt": "O ORM oficial do .NET: modelos, migrations, relacionamentos e consultas com LINQ.",
+      "en": "The official .NET ORM: models, migrations, relationships and LINQ queries."
+    },
+    "verified": true
+  },
+  {
+    "id": "dotnet-learn",
+    "title": ".NET: aprenda",
+    "type": "course",
+    "url": "https://dotnet.microsoft.com/learn",
+    "author": "Microsoft",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "dotnet",
+      "csharp"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Ponto de partida oficial com vídeos, tutoriais e trilhas gratuitas de .NET.",
+      "en": "Official starting point with free .NET videos, tutorials and learning paths."
+    },
+    "verified": true
+  },
+  {
+    "id": "exercism-csharp",
+    "title": "Exercism: C#",
+    "type": "interactive",
+    "url": "https://exercism.org/tracks/csharp",
+    "author": "Exercism",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "csharp"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Exercícios de C# com mentoria gratuita.",
+      "en": "C# exercises with free mentoring."
+    },
+    "verified": true
+  },
+  {
+    "id": "xunit",
+    "title": "xUnit.net",
+    "type": "docs",
+    "url": "https://xunit.net/",
+    "author": "xUnit.net",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "csharp",
+      "dotnet",
+      "testes"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Framework de testes mais usado em projetos .NET novos.",
+      "en": "The most used testing framework in new .NET projects."
+    },
+    "verified": true
+  },
+  {
+    "id": "laravel-docs",
+    "title": "Laravel: documentação",
+    "type": "docs",
+    "url": "https://laravel.com/docs",
+    "author": "Laravel",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "php",
+      "laravel"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Documentação oficial do Laravel: rotas, controllers, Blade, filas e testes.",
+      "en": "Official Laravel docs: routing, controllers, Blade, queues and testing."
+    },
+    "verified": true
+  },
+  {
+    "id": "laravel-eloquent",
+    "title": "Laravel: Eloquent ORM",
+    "type": "docs",
+    "url": "https://laravel.com/docs/eloquent",
+    "author": "Laravel",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "php",
+      "laravel",
+      "sql"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Models, relacionamentos e consultas no ORM do Laravel.",
+      "en": "Models, relationships and queries in Laravel's ORM."
+    },
+    "verified": true
+  },
+  {
+    "id": "laravel-bootcamp",
+    "title": "Laravel Bootcamp",
+    "type": "course",
+    "url": "https://bootcamp.laravel.com/",
+    "author": "Laravel",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "php",
+      "laravel"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Tutorial oficial que constrói um app completo com Laravel.",
+      "en": "Official tutorial that builds a complete Laravel app."
+    },
+    "verified": false
+  },
+  {
+    "id": "php-manual-pt",
+    "title": "Manual do PHP",
+    "type": "docs",
+    "url": "https://www.php.net/manual/pt_BR/",
+    "author": "The PHP Group",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "php"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Manual oficial do PHP em português, com exemplos para cada função.",
+      "en": "Official PHP manual in Portuguese, with examples for each function."
+    },
+    "verified": true
+  },
+  {
+    "id": "php-right-way-pt",
+    "title": "PHP: Do Jeito Certo",
+    "type": "book",
+    "url": "https://br.phptherightway.com/",
+    "author": "Comunidade PHP",
+    "language": "pt-BR",
+    "level": "intermediario",
+    "technologies": [
+      "php"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Boas práticas modernas de PHP: Composer, padrões, segurança e testes.",
+      "en": "Modern PHP best practices: Composer, standards, security and testing."
+    },
+    "verified": true
+  },
+  {
+    "id": "composer-docs",
+    "title": "Composer",
+    "type": "docs",
+    "url": "https://getcomposer.org/doc/",
+    "author": "Composer",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "php"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Gerenciador de dependências do PHP: o \"npm\" do mundo PHP.",
+      "en": "PHP's dependency manager: the \"npm\" of the PHP world."
+    },
+    "verified": true
+  },
+  {
+    "id": "exercism-php",
+    "title": "Exercism: PHP",
+    "type": "interactive",
+    "url": "https://exercism.org/tracks/php",
+    "author": "Exercism",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "php"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Exercícios de PHP com mentoria gratuita.",
+      "en": "PHP exercises with free mentoring."
+    },
+    "verified": true
+  },
+  {
+    "id": "mysql-docs",
+    "title": "MySQL: documentação",
+    "type": "docs",
+    "url": "https://dev.mysql.com/doc/",
+    "author": "Oracle",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "mysql",
+      "sql"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Documentação oficial do MySQL, o banco por trás de boa parte da web em PHP.",
+      "en": "Official MySQL docs, the database behind much of the PHP web."
+    },
+    "verified": true
+  },
+  {
+    "id": "go-tour",
+    "title": "A Tour of Go",
+    "type": "interactive",
+    "url": "https://go.dev/tour/",
+    "author": "Equipe Go",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "go"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Tour oficial e interativo pela linguagem, direto no navegador.",
+      "en": "Official interactive tour of the language, right in the browser."
+    },
+    "verified": true
+  },
+  {
+    "id": "go-docs",
+    "title": "Go: documentação",
+    "type": "docs",
+    "url": "https://go.dev/doc/",
+    "author": "Equipe Go",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "go"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Documentação oficial: instalação, tutoriais, módulos e referência.",
+      "en": "Official docs: installation, tutorials, modules and reference."
+    },
+    "verified": true
+  },
+  {
+    "id": "go-by-example",
+    "title": "Go by Example",
+    "type": "docs",
+    "url": "https://gobyexample.com/",
+    "author": "Mark McGranaghan e Eli Bendersky",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "go"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Exemplos curtos e comentados de cada recurso da linguagem.",
+      "en": "Short, annotated examples of every language feature."
+    },
+    "verified": true
+  },
+  {
+    "id": "effective-go",
+    "title": "Effective Go",
+    "type": "article",
+    "url": "https://go.dev/doc/effective_go",
+    "author": "Equipe Go",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "go"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Como escrever Go idiomático: nomes, erros, interfaces e concorrência.",
+      "en": "How to write idiomatic Go: naming, errors, interfaces and concurrency."
+    },
+    "verified": true
+  },
+  {
+    "id": "learn-go-with-tests",
+    "title": "Learn Go with Tests",
+    "type": "book",
+    "url": "https://quii.gitbook.io/learn-go-with-tests",
+    "author": "Chris James",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "go",
+      "testes"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Livro gratuito que ensina Go escrevendo testes primeiro.",
+      "en": "Free book that teaches Go by writing tests first."
+    },
+    "verified": true
+  },
+  {
+    "id": "go-net-http",
+    "title": "Pacote net/http",
+    "type": "docs",
+    "url": "https://pkg.go.dev/net/http",
+    "author": "Equipe Go",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "go",
+      "http"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Servidor e cliente HTTP da biblioteca padrão: dá para fazer muito sem framework.",
+      "en": "HTTP server and client in the standard library: you can do a lot without a framework."
+    },
+    "verified": true
+  },
+  {
+    "id": "go-rate",
+    "title": "Pacote golang.org/x/time/rate",
+    "type": "docs",
+    "url": "https://pkg.go.dev/golang.org/x/time/rate",
+    "author": "Equipe Go",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "go"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Implementação de token bucket mantida pela equipe do Go: boa referência para comparar com a sua.",
+      "en": "Token bucket implementation maintained by the Go team: a good reference to compare with yours."
+    },
+    "verified": true
+  },
+  {
+    "id": "exercism-go",
+    "title": "Exercism: Go",
+    "type": "interactive",
+    "url": "https://exercism.org/tracks/go",
+    "author": "Exercism",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "go"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Exercícios de Go com mentoria gratuita.",
+      "en": "Go exercises with free mentoring."
+    },
+    "verified": true
+  },
+  {
+    "id": "gorilla-websocket",
+    "title": "Gorilla WebSocket",
+    "type": "docs",
+    "url": "https://github.com/gorilla/websocket",
+    "author": "Gorilla",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "go",
+      "websocket"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Biblioteca de WebSocket mais usada em Go, com um exemplo de chat no repositório.",
+      "en": "The most used WebSocket library in Go, with a chat example in the repo."
+    },
+    "verified": true
+  },
+  {
+    "id": "mdn-websocket-pt",
+    "title": "API WebSocket",
+    "type": "docs",
+    "url": "https://developer.mozilla.org/pt-BR/docs/Web/API/WebSocket",
+    "author": "MDN",
+    "language": "pt-BR",
+    "level": "intermediario",
+    "technologies": [
+      "websocket",
+      "javascript",
+      "http"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Como o navegador abre e usa uma conexão WebSocket.",
+      "en": "How the browser opens and uses a WebSocket connection."
+    },
+    "verified": true
+  },
+  {
+    "id": "django-docs",
+    "title": "Django: documentação",
+    "type": "docs",
+    "url": "https://docs.djangoproject.com/en/stable/",
+    "author": "Django Software Foundation",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "python",
+      "django"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Documentação oficial do Django: models, views, templates, admin e segurança.",
+      "en": "Official Django docs: models, views, templates, admin and security."
+    },
+    "verified": true
+  },
+  {
+    "id": "django-tutorial",
+    "title": "Django: tutorial oficial",
+    "type": "course",
+    "url": "https://docs.djangoproject.com/en/stable/intro/tutorial01/",
+    "author": "Django Software Foundation",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "python",
+      "django"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Tutorial em partes que constrói um app de enquetes e apresenta o admin.",
+      "en": "Multi-part tutorial that builds a polls app and introduces the admin."
+    },
+    "verified": true
+  },
+  {
+    "id": "django-girls-pt",
+    "title": "Tutorial Django Girls",
+    "type": "course",
+    "url": "https://tutorial.djangogirls.org/pt/",
+    "author": "Django Girls",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "python",
+      "django"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Tutorial muito didático, em português, que constrói e publica um blog com Django.",
+      "en": "Very beginner-friendly tutorial, in Portuguese, that builds and publishes a Django blog."
+    },
+    "verified": true
+  },
+  {
+    "id": "django-admin-docs",
+    "title": "Django: o site de administração",
+    "type": "docs",
+    "url": "https://docs.djangoproject.com/en/stable/ref/contrib/admin/",
+    "author": "Django Software Foundation",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "python",
+      "django"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Tudo o que dá para personalizar no admin: listas, filtros, buscas e ações.",
+      "en": "Everything you can customize in the admin: lists, filters, search and actions."
+    },
+    "verified": true
+  },
+  {
+    "id": "mdn-django-pt",
+    "title": "Tutorial Django (MDN)",
+    "type": "course",
+    "url": "https://developer.mozilla.org/pt-BR/docs/Learn_web_development/Extensions/Server-side/Django",
+    "author": "MDN",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "python",
+      "django"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Tutorial da MDN que constrói uma biblioteca local com Django.",
+      "en": "MDN tutorial that builds a local library site with Django."
+    },
+    "verified": true
+  }
+]

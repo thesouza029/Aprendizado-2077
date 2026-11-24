@@ -1,0 +1,170 @@
+{
+  "id": "linux-terminal",
+  "track": "devops",
+  "order": 1,
+  "title": { "pt": "Linux e terminal para devs", "en": "Linux and the terminal for developers" },
+  "level": 1,
+  "stack": ["Linux", "Bash", "SSH", "WSL"],
+  "whatYouBuild": {
+    "pt": "Um repositório `meus-scripts` com três ferramentas de terminal escritas por você: um organizador de arquivos, um analisador de logs e um script de backup. Junto vai o seu guia pessoal de comandos. No caminho, você domina permissões, processos e SSH, a base de tudo em servidores e na nuvem.",
+    "en": "A `my-scripts` repository with three terminal tools you wrote: a file organizer, a log analyzer and a backup script. Plus your personal command guide. Along the way, you master permissions, processes and SSH, the foundation of everything on servers and in the cloud."
+  },
+  "whatYouLearn": [
+    { "pt": "Sistema de arquivos e comandos essenciais do Linux", "en": "The file system and essential Linux commands" },
+    { "pt": "Permissões, usuários, grupos e `sudo`", "en": "Permissions, users, groups and `sudo`" },
+    { "pt": "Pipes, redirecionamento e processamento de texto", "en": "Pipes, redirection and text processing" },
+    { "pt": "Processos, portas e serviços", "en": "Processes, ports and services" },
+    { "pt": "Chaves SSH e scripts em Bash", "en": "SSH keys and Bash scripts" }
+  ],
+  "prerequisites": ["cli-api-http"],
+  "steps": [
+    {
+      "id": "ambiente-linux",
+      "title": { "pt": "Tenha um Linux para treinar", "en": "Get a Linux to practice on" },
+      "goal": {
+        "pt": "Um terminal Linux funcionando (WSL, máquina virtual ou nativo), com os pacotes atualizados.",
+        "en": "A working Linux terminal (WSL, virtual machine or native), with packages updated."
+      },
+      "estimatedMinutes": 60,
+      "instructions": {
+        "pt": "A maioria dos servidores do mundo roda Linux. Mesmo usando Windows ou macOS, você precisa se sentir em casa nele.\n\n- **Windows:** instale o **WSL** com Ubuntu (guia oficial da Microsoft, em português). É um Linux de verdade integrado ao Windows.\n- **macOS:** o terminal já é parecido com o do Linux. Para os comandos específicos (`apt`, `systemctl`), use uma máquina virtual ou o Play with Docker.\n- **Linux:** você já está pronto.\n\nAtualize os pacotes com o gerenciador da distribuição (`apt update` e `apt upgrade` no Ubuntu) e entenda por que precisa de `sudo` para isso.\n\nCrie o repositório `meus-scripts` com um `GUIA.md`, onde você vai anotar cada comando que aprender.",
+        "en": "Most of the world's servers run Linux. Even on Windows or macOS, you need to feel at home in it.\n\n- **Windows:** install **WSL** with Ubuntu (official Microsoft guide). It's a real Linux integrated into Windows.\n- **macOS:** the terminal is already similar to Linux. For Linux-specific commands (`apt`, `systemctl`), use a virtual machine or Play with Docker.\n- **Linux:** you're ready.\n\nUpdate packages with your distro's package manager (`apt update` and `apt upgrade` on Ubuntu) and understand why it needs `sudo`.\n\nCreate the `my-scripts` repository with a `GUIDE.md` where you'll write down every command you learn."
+      },
+      "resources": ["wsl-install-pt", "linux-journey", "guia-foca"],
+      "checklist": [
+        { "pt": "Terminal Linux funcionando", "en": "Linux terminal working" },
+        { "pt": "Pacotes atualizados com o gerenciador de pacotes", "en": "Packages updated with the package manager" },
+        { "pt": "Repositório criado com `GUIA.md`", "en": "Repository created with `GUIDE.md`" }
+      ]
+    },
+    {
+      "id": "arquivos",
+      "title": { "pt": "Domine arquivos e pastas", "en": "Master files and folders" },
+      "goal": {
+        "pt": "Você organiza uma pasta bagunçada com dezenas de arquivos só com comandos, sem abrir o explorador de arquivos.",
+        "en": "You organize a messy folder with dozens of files using only commands, without opening a file explorer."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Entenda a árvore do Linux: `/` (raiz), `/home`, `/etc`, `/var/log`, `/tmp`. Caminhos absolutos e relativos, `~` e `.`/`..`.\n- Pratique `ls -la`, `cd`, `mkdir -p`, `cp -r`, `mv`, `rm` (e por que `rm -rf` exige muito cuidado), `touch`, `find`.\n- Use **curingas** (`*.jpg`) e **expansão de chaves** (`mkdir {fotos,docs,musicas}`).\n- **Desafio:** crie uma pasta com 50 arquivos de extensões variadas usando um único comando (pesquise expansão de chaves com sequências, como `{1..50}`). Depois, organize tudo em subpastas por tipo.\n\nAnote no `GUIA.md` os comandos e uma linha explicando cada um.",
+        "en": "- Understand the Linux tree: `/` (root), `/home`, `/etc`, `/var/log`, `/tmp`. Absolute and relative paths, `~` and `.`/`..`.\n- Practice `ls -la`, `cd`, `mkdir -p`, `cp -r`, `mv`, `rm` (and why `rm -rf` needs great care), `touch`, `find`.\n- Use **wildcards** (`*.jpg`) and **brace expansion** (`mkdir {photos,docs,music}`).\n- **Challenge:** create a folder with 50 files of mixed extensions using a single command (look up brace expansion with sequences, like `{1..50}`). Then organize everything into subfolders by type.\n\nWrite the commands in `GUIDE.md` with one line explaining each."
+      },
+      "resources": ["linux-journey", "tlcl", "tldr-pages", "explainshell"],
+      "checklist": [
+        { "pt": "Sabe explicar caminho absoluto e relativo", "en": "Can explain absolute and relative paths" },
+        { "pt": "Gerou 50 arquivos com um comando", "en": "Generated 50 files with one command" },
+        { "pt": "Organizou tudo por tipo usando curingas", "en": "Organized everything by type using wildcards" },
+        { "pt": "Comandos anotados no `GUIA.md`", "en": "Commands noted in `GUIDE.md`" }
+      ]
+    },
+    {
+      "id": "permissoes",
+      "title": { "pt": "Permissões e usuários", "en": "Permissions and users" },
+      "goal": {
+        "pt": "Você lê a saída de `ls -l`, altera permissões com `chmod` e cria um script executável.",
+        "en": "You read `ls -l` output, change permissions with `chmod` and create an executable script."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "Metade dos erros \"permission denied\" em servidores vem de não entender isto.\n\n- Leia `-rwxr-xr--`: tipo, permissões do **dono**, do **grupo** e de **outros** (leitura, escrita, execução).\n- Altere com `chmod` nas duas notações: simbólica (`u+x`) e numérica (`755`, `644`). Entenda o que cada número significa.\n- Veja quem é você (`whoami`, `id`), crie um usuário de teste, troque o dono de um arquivo com `chown`.\n- Entenda o `sudo`: por que não rodar tudo como root?\n- Crie seu primeiro script `ola.sh` com a linha *shebang* (`#!/usr/bin/env bash`), torne executável e rode com `./ola.sh`.",
+        "en": "Half the \"permission denied\" errors on servers come from not understanding this.\n\n- Read `-rwxr-xr--`: type, permissions for the **owner**, **group** and **others** (read, write, execute).\n- Change them with `chmod` in both notations: symbolic (`u+x`) and numeric (`755`, `644`). Understand what each number means.\n- See who you are (`whoami`, `id`), create a test user, change a file's owner with `chown`.\n- Understand `sudo`: why not run everything as root?\n- Create your first script `hello.sh` with the *shebang* line (`#!/usr/bin/env bash`), make it executable and run it with `./hello.sh`."
+      },
+      "resources": ["linux-journey", "guia-foca", "tlcl"],
+      "checklist": [
+        { "pt": "Explica o que significa `755` e `644`", "en": "Can explain what `755` and `644` mean" },
+        { "pt": "Usou `chmod` nas notações simbólica e numérica", "en": "Used `chmod` in symbolic and numeric notation" },
+        { "pt": "Criou um usuário de teste e usou `chown`", "en": "Created a test user and used `chown`" },
+        { "pt": "Script com shebang rodando com `./`", "en": "Script with shebang running with `./`" }
+      ]
+    },
+    {
+      "id": "pipes-texto",
+      "title": { "pt": "Pipes e processamento de texto", "en": "Pipes and text processing" },
+      "goal": {
+        "pt": "Um script `analisar-log.sh` que lê um arquivo de log e mostra os 5 IPs que mais aparecem e quantos erros houve.",
+        "en": "An `analyze-log.sh` script that reads a log file and shows the 5 most frequent IPs and how many errors there were."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "A filosofia do Unix: **programas pequenos que fazem uma coisa bem, combinados com `|`**.\n\n- Aprenda `cat`, `less`, `head`, `tail` (e `tail -f` para acompanhar um log ao vivo), `grep`, `wc`, `sort`, `uniq`, `cut`.\n- Redirecione a saída: `>` (sobrescreve), `>>` (acrescenta), `2>` (erros).\n- Gere um log de exemplo no formato de servidor web (você pode escrever um script que cria linhas aleatórias com IP, data, rota e status) ou use logs reais de `/var/log`.\n- Monte o pipeline que responde: quais os 5 IPs com mais requisições? Quantas respostas 5xx? Qual a rota mais acessada?\n- Transforme o pipeline no script `analisar-log.sh`, recebendo o arquivo como argumento (`$1`).",
+        "en": "The Unix philosophy: **small programs that do one thing well, combined with `|`**.\n\n- Learn `cat`, `less`, `head`, `tail` (and `tail -f` to follow a log live), `grep`, `wc`, `sort`, `uniq`, `cut`.\n- Redirect output: `>` (overwrite), `>>` (append), `2>` (errors).\n- Generate a sample log in web server format (you can write a script that creates random lines with IP, date, route and status) or use real logs from `/var/log`.\n- Build the pipeline that answers: which 5 IPs made the most requests? How many 5xx responses? What's the most visited route?\n- Turn the pipeline into the `analyze-log.sh` script, taking the file as an argument (`$1`)."
+      },
+      "resources": ["tlcl", "explainshell", "missing-semester", "tldr-pages"],
+      "checklist": [
+        { "pt": "Usou `grep`, `sort`, `uniq -c` e `head` num pipeline", "en": "Used `grep`, `sort`, `uniq -c` and `head` in a pipeline" },
+        { "pt": "Entende a diferença entre `>` e `>>`", "en": "Understands the difference between `>` and `>>`" },
+        { "pt": "`analisar-log.sh` recebe o arquivo como argumento", "en": "`analyze-log.sh` takes the file as an argument" },
+        { "pt": "Script commitado", "en": "Script committed" }
+      ]
+    },
+    {
+      "id": "processos",
+      "title": { "pt": "Processos, portas e serviços", "en": "Processes, ports and services" },
+      "goal": {
+        "pt": "Você descobre qual processo está usando uma porta, encerra processos travados e entende o que é um serviço.",
+        "en": "You find which process is using a port, kill stuck processes and understand what a service is."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "Todo dev já viu \"porta 3000 já está em uso\". Agora você vai saber resolver.\n\n- Liste processos com `ps aux` e acompanhe ao vivo com `top` ou `htop`.\n- Rode um programa em segundo plano (`&`), veja com `jobs`, traga de volta com `fg`.\n- Encerre com `kill` e entenda a diferença entre um pedido educado (SIGTERM) e o `kill -9` (SIGKILL).\n- **Desafio:** suba um servidor simples (por exemplo, `python3 -m http.server 8000`), descubra pelo terminal qual processo está na porta 8000 (pesquise `ss -tulpn` ou `lsof -i`) e encerre esse processo.\n- Leia sobre **serviços** e o `systemctl`: é assim que servidores mantêm apps rodando e reiniciam após um *reboot*. (No WSL o systemd pode precisar ser ativado.)",
+        "en": "Every developer has seen \"port 3000 is already in use\". Now you'll know how to fix it.\n\n- List processes with `ps aux` and watch live with `top` or `htop`.\n- Run a program in the background (`&`), see it with `jobs`, bring it back with `fg`.\n- Stop it with `kill` and understand the difference between a polite request (SIGTERM) and `kill -9` (SIGKILL).\n- **Challenge:** start a simple server (for example, `python3 -m http.server 8000`), find from the terminal which process is on port 8000 (look up `ss -tulpn` or `lsof -i`) and kill it.\n- Read about **services** and `systemctl`: that's how servers keep apps running and restart them after a *reboot*. (On WSL, systemd may need to be enabled.)"
+      },
+      "resources": ["linux-journey", "guia-foca", "tldr-pages"],
+      "checklist": [
+        { "pt": "Usou `ps`, `top`/`htop`, `jobs` e `fg`", "en": "Used `ps`, `top`/`htop`, `jobs` and `fg`" },
+        { "pt": "Explica SIGTERM vs SIGKILL", "en": "Can explain SIGTERM vs SIGKILL" },
+        { "pt": "Achou e encerrou o processo da porta 8000", "en": "Found and killed the process on port 8000" },
+        { "pt": "Sabe para que serve o `systemctl`", "en": "Knows what `systemctl` is for" }
+      ]
+    },
+    {
+      "id": "ssh",
+      "title": { "pt": "Chaves SSH e servidores remotos", "en": "SSH keys and remote servers" },
+      "goal": {
+        "pt": "Você clona e envia código ao GitHub por SSH e passa pelos primeiros níveis do OverTheWire Bandit.",
+        "en": "You clone and push to GitHub over SSH and get through the first levels of OverTheWire Bandit."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "SSH é como você vai entrar em servidores pelo resto da carreira.\n\n- Gere um par de chaves **ed25519** com `ssh-keygen`. Entenda a diferença entre a chave **privada** (nunca sai do seu computador, nunca vai para o Git) e a **pública** (pode ser compartilhada).\n- Adicione a chave pública ao GitHub (guia oficial) e troque o remoto do seu repositório para o endereço SSH.\n- Entre num servidor de verdade: o **OverTheWire Bandit** é um jogo em que cada nível é um login SSH, e a senha do próximo nível está escondida no servidor. Chegue pelo menos ao nível 10 usando tudo que aprendeu até aqui.\n- Bônus: crie um `~/.ssh/config` com apelidos para os servidores.",
+        "en": "SSH is how you'll log into servers for the rest of your career.\n\n- Generate an **ed25519** key pair with `ssh-keygen`. Understand the difference between the **private** key (never leaves your computer, never goes into Git) and the **public** key (can be shared).\n- Add the public key to GitHub (official guide) and switch your repository's remote to the SSH address.\n- Log into a real server: **OverTheWire Bandit** is a game where each level is an SSH login, and the next level's password is hidden on the server. Reach at least level 10 using everything you've learned so far.\n- Bonus: create a `~/.ssh/config` with aliases for servers."
+      },
+      "resources": ["github-ssh-pt", "overthewire-bandit", "missing-semester"],
+      "checklist": [
+        { "pt": "Chave ed25519 gerada e adicionada ao GitHub", "en": "ed25519 key generated and added to GitHub" },
+        { "pt": "Push para o GitHub via SSH funcionando", "en": "Pushing to GitHub over SSH works" },
+        { "pt": "Chegou ao nível 10 do Bandit", "en": "Reached Bandit level 10" },
+        { "pt": "Sabe por que a chave privada nunca é compartilhada", "en": "Knows why the private key is never shared" }
+      ]
+    },
+    {
+      "id": "script-backup",
+      "title": { "pt": "Script de backup e publicação", "en": "Backup script and publishing" },
+      "goal": {
+        "pt": "Um `backup.sh` que compacta uma pasta com data no nome e apaga os backups antigos, mais o repositório publicado com README.",
+        "en": "A `backup.sh` that compresses a folder with the date in the name and deletes old backups, plus the repository published with a README."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "Junte tudo num script útil de verdade.\n\n- O `backup.sh` recebe a pasta de origem e a de destino como argumentos e cria um `.tar.gz` com a data no nome (pesquise `tar` e `date +%F`).\n- Use **variáveis**, **condicionais** (a pasta existe? recebeu os argumentos?) e mostre uma ajuda de uso quando faltar algo.\n- Mantenha só os 7 backups mais recentes, apagando os mais antigos com um laço.\n- Comece o script com `set -euo pipefail` e pesquise o que cada letra faz.\n- Passe o **ShellCheck** em todos os seus scripts e corrija os avisos.\n- README com o que cada script faz, exemplos de uso e um link para o seu `GUIA.md`.\n\nBônus: agende o backup para rodar todo dia com `cron`.",
+        "en": "Bring it all together in a genuinely useful script.\n\n- `backup.sh` takes the source and destination folders as arguments and creates a `.tar.gz` with the date in the name (look up `tar` and `date +%F`).\n- Use **variables**, **conditionals** (does the folder exist? were arguments given?) and show usage help when something is missing.\n- Keep only the 7 most recent backups, deleting older ones with a loop.\n- Start the script with `set -euo pipefail` and look up what each letter does.\n- Run **ShellCheck** on all your scripts and fix the warnings.\n- README with what each script does, usage examples and a link to your `GUIDE.md`.\n\nBonus: schedule the backup to run daily with `cron`."
+      },
+      "resources": ["bash-beginners-guide", "shellcheck", "tlcl"],
+      "checklist": [
+        { "pt": "`backup.sh` cria arquivo com data e mantém só os 7 mais recentes", "en": "`backup.sh` creates a dated archive and keeps only the 7 most recent" },
+        { "pt": "Valida argumentos e mostra ajuda", "en": "Validates arguments and shows help" },
+        { "pt": "Todos os scripts passam no ShellCheck", "en": "All scripts pass ShellCheck" },
+        { "pt": "Repositório publicado com README e `GUIA.md`", "en": "Repository published with README and `GUIDE.md`" }
+      ]
+    }
+  ],
+  "extraChallenges": [
+    { "pt": "Chegue ao nível 20 do OverTheWire Bandit", "en": "Reach OverTheWire Bandit level 20" },
+    { "pt": "Crie um repositório de dotfiles com seus aliases e configurações do shell", "en": "Create a dotfiles repository with your shell aliases and settings" },
+    { "pt": "Rode o `analisar-log.sh` no GitHub Actions a cada push", "en": "Run `analyze-log.sh` in GitHub Actions on every push" }
+  ],
+  "portfolioTip": {
+    "pt": "Em vagas de DevOps, cloud e backend, escrever \"Linux: permissões, processos, SSH e Bash\" com link para scripts reais e testados com ShellCheck chama mais atenção do que só listar a palavra Linux.",
+    "en": "For DevOps, cloud and backend jobs, writing \"Linux: permissions, processes, SSH and Bash\" with a link to real scripts checked with ShellCheck stands out far more than just listing the word Linux."
+  }
+}

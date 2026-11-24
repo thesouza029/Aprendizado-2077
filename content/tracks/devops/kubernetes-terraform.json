@@ -1,0 +1,291 @@
+{
+  "id": "kubernetes-terraform",
+  "track": "devops",
+  "order": 6,
+  "title": {
+    "pt": "Introdução a Kubernetes e Terraform",
+    "en": "Introduction to Kubernetes and Terraform"
+  },
+  "level": 4,
+  "bonus": true,
+  "stack": [
+    "Kubernetes (kind)",
+    "kubectl",
+    "Docker",
+    "Terraform ou OpenTofu"
+  ],
+  "whatYouBuild": {
+    "pt": "Você roda a sua API num cluster Kubernetes local: deployment com réplicas, service, configuração e segredos, verificações de saúde, atualização sem parar o serviço e volta para a versão anterior. Depois descreve infraestrutura como código com Terraform, criando e destruindo recursos com um comando. O objetivo é entender as ideias, não virar especialista.",
+    "en": "You run your API on a local Kubernetes cluster: a deployment with replicas, a service, configuration and secrets, health checks, zero-downtime updates and rollback to the previous version. Then you describe infrastructure as code with Terraform, creating and destroying resources with one command. The goal is to understand the ideas, not to become an expert."
+  },
+  "whatYouLearn": [
+    {
+      "pt": "O que o Kubernetes resolve e quando ele não vale a pena",
+      "en": "What Kubernetes solves and when it isn't worth it"
+    },
+    {
+      "pt": "Pods, Deployments, Services, ConfigMaps e Secrets",
+      "en": "Pods, Deployments, Services, ConfigMaps and Secrets"
+    },
+    {
+      "pt": "Probes, recursos, rolling update e rollback",
+      "en": "Probes, resources, rolling updates and rollbacks"
+    },
+    {
+      "pt": "Infraestrutura como código com Terraform",
+      "en": "Infrastructure as code with Terraform"
+    },
+    {
+      "pt": "Estado, plano e destruição de recursos",
+      "en": "State, plans and destroying resources"
+    }
+  ],
+  "prerequisites": [
+    "docker-compose-api"
+  ],
+  "steps": [
+    {
+      "id": "cluster",
+      "title": {
+        "pt": "Seu primeiro cluster",
+        "en": "Your first cluster"
+      },
+      "goal": {
+        "pt": "Um cluster local criado com kind responde a `kubectl get nodes`, e você sabe explicar o que o Kubernetes faz.",
+        "en": "A local cluster created with kind responds to `kubectl get nodes`, and you can explain what Kubernetes does."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Leia sobre o problema que o Kubernetes resolve: rodar muitos containers em muitas máquinas, reiniciar o que cai, distribuir tráfego e atualizar sem parar.\n- Instale o `kubectl` e o kind (Kubernetes rodando dentro do Docker) e crie um cluster.\n- Se a sua máquina for fraca, use os laboratórios do Killercoda no navegador.\n- Faça o tutorial básico oficial para conhecer os comandos principais.\n- Crie o repositório no GitHub e faça commits pequenos a cada parte que funcionar: o histórico conta a história do projeto.",
+        "en": "- Read about the problem Kubernetes solves: running many containers on many machines, restarting what crashes, distributing traffic and updating without downtime.\n- Install `kubectl` and kind (Kubernetes running inside Docker) and create a cluster.\n- If your machine is low on resources, use Killercoda's in-browser labs.\n- Do the official basics tutorial to learn the main commands.\n- Create the GitHub repository and make small commits each time a part works: the history tells the project's story."
+      },
+      "resources": [
+        "kubernetes-basics-pt",
+        "kind",
+        "killercoda",
+        "kubernetes-docs-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Cluster local criado",
+          "en": "Local cluster created"
+        },
+        {
+          "pt": "`kubectl` configurado",
+          "en": "`kubectl` configured"
+        },
+        {
+          "pt": "Tutorial básico concluído",
+          "en": "Basics tutorial completed"
+        },
+        {
+          "pt": "Repositório no GitHub com o primeiro commit",
+          "en": "GitHub repository with the first commit"
+        }
+      ]
+    },
+    {
+      "id": "deployment",
+      "title": {
+        "pt": "Deployment e Service",
+        "en": "Deployment and Service"
+      },
+      "goal": {
+        "pt": "A API roda com 3 réplicas no cluster, você acessa pelo `port-forward`, e apagar um pod faz o Kubernetes criar outro sozinho.",
+        "en": "The API runs with 3 replicas in the cluster, you reach it with `port-forward`, and deleting a pod makes Kubernetes create another one on its own."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Escreva os manifestos em YAML: um `Deployment` (imagem, réplicas, porta) e um `Service` (como encontrar os pods).\n- Carregue a imagem local no kind (ou use a imagem publicada no registry) e aplique com `kubectl apply -f`.\n- Acesse com `kubectl port-forward` e veja os logs com `kubectl logs`.\n- Apague um pod e observe o Deployment recriar. Esse é o estado desejado em ação: você declara o que quer e o cluster corre atrás.\n- Versione os manifestos numa pasta `k8s/`.",
+        "en": "- Write the YAML manifests: a `Deployment` (image, replicas, port) and a `Service` (how to find the pods).\n- Load the local image into kind (or use the image published to the registry) and apply with `kubectl apply -f`.\n- Access it with `kubectl port-forward` and read logs with `kubectl logs`.\n- Delete a pod and watch the Deployment recreate it. That's desired state in action: you declare what you want and the cluster works to get there.\n- Version the manifests in a `k8s/` folder."
+      },
+      "resources": [
+        "kubernetes-docs-pt",
+        "kind"
+      ],
+      "checklist": [
+        {
+          "pt": "Deployment com 3 réplicas",
+          "en": "Deployment with 3 replicas"
+        },
+        {
+          "pt": "Service expondo os pods",
+          "en": "Service exposing the pods"
+        },
+        {
+          "pt": "Pod apagado é recriado",
+          "en": "Deleted pod gets recreated"
+        },
+        {
+          "pt": "Manifestos versionados",
+          "en": "Manifests versioned"
+        }
+      ]
+    },
+    {
+      "id": "config",
+      "title": {
+        "pt": "Configuração, segredos e probes",
+        "en": "Configuration, secrets and probes"
+      },
+      "goal": {
+        "pt": "A configuração vem de um ConfigMap, a senha do banco de um Secret, e o Kubernetes usa os health checks da API para decidir quando mandar tráfego e quando reiniciar.",
+        "en": "Configuration comes from a ConfigMap, the database password from a Secret, and Kubernetes uses the API's health checks to decide when to send traffic and when to restart."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Mova a configuração para um `ConfigMap` e a senha do banco para um `Secret`, e injete como variáveis de ambiente.\n- Saiba que um `Secret` do Kubernetes é só codificado em base64, não criptografado. Ele não deve ir para o Git como está.\n- Configure `livenessProbe` e `readinessProbe` usando os endpoints de saúde do projeto de observabilidade.\n- Defina `requests` e `limits` de CPU e memória para cada container.",
+        "en": "- Move configuration to a `ConfigMap` and the database password to a `Secret`, and inject them as environment variables.\n- Know that a Kubernetes `Secret` is only base64-encoded, not encrypted. It shouldn't go into Git as is.\n- Configure `livenessProbe` and `readinessProbe` using the health endpoints from the observability project.\n- Set CPU and memory `requests` and `limits` for each container."
+      },
+      "resources": [
+        "kubernetes-docs-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "ConfigMap e Secret injetados",
+          "en": "ConfigMap and Secret injected"
+        },
+        {
+          "pt": "Secret fora do Git",
+          "en": "Secret kept out of Git"
+        },
+        {
+          "pt": "Liveness e readiness configurados",
+          "en": "Liveness and readiness configured"
+        },
+        {
+          "pt": "Requests e limits definidos",
+          "en": "Requests and limits defined"
+        }
+      ]
+    },
+    {
+      "id": "rollout",
+      "title": {
+        "pt": "Atualizar, voltar e escalar",
+        "en": "Update, roll back and scale"
+      },
+      "goal": {
+        "pt": "Você publica uma versão nova sem derrubar a API, volta para a anterior com um comando e muda o número de réplicas.",
+        "en": "You publish a new version without taking the API down, roll back to the previous one with a command and change the number of replicas."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Gere uma imagem nova com outra tag e atualize o Deployment. Acompanhe com `kubectl rollout status`: os pods são trocados aos poucos.\n- Faça um teste contínuo de requisições durante a troca para confirmar que a API não ficou fora.\n- Publique uma versão quebrada de propósito: a readiness impede que ela receba tráfego. Volte com `kubectl rollout undo`.\n- Mude as réplicas com `kubectl scale`. Se quiser, conheça o escalonamento automático (HPA).",
+        "en": "- Build a new image with another tag and update the Deployment. Follow it with `kubectl rollout status`: pods are replaced gradually.\n- Run continuous requests during the switch to confirm the API stayed up.\n- Publish a broken version on purpose: readiness keeps it from getting traffic. Roll back with `kubectl rollout undo`.\n- Change replicas with `kubectl scale`. If you like, learn about autoscaling (HPA)."
+      },
+      "resources": [
+        "kubernetes-docs-pt",
+        "kubernetes-basics-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Rolling update sem queda",
+          "en": "Rolling update without downtime"
+        },
+        {
+          "pt": "Versão quebrada barrada pela readiness",
+          "en": "Broken version blocked by readiness"
+        },
+        {
+          "pt": "Rollback com um comando",
+          "en": "Rollback with one command"
+        },
+        {
+          "pt": "Réplicas alteradas",
+          "en": "Replicas changed"
+        }
+      ]
+    },
+    {
+      "id": "terraform",
+      "title": {
+        "pt": "Infraestrutura como código com Terraform",
+        "en": "Infrastructure as code with Terraform"
+      },
+      "goal": {
+        "pt": "Arquivos `.tf` criam recursos com `terraform apply` e removem tudo com `terraform destroy`.",
+        "en": "`.tf` files create resources with `terraform apply` and remove everything with `terraform destroy`."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Instale o Terraform ou o OpenTofu (alternativa de código aberto, mesma linguagem).\n- Comece local, sem custo: use o provider de Docker para criar uma rede e um container do PostgreSQL. Depois, se quiser, crie um recurso simples no plano gratuito da nuvem que você usou.\n- Entenda o ciclo: `init`, `plan` (o que vai mudar), `apply` e `destroy`.\n- Use variáveis e outputs. Entenda o arquivo de estado e por que ele nunca deve ir para o Git (pode conter segredos).",
+        "en": "- Install Terraform or OpenTofu (open-source alternative, same language).\n- Start locally, at no cost: use the Docker provider to create a network and a PostgreSQL container. Later, if you like, create a simple resource in the free tier of the cloud you used.\n- Understand the cycle: `init`, `plan` (what will change), `apply` and `destroy`.\n- Use variables and outputs. Understand the state file and why it must never go into Git (it may contain secrets)."
+      },
+      "resources": [
+        "terraform-tutorials",
+        "opentofu-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Recursos criados com `apply`",
+          "en": "Resources created with `apply`"
+        },
+        {
+          "pt": "Plano revisado antes de aplicar",
+          "en": "Plan reviewed before applying"
+        },
+        {
+          "pt": "Variáveis e outputs usados",
+          "en": "Variables and outputs used"
+        },
+        {
+          "pt": "Estado fora do Git e `destroy` testado",
+          "en": "State kept out of Git and `destroy` tested"
+        }
+      ]
+    },
+    {
+      "id": "comparar",
+      "title": {
+        "pt": "Quando usar cada ferramenta",
+        "en": "When to use each tool"
+      },
+      "goal": {
+        "pt": "O README explica, com a sua experiência, quando Kubernetes e Terraform fazem sentido e quando uma plataforma gerenciada resolve melhor.",
+        "en": "The README explains, from your own experience, when Kubernetes and Terraform make sense and when a managed platform works better."
+      },
+      "estimatedMinutes": 60,
+      "instructions": {
+        "pt": "- Compare com o que você fez antes: Compose, serviços gerenciados de containers e Kubernetes. O que cada um resolve, quanto custa em complexidade?\n- Seja honesto: para um projeto pequeno, Kubernetes costuma ser demais. Saber dizer isso é sinal de maturidade.\n- Apague o cluster e os recursos (`kind delete cluster`, `terraform destroy`).\n- README com os manifestos comentados, os comandos usados e o comparativo.",
+        "en": "- Compare with what you did before: Compose, managed container services and Kubernetes. What does each one solve, and how much complexity does it cost?\n- Be honest: for a small project, Kubernetes is usually too much. Being able to say that is a sign of maturity.\n- Delete the cluster and the resources (`kind delete cluster`, `terraform destroy`).\n- README with the commented manifests, the commands used and the comparison."
+      },
+      "resources": [
+        "kubernetes-docs-pt",
+        "terraform-tutorials"
+      ],
+      "checklist": [
+        {
+          "pt": "Comparativo entre Compose, PaaS e Kubernetes",
+          "en": "Comparison of Compose, PaaS and Kubernetes"
+        },
+        {
+          "pt": "Recursos apagados",
+          "en": "Resources deleted"
+        },
+        {
+          "pt": "README com manifestos e comandos",
+          "en": "README with manifests and commands"
+        }
+      ]
+    }
+  ],
+  "extraChallenges": [
+    {
+      "pt": "Ingress com domínio local no cluster",
+      "en": "Ingress with a local domain in the cluster"
+    },
+    {
+      "pt": "Empacotar os manifestos com Helm",
+      "en": "Package the manifests with Helm"
+    },
+    {
+      "pt": "Criar o cluster kind e a API com Terraform",
+      "en": "Create the kind cluster and the API with Terraform"
+    }
+  ],
+  "portfolioTip": {
+    "pt": "Mesmo uma introdução bem documentada a Kubernetes e Terraform chama atenção em vagas de DevOps e plataforma. Mostre o rolling update sem queda e o rollback, e diga com clareza quando você não usaria Kubernetes.",
+    "en": "Even a well-documented introduction to Kubernetes and Terraform stands out for DevOps and platform roles. Show the zero-downtime rolling update and the rollback, and say clearly when you wouldn't use Kubernetes."
+  }
+}

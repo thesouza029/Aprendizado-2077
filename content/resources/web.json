@@ -1,0 +1,932 @@
+[
+  {
+    "id": "javascript-info",
+    "title": "The Modern JavaScript Tutorial",
+    "type": "book",
+    "url": "https://javascript.info/",
+    "author": "Ilya Kantor",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "javascript"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Tutorial completo de JavaScript moderno, do básico a tópicos avançados, com exercícios.",
+      "en": "A complete modern JavaScript tutorial, from basics to advanced topics, with exercises."
+    },
+    "verified": true
+  },
+  {
+    "id": "javascript-info-pt",
+    "title": "O Tutorial de JavaScript Moderno",
+    "type": "book",
+    "url": "https://pt.javascript.info/",
+    "author": "Ilya Kantor (tradução da comunidade)",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "javascript"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Tradução em português do javascript.info. Alguns capítulos ainda podem estar em inglês.",
+      "en": "Portuguese translation of javascript.info. Some chapters may still be in English."
+    },
+    "verified": true
+  },
+  {
+    "id": "mdn-js-guide-pt",
+    "title": "MDN: Guia de JavaScript",
+    "type": "docs",
+    "url": "https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide",
+    "author": "Mozilla (MDN Web Docs)",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "javascript"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Guia oficial da linguagem: tipos, funções, objetos, laços e mais.",
+      "en": "The official language guide: types, functions, objects, loops and more."
+    },
+    "verified": true
+  },
+  {
+    "id": "eloquent-javascript",
+    "title": "Eloquent JavaScript",
+    "type": "book",
+    "url": "https://eloquentjavascript.net/",
+    "author": "Marijn Haverbeke",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "javascript"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Livro clássico e gratuito que ensina a pensar como programador usando JavaScript.",
+      "en": "A classic free book that teaches you to think like a programmer using JavaScript."
+    },
+    "verified": true
+  },
+  {
+    "id": "ydkjs-yet",
+    "title": "You Don't Know JS Yet",
+    "type": "book",
+    "url": "https://github.com/getify/You-Dont-Know-JS",
+    "author": "Kyle Simpson",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "javascript"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Série de livros que explica como o JavaScript funciona por dentro: escopo, closures, objetos.",
+      "en": "Book series explaining how JavaScript works under the hood: scope, closures, objects."
+    },
+    "verified": true
+  },
+  {
+    "id": "typescript-handbook",
+    "title": "The TypeScript Handbook",
+    "type": "docs",
+    "url": "https://www.typescriptlang.org/docs/handbook/intro.html",
+    "author": "Microsoft",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "typescript"
+    ],
+    "free": true,
+    "description": {
+      "pt": "O guia oficial do TypeScript: tipos, interfaces, generics e como configurar projetos.",
+      "en": "The official TypeScript guide: types, interfaces, generics and project setup."
+    },
+    "verified": true
+  },
+  {
+    "id": "react-docs-pt",
+    "title": "Documentação do React (Aprenda React)",
+    "type": "docs",
+    "url": "https://pt-br.react.dev/learn",
+    "author": "Meta e comunidade",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "react",
+      "javascript"
+    ],
+    "free": true,
+    "description": {
+      "pt": "A documentação oficial do React traduzida, com tutoriais interativos.",
+      "en": "The official React docs translated into Portuguese, with interactive tutorials."
+    },
+    "verified": true
+  },
+  {
+    "id": "nextjs-learn",
+    "title": "Next.js Learn",
+    "type": "course",
+    "url": "https://nextjs.org/learn",
+    "author": "Vercel",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "nextjs",
+      "react",
+      "typescript"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Curso oficial e gratuito: construa um dashboard completo com Next.js passo a passo.",
+      "en": "Official free course: build a complete dashboard with Next.js step by step."
+    },
+    "verified": true
+  },
+  {
+    "id": "tailwind-docs",
+    "title": "Documentação do Tailwind CSS",
+    "type": "docs",
+    "url": "https://tailwindcss.com/docs",
+    "author": "Tailwind Labs",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "tailwind",
+      "css"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Documentação oficial do Tailwind, com busca rápida por classe utilitária.",
+      "en": "Official Tailwind docs, with quick search by utility class."
+    },
+    "verified": true
+  },
+  {
+    "id": "nodejs-learn",
+    "title": "Node.js: Learn",
+    "type": "docs",
+    "url": "https://nodejs.org/en/learn",
+    "author": "OpenJS Foundation",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "node",
+      "javascript"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Guias oficiais do Node.js: módulos, assincronia, arquivos, HTTP e npm.",
+      "en": "Official Node.js guides: modules, async code, files, HTTP and npm."
+    },
+    "verified": true
+  },
+  {
+    "id": "exercism-javascript",
+    "title": "Exercism: JavaScript",
+    "type": "interactive",
+    "url": "https://exercism.org/tracks/javascript",
+    "author": "Exercism",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "javascript"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Exercícios com testes automáticos e mentoria voluntária gratuita.",
+      "en": "Exercises with automated tests and free volunteer mentoring."
+    },
+    "verified": true
+  },
+  {
+    "id": "javascript30",
+    "title": "JavaScript30",
+    "type": "video",
+    "url": "https://javascript30.com/",
+    "author": "Wes Bos",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "javascript",
+      "html",
+      "css"
+    ],
+    "free": true,
+    "description": {
+      "pt": "30 mini projetos em JavaScript puro em 30 dias, sem frameworks.",
+      "en": "30 vanilla JavaScript mini projects in 30 days, no frameworks."
+    },
+    "verified": true
+  },
+  {
+    "id": "react-learn-en",
+    "title": "React: Quick Start",
+    "type": "docs",
+    "url": "https://react.dev/learn",
+    "author": "Meta e comunidade",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "react"
+    ],
+    "free": true,
+    "description": {
+      "pt": "A documentação oficial do React em inglês, sempre a mais atualizada.",
+      "en": "The official React docs in English, always the most up to date."
+    },
+    "verified": true
+  },
+  {
+    "id": "react-tutorial-tictactoe",
+    "title": "React: Tutorial Tic-Tac-Toe",
+    "type": "interactive",
+    "url": "https://react.dev/learn/tutorial-tic-tac-toe",
+    "author": "Meta e comunidade",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "react"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Tutorial oficial: construa um jogo da velha e aprenda componentes, props e estado.",
+      "en": "Official tutorial: build tic-tac-toe and learn components, props and state."
+    },
+    "verified": true
+  },
+  {
+    "id": "react-typescript",
+    "title": "React: Using TypeScript",
+    "type": "docs",
+    "url": "https://react.dev/learn/typescript",
+    "author": "Meta e comunidade",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "react",
+      "typescript"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Como tipar componentes, props e hooks no React.",
+      "en": "How to type components, props and hooks in React."
+    },
+    "verified": true
+  },
+  {
+    "id": "fullstackopen",
+    "title": "Full Stack Open",
+    "type": "course",
+    "url": "https://fullstackopen.com/en/",
+    "author": "University of Helsinki",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "react",
+      "node",
+      "typescript",
+      "javascript"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Curso universitário gratuito de desenvolvimento web moderno: React, Node, testes e TypeScript.",
+      "en": "Free university course on modern web development: React, Node, testing and TypeScript."
+    },
+    "verified": true
+  },
+  {
+    "id": "fullstackopen-pt",
+    "title": "Full Stack Open (em português)",
+    "type": "course",
+    "url": "https://fullstackopen.com/ptbr/",
+    "author": "University of Helsinki (tradução da comunidade)",
+    "language": "pt-BR",
+    "level": "intermediario",
+    "technologies": [
+      "react",
+      "node",
+      "javascript"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Versão traduzida do Full Stack Open.",
+      "en": "Translated version of Full Stack Open."
+    },
+    "verified": false
+  },
+  {
+    "id": "vite-guide",
+    "title": "Vite: Guia",
+    "type": "docs",
+    "url": "https://vite.dev/guide/",
+    "author": "Equipe Vite",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "vite",
+      "javascript"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Guia oficial do Vite, a ferramenta que cria e roda projetos front-end em segundos.",
+      "en": "Official guide to Vite, the tool that scaffolds and runs front-end projects in seconds."
+    },
+    "verified": true
+  },
+  {
+    "id": "vitest-guide",
+    "title": "Vitest: Guia",
+    "type": "docs",
+    "url": "https://vitest.dev/guide/",
+    "author": "Equipe Vitest",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "testes",
+      "javascript",
+      "typescript"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Como escrever testes de unidade rápidos em projetos JavaScript e TypeScript.",
+      "en": "How to write fast unit tests in JavaScript and TypeScript projects."
+    },
+    "verified": true
+  },
+  {
+    "id": "typescript-5min",
+    "title": "TypeScript para quem já sabe JavaScript",
+    "type": "docs",
+    "url": "https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html",
+    "author": "Microsoft",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "typescript"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Introdução rápida ao TypeScript para quem já programa em JS.",
+      "en": "A quick TypeScript intro for JavaScript programmers."
+    },
+    "verified": true
+  },
+  {
+    "id": "typescript-playground",
+    "title": "TypeScript Playground",
+    "type": "interactive",
+    "url": "https://www.typescriptlang.org/play",
+    "author": "Microsoft",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "typescript"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Escreva TypeScript no navegador e veja os erros e o JavaScript gerado.",
+      "en": "Write TypeScript in the browser and see errors and the generated JavaScript."
+    },
+    "verified": true
+  },
+  {
+    "id": "total-typescript-beginners",
+    "title": "Beginner's TypeScript",
+    "type": "interactive",
+    "url": "https://www.totaltypescript.com/tutorials/beginners-typescript",
+    "author": "Matt Pocock (Total TypeScript)",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "typescript"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Tutorial gratuito com exercícios curtos para começar no TypeScript.",
+      "en": "Free tutorial with short exercises to get started with TypeScript."
+    },
+    "verified": true
+  },
+  {
+    "id": "exercism-typescript",
+    "title": "Exercism: TypeScript",
+    "type": "interactive",
+    "url": "https://exercism.org/tracks/typescript",
+    "author": "Exercism",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "typescript"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Exercícios de TypeScript com testes automáticos.",
+      "en": "TypeScript exercises with automated tests."
+    },
+    "verified": true
+  },
+  {
+    "id": "ts-deep-dive",
+    "title": "TypeScript Deep Dive",
+    "type": "book",
+    "url": "https://basarat.gitbook.io/typescript/",
+    "author": "Basarat Ali Syed",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "typescript"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Livro gratuito que aprofunda o sistema de tipos e boas práticas.",
+      "en": "Free book that digs into the type system and best practices."
+    },
+    "verified": true
+  },
+  {
+    "id": "type-challenges",
+    "title": "Type Challenges",
+    "type": "interactive",
+    "url": "https://github.com/type-challenges/type-challenges",
+    "author": "Comunidade type-challenges",
+    "language": "en",
+    "level": "avancado",
+    "technologies": [
+      "typescript"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Desafios de tipos do fácil ao insano. Para quando o básico já estiver firme.",
+      "en": "Type puzzles from easy to extreme. For when the basics are solid."
+    },
+    "verified": true
+  },
+  {
+    "id": "tailwind-vite-install",
+    "title": "Tailwind CSS com Vite",
+    "type": "docs",
+    "url": "https://tailwindcss.com/docs/installation/using-vite",
+    "author": "Tailwind Labs",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "tailwind",
+      "vite"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Passo a passo oficial para instalar o Tailwind num projeto Vite.",
+      "en": "Official step by step to install Tailwind in a Vite project."
+    },
+    "verified": true
+  },
+  {
+    "id": "vercel-docs",
+    "title": "Vercel: Getting started",
+    "type": "docs",
+    "url": "https://vercel.com/docs/getting-started-with-vercel",
+    "author": "Vercel",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "deploy",
+      "vercel"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Como publicar um site a partir do GitHub, com deploy automático a cada push.",
+      "en": "How to deploy a site from GitHub, with automatic deploys on every push."
+    },
+    "verified": true
+  },
+  {
+    "id": "vercel-env-vars",
+    "title": "Vercel: Environment Variables",
+    "type": "docs",
+    "url": "https://vercel.com/docs/environment-variables",
+    "author": "Vercel",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "deploy",
+      "vercel"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Como guardar chaves e configurações com segurança no deploy.",
+      "en": "How to store keys and settings securely when deploying."
+    },
+    "verified": true
+  },
+  {
+    "id": "web-dev-learn-design",
+    "title": "Learn Responsive Design",
+    "type": "course",
+    "url": "https://web.dev/learn/design",
+    "author": "Google (web.dev)",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "css",
+      "html"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Curso gratuito de design responsivo: layout, tipografia, imagens e media queries.",
+      "en": "Free responsive design course: layout, typography, images and media queries."
+    },
+    "verified": true
+  },
+  {
+    "id": "web-dev-learn-a11y",
+    "title": "Learn Accessibility",
+    "type": "course",
+    "url": "https://web.dev/learn/accessibility",
+    "author": "Google (web.dev)",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "acessibilidade",
+      "html"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Curso gratuito de acessibilidade web, do básico ao ARIA.",
+      "en": "Free web accessibility course, from basics to ARIA."
+    },
+    "verified": true
+  },
+  {
+    "id": "webaim-contrast",
+    "title": "WebAIM Contrast Checker",
+    "type": "interactive",
+    "url": "https://webaim.org/resources/contrastchecker/",
+    "author": "WebAIM",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "acessibilidade",
+      "css"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Confira se a combinação de cores tem contraste suficiente (AA/AAA).",
+      "en": "Check whether a color pair has enough contrast (AA/AAA)."
+    },
+    "verified": true
+  },
+  {
+    "id": "lighthouse-docs",
+    "title": "Lighthouse",
+    "type": "docs",
+    "url": "https://developer.chrome.com/docs/lighthouse/overview",
+    "author": "Google Chrome",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "acessibilidade",
+      "performance"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Ferramenta que audita performance, acessibilidade e SEO da sua página.",
+      "en": "Tool that audits your page's performance, accessibility and SEO."
+    },
+    "verified": true
+  },
+  {
+    "id": "nextjs-docs",
+    "title": "Documentação do Next.js",
+    "type": "docs",
+    "url": "https://nextjs.org/docs",
+    "author": "Vercel",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "nextjs",
+      "react"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Documentação oficial do Next.js (App Router).",
+      "en": "Official Next.js documentation (App Router)."
+    },
+    "verified": true
+  },
+  {
+    "id": "nextjs-route-handlers",
+    "title": "Next.js: Route Handlers",
+    "type": "docs",
+    "url": "https://nextjs.org/docs/app/api-reference/file-conventions/route",
+    "author": "Vercel",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "nextjs",
+      "api"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Como criar rotas de API (GET, POST...) dentro de um app Next.js.",
+      "en": "How to create API routes (GET, POST...) inside a Next.js app."
+    },
+    "verified": true
+  },
+  {
+    "id": "typescript-handbook-pt",
+    "title": "Site oficial do TypeScript (em português)",
+    "type": "docs",
+    "url": "https://www.typescriptlang.org/pt/",
+    "author": "Microsoft (tradução da comunidade)",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "typescript"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Introdução oficial ao TypeScript em português. O handbook completo está em inglês.",
+      "en": "Official TypeScript introduction in Portuguese. The full handbook is in English."
+    },
+    "verified": true
+  },
+  {
+    "id": "prisma-docs",
+    "title": "Prisma ORM",
+    "type": "docs",
+    "url": "https://www.prisma.io/docs",
+    "author": "Prisma",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "prisma",
+      "postgresql",
+      "typescript",
+      "node"
+    ],
+    "free": true,
+    "description": {
+      "pt": "ORM para TypeScript: schema declarativo, migrations e queries tipadas.",
+      "en": "TypeScript ORM: declarative schema, migrations and typed queries."
+    },
+    "verified": true
+  },
+  {
+    "id": "drizzle-docs",
+    "title": "Drizzle ORM",
+    "type": "docs",
+    "url": "https://orm.drizzle.team/docs/overview",
+    "author": "Drizzle Team",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "drizzle",
+      "postgresql",
+      "typescript"
+    ],
+    "free": true,
+    "description": {
+      "pt": "ORM leve e próximo do SQL, com tipos gerados a partir do schema.",
+      "en": "Lightweight ORM close to SQL, with types inferred from the schema."
+    },
+    "verified": true
+  },
+  {
+    "id": "authjs-docs",
+    "title": "Auth.js",
+    "type": "docs",
+    "url": "https://authjs.dev/",
+    "author": "Auth.js",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "autenticacao",
+      "nextjs",
+      "typescript"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Autenticação para Next.js e outros frameworks: login social, sessões e adaptadores de banco.",
+      "en": "Authentication for Next.js and other frameworks: social login, sessions and database adapters."
+    },
+    "verified": true
+  },
+  {
+    "id": "stripe-testing",
+    "title": "Stripe: testando a integração",
+    "type": "docs",
+    "url": "https://docs.stripe.com/testing",
+    "author": "Stripe",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "stripe",
+      "pagamentos",
+      "api"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Cartões de teste e cenários (aprovado, recusado, 3D Secure) para testar pagamentos sem dinheiro de verdade.",
+      "en": "Test cards and scenarios (approved, declined, 3D Secure) to test payments without real money."
+    },
+    "verified": true
+  },
+  {
+    "id": "stripe-checkout-quickstart",
+    "title": "Stripe Checkout: guia rápido",
+    "type": "docs",
+    "url": "https://docs.stripe.com/checkout/quickstart",
+    "author": "Stripe",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "stripe",
+      "pagamentos",
+      "nextjs"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Passo a passo de uma página de pagamento hospedada pela Stripe, com webhooks.",
+      "en": "Step-by-step guide to a Stripe-hosted payment page, with webhooks."
+    },
+    "verified": true
+  },
+  {
+    "id": "playwright-docs",
+    "title": "Playwright",
+    "type": "docs",
+    "url": "https://playwright.dev/docs/intro",
+    "author": "Microsoft",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "playwright",
+      "testes",
+      "typescript"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Testes ponta a ponta em navegadores reais, com gravação de testes e relatórios.",
+      "en": "End-to-end tests in real browsers, with test recording and reports."
+    },
+    "verified": true
+  },
+  {
+    "id": "testing-library-react",
+    "title": "React Testing Library",
+    "type": "docs",
+    "url": "https://testing-library.com/docs/react-testing-library/intro/",
+    "author": "Testing Library",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "testes",
+      "react"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Testes de componentes do jeito que o usuário usa: por texto, papel e rótulo, não por detalhes internos.",
+      "en": "Component tests the way users use them: by text, role and label, not implementation details."
+    },
+    "verified": true
+  },
+  {
+    "id": "mdx-docs",
+    "title": "MDX",
+    "type": "docs",
+    "url": "https://mdxjs.com/docs/",
+    "author": "MDX",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "mdx",
+      "react",
+      "nextjs"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Markdown com componentes React dentro: o formato usado em blogs e documentações modernas.",
+      "en": "Markdown with React components inside: the format behind modern blogs and docs."
+    },
+    "verified": true
+  },
+  {
+    "id": "google-seo-starter-pt",
+    "title": "Guia de SEO para iniciantes",
+    "type": "docs",
+    "url": "https://developers.google.com/search/docs/fundamentals/seo-starter-guide?hl=pt-br",
+    "author": "Google Search Central",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "seo",
+      "html"
+    ],
+    "free": true,
+    "description": {
+      "pt": "O básico de SEO direto do Google: títulos, descrições, URLs e conteúdo útil.",
+      "en": "SEO basics straight from Google: titles, descriptions, URLs and helpful content."
+    },
+    "verified": true
+  },
+  {
+    "id": "angular-docs",
+    "title": "Angular",
+    "type": "docs",
+    "url": "https://angular.dev/",
+    "author": "Google",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "angular",
+      "typescript"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Documentação oficial do Angular, com guias de componentes, signals, rotas e formulários.",
+      "en": "Official Angular docs, with guides on components, signals, routing and forms."
+    },
+    "verified": true
+  },
+  {
+    "id": "angular-tutorial",
+    "title": "Angular: tutoriais oficiais",
+    "type": "interactive",
+    "url": "https://angular.dev/tutorials",
+    "author": "Google",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "angular",
+      "typescript"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Tutoriais interativos no navegador, do primeiro componente a um app completo.",
+      "en": "Interactive in-browser tutorials, from the first component to a full app."
+    },
+    "verified": true
+  },
+  {
+    "id": "vue-guide",
+    "title": "Vue.js: guia",
+    "type": "docs",
+    "url": "https://vuejs.org/guide/introduction.html",
+    "author": "Equipe Vue",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "vue",
+      "javascript"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Guia oficial do Vue 3: reatividade, componentes e Composition API.",
+      "en": "Official Vue 3 guide: reactivity, components and the Composition API."
+    },
+    "verified": true
+  },
+  {
+    "id": "vue-tutorial",
+    "title": "Vue.js: tutorial interativo",
+    "type": "interactive",
+    "url": "https://vuejs.org/tutorial/",
+    "author": "Equipe Vue",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "vue",
+      "javascript"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Tutorial oficial em que você escreve código no navegador, passo a passo.",
+      "en": "Official tutorial where you write code in the browser, step by step."
+    },
+    "verified": true
+  },
+  {
+    "id": "supabase-docs",
+    "title": "Supabase",
+    "type": "docs",
+    "url": "https://supabase.com/docs",
+    "author": "Supabase",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "postgresql",
+      "autenticacao",
+      "deploy"
+    ],
+    "free": true,
+    "description": {
+      "pt": "PostgreSQL gerenciado com plano gratuito, autenticação e armazenamento de arquivos.",
+      "en": "Managed PostgreSQL with a free tier, authentication and file storage."
+    },
+    "verified": true
+  }
+]

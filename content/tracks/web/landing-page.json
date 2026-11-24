@@ -1,0 +1,169 @@
+{
+  "id": "landing-page",
+  "track": "web",
+  "order": 1,
+  "title": { "pt": "Landing page responsiva com Tailwind", "en": "Responsive landing page with Tailwind" },
+  "level": 1,
+  "stack": ["HTML", "Tailwind CSS", "Vite", "Vercel"],
+  "whatYouBuild": {
+    "pt": "A página de apresentação de um produto fictício (um app, um curso, uma cafeteria): hero com chamada principal, benefícios, planos, perguntas frequentes e formulário de contato. Responsiva, acessível, com nota 90+ no Lighthouse e publicada na Vercel com deploy automático.",
+    "en": "The landing page for a fictional product (an app, a course, a coffee shop): hero with a main call to action, benefits, pricing, FAQ and a contact form. Responsive, accessible, scoring 90+ on Lighthouse and deployed on Vercel with automatic deploys."
+  },
+  "whatYouLearn": [
+    { "pt": "Tailwind CSS: classes utilitárias, breakpoints e tema", "en": "Tailwind CSS: utility classes, breakpoints and theme" },
+    { "pt": "Vite: criar e rodar um projeto front-end moderno", "en": "Vite: scaffolding and running a modern front-end project" },
+    { "pt": "Menu responsivo acessível e formulários com validação nativa", "en": "Accessible responsive menu and forms with native validation" },
+    { "pt": "Performance, SEO básico e auditoria com Lighthouse", "en": "Performance, basic SEO and auditing with Lighthouse" },
+    { "pt": "Deploy contínuo na Vercel a partir do GitHub", "en": "Continuous deployment on Vercel from GitHub" }
+  ],
+  "prerequisites": ["perfil-dev"],
+  "steps": [
+    {
+      "id": "planejar",
+      "title": { "pt": "Planeje o produto e o layout", "en": "Plan the product and layout" },
+      "goal": {
+        "pt": "Um rascunho (wireframe) das seções no celular e no computador, e o texto de cada seção escrito.",
+        "en": "A sketch (wireframe) of the sections on mobile and desktop, and the copy for each section written."
+      },
+      "estimatedMinutes": 45,
+      "instructions": {
+        "pt": "Toda landing page tem **um objetivo**: fazer a pessoa clicar num botão (baixar, assinar, comprar). Tudo na página serve a esse botão.\n\n- Invente o produto e escreva: nome, frase principal (o que é e para quem), 3 benefícios, 2 ou 3 planos de preço e 4 perguntas frequentes.\n- Desenhe o wireframe **primeiro no celular** (uma coluna), depois no computador. Papel ou Excalidraw.\n- Escolha uma cor principal, uma de destaque e uma fonte.\n\nEscrever o texto antes evita o clássico \"lorem ipsum\" que nunca é trocado.",
+        "en": "Every landing page has **one goal**: getting the person to click a button (download, subscribe, buy). Everything on the page serves that button.\n\n- Invent the product and write: name, headline (what it is and who it's for), 3 benefits, 2 or 3 pricing plans and 4 FAQs.\n- Sketch the wireframe **on mobile first** (one column), then desktop. Paper or Excalidraw.\n- Pick a main color, an accent color and a font.\n\nWriting the copy first avoids the classic \"lorem ipsum\" that never gets replaced."
+      },
+      "resources": ["web-dev-learn-design", "roadmap-sh"],
+      "checklist": [
+        { "pt": "Objetivo da página definido (qual é o botão principal)", "en": "Page goal defined (what the main button is)" },
+        { "pt": "Wireframe para celular e computador", "en": "Wireframe for mobile and desktop" },
+        { "pt": "Texto real de todas as seções escrito", "en": "Real copy for every section written" }
+      ]
+    },
+    {
+      "id": "setup-vite-tailwind",
+      "title": { "pt": "Crie o projeto com Vite e Tailwind", "en": "Create the project with Vite and Tailwind" },
+      "goal": {
+        "pt": "`npm run dev` abre a página no navegador e uma classe do Tailwind (como `text-3xl`) muda o visual na hora.",
+        "en": "`npm run dev` opens the page in the browser and a Tailwind class (like `text-3xl`) changes the look instantly."
+      },
+      "estimatedMinutes": 45,
+      "instructions": {
+        "pt": "- Crie um projeto com o Vite usando o template *vanilla* (HTML + JS, sem framework). O guia do Vite mostra o comando.\n- Instale o Tailwind seguindo o guia oficial **\"Using Vite\"**. Confira a versão: os passos mudaram bastante da v3 para a v4, então desconfie de tutoriais antigos.\n- Apague o conteúdo de exemplo e escreva um título com classes do Tailwind para confirmar que funciona.\n- Instale a extensão **Tailwind CSS IntelliSense** no VS Code: ela autocompleta as classes.\n- `git init`, confira se `node_modules` e `dist` estão no `.gitignore` e faça o primeiro commit.\n\n**Por que Tailwind?** Ele domina o CSS segundo as pesquisas recentes. Você estiliza direto no HTML com classes pequenas e reaproveitáveis.",
+        "en": "- Create a Vite project using the *vanilla* template (HTML + JS, no framework). The Vite guide shows the command.\n- Install Tailwind following the official **\"Using Vite\"** guide. Check the version: the steps changed a lot from v3 to v4, so be wary of old tutorials.\n- Delete the sample content and write a heading with Tailwind classes to confirm it works.\n- Install the **Tailwind CSS IntelliSense** extension in VS Code: it autocompletes classes.\n- `git init`, check that `node_modules` and `dist` are in `.gitignore` and make the first commit.\n\n**Why Tailwind?** It dominates CSS according to recent surveys. You style directly in HTML with small, reusable classes."
+      },
+      "resources": ["vite-guide", "tailwind-vite-install", "tailwind-docs"],
+      "checklist": [
+        { "pt": "`npm run dev` funciona", "en": "`npm run dev` works" },
+        { "pt": "Classes do Tailwind aplicam estilo", "en": "Tailwind classes apply styles" },
+        { "pt": "`node_modules` e `dist` ignorados pelo Git", "en": "`node_modules` and `dist` ignored by Git" }
+      ]
+    },
+    {
+      "id": "hero-navegacao",
+      "title": { "pt": "Construa o cabeçalho e o hero", "en": "Build the header and hero" },
+      "goal": {
+        "pt": "Cabeçalho com menu que vira um botão \"hambúrguer\" acessível no celular, e o hero com título, texto e botão principal.",
+        "en": "A header with a menu that becomes an accessible \"hamburger\" button on mobile, and a hero with headline, text and main button."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Escreva primeiro as classes do **celular** e depois adicione os prefixos de breakpoint (`md:`, `lg:`) para telas maiores. Esse é o jeito *mobile first* do Tailwind.\n- **Menu no celular:** um `<button>` abre e fecha a lista de links com um pouco de JavaScript. Para ser acessível, o botão precisa de um nome (texto ou `aria-label`) e do atributo `aria-expanded` atualizado a cada clique. `Esc` deve fechar o menu.\n- **Hero:** título forte, uma frase de apoio e o botão principal com bom contraste. Um botão secundário é opcional.\n- Use as cores e a fonte escolhidas no tema do Tailwind, em vez de repetir códigos de cor pelo HTML.\n\nCommit.",
+        "en": "- Write the **mobile** classes first, then add breakpoint prefixes (`md:`, `lg:`) for larger screens. That's Tailwind's *mobile first* approach.\n- **Mobile menu:** a `<button>` opens and closes the link list with a bit of JavaScript. To be accessible, the button needs a name (text or `aria-label`) and an `aria-expanded` attribute updated on every click. `Esc` should close the menu.\n- **Hero:** a strong headline, a supporting sentence and the main button with good contrast. A secondary button is optional.\n- Put your chosen colors and font in the Tailwind theme instead of repeating color codes throughout the HTML.\n\nCommit."
+      },
+      "resources": ["tailwind-docs", "web-dev-learn-a11y", "web-dev-learn-design"],
+      "checklist": [
+        { "pt": "Menu vira botão no celular e abre/fecha", "en": "Menu turns into a button on mobile and opens/closes" },
+        { "pt": "Botão do menu tem nome acessível e `aria-expanded` correto", "en": "Menu button has an accessible name and correct `aria-expanded`" },
+        { "pt": "Cores e fonte definidas no tema", "en": "Colors and font defined in the theme" },
+        { "pt": "Hero com botão principal bem visível", "en": "Hero with a clearly visible main button" }
+      ]
+    },
+    {
+      "id": "secoes",
+      "title": { "pt": "Benefícios e planos", "en": "Benefits and pricing" },
+      "goal": {
+        "pt": "As seções de benefícios e de planos aparecem em uma coluna no celular e em grade no computador.",
+        "en": "The benefits and pricing sections show as one column on mobile and as a grid on desktop."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- **Benefícios:** 3 cards com ícone, título e texto. Use `grid` com `md:grid-cols-3`.\n- **Planos:** cards com nome, preço, lista do que inclui e botão. Destaque o plano recomendado (borda, selo \"mais popular\").\n- Mantenha espaçamentos consistentes usando a escala do Tailwind (`p-4`, `p-6`, `gap-6`...) em vez de valores aleatórios.\n- Ícones: use SVG inline ou uma biblioteca de ícones gratuita. Ícones decorativos levam `aria-hidden=\"true\"`.\n- Imagens precisam de `alt`, `width` e `height` (evita a página \"pular\" ao carregar).\n\nSe a mesma combinação de classes aparecer muitas vezes, pesquise como o Tailwind recomenda lidar com repetição.",
+        "en": "- **Benefits:** 3 cards with icon, title and text. Use `grid` with `md:grid-cols-3`.\n- **Pricing:** cards with name, price, list of what's included and a button. Highlight the recommended plan (border, \"most popular\" badge).\n- Keep spacing consistent using Tailwind's scale (`p-4`, `p-6`, `gap-6`...) instead of random values.\n- Icons: use inline SVG or a free icon library. Decorative icons get `aria-hidden=\"true\"`.\n- Images need `alt`, `width` and `height` (prevents the page from \"jumping\" while loading).\n\nIf the same class combination shows up many times, look up how Tailwind recommends dealing with repetition."
+      },
+      "resources": ["tailwind-docs", "css-grid-garden", "web-dev-learn-design"],
+      "checklist": [
+        { "pt": "Grade responsiva nos benefícios e nos planos", "en": "Responsive grid for benefits and pricing" },
+        { "pt": "Plano recomendado destacado", "en": "Recommended plan highlighted" },
+        { "pt": "Ícones decorativos com `aria-hidden`", "en": "Decorative icons with `aria-hidden`" },
+        { "pt": "Imagens com `alt`, `width` e `height`", "en": "Images with `alt`, `width` and `height`" }
+      ]
+    },
+    {
+      "id": "faq-formulario",
+      "title": { "pt": "Perguntas frequentes e formulário", "en": "FAQ and form" },
+      "goal": {
+        "pt": "FAQ que abre e fecha sem JavaScript e um formulário de contato que valida os campos e mostra erros claros.",
+        "en": "An FAQ that opens and closes without JavaScript and a contact form that validates fields and shows clear errors."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- **FAQ:** use `<details>` e `<summary>`. É acessível e funciona sem uma linha de JS. Estilize o estado aberto com a variante `open:` do Tailwind.\n- **Formulário:** cada campo com um `<label>` ligado ao `input` (atributos `for`/`id`). Use os tipos certos (`email`, `tel`) e a validação nativa (`required`, `minlength`).\n- Estilize os campos inválidos (pesquise a variante `user-invalid:`, que só marca o erro depois que a pessoa interagiu).\n- Sem backend por enquanto: ao enviar, mostre uma mensagem de sucesso. Bônus: use um serviço gratuito de formulários para receber os envios por e-mail.\n- Rodapé com links e o nome do produto.",
+        "en": "- **FAQ:** use `<details>` and `<summary>`. It's accessible and works with zero JS. Style the open state with Tailwind's `open:` variant.\n- **Form:** each field with a `<label>` linked to its `input` (`for`/`id` attributes). Use the right types (`email`, `tel`) and native validation (`required`, `minlength`).\n- Style invalid fields (look up the `user-invalid:` variant, which only flags errors after the person has interacted).\n- No backend for now: on submit, show a success message. Bonus: use a free form service to receive submissions by email.\n- Footer with links and the product name."
+      },
+      "resources": ["mdn-html-pt", "web-dev-learn-html", "web-dev-learn-a11y"],
+      "checklist": [
+        { "pt": "FAQ feito com `<details>`/`<summary>`", "en": "FAQ built with `<details>`/`<summary>`" },
+        { "pt": "Todo campo tem `<label>` associado", "en": "Every field has an associated `<label>`" },
+        { "pt": "Validação nativa com mensagens visíveis", "en": "Native validation with visible messages" },
+        { "pt": "Mensagem de sucesso ao enviar", "en": "Success message on submit" }
+      ]
+    },
+    {
+      "id": "qualidade",
+      "title": { "pt": "Acessibilidade, performance e SEO", "en": "Accessibility, performance and SEO" },
+      "goal": {
+        "pt": "Lighthouse com 90 ou mais em Performance, Acessibilidade, Boas práticas e SEO, no modo celular.",
+        "en": "Lighthouse at 90 or above in Performance, Accessibility, Best Practices and SEO, in mobile mode."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "Rode `npm run build` e `npm run preview` e audite a versão de produção, não a de desenvolvimento.\n\n- Rode o **Lighthouse** no modo celular e corrija item por item. Ele explica cada problema.\n- **Contraste:** confira as cores no WebAIM Contrast Checker.\n- **Imagens:** use formatos modernos (WebP/AVIF), tamanho certo e `loading=\"lazy\"` nas que ficam abaixo da primeira tela.\n- **SEO:** `<title>` e `<meta name=\"description\">` descritivos, `lang` no `<html>`, um só `<h1>`.\n- **Compartilhamento:** tags Open Graph (título, descrição, imagem) para o link ficar bonito no WhatsApp e no LinkedIn.\n- Navegue a página inteira só com o teclado.",
+        "en": "Run `npm run build` and `npm run preview` and audit the production build, not the dev one.\n\n- Run **Lighthouse** in mobile mode and fix item by item. It explains each issue.\n- **Contrast:** check your colors in the WebAIM Contrast Checker.\n- **Images:** use modern formats (WebP/AVIF), the right size and `loading=\"lazy\"` on those below the first screen.\n- **SEO:** descriptive `<title>` and `<meta name=\"description\">`, `lang` on `<html>`, a single `<h1>`.\n- **Sharing:** Open Graph tags (title, description, image) so the link looks good on WhatsApp and LinkedIn.\n- Navigate the whole page using only the keyboard."
+      },
+      "resources": ["lighthouse-docs", "webaim-contrast", "web-dev-learn-a11y"],
+      "checklist": [
+        { "pt": "Lighthouse 90+ nas quatro categorias (modo celular)", "en": "Lighthouse 90+ in all four categories (mobile mode)" },
+        { "pt": "Contraste AA em todos os textos", "en": "AA contrast on all text" },
+        { "pt": "Title, description e Open Graph configurados", "en": "Title, description and Open Graph set up" },
+        { "pt": "Página navegável só com teclado", "en": "Page navigable with the keyboard alone" }
+      ]
+    },
+    {
+      "id": "deploy-vercel",
+      "title": { "pt": "README e deploy na Vercel", "en": "README and deploy on Vercel" },
+      "goal": {
+        "pt": "O site está no ar na Vercel, e cada `git push` publica uma versão nova sozinho.",
+        "en": "The site is live on Vercel, and every `git push` publishes a new version automatically."
+      },
+      "estimatedMinutes": 45,
+      "instructions": {
+        "pt": "- Envie o repositório para o GitHub.\n- Na Vercel, entre com sua conta do GitHub e importe o repositório. Ela detecta o Vite sozinha.\n- Faça uma mudança pequena, dê `push` e veja o deploy automático acontecer.\n- Abra um *pull request* com outra mudança: a Vercel cria um **link de preview** só para ele. É assim que times revisam mudanças visuais.\n- README com print, link do site, notas do Lighthouse e o que você aprendeu.",
+        "en": "- Push the repository to GitHub.\n- On Vercel, sign in with your GitHub account and import the repository. It detects Vite on its own.\n- Make a small change, `push` and watch the automatic deploy happen.\n- Open a *pull request* with another change: Vercel creates a **preview link** just for it. That's how teams review visual changes.\n- README with a screenshot, site link, Lighthouse scores and what you learned."
+      },
+      "resources": ["vercel-docs", "github-docs-start-pt"],
+      "checklist": [
+        { "pt": "Site no ar num endereço da Vercel", "en": "Site live at a Vercel address" },
+        { "pt": "Deploy automático a cada push funcionando", "en": "Automatic deploy on every push working" },
+        { "pt": "Viu um link de preview num pull request", "en": "Saw a preview link on a pull request" },
+        { "pt": "README com print, link e notas do Lighthouse", "en": "README with screenshot, link and Lighthouse scores" }
+      ]
+    }
+  ],
+  "extraChallenges": [
+    { "pt": "Modo escuro com a variante `dark:` do Tailwind e um botão de alternar", "en": "Dark mode with Tailwind's `dark:` variant and a toggle button" },
+    { "pt": "Animações sutis que respeitam `prefers-reduced-motion` (variante `motion-safe:`)", "en": "Subtle animations that respect `prefers-reduced-motion` (`motion-safe:` variant)" },
+    { "pt": "Domínio próprio apontando para a Vercel", "en": "A custom domain pointing to Vercel" }
+  ],
+  "portfolioTip": {
+    "pt": "Landing pages são ótimas para freelas. Mostre a página no ar e um print do Lighthouse com 90+: isso prova cuidado com qualidade, não só com visual.",
+    "en": "Landing pages are great for freelance work. Show the live page and a Lighthouse screenshot with 90+: it proves you care about quality, not just looks."
+  }
+}

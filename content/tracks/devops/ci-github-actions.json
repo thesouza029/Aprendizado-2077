@@ -1,0 +1,307 @@
+{
+  "id": "ci-github-actions",
+  "track": "devops",
+  "order": 3,
+  "title": {
+    "pt": "CI/CD com GitHub Actions",
+    "en": "CI/CD with GitHub Actions"
+  },
+  "level": 2,
+  "stack": [
+    "GitHub Actions",
+    "Docker",
+    "Node.js (ou sua linguagem)",
+    "PostgreSQL",
+    "Render ou Vercel"
+  ],
+  "whatYouBuild": {
+    "pt": "Um pipeline completo para um projeto seu: a cada pull request rodam lint e testes (inclusive com um PostgreSQL de verdade), em mais de uma versão da linguagem e com cache; a branch principal fica protegida; ao fazer merge, a imagem Docker é publicada e o deploy acontece sozinho.",
+    "en": "A complete pipeline for one of your projects: on every pull request, lint and tests run (including against a real PostgreSQL), on more than one language version and with caching; the main branch is protected; on merge, the Docker image is published and the deploy happens on its own."
+  },
+  "whatYouLearn": [
+    {
+      "pt": "Workflows, jobs, steps e eventos do GitHub Actions",
+      "en": "GitHub Actions workflows, jobs, steps and events"
+    },
+    {
+      "pt": "Integração contínua: lint, testes e serviços de banco",
+      "en": "Continuous integration: lint, tests and database services"
+    },
+    {
+      "pt": "Matrizes, cache e cancelamento de execuções antigas",
+      "en": "Matrices, caching and cancelling outdated runs"
+    },
+    {
+      "pt": "Proteção de branch e fluxo de pull requests",
+      "en": "Branch protection and pull request flow"
+    },
+    {
+      "pt": "Entrega contínua: imagens, segredos e deploy automático",
+      "en": "Continuous delivery: images, secrets and automatic deploy"
+    }
+  ],
+  "prerequisites": [
+    "docker-compose-api"
+  ],
+  "steps": [
+    {
+      "id": "primeiro",
+      "title": {
+        "pt": "O primeiro workflow",
+        "en": "The first workflow"
+      },
+      "goal": {
+        "pt": "Um workflow roda a cada push e você consegue ler os logs dele na aba Actions.",
+        "en": "A workflow runs on every push and you can read its logs in the Actions tab."
+      },
+      "estimatedMinutes": 45,
+      "instructions": {
+        "pt": "- Crie `.github/workflows/ci.yml` com um job que faz checkout do código e imprime algo.\n- Entenda a anatomia: `on` (quando roda), `jobs` (o que roda, em paralelo), `steps` (passos em ordem), `uses` (ação pronta) e `run` (comando).\n- Faça push e acompanhe a execução na aba Actions. Quebre o YAML de propósito e veja o erro.",
+        "en": "- Create `.github/workflows/ci.yml` with a job that checks out the code and prints something.\n- Understand the anatomy: `on` (when it runs), `jobs` (what runs, in parallel), `steps` (steps in order), `uses` (ready-made action) and `run` (command).\n- Push and follow the run in the Actions tab. Break the YAML on purpose and see the error."
+      },
+      "resources": [
+        "github-actions-pt",
+        "github-skills"
+      ],
+      "checklist": [
+        {
+          "pt": "Workflow criado e rodando a cada push",
+          "en": "Workflow created and running on every push"
+        },
+        {
+          "pt": "Sabe explicar on, jobs, steps, uses e run",
+          "en": "Can explain on, jobs, steps, uses and run"
+        }
+      ]
+    },
+    {
+      "id": "lint-testes",
+      "title": {
+        "pt": "Lint e testes em cada pull request",
+        "en": "Lint and tests on every pull request"
+      },
+      "goal": {
+        "pt": "Todo pull request mostra o status do lint e dos testes, e um teste quebrado deixa o check vermelho.",
+        "en": "Every pull request shows lint and test status, and a broken test turns the check red."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Configure a linguagem com a ação oficial (ex.: `actions/setup-node`) e instale dependências de forma reprodutível (`npm ci`).\n- Rode lint, checagem de tipos e testes em passos separados: fica fácil ver qual falhou.\n- Dispare o workflow em `pull_request` e em `push` para a branch principal.\n- Ligue o cache de dependências da própria ação de setup e compare o tempo antes e depois.\n- Abra um pull request com um teste quebrado e veja o check falhar.",
+        "en": "- Set up the language with the official action (e.g. `actions/setup-node`) and install dependencies reproducibly (`npm ci`).\n- Run lint, type checking and tests as separate steps: it's easy to see which one failed.\n- Trigger the workflow on `pull_request` and on `push` to the main branch.\n- Turn on the setup action's built-in dependency cache and compare the time before and after.\n- Open a pull request with a broken test and watch the check fail."
+      },
+      "resources": [
+        "github-actions-pt",
+        "vitest-guide"
+      ],
+      "checklist": [
+        {
+          "pt": "Lint, tipos e testes em passos separados",
+          "en": "Lint, types and tests as separate steps"
+        },
+        {
+          "pt": "Roda em pull requests",
+          "en": "Runs on pull requests"
+        },
+        {
+          "pt": "Cache de dependências ligado",
+          "en": "Dependency cache enabled"
+        },
+        {
+          "pt": "Teste quebrado deixa o check vermelho",
+          "en": "A broken test turns the check red"
+        }
+      ]
+    },
+    {
+      "id": "servico-db",
+      "title": {
+        "pt": "Testes com banco de verdade",
+        "en": "Tests against a real database"
+      },
+      "goal": {
+        "pt": "Os testes de integração rodam no CI contra um PostgreSQL criado só para aquela execução.",
+        "en": "Integration tests run in CI against a PostgreSQL created just for that run."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Use `services` no job para subir um container de PostgreSQL ao lado dos testes.\n- Configure as opções de healthcheck para os testes só começarem quando o banco estiver pronto.\n- Passe a URL do banco por variável de ambiente e rode as migrations antes dos testes.\n- O banco do CI é descartável: nada de dados reais ali.",
+        "en": "- Use `services` in the job to start a PostgreSQL container next to the tests.\n- Configure the healthcheck options so tests only start once the database is ready.\n- Pass the database URL through an environment variable and run migrations before the tests.\n- The CI database is disposable: no real data there."
+      },
+      "resources": [
+        "github-actions-pt",
+        "postgres-docker-image"
+      ],
+      "checklist": [
+        {
+          "pt": "PostgreSQL como serviço no job",
+          "en": "PostgreSQL as a job service"
+        },
+        {
+          "pt": "Healthcheck antes dos testes",
+          "en": "Healthcheck before tests"
+        },
+        {
+          "pt": "Migrations rodando no CI",
+          "en": "Migrations running in CI"
+        }
+      ]
+    },
+    {
+      "id": "matriz",
+      "title": {
+        "pt": "Matriz e concorrência",
+        "en": "Matrix and concurrency"
+      },
+      "goal": {
+        "pt": "Os testes rodam em duas versões da linguagem em paralelo, e um push novo cancela a execução antiga do mesmo pull request.",
+        "en": "Tests run on two language versions in parallel, and a new push cancels the old run for the same pull request."
+      },
+      "estimatedMinutes": 60,
+      "instructions": {
+        "pt": "- Use `strategy.matrix` para rodar o mesmo job em versões diferentes (ex.: as duas versões LTS mais recentes do Node).\n- Configure `concurrency` para cancelar execuções antigas da mesma branch: economiza minutos e dá resposta mais rápida.\n- Dê nomes claros aos jobs: eles aparecem na proteção de branch.",
+        "en": "- Use `strategy.matrix` to run the same job on different versions (e.g. the two latest Node LTS versions).\n- Configure `concurrency` to cancel old runs on the same branch: it saves minutes and gives faster feedback.\n- Give jobs clear names: they show up in branch protection."
+      },
+      "resources": [
+        "github-actions-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Matriz com duas versões",
+          "en": "Matrix with two versions"
+        },
+        {
+          "pt": "Execuções antigas canceladas",
+          "en": "Old runs cancelled"
+        },
+        {
+          "pt": "Jobs com nomes claros",
+          "en": "Jobs with clear names"
+        }
+      ]
+    },
+    {
+      "id": "protecao",
+      "title": {
+        "pt": "Proteja a branch principal",
+        "en": "Protect the main branch"
+      },
+      "goal": {
+        "pt": "Não dá mais para fazer push direto na `main`: tudo entra por pull request com o CI verde.",
+        "en": "You can no longer push directly to `main`: everything goes in through a pull request with green CI."
+      },
+      "estimatedMinutes": 45,
+      "instructions": {
+        "pt": "- Nas configurações do repositório, crie uma regra de proteção para a `main` exigindo pull request e os checks do CI passando.\n- Faça o fluxo completo: branch, commits pequenos, pull request, CI verde, merge.\n- Escreva uma descrição de pull request como num time: o que mudou, por quê e como testar.",
+        "en": "- In the repository settings, create a protection rule for `main` requiring a pull request and passing CI checks.\n- Go through the full flow: branch, small commits, pull request, green CI, merge.\n- Write a pull request description like on a team: what changed, why and how to test."
+      },
+      "resources": [
+        "github-docs-start-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Regra de proteção na `main`",
+          "en": "Protection rule on `main`"
+        },
+        {
+          "pt": "Merge só com CI verde",
+          "en": "Merge only with green CI"
+        },
+        {
+          "pt": "Pull request com descrição completa",
+          "en": "Pull request with a complete description"
+        }
+      ]
+    },
+    {
+      "id": "imagem",
+      "title": {
+        "pt": "Publique a imagem Docker no merge",
+        "en": "Publish the Docker image on merge"
+      },
+      "goal": {
+        "pt": "Cada merge na `main` constrói e publica a imagem no GitHub Container Registry com a tag do commit.",
+        "en": "Every merge to `main` builds and publishes the image to GitHub Container Registry tagged with the commit."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Crie um job que só roda em push na `main` e depende do job de testes (`needs`).\n- Faça login no `ghcr.io` com o `GITHUB_TOKEN` (sem criar segredo extra) e dê ao workflow só as permissões necessárias (`permissions`).\n- Use as ações oficiais do Docker para build e push, com cache de camadas.\n- Marque a imagem com o SHA do commit: assim você sabe exatamente que código está rodando.",
+        "en": "- Create a job that only runs on push to `main` and depends on the test job (`needs`).\n- Sign in to `ghcr.io` with `GITHUB_TOKEN` (no extra secret) and give the workflow only the permissions it needs (`permissions`).\n- Use Docker's official actions for build and push, with layer caching.\n- Tag the image with the commit SHA: that way you know exactly which code is running."
+      },
+      "resources": [
+        "github-actions-pt",
+        "docker-multistage"
+      ],
+      "checklist": [
+        {
+          "pt": "Job de publicação depende dos testes",
+          "en": "Publish job depends on tests"
+        },
+        {
+          "pt": "Login com `GITHUB_TOKEN` e permissões mínimas",
+          "en": "Sign-in with `GITHUB_TOKEN` and minimal permissions"
+        },
+        {
+          "pt": "Imagem marcada com o SHA do commit",
+          "en": "Image tagged with the commit SHA"
+        }
+      ]
+    },
+    {
+      "id": "deploy",
+      "title": {
+        "pt": "Deploy automático, badge e README",
+        "en": "Automatic deploy, badge and README"
+      },
+      "goal": {
+        "pt": "Um merge na `main` termina com a nova versão no ar, e o README mostra o badge do CI.",
+        "en": "A merge to `main` ends with the new version live, and the README shows the CI badge."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Dispare o deploy depois da publicação da imagem: por exemplo, chamando o *deploy hook* do Render, guardado como segredo do repositório.\n- Use *environments* do GitHub para o deploy de produção e, se quiser, exija aprovação manual.\n- Nunca imprima segredos nos logs.\n- Teste workflows localmente com o `act` para não precisar de dezenas de commits de tentativa.\n- README: badge de status, desenho do pipeline e como os segredos são usados.",
+        "en": "- Trigger the deploy after the image is published: for example, by calling Render's *deploy hook*, stored as a repository secret.\n- Use GitHub *environments* for the production deploy and, if you like, require manual approval.\n- Never print secrets in logs.\n- Test workflows locally with `act` so you don't need dozens of trial commits.\n- README: status badge, pipeline diagram and how secrets are used."
+      },
+      "resources": [
+        "github-actions-pt",
+        "render-docs",
+        "act-local"
+      ],
+      "checklist": [
+        {
+          "pt": "Deploy automático após o merge",
+          "en": "Automatic deploy after merge"
+        },
+        {
+          "pt": "Segredos guardados no GitHub",
+          "en": "Secrets stored in GitHub"
+        },
+        {
+          "pt": "Environment de produção configurado",
+          "en": "Production environment configured"
+        },
+        {
+          "pt": "Badge e diagrama no README",
+          "en": "Badge and diagram in the README"
+        }
+      ]
+    }
+  ],
+  "extraChallenges": [
+    {
+      "pt": "Relatório de cobertura de testes comentado no pull request",
+      "en": "Test coverage report commented on the pull request"
+    },
+    {
+      "pt": "Deploy de preview por pull request",
+      "en": "Preview deploy per pull request"
+    },
+    {
+      "pt": "Atualização automática de dependências (Dependabot)",
+      "en": "Automatic dependency updates (Dependabot)"
+    }
+  ],
+  "portfolioTip": {
+    "pt": "Um badge verde no README e uma branch protegida dizem muito sem você falar nada: mostram que você trabalha como num time. Coloque o desenho do pipeline no README.",
+    "en": "A green badge in the README and a protected branch say a lot without you saying anything: they show you work like on a team. Put the pipeline diagram in the README."
+  }
+}

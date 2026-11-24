@@ -1,0 +1,175 @@
+{
+  "id": "banco-biblioteca-sql",
+  "track": "fundamentos",
+  "order": 3,
+  "title": { "pt": "Banco de dados de uma biblioteca em SQL", "en": "A library database in SQL" },
+  "level": 1,
+  "stack": ["SQL", "SQLite", "PostgreSQL (opcional)"],
+  "whatYouBuild": {
+    "pt": "O banco de dados de uma biblioteca: autores, livros, membros e empréstimos. Você vai modelar as tabelas, popular com dados e responder perguntas reais com SQL, como \"quais livros estão atrasados?\". Esse mesmo banco vira a base da sua primeira API no Distrito Backend.",
+    "en": "A library database: authors, books, members and loans. You will model the tables, fill them with data and answer real questions with SQL, like \"which books are overdue?\". This same database becomes the foundation of your first API in the Backend District."
+  },
+  "whatYouLearn": [
+    { "pt": "Modelagem relacional: entidades, relacionamentos 1:N e N:N", "en": "Relational modeling: entities, 1:N and N:N relationships" },
+    { "pt": "Chaves primárias, estrangeiras e restrições", "en": "Primary keys, foreign keys and constraints" },
+    { "pt": "CREATE, INSERT, UPDATE e DELETE com segurança", "en": "CREATE, INSERT, UPDATE and DELETE safely" },
+    { "pt": "SELECT com filtros, ordenação, JOINs e agregações", "en": "SELECT with filters, sorting, JOINs and aggregations" },
+    { "pt": "Versionar scripts SQL no Git", "en": "Versioning SQL scripts in Git" }
+  ],
+  "prerequisites": ["perfil-dev"],
+  "steps": [
+    {
+      "id": "ferramentas",
+      "title": { "pt": "Prepare as ferramentas", "en": "Set up the tools" },
+      "goal": {
+        "pt": "Você consegue criar um banco, rodar um `SELECT 1;` e o repositório do projeto já existe.",
+        "en": "You can create a database, run `SELECT 1;` and the project repository already exists."
+      },
+      "estimatedMinutes": 45,
+      "instructions": {
+        "pt": "Vamos começar com o **SQLite**: o banco inteiro é um único arquivo e não precisa de servidor. Tudo que você aprender vale para PostgreSQL e MySQL, com pequenas diferenças.\n\n1. Instale o **DB Browser for SQLite** (interface visual). Se preferir terminal, instale também o `sqlite3`.\n2. Crie um banco `biblioteca.db` e rode `SELECT 1;` na aba de SQL.\n3. Crie um repositório `banco-biblioteca` com uma pasta `sql/`. Você vai versionar **os scripts**, não o arquivo `.db`: adicione `*.db` ao `.gitignore`.\n\n**Por que scripts?** Com eles, qualquer pessoa recria o banco do zero em segundos. É assim que times trabalham (o nome disso é *migrations*).",
+        "en": "We'll start with **SQLite**: the whole database is a single file and needs no server. Everything you learn applies to PostgreSQL and MySQL, with small differences.\n\n1. Install **DB Browser for SQLite** (visual interface). If you prefer the terminal, also install `sqlite3`.\n2. Create a `library.db` database and run `SELECT 1;` in the SQL tab.\n3. Create a `library-database` repository with a `sql/` folder. You'll version **the scripts**, not the `.db` file: add `*.db` to `.gitignore`.\n\n**Why scripts?** With them, anyone can recreate the database from scratch in seconds. That's how teams work (it's called *migrations*)."
+      },
+      "resources": ["db-browser-sqlite", "sqlite-docs", "postgresql-tutorial"],
+      "checklist": [
+        { "pt": "`SELECT 1;` roda sem erro", "en": "`SELECT 1;` runs without errors" },
+        { "pt": "Repositório criado com pasta `sql/`", "en": "Repository created with a `sql/` folder" },
+        { "pt": "`*.db` está no `.gitignore`", "en": "`*.db` is in `.gitignore`" }
+      ]
+    },
+    {
+      "id": "modelagem",
+      "title": { "pt": "Modele o banco no papel", "en": "Model the database on paper" },
+      "goal": {
+        "pt": "Um diagrama com as tabelas, colunas e relacionamentos, salvo como imagem no repositório.",
+        "en": "A diagram with tables, columns and relationships, saved as an image in the repository."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "Antes de escrever SQL, **pense**. Mudar um desenho é grátis; mudar um banco com dados é caro.\n\n- Identifique as **entidades**: autor, livro, membro, empréstimo.\n- Defina os **relacionamentos**: um livro pode ter vários autores e um autor vários livros? Isso é N:N e precisa de uma **tabela de ligação**. Um membro tem vários empréstimos: 1:N.\n- Para cada tabela, escolha a **chave primária** (um `id`) e quais colunas apontam para outras tabelas (**chaves estrangeiras**).\n- Um empréstimo precisa de: qual livro, qual membro, data de retirada, data prevista e data de devolução (vazia enquanto não devolver).\n\nDesenhe no papel, no Excalidraw ou no dbdiagram.io. Salve a imagem em `docs/` e faça commit.",
+        "en": "Before writing SQL, **think**. Changing a drawing is free; changing a database full of data is expensive.\n\n- Identify the **entities**: author, book, member, loan.\n- Define the **relationships**: can a book have several authors and an author several books? That's N:N and needs a **join table**. A member has many loans: 1:N.\n- For each table, choose the **primary key** (an `id`) and which columns point to other tables (**foreign keys**).\n- A loan needs: which book, which member, checkout date, due date and return date (empty until returned).\n\nDraw it on paper, in Excalidraw or on dbdiagram.io. Save the image in `docs/` and commit."
+      },
+      "resources": ["dbdiagram", "cs50x", "khan-sql"],
+      "checklist": [
+        { "pt": "Diagrama com pelo menos 5 tabelas (incluindo a de ligação livro-autor)", "en": "Diagram with at least 5 tables (including the book-author join table)" },
+        { "pt": "Cada tabela tem chave primária", "en": "Each table has a primary key" },
+        { "pt": "Relacionamentos 1:N e N:N identificados", "en": "1:N and N:N relationships identified" },
+        { "pt": "Imagem do diagrama no repositório", "en": "Diagram image in the repository" }
+      ],
+      "hint": {
+        "pt": "Se uma coluna pudesse ter uma lista de valores (como \"autores\" dentro de livro), é sinal de que ela deveria virar outra tabela.",
+        "en": "If a column would hold a list of values (like \"authors\" inside book), that's a sign it should become another table."
+      }
+    },
+    {
+      "id": "criar-tabelas",
+      "title": { "pt": "Crie as tabelas", "en": "Create the tables" },
+      "goal": {
+        "pt": "Um `schema.sql` que apaga e recria todas as tabelas do zero, com as restrições funcionando.",
+        "en": "A `schema.sql` that drops and recreates every table from scratch, with constraints working."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "Transforme o diagrama em `CREATE TABLE`.\n\n- Escolha tipos adequados (texto, inteiro, data). No SQLite, datas costumam ser texto no formato `AAAA-MM-DD`.\n- Use **restrições** para o banco proteger seus dados: `NOT NULL` no que é obrigatório, `UNIQUE` no e-mail do membro, `FOREIGN KEY` nas referências e `CHECK` em regras simples (por exemplo, ano de publicação positivo).\n- No SQLite, as chaves estrangeiras só são verificadas com `PRAGMA foreign_keys = ON;`. Coloque no início do script.\n- Comece o arquivo com `DROP TABLE IF EXISTS` (na ordem certa!) para poder rodar quantas vezes quiser.\n\nTeste as restrições de propósito: tente inserir um empréstimo para um livro que não existe. O banco deve recusar.",
+        "en": "Turn the diagram into `CREATE TABLE` statements.\n\n- Pick suitable types (text, integer, date). In SQLite, dates are usually text in `YYYY-MM-DD` format.\n- Use **constraints** so the database protects your data: `NOT NULL` for required fields, `UNIQUE` on the member's email, `FOREIGN KEY` on references and `CHECK` for simple rules (for example, a positive publication year).\n- In SQLite, foreign keys are only enforced with `PRAGMA foreign_keys = ON;`. Put it at the top of the script.\n- Start the file with `DROP TABLE IF EXISTS` (in the right order!) so you can run it as many times as you want.\n\nTest the constraints on purpose: try inserting a loan for a book that doesn't exist. The database should refuse."
+      },
+      "resources": ["sqlite-docs", "w3schools-sql", "postgresql-tutorial"],
+      "checklist": [
+        { "pt": "`schema.sql` roda várias vezes seguidas sem erro", "en": "`schema.sql` runs several times in a row without errors" },
+        { "pt": "Chaves estrangeiras ativadas e recusando dados inválidos", "en": "Foreign keys enabled and rejecting invalid data" },
+        { "pt": "E-mail de membro é único", "en": "Member email is unique" },
+        { "pt": "Commit do script", "en": "Script committed" }
+      ]
+    },
+    {
+      "id": "inserir-dados",
+      "title": { "pt": "Popule o banco com dados", "en": "Fill the database with data" },
+      "goal": {
+        "pt": "Um `seed.sql` com dados realistas: pelo menos 15 livros, 8 autores, 6 membros e 12 empréstimos, alguns atrasados.",
+        "en": "A `seed.sql` with realistic data: at least 15 books, 8 authors, 6 members and 12 loans, some overdue."
+      },
+      "estimatedMinutes": 60,
+      "instructions": {
+        "pt": "Consultas só ficam interessantes com dados. Crie um `seed.sql` com `INSERT INTO`.\n\n- Use livros e autores reais (é mais divertido) e membros fictícios.\n- Crie empréstimos variados: devolvidos, em andamento e **atrasados** (data prevista no passado e sem devolução).\n- Pratique `UPDATE` (registrar uma devolução) e `DELETE` (remover um membro sem empréstimos).\n\n**Regra de ouro:** rode o `SELECT` com o mesmo `WHERE` antes de rodar um `UPDATE` ou `DELETE`. Um `DELETE` sem `WHERE` apaga a tabela inteira, e isso acontece em empresas de verdade.",
+        "en": "Queries only get interesting with data. Create a `seed.sql` with `INSERT INTO`.\n\n- Use real books and authors (it's more fun) and fictional members.\n- Create varied loans: returned, ongoing and **overdue** (due date in the past and not returned).\n- Practice `UPDATE` (record a return) and `DELETE` (remove a member with no loans).\n\n**Golden rule:** run the `SELECT` with the same `WHERE` before running an `UPDATE` or `DELETE`. A `DELETE` without `WHERE` wipes the whole table, and it happens at real companies."
+      },
+      "resources": ["w3schools-sql", "sqlbolt"],
+      "checklist": [
+        { "pt": "`seed.sql` roda logo depois do `schema.sql` sem erro", "en": "`seed.sql` runs right after `schema.sql` without errors" },
+        { "pt": "Existem empréstimos devolvidos, em andamento e atrasados", "en": "There are returned, ongoing and overdue loans" },
+        { "pt": "Você praticou `UPDATE` e `DELETE` com `WHERE`", "en": "You practiced `UPDATE` and `DELETE` with `WHERE`" }
+      ]
+    },
+    {
+      "id": "consultas-basicas",
+      "title": { "pt": "Responda perguntas com SELECT", "en": "Answer questions with SELECT" },
+      "goal": {
+        "pt": "Um `consultas.sql` com pelo menos 8 perguntas em comentários e a consulta que responde cada uma.",
+        "en": "A `queries.sql` with at least 8 questions in comments and the query that answers each one."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "Escreva a pergunta em português num comentário (`-- ...`) e, embaixo, a consulta. Exemplos:\n\n- Livros publicados depois de 2000, do mais novo para o mais antigo.\n- Livros cujo título contém uma palavra (pesquise `LIKE`).\n- Os 5 livros mais recentes (pesquise `LIMIT`).\n- Empréstimos feitos num intervalo de datas (`BETWEEN`).\n- Membros sem telefone cadastrado (cuidado: compare com `IS NULL`, não com `= NULL`).\n\nAntes, faça as lições do SQLBolt ou do Khan Academy até a parte de filtros e ordenação.",
+        "en": "Write the question in a comment (`-- ...`) and the query below it. Examples:\n\n- Books published after 2000, newest first.\n- Books whose title contains a word (look up `LIKE`).\n- The 5 most recent books (look up `LIMIT`).\n- Loans made within a date range (`BETWEEN`).\n- Members without a phone number (careful: compare with `IS NULL`, not `= NULL`).\n\nFirst, do the SQLBolt or Khan Academy lessons up to filtering and sorting."
+      },
+      "resources": ["sqlbolt", "khan-sql", "select-star-sql"],
+      "checklist": [
+        { "pt": "Pelo menos 8 perguntas respondidas", "en": "At least 8 questions answered" },
+        { "pt": "Usou `WHERE`, `ORDER BY`, `LIMIT`, `LIKE` e `IS NULL`", "en": "Used `WHERE`, `ORDER BY`, `LIMIT`, `LIKE` and `IS NULL`" },
+        { "pt": "Cada consulta tem a pergunta comentada acima", "en": "Each query has its question commented above it" }
+      ]
+    },
+    {
+      "id": "joins-agregacoes",
+      "title": { "pt": "Cruze tabelas com JOIN e agregue dados", "en": "Combine tables with JOIN and aggregate data" },
+      "goal": {
+        "pt": "Consultas que respondem perguntas de negócio cruzando várias tabelas, como o ranking de livros mais emprestados.",
+        "en": "Queries that answer business questions across several tables, like the ranking of most borrowed books."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "Aqui o SQL fica poderoso. Adicione ao `consultas.sql`:\n\n- Cada livro com o nome do(s) autor(es) (dois `JOIN`s passando pela tabela de ligação).\n- **Livros atrasados**: título, nome do membro e quantos dias de atraso.\n- Livros que **nunca** foram emprestados (pesquise a diferença entre `INNER JOIN` e `LEFT JOIN`).\n- Ranking dos livros mais emprestados (`GROUP BY` + `COUNT` + `ORDER BY`).\n- Membros com mais de 2 empréstimos (pesquise `HAVING` e por que não dá para usar `WHERE` aqui).\n\nPara fixar, resolva o **SQL Murder Mystery**. Ele é feito de JOINs.",
+        "en": "This is where SQL gets powerful. Add to `queries.sql`:\n\n- Each book with its author name(s) (two `JOIN`s through the join table).\n- **Overdue books**: title, member name and how many days late.\n- Books that were **never** borrowed (look up the difference between `INNER JOIN` and `LEFT JOIN`).\n- Ranking of most borrowed books (`GROUP BY` + `COUNT` + `ORDER BY`).\n- Members with more than 2 loans (look up `HAVING` and why `WHERE` doesn't work here).\n\nTo lock it in, solve the **SQL Murder Mystery**. It's made of JOINs."
+      },
+      "resources": ["sql-murder-mystery", "select-star-sql", "pgexercises", "sqlbolt"],
+      "checklist": [
+        { "pt": "Consulta de livros atrasados com dias de atraso", "en": "Overdue books query with days late" },
+        { "pt": "Usou `LEFT JOIN` para achar livros nunca emprestados", "en": "Used `LEFT JOIN` to find never-borrowed books" },
+        { "pt": "Usou `GROUP BY` com `COUNT` e `HAVING`", "en": "Used `GROUP BY` with `COUNT` and `HAVING`" },
+        { "pt": "Resolveu o SQL Murder Mystery", "en": "Solved the SQL Murder Mystery" }
+      ],
+      "hint": {
+        "pt": "Diferença de datas no SQLite: pesquise a função `julianday`. No PostgreSQL, dá para subtrair datas diretamente.",
+        "en": "Date difference in SQLite: look up the `julianday` function. In PostgreSQL you can subtract dates directly."
+      }
+    },
+    {
+      "id": "readme-publicar",
+      "title": { "pt": "Documente e publique", "en": "Document and publish" },
+      "goal": {
+        "pt": "O repositório público explica o modelo, mostra o diagrama e ensina a recriar o banco com dois comandos.",
+        "en": "The public repository explains the model, shows the diagram and teaches how to recreate the database with two commands."
+      },
+      "estimatedMinutes": 45,
+      "instructions": {
+        "pt": "Um banco não tem \"site no ar\", mas o repositório é a sua vitrine.\n\n- README com: objetivo, diagrama, explicação das tabelas, **como recriar o banco** (`schema.sql` e depois `seed.sql`) e 3 consultas de exemplo com o resultado.\n- Seção \"Decisões de modelagem\": por que existe a tabela de ligação, por que o e-mail é único etc.\n- Bônus: rode os mesmos scripts num PostgreSQL e anote o que precisou mudar. Isso mostra que você entende que SQL tem dialetos.\n\nVocê vai reaproveitar este banco na API do Distrito Backend.",
+        "en": "A database has no \"live site\", but the repository is your storefront.\n\n- README with: goal, diagram, table explanations, **how to recreate the database** (`schema.sql` then `seed.sql`) and 3 sample queries with their results.\n- A \"Modeling decisions\" section: why the join table exists, why email is unique, etc.\n- Bonus: run the same scripts on PostgreSQL and note what had to change. It shows you understand SQL has dialects.\n\nYou'll reuse this database in the Backend District API."
+      },
+      "resources": ["github-docs-start-pt", "postgresql-tutorial"],
+      "checklist": [
+        { "pt": "README com diagrama e instruções para recriar o banco", "en": "README with diagram and instructions to recreate the database" },
+        { "pt": "Seção de decisões de modelagem", "en": "Modeling decisions section" },
+        { "pt": "Repositório público no GitHub", "en": "Public repository on GitHub" }
+      ]
+    }
+  ],
+  "extraChallenges": [
+    { "pt": "Crie índices e compare o plano de execução com `EXPLAIN QUERY PLAN`", "en": "Create indexes and compare the execution plan with `EXPLAIN QUERY PLAN`" },
+    { "pt": "Crie uma VIEW de empréstimos atrasados", "en": "Create a VIEW of overdue loans" },
+    { "pt": "Resolva a trilha completa do PostgreSQL Exercises", "en": "Complete the whole PostgreSQL Exercises track" }
+  ],
+  "portfolioTip": {
+    "pt": "Muita vaga júnior pede SQL, e pouca gente mostra. Fixe este repositório e cite as consultas com JOIN e GROUP BY no currículo, com link.",
+    "en": "Many junior jobs ask for SQL, and few candidates show it. Pin this repository and mention the JOIN and GROUP BY queries on your résumé, with a link."
+  }
+}

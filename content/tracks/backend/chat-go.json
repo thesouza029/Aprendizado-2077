@@ -1,0 +1,368 @@
+{
+  "id": "chat-go",
+  "track": "backend",
+  "order": 6,
+  "title": {
+    "pt": "Chat em tempo real com WebSocket e rate limiter em Go",
+    "en": "Real-time chat with WebSocket and a rate limiter in Go"
+  },
+  "level": 4,
+  "stack": [
+    "Go",
+    "net/http",
+    "WebSocket",
+    "goroutines e channels",
+    "Docker",
+    "Fly.io"
+  ],
+  "whatYouBuild": {
+    "pt": "Um servidor de chat em tempo real com salas, feito em Go: cada pessoa conectada fica numa goroutine, as mensagens circulam por channels e um rate limiter que você mesmo implementa (token bucket) impede spam por usuário e por IP. Tudo testado com o detector de condições de corrida e medido com um teste de carga.",
+    "en": "A real-time chat server with rooms, built in Go: each connected person runs in a goroutine, messages flow through channels and a rate limiter you implement yourself (token bucket) stops spam per user and per IP. Everything is tested with the race detector and measured with a load test."
+  },
+  "whatYouLearn": [
+    {
+      "pt": "Go do zero: tipos, structs, interfaces e tratamento de erros",
+      "en": "Go from scratch: types, structs, interfaces and error handling"
+    },
+    {
+      "pt": "Concorrência com goroutines, channels e mutex",
+      "en": "Concurrency with goroutines, channels and mutexes"
+    },
+    {
+      "pt": "WebSocket: conexões persistentes e o padrão hub",
+      "en": "WebSocket: persistent connections and the hub pattern"
+    },
+    {
+      "pt": "Algoritmo de rate limiting (token bucket)",
+      "en": "Rate limiting algorithm (token bucket)"
+    },
+    {
+      "pt": "Testes, detector de corrida e teste de carga",
+      "en": "Tests, the race detector and load testing"
+    }
+  ],
+  "prerequisites": [
+    "api-biblioteca-node"
+  ],
+  "steps": [
+    {
+      "id": "go-setup",
+      "title": {
+        "pt": "Go e o primeiro servidor HTTP",
+        "en": "Go and the first HTTP server"
+      },
+      "goal": {
+        "pt": "`go run .` sobe um servidor com `GET /health`, usando só a biblioteca padrão.",
+        "en": "`go run .` starts a server with `GET /health`, using only the standard library."
+      },
+      "estimatedMinutes": 60,
+      "instructions": {
+        "pt": "- Instale o Go e faça o *Tour of Go* até a parte de concorrência. A linguagem é pequena: dá para ver quase tudo num dia.\n- Crie o módulo com `go mod init` e escreva o servidor com o pacote `net/http`. Go não precisa de framework para isso.\n- Erros em Go são valores retornados, não exceções: acostume-se a tratar cada `err`.\n- Rode `go fmt` e `go vet` sempre. O formato do código em Go não é discutido: é o da ferramenta.\n- Crie o repositório no GitHub e faça commits pequenos a cada parte que funcionar: o histórico conta a história do projeto.",
+        "en": "- Install Go and do the *Tour of Go* up to the concurrency section. The language is small: you can see almost all of it in a day.\n- Create the module with `go mod init` and write the server with the `net/http` package. Go doesn't need a framework for this.\n- Errors in Go are returned values, not exceptions: get used to handling every `err`.\n- Always run `go fmt` and `go vet`. Code formatting in Go isn't debated: it's whatever the tool says.\n- Create the GitHub repository and make small commits each time a part works: the history tells the project's story."
+      },
+      "resources": [
+        "go-tour",
+        "go-docs",
+        "go-net-http",
+        "go-by-example"
+      ],
+      "checklist": [
+        {
+          "pt": "Tour of Go feito até concorrência",
+          "en": "Tour of Go done up to concurrency"
+        },
+        {
+          "pt": "Servidor com `net/http` e `/health`",
+          "en": "Server with `net/http` and `/health`"
+        },
+        {
+          "pt": "Código passa em `go fmt` e `go vet`",
+          "en": "Code passes `go fmt` and `go vet`"
+        },
+        {
+          "pt": "Repositório no GitHub com o primeiro commit",
+          "en": "GitHub repository with the first commit"
+        }
+      ]
+    },
+    {
+      "id": "token-bucket",
+      "title": {
+        "pt": "Seu próprio rate limiter",
+        "en": "Your own rate limiter"
+      },
+      "goal": {
+        "pt": "Um pacote `ratelimit` implementa token bucket, com testes que usam um relógio falso e passam com `go test -race`.",
+        "en": "A `ratelimit` package implements a token bucket, with tests that use a fake clock and pass with `go test -race`."
+      },
+      "estimatedMinutes": 150,
+      "instructions": {
+        "pt": "- Entenda o token bucket: um balde com capacidade N que ganha fichas a uma taxa fixa; cada requisição gasta uma ficha; sem ficha, recusa. Ele permite rajadas curtas e controla a média.\n- Implemente como uma `struct` com um `sync.Mutex`, porque várias goroutines vão usar ao mesmo tempo.\n- Não chame `time.Now()` direto: receba uma função de relógio. Assim o teste avança o tempo sem esperar.\n- Escreva testes em tabela (*table-driven tests*), o estilo padrão em Go.\n- Compare sua implementação com o pacote `x/time/rate` mantido pela equipe do Go.",
+        "en": "- Understand the token bucket: a bucket with capacity N that gains tokens at a fixed rate; each request spends a token; no token, refuse. It allows short bursts and controls the average.\n- Implement it as a `struct` with a `sync.Mutex`, because several goroutines will use it at once.\n- Don't call `time.Now()` directly: accept a clock function. That way the test advances time without waiting.\n- Write table-driven tests, the standard style in Go.\n- Compare your implementation with the `x/time/rate` package maintained by the Go team."
+      },
+      "resources": [
+        "learn-go-with-tests",
+        "go-rate",
+        "effective-go"
+      ],
+      "checklist": [
+        {
+          "pt": "Token bucket com mutex",
+          "en": "Token bucket with a mutex"
+        },
+        {
+          "pt": "Relógio injetado",
+          "en": "Injected clock"
+        },
+        {
+          "pt": "Testes em tabela",
+          "en": "Table-driven tests"
+        },
+        {
+          "pt": "`go test -race` passa",
+          "en": "`go test -race` passes"
+        }
+      ],
+      "hint": {
+        "pt": "Você não precisa de uma goroutine enchendo o balde: calcule quantas fichas entraram desde a última chamada, usando o tempo que passou.",
+        "en": "You don't need a goroutine refilling the bucket: compute how many tokens arrived since the last call, using the elapsed time."
+      }
+    },
+    {
+      "id": "middleware",
+      "title": {
+        "pt": "Middleware de limite por IP",
+        "en": "Per-IP limit middleware"
+      },
+      "goal": {
+        "pt": "Mais de N requisições por segundo do mesmo IP recebem 429 com o cabeçalho `Retry-After`.",
+        "en": "More than N requests per second from the same IP get a 429 with the `Retry-After` header."
+      },
+      "estimatedMinutes": 60,
+      "instructions": {
+        "pt": "- Em Go, um middleware é uma função que recebe um `http.Handler` e devolve outro. Escreva um que aplica o limiter por IP.\n- Guarde um balde por IP num mapa protegido por mutex.\n- Mapas crescem para sempre: crie uma goroutine que remove de tempos em tempos os IPs que não aparecem há um tempo.\n- Atrás de proxies, o IP real vem num cabeçalho. Pesquise os riscos de confiar nele cegamente.",
+        "en": "- In Go, middleware is a function that takes an `http.Handler` and returns another. Write one that applies the limiter per IP.\n- Keep one bucket per IP in a mutex-protected map.\n- Maps grow forever: create a goroutine that periodically removes IPs that haven't shown up in a while.\n- Behind proxies, the real IP comes in a header. Look up the risks of trusting it blindly."
+      },
+      "resources": [
+        "go-net-http",
+        "go-by-example",
+        "mdn-http-status-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Middleware aplicando o limite por IP",
+          "en": "Middleware applying the per-IP limit"
+        },
+        {
+          "pt": "429 com `Retry-After`",
+          "en": "429 with `Retry-After`"
+        },
+        {
+          "pt": "Limpeza periódica do mapa",
+          "en": "Periodic map cleanup"
+        }
+      ]
+    },
+    {
+      "id": "websocket",
+      "title": {
+        "pt": "Conexões WebSocket",
+        "en": "WebSocket connections"
+      },
+      "goal": {
+        "pt": "Uma página HTML simples conecta no servidor por WebSocket e recebe de volta o que envia (eco).",
+        "en": "A simple HTML page connects to the server over WebSocket and gets back what it sends (echo)."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Entenda a diferença: HTTP é pergunta e resposta; WebSocket mantém uma conexão aberta nos dois sentidos, ideal para chat.\n- Use uma biblioteca de WebSocket para Go (a Gorilla é a mais conhecida e tem um exemplo de chat) para transformar a requisição HTTP numa conexão WebSocket.\n- Faça um eco: tudo o que chega volta para quem mandou.\n- Crie uma página HTML com um pouco de JavaScript usando a API `WebSocket` do navegador. Sirva essa página pelo próprio servidor Go.",
+        "en": "- Understand the difference: HTTP is question and answer; WebSocket keeps a connection open in both directions, ideal for chat.\n- Use a Go WebSocket library (Gorilla is the best known and has a chat example) to upgrade the HTTP request into a WebSocket connection.\n- Build an echo: everything that arrives goes back to the sender.\n- Create an HTML page with a bit of JavaScript using the browser's `WebSocket` API. Serve that page from the Go server itself."
+      },
+      "resources": [
+        "gorilla-websocket",
+        "mdn-websocket-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Upgrade para WebSocket funcionando",
+          "en": "WebSocket upgrade working"
+        },
+        {
+          "pt": "Eco de mensagens",
+          "en": "Message echo"
+        },
+        {
+          "pt": "Página cliente servida pelo Go",
+          "en": "Client page served by Go"
+        }
+      ]
+    },
+    {
+      "id": "hub-salas",
+      "title": {
+        "pt": "Hub, salas e broadcast",
+        "en": "Hub, rooms and broadcast"
+      },
+      "goal": {
+        "pt": "Várias abas entram na mesma sala e veem as mensagens umas das outras em tempo real; salas diferentes não se misturam.",
+        "en": "Several tabs join the same room and see each other's messages in real time; different rooms don't mix."
+      },
+      "estimatedMinutes": 150,
+      "instructions": {
+        "pt": "- Use o padrão *hub*: uma goroutine central guarda quem está em cada sala e recebe pedidos por channels (entrar, sair, mensagem). Como só ela mexe nesse estado, você não precisa de mutex ali.\n- Cada conexão tem duas goroutines: uma lê do WebSocket e manda para o hub; outra recebe do hub e escreve no WebSocket.\n- Quando alguém fecha a aba, a goroutine de leitura recebe erro: avise o hub para remover a conexão e feche o channel de envio.\n- Mostre na tela quem entrou e quem saiu da sala.",
+        "en": "- Use the *hub* pattern: a central goroutine tracks who is in each room and receives requests through channels (join, leave, message). Since only it touches that state, you don't need a mutex there.\n- Each connection has two goroutines: one reads from the WebSocket and sends to the hub; the other receives from the hub and writes to the WebSocket.\n- When someone closes the tab, the reading goroutine gets an error: tell the hub to remove the connection and close the send channel.\n- Show on screen who joined and who left the room."
+      },
+      "resources": [
+        "gorilla-websocket",
+        "go-by-example",
+        "effective-go"
+      ],
+      "checklist": [
+        {
+          "pt": "Hub central com channels",
+          "en": "Central hub with channels"
+        },
+        {
+          "pt": "Duas goroutines por conexão",
+          "en": "Two goroutines per connection"
+        },
+        {
+          "pt": "Salas isoladas",
+          "en": "Isolated rooms"
+        },
+        {
+          "pt": "Saída de usuário tratada sem vazamento",
+          "en": "User disconnect handled without leaks"
+        }
+      ]
+    },
+    {
+      "id": "limites-chat",
+      "title": {
+        "pt": "Limites e resiliência no chat",
+        "en": "Limits and resilience in the chat"
+      },
+      "goal": {
+        "pt": "Quem manda mensagens demais é limitado, mensagens muito grandes são recusadas e conexões mortas são detectadas e removidas.",
+        "en": "Anyone sending too many messages gets limited, oversized messages are refused and dead connections are detected and removed."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Reaproveite o seu token bucket para limitar mensagens por usuário. Avise o usuário em vez de derrubar a conexão.\n- Limite o tamanho máximo de cada mensagem.\n- Implemente *ping/pong*: o servidor manda ping de tempos em tempos e encerra quem não responde.\n- Cliente lento: se o channel de envio de uma conexão encher, desconecte-a em vez de travar o hub inteiro.",
+        "en": "- Reuse your token bucket to limit messages per user. Warn the user instead of dropping the connection.\n- Limit the maximum size of each message.\n- Implement *ping/pong*: the server sends pings periodically and closes anyone who doesn't respond.\n- Slow client: if a connection's send channel fills up, disconnect it instead of blocking the whole hub."
+      },
+      "resources": [
+        "gorilla-websocket",
+        "effective-go"
+      ],
+      "checklist": [
+        {
+          "pt": "Limite de mensagens por usuário",
+          "en": "Per-user message limit"
+        },
+        {
+          "pt": "Tamanho máximo de mensagem",
+          "en": "Maximum message size"
+        },
+        {
+          "pt": "Ping/pong removendo conexões mortas",
+          "en": "Ping/pong removing dead connections"
+        },
+        {
+          "pt": "Cliente lento não trava o hub",
+          "en": "Slow client doesn't block the hub"
+        }
+      ]
+    },
+    {
+      "id": "testes-carga",
+      "title": {
+        "pt": "Testes, corridas e carga",
+        "en": "Tests, races and load"
+      },
+      "goal": {
+        "pt": "`go test -race ./...` passa e um teste de carga mostra quantas conexões simultâneas o servidor aguenta na sua máquina.",
+        "en": "`go test -race ./...` passes and a load test shows how many simultaneous connections the server handles on your machine."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Teste o servidor com o pacote `httptest`: suba o servidor no teste, conecte dois clientes WebSocket e confira se a mensagem de um chega ao outro.\n- Rode tudo com `-race`. Se o detector apontar algo, entenda o problema antes de corrigir.\n- Escreva um pequeno programa em Go que abre centenas de conexões e manda mensagens. Meça memória e tempo de entrega.\n- Anote os números no README: é um ótimo assunto para entrevistas.",
+        "en": "- Test the server with the `httptest` package: start the server in the test, connect two WebSocket clients and check that one's message reaches the other.\n- Run everything with `-race`. If the detector flags something, understand the problem before fixing it.\n- Write a small Go program that opens hundreds of connections and sends messages. Measure memory and delivery time.\n- Write the numbers in the README: a great topic for interviews."
+      },
+      "resources": [
+        "learn-go-with-tests",
+        "go-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Teste de integração com dois clientes",
+          "en": "Integration test with two clients"
+        },
+        {
+          "pt": "`go test -race` passa",
+          "en": "`go test -race` passes"
+        },
+        {
+          "pt": "Teste de carga com números anotados",
+          "en": "Load test with recorded numbers"
+        }
+      ]
+    },
+    {
+      "id": "docker-deploy",
+      "title": {
+        "pt": "Imagem mínima, desligamento limpo e deploy",
+        "en": "Minimal image, graceful shutdown and deploy"
+      },
+      "goal": {
+        "pt": "O chat roda numa imagem Docker de poucos megabytes, desliga sem perder mensagens em andamento e está no ar no Fly.io.",
+        "en": "The chat runs in a Docker image of a few megabytes, shuts down without losing in-flight messages and is live on Fly.io."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Go gera um único binário: use um Dockerfile em múltiplos estágios em que a imagem final só tem esse binário. Compare o tamanho com as imagens de Node e Java.\n- Desligamento limpo: capture o sinal de término (`signal.NotifyContext`), pare de aceitar conexões, avise os clientes e espere um pouco antes de sair.\n- Faça o deploy no Fly.io. Abra o chat em dois celulares e converse.\n- README: diagrama do hub, explicação do token bucket e os números do teste de carga.",
+        "en": "- Go produces a single binary: use a multi-stage Dockerfile where the final image contains only that binary. Compare its size with the Node and Java images.\n- Graceful shutdown: catch the termination signal (`signal.NotifyContext`), stop accepting connections, notify clients and wait a little before exiting.\n- Deploy on Fly.io. Open the chat on two phones and talk.\n- README: hub diagram, token bucket explanation and the load test numbers."
+      },
+      "resources": [
+        "docker-multistage",
+        "fly-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Imagem final só com o binário",
+          "en": "Final image with only the binary"
+        },
+        {
+          "pt": "Desligamento limpo com sinal",
+          "en": "Graceful shutdown on signal"
+        },
+        {
+          "pt": "Chat no ar",
+          "en": "Chat live"
+        },
+        {
+          "pt": "README com diagrama e números",
+          "en": "README with diagram and numbers"
+        }
+      ]
+    }
+  ],
+  "extraChallenges": [
+    {
+      "pt": "Histórico das últimas mensagens de cada sala no Redis",
+      "en": "Each room's recent message history in Redis"
+    },
+    {
+      "pt": "Rodar duas instâncias e sincronizar salas com Redis Pub/Sub",
+      "en": "Run two instances and sync rooms with Redis Pub/Sub"
+    },
+    {
+      "pt": "Métricas de conexões ativas e mensagens por segundo",
+      "en": "Metrics for active connections and messages per second"
+    }
+  ],
+  "portfolioTip": {
+    "pt": "Concorrência é o ponto forte de Go e um assunto que poucos júniores dominam. Explique no README, com um diagrama, como as goroutines e os channels se conversam, e mostre os números do teste de carga.",
+    "en": "Concurrency is Go's strength and a topic few juniors master. Explain in the README, with a diagram, how goroutines and channels talk to each other, and show the load test numbers."
+  }
+}

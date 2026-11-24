@@ -1,0 +1,346 @@
+{
+  "id": "app-tarefas-react",
+  "track": "web",
+  "order": 2,
+  "title": {
+    "pt": "App de tarefas com React, TypeScript e testes",
+    "en": "Task app with React, TypeScript and tests"
+  },
+  "level": 2,
+  "stack": [
+    "React",
+    "TypeScript",
+    "Vite",
+    "Vitest",
+    "Testing Library",
+    "Vercel"
+  ],
+  "whatYouBuild": {
+    "pt": "Um app de tarefas de verdade: adicionar, editar, concluir e remover tarefas, filtrar por situação, ver quantas faltam e não perder nada ao recarregar a página. O código é tipado com TypeScript, a lógica tem testes automatizados e o app funciona só com o teclado.",
+    "en": "A real task app: add, edit, complete and delete tasks, filter by status, see how many are left and lose nothing on reload. The code is typed with TypeScript, the logic has automated tests and the app works with the keyboard alone."
+  },
+  "whatYouLearn": [
+    {
+      "pt": "Componentes, props e estado no React",
+      "en": "Components, props and state in React"
+    },
+    {
+      "pt": "TypeScript no front-end: tipos, uniões e props tipadas",
+      "en": "TypeScript on the front end: types, unions and typed props"
+    },
+    {
+      "pt": "Estado derivado e useReducer para lógica mais complexa",
+      "en": "Derived state and useReducer for more complex logic"
+    },
+    {
+      "pt": "Hooks personalizados e persistência com localStorage",
+      "en": "Custom hooks and persistence with localStorage"
+    },
+    {
+      "pt": "Testes de unidade e de componente com Vitest e Testing Library",
+      "en": "Unit and component tests with Vitest and Testing Library"
+    }
+  ],
+  "prerequisites": [
+    "landing-page",
+    "calculadora-jogo-da-velha"
+  ],
+  "steps": [
+    {
+      "id": "setup-tipos",
+      "title": {
+        "pt": "Crie o projeto e modele os dados",
+        "en": "Create the project and model the data"
+      },
+      "goal": {
+        "pt": "O projeto React + TypeScript roda com `npm run dev`, e o tipo `Task` está definido num arquivo próprio.",
+        "en": "The React + TypeScript project runs with `npm run dev`, and the `Task` type is defined in its own file."
+      },
+      "estimatedMinutes": 60,
+      "instructions": {
+        "pt": "- Crie o projeto com o template `react-ts` do Vite e confira se o `tsconfig` está com `strict` ligado.\n- Antes de escrever componentes, desenhe no papel: quais telas, quais partes da tela, que dados cada parte precisa.\n- Modele a tarefa como um tipo: `id`, `title`, `done`, `createdAt` e, se quiser, uma prioridade com valores fixos (`\"baixa\" | \"media\" | \"alta\"`). Tipos de união como esse evitam erros de digitação.\n- Gere o `id` com `crypto.randomUUID()`, que já vem no navegador.\n- Apague o conteúdo de exemplo do Vite e faça o primeiro commit com o projeto limpo.",
+        "en": "- Create the project with Vite's `react-ts` template and check that `strict` is on in `tsconfig`.\n- Before writing components, sketch on paper: which screens, which parts of each screen, what data each part needs.\n- Model the task as a type: `id`, `title`, `done`, `createdAt` and, if you like, a priority with fixed values (`\"low\" | \"medium\" | \"high\"`). Union types like this prevent typos.\n- Generate the `id` with `crypto.randomUUID()`, built into the browser.\n- Delete Vite's sample content and make the first commit with the clean project."
+      },
+      "resources": [
+        "vite-guide",
+        "react-typescript",
+        "typescript-handbook"
+      ],
+      "checklist": [
+        {
+          "pt": "Projeto criado com React + TypeScript (`strict` ligado)",
+          "en": "Project created with React + TypeScript (`strict` on)"
+        },
+        {
+          "pt": "Tipo `Task` definido e exportado",
+          "en": "`Task` type defined and exported"
+        },
+        {
+          "pt": "Esboço das telas e componentes no README",
+          "en": "Sketch of screens and components in the README"
+        },
+        {
+          "pt": "Primeiro commit feito",
+          "en": "First commit made"
+        }
+      ]
+    },
+    {
+      "id": "listar-adicionar",
+      "title": {
+        "pt": "Liste e adicione tarefas",
+        "en": "List and add tasks"
+      },
+      "goal": {
+        "pt": "Dá para digitar uma tarefa, apertar Enter e vê-la aparecer na lista. Título vazio não entra.",
+        "en": "You can type a task, press Enter and see it appear in the list. Empty titles are rejected."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Divida em componentes pequenos: um formulário, a lista e o item da lista. Cada um recebe só o que precisa por props.\n- O estado da lista mora no componente pai. O formulário avisa o pai por uma função recebida via props.\n- Use um input controlado (o valor vem do estado) e trate o `submit` do formulário: assim o Enter funciona sem código extra.\n- Ignore títulos vazios ou só com espaços (`trim`).\n- Cada item precisa de uma `key` estável: use o `id`, nunca o índice do array.\n- Tipar as props com TypeScript faz o editor avisar quando você esquece de passar algo.",
+        "en": "- Split into small components: a form, the list and the list item. Each one receives only what it needs via props.\n- The list state lives in the parent component. The form notifies the parent through a function received via props.\n- Use a controlled input (its value comes from state) and handle the form's `submit`: that way Enter works without extra code.\n- Ignore empty or whitespace-only titles (`trim`).\n- Every item needs a stable `key`: use the `id`, never the array index.\n- Typing props with TypeScript makes the editor warn you when you forget to pass something."
+      },
+      "resources": [
+        "react-docs-pt",
+        "react-learn-en",
+        "react-typescript"
+      ],
+      "checklist": [
+        {
+          "pt": "Formulário adiciona tarefas com Enter",
+          "en": "Form adds tasks with Enter"
+        },
+        {
+          "pt": "Título vazio é ignorado",
+          "en": "Empty title is ignored"
+        },
+        {
+          "pt": "Itens usam o `id` como `key`",
+          "en": "Items use the `id` as `key`"
+        },
+        {
+          "pt": "Props tipadas em todos os componentes",
+          "en": "Typed props on every component"
+        }
+      ],
+      "hint": {
+        "pt": "Se a lista não atualiza, confira se você está criando um array novo (`[...tarefas, nova]`) em vez de usar `push` no array antigo.",
+        "en": "If the list doesn't update, check that you're creating a new array (`[...tasks, newOne]`) instead of calling `push` on the old one."
+      }
+    },
+    {
+      "id": "editar-concluir",
+      "title": {
+        "pt": "Conclua, edite e remova",
+        "en": "Complete, edit and delete"
+      },
+      "goal": {
+        "pt": "Cada tarefa pode ser marcada como feita, editada com duplo clique (Enter salva, Esc cancela) e removida.",
+        "en": "Each task can be marked done, edited with a double click (Enter saves, Esc cancels) and deleted."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Com várias ações sobre a mesma lista, troque os `useState` espalhados por um `useReducer`: uma função recebe o estado e uma ação (`adicionar`, `alternar`, `editar`, `remover`) e devolve o estado novo.\n- Tipe as ações como uma união: o TypeScript passa a conferir se cada ação tem os dados certos.\n- O reducer é uma função pura, sem React dentro. Isso vai deixar os testes da etapa 6 muito simples.\n- Para editar, guarde qual tarefa está em edição. Enter salva, Esc descarta, e sair do campo (`blur`) também salva.\n- Use um `checkbox` de verdade para concluir: ele já funciona com teclado e leitor de tela.",
+        "en": "- With several actions on the same list, replace scattered `useState` calls with a `useReducer`: one function receives the state and an action (`add`, `toggle`, `edit`, `remove`) and returns the new state.\n- Type the actions as a union: TypeScript then checks that every action carries the right data.\n- The reducer is a pure function, with no React inside. That will make the tests in step 6 very simple.\n- To edit, keep track of which task is being edited. Enter saves, Esc discards, and leaving the field (`blur`) also saves.\n- Use a real `checkbox` to complete tasks: it already works with the keyboard and screen readers."
+      },
+      "resources": [
+        "react-docs-pt",
+        "react-learn-en",
+        "typescript-handbook"
+      ],
+      "checklist": [
+        {
+          "pt": "Lógica da lista num reducer puro",
+          "en": "List logic in a pure reducer"
+        },
+        {
+          "pt": "Ações tipadas como união",
+          "en": "Actions typed as a union"
+        },
+        {
+          "pt": "Edição com Enter, Esc e blur",
+          "en": "Editing with Enter, Esc and blur"
+        },
+        {
+          "pt": "Concluir com checkbox acessível",
+          "en": "Completing with an accessible checkbox"
+        }
+      ]
+    },
+    {
+      "id": "filtros",
+      "title": {
+        "pt": "Filtros e contadores",
+        "en": "Filters and counters"
+      },
+      "goal": {
+        "pt": "Botões \"Todas\", \"Pendentes\" e \"Concluídas\" filtram a lista, um contador mostra quantas faltam e dá para limpar as concluídas.",
+        "en": "\"All\", \"Active\" and \"Completed\" buttons filter the list, a counter shows how many are left and you can clear completed ones."
+      },
+      "estimatedMinutes": 60,
+      "instructions": {
+        "pt": "- Guarde no estado só o filtro escolhido. A lista filtrada e o número de pendentes são **calculados** a partir da lista: não crie estados duplicados que podem ficar desencontrados.\n- Marque o filtro ativo para leitores de tela com `aria-pressed` nos botões.\n- Plural importa: \"1 tarefa pendente\" e \"3 tarefas pendentes\".\n- Mostre uma mensagem amigável quando a lista filtrada estiver vazia.\n- Desafio: guarde o filtro na URL (`#pendentes`) para ele sobreviver ao recarregar.",
+        "en": "- Keep only the chosen filter in state. The filtered list and the number of active tasks are **computed** from the list: don't create duplicate state that can get out of sync.\n- Mark the active filter for screen readers with `aria-pressed` on the buttons.\n- Plurals matter: \"1 task left\" and \"3 tasks left\".\n- Show a friendly message when the filtered list is empty.\n- Challenge: keep the filter in the URL (`#active`) so it survives a reload."
+      },
+      "resources": [
+        "react-learn-en",
+        "mdn-a11y-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Filtro é o único estado novo",
+          "en": "The filter is the only new state"
+        },
+        {
+          "pt": "Contador e lista filtrada são derivados",
+          "en": "Counter and filtered list are derived"
+        },
+        {
+          "pt": "Botão de limpar concluídas",
+          "en": "Clear completed button"
+        },
+        {
+          "pt": "Mensagem para lista vazia",
+          "en": "Message for an empty list"
+        }
+      ]
+    },
+    {
+      "id": "persistencia",
+      "title": {
+        "pt": "Salve no navegador",
+        "en": "Save in the browser"
+      },
+      "goal": {
+        "pt": "As tarefas e o filtro continuam lá depois de recarregar a página ou fechar o navegador.",
+        "en": "Tasks and filter are still there after reloading the page or closing the browser."
+      },
+      "estimatedMinutes": 60,
+      "instructions": {
+        "pt": "- Crie um hook próprio, `useLocalStorage`, que funciona como um `useState` mas lê e grava no `localStorage`. Hooks personalizados são o jeito do React de reaproveitar lógica.\n- O `localStorage` só guarda texto: use `JSON.stringify` para gravar e `JSON.parse` para ler.\n- Trate o caso de dado corrompido ou de outra versão: se o `parse` falhar, comece com a lista vazia em vez de quebrar o app.\n- Inclua um número de versão no que você salva. Se o formato mudar no futuro, você sabe converter.\n- Teste abrindo as ferramentas do navegador (aba Application/Armazenamento) e vendo o dado mudar.",
+        "en": "- Write your own hook, `useLocalStorage`, that works like `useState` but reads from and writes to `localStorage`. Custom hooks are React's way of reusing logic.\n- `localStorage` only stores text: use `JSON.stringify` to write and `JSON.parse` to read.\n- Handle corrupted or old-format data: if `parse` fails, start with an empty list instead of crashing the app.\n- Include a version number in what you save. If the format changes later, you'll know how to convert it.\n- Test it by opening the browser devtools (Application/Storage tab) and watching the data change."
+      },
+      "resources": [
+        "react-learn-en",
+        "javascript-info"
+      ],
+      "checklist": [
+        {
+          "pt": "Hook `useLocalStorage` criado",
+          "en": "`useLocalStorage` hook created"
+        },
+        {
+          "pt": "Tarefas sobrevivem ao recarregar",
+          "en": "Tasks survive a reload"
+        },
+        {
+          "pt": "Dado inválido não quebra o app",
+          "en": "Invalid data doesn't crash the app"
+        },
+        {
+          "pt": "Formato salvo tem versão",
+          "en": "Saved format has a version"
+        }
+      ]
+    },
+    {
+      "id": "testes",
+      "title": {
+        "pt": "Testes com Vitest e Testing Library",
+        "en": "Tests with Vitest and Testing Library"
+      },
+      "goal": {
+        "pt": "`npm test` roda testes do reducer e de pelo menos um fluxo completo na tela (adicionar e filtrar).",
+        "en": "`npm test` runs reducer tests and at least one full on-screen flow (add and filter)."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Instale o Vitest e a React Testing Library. O Vitest usa a mesma configuração do Vite, então quase não tem configuração.\n- Comece pelo reducer: como é uma função pura, cada teste é \"dado este estado e esta ação, espero este resultado\". Cubra adicionar, alternar, editar, remover e limpar concluídas.\n- Depois teste um componente como o usuário usa: encontre o campo pelo rótulo, digite, aperte Enter e confira se a tarefa apareceu. Evite procurar por classes CSS.\n- Se precisar do `localStorage` nos testes, limpe-o antes de cada um para os testes não dependerem uns dos outros.\n- Rode em modo watch enquanto escreve. Quebre o código de propósito para ver o teste falhar.",
+        "en": "- Install Vitest and React Testing Library. Vitest uses Vite's configuration, so there's almost nothing to configure.\n- Start with the reducer: since it's a pure function, each test is \"given this state and this action, I expect this result\". Cover add, toggle, edit, remove and clear completed.\n- Then test a component the way users use it: find the field by its label, type, press Enter and check that the task appeared. Avoid querying by CSS classes.\n- If tests need `localStorage`, clear it before each one so tests don't depend on each other.\n- Run in watch mode while writing. Break the code on purpose to see the test fail."
+      },
+      "resources": [
+        "vitest-guide",
+        "testing-library-react"
+      ],
+      "checklist": [
+        {
+          "pt": "Testes do reducer cobrindo todas as ações",
+          "en": "Reducer tests covering every action"
+        },
+        {
+          "pt": "Teste de componente usando rótulos e texto",
+          "en": "Component test using labels and text"
+        },
+        {
+          "pt": "Testes independentes entre si",
+          "en": "Tests independent of each other"
+        },
+        {
+          "pt": "`npm test` passa",
+          "en": "`npm test` passes"
+        }
+      ],
+      "hint": {
+        "pt": "Para simular digitação de forma realista, use o pacote `@testing-library/user-event` em vez de disparar eventos na mão.",
+        "en": "To simulate typing realistically, use the `@testing-library/user-event` package instead of firing events by hand."
+      }
+    },
+    {
+      "id": "a11y-deploy",
+      "title": {
+        "pt": "Acessibilidade, README e deploy",
+        "en": "Accessibility, README and deploy"
+      },
+      "goal": {
+        "pt": "O app funciona só com o teclado, está no ar na Vercel e tem um README completo.",
+        "en": "The app works with the keyboard alone, is live on Vercel and has a complete README."
+      },
+      "estimatedMinutes": 60,
+      "instructions": {
+        "pt": "- Use o app só com Tab, Enter, Espaço e Esc. Todo controle precisa ser alcançável e ter foco visível.\n- Depois de remover uma tarefa, para onde vai o foco? Leve-o para algo que faça sentido (o próximo item ou o campo de nova tarefa).\n- Rode o Lighthouse e corrija o que aparecer em Acessibilidade.\n- Faça o deploy na Vercel conectando o repositório do GitHub.\n- No README: o que o app faz, print, link, como rodar e testar, e as decisões técnicas (por que reducer, por que hook próprio).",
+        "en": "- Use the app with only Tab, Enter, Space and Esc. Every control must be reachable and have a visible focus.\n- After deleting a task, where does focus go? Move it somewhere sensible (the next item or the new-task field).\n- Run Lighthouse and fix what shows up under Accessibility.\n- Deploy on Vercel by connecting the GitHub repository.\n- In the README: what the app does, screenshot, link, how to run and test, and the technical decisions (why a reducer, why a custom hook)."
+      },
+      "resources": [
+        "web-dev-learn-a11y",
+        "lighthouse-docs",
+        "vercel-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Uso completo só com teclado",
+          "en": "Full use with the keyboard alone"
+        },
+        {
+          "pt": "Foco tratado ao remover tarefas",
+          "en": "Focus handled when deleting tasks"
+        },
+        {
+          "pt": "App no ar na Vercel",
+          "en": "App live on Vercel"
+        },
+        {
+          "pt": "README com decisões técnicas",
+          "en": "README with technical decisions"
+        }
+      ]
+    }
+  ],
+  "extraChallenges": [
+    {
+      "pt": "Arrastar e soltar para reordenar as tarefas",
+      "en": "Drag and drop to reorder tasks"
+    },
+    {
+      "pt": "Datas de vencimento com destaque para as atrasadas",
+      "en": "Due dates with overdue tasks highlighted"
+    },
+    {
+      "pt": "Sincronizar entre abas com o evento `storage`",
+      "en": "Sync between tabs with the `storage` event"
+    }
+  ],
+  "portfolioTip": {
+    "pt": "Todo mundo faz app de tarefas, então o diferencial está nos detalhes: mostre os testes passando, o uso só com teclado e explique no README por que escolheu `useReducer`.",
+    "en": "Everyone builds a task app, so the difference is in the details: show passing tests and keyboard-only use, and explain in the README why you chose `useReducer`."
+  }
+}

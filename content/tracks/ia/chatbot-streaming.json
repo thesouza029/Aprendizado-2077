@@ -1,0 +1,187 @@
+{
+  "id": "chatbot-streaming",
+  "track": "ia",
+  "order": 1,
+  "title": { "pt": "Chatbot web com streaming", "en": "Web chatbot with streaming" },
+  "level": 3,
+  "stack": ["Next.js", "TypeScript", "Tailwind CSS", "API de LLM", "Vercel"],
+  "whatYouBuild": {
+    "pt": "Um chatbot web com um assistente especializado criado por você (por exemplo, um tutor de Git ou um ajudante de receitas). As respostas aparecem palavra por palavra, como nos chats de IA famosos. A chave da API fica protegida no servidor, há limites de uso e o app é publicado na Vercel.",
+    "en": "A web chatbot with a specialized assistant you design (for example, a Git tutor or a recipe helper). Replies appear word by word, like in the famous AI chats. The API key stays protected on the server, there are usage limits, and the app is deployed on Vercel."
+  },
+  "whatYouLearn": [
+    { "pt": "Como funciona uma API de LLM: mensagens, papéis e tokens", "en": "How an LLM API works: messages, roles and tokens" },
+    { "pt": "Proteger chaves de API e chamar serviços pelo servidor", "en": "Protecting API keys and calling services from the server" },
+    { "pt": "Streaming de respostas do servidor até a interface", "en": "Streaming responses from the server to the interface" },
+    { "pt": "System prompt, contexto da conversa e controle de custos", "en": "System prompt, conversation context and cost control" },
+    { "pt": "Tratar erros e limites de serviços externos", "en": "Handling errors and limits of external services" }
+  ],
+  "prerequisites": ["landing-page", "cli-api-http"],
+  "steps": [
+    {
+      "id": "escolher-provedor",
+      "title": { "pt": "Escolha o modelo e proteja a chave", "en": "Choose the model and protect the key" },
+      "goal": {
+        "pt": "Você tem acesso a um modelo de linguagem (por API ou rodando localmente) e sabe exatamente onde a chave fica guardada.",
+        "en": "You have access to a language model (via API or running locally) and know exactly where the key is stored."
+      },
+      "estimatedMinutes": 45,
+      "instructions": {
+        "pt": "Opções para começar sem gastar muito:\n\n- **APIs comerciais** (Anthropic, OpenAI, Google Gemini): cobram por uso, medido em *tokens*. Algumas têm nível gratuito ou créditos iniciais. **Defina um limite de gastos no painel antes de tudo.**\n- **Modelo local com Ollama:** grátis e roda no seu computador. É mais lento e menos capaz, mas ótimo para aprender.\n\n**A regra de segurança mais importante do projeto:** a chave da API **nunca** vai para o código do navegador nem para o Git. Quem tem a chave gasta o seu dinheiro. Ela fica numa variável de ambiente, lida só no servidor.\n\nLeia a página de \"primeiros passos\" do provedor escolhido e faça uma chamada de teste com `curl`.",
+        "en": "Ways to start without spending much:\n\n- **Commercial APIs** (Anthropic, OpenAI, Google Gemini): they charge per use, measured in *tokens*. Some have a free tier or starter credits. **Set a spending limit in the dashboard before anything else.**\n- **Local model with Ollama:** free and runs on your computer. Slower and less capable, but great for learning.\n\n**The most important security rule of the project:** the API key **never** goes into browser code or into Git. Whoever has the key spends your money. It lives in an environment variable, read only on the server.\n\nRead the \"getting started\" page of your chosen provider and make a test call with `curl`."
+      },
+      "resources": ["claude-docs", "openai-docs", "gemini-docs", "ollama"],
+      "checklist": [
+        { "pt": "Provedor escolhido e chamada de teste com `curl` funcionando", "en": "Provider chosen and test call with `curl` working" },
+        { "pt": "Limite de gastos configurado (se for API paga)", "en": "Spending limit set (if using a paid API)" },
+        { "pt": "Sabe explicar por que a chave não pode ir para o navegador", "en": "Can explain why the key can't go to the browser" }
+      ]
+    },
+    {
+      "id": "setup-next",
+      "title": { "pt": "Crie o projeto Next.js", "en": "Create the Next.js project" },
+      "goal": {
+        "pt": "Um app Next.js com TypeScript e Tailwind rodando, com a chave num `.env.local` ignorado pelo Git.",
+        "en": "A Next.js app with TypeScript and Tailwind running, with the key in a `.env.local` ignored by Git."
+      },
+      "estimatedMinutes": 45,
+      "instructions": {
+        "pt": "- Crie o app com `create-next-app`, aceitando TypeScript, Tailwind e o App Router.\n- Coloque a chave em `.env.local` e confirme que esse arquivo está no `.gitignore`.\n- No Next.js, variáveis com prefixo `NEXT_PUBLIC_` vão para o navegador. **A sua chave não pode ter esse prefixo.**\n- Crie um `.env.example` com o nome da variável e um valor falso.\n- Primeiro commit. Antes de dar push, rode `git status` e confira que o `.env.local` não aparece.\n\nNunca usou Next.js? Faça antes os primeiros capítulos do Next.js Learn.",
+        "en": "- Create the app with `create-next-app`, accepting TypeScript, Tailwind and the App Router.\n- Put the key in `.env.local` and confirm that file is in `.gitignore`.\n- In Next.js, variables prefixed with `NEXT_PUBLIC_` are sent to the browser. **Your key must not have that prefix.**\n- Create a `.env.example` with the variable name and a fake value.\n- First commit. Before pushing, run `git status` and check that `.env.local` doesn't show up.\n\nNever used Next.js? First do the opening chapters of Next.js Learn."
+      },
+      "resources": ["nextjs-learn", "nextjs-docs"],
+      "checklist": [
+        { "pt": "App Next.js rodando com TypeScript e Tailwind", "en": "Next.js app running with TypeScript and Tailwind" },
+        { "pt": "Chave em `.env.local`, sem prefixo `NEXT_PUBLIC_`", "en": "Key in `.env.local`, without the `NEXT_PUBLIC_` prefix" },
+        { "pt": "`.env.local` fora do Git e `.env.example` versionado", "en": "`.env.local` out of Git and `.env.example` committed" }
+      ]
+    },
+    {
+      "id": "rota-api",
+      "title": { "pt": "Crie a rota que conversa com o modelo", "en": "Create the route that talks to the model" },
+      "goal": {
+        "pt": "`POST /api/chat` recebe uma mensagem, chama o modelo no servidor e devolve a resposta completa. Testado com `curl`.",
+        "en": "`POST /api/chat` takes a message, calls the model on the server and returns the full reply. Tested with `curl`."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Crie um **Route Handler** do Next.js para `POST /api/chat`. Esse código roda só no servidor: é aqui que a chave é lida.\n- Instale o SDK oficial do provedor (ou o **AI SDK** da Vercel, que deixa trocar de provedor com poucas mudanças).\n- APIs de chat recebem uma lista de **mensagens com papéis** (`user`, `assistant`) e devolvem a próxima mensagem. Entenda esse formato: o modelo **não lembra** de nada entre chamadas, você precisa mandar a conversa toda.\n- Valide o corpo da requisição (mensagem não vazia, tamanho máximo).\n- Teste com `curl` antes de criar qualquer interface. Veja no retorno quantos tokens a chamada usou.",
+        "en": "- Create a Next.js **Route Handler** for `POST /api/chat`. This code runs only on the server: this is where the key is read.\n- Install the provider's official SDK (or Vercel's **AI SDK**, which lets you switch providers with few changes).\n- Chat APIs take a list of **messages with roles** (`user`, `assistant`) and return the next message. Understand this format: the model **remembers nothing** between calls, you have to send the whole conversation.\n- Validate the request body (non-empty message, maximum length).\n- Test with `curl` before building any interface. Check in the response how many tokens the call used."
+      },
+      "resources": ["nextjs-route-handlers", "ai-sdk-docs", "claude-docs", "zod-docs"],
+      "checklist": [
+        { "pt": "`POST /api/chat` responde com o texto do modelo", "en": "`POST /api/chat` replies with the model's text" },
+        { "pt": "A chave só é lida no servidor", "en": "The key is only read on the server" },
+        { "pt": "Corpo da requisição validado", "en": "Request body validated" },
+        { "pt": "Entende que o histórico precisa ser reenviado a cada chamada", "en": "Understands the history must be resent on every call" }
+      ]
+    },
+    {
+      "id": "interface-chat",
+      "title": { "pt": "Construa a interface do chat", "en": "Build the chat interface" },
+      "goal": {
+        "pt": "Uma tela de chat com histórico de mensagens, campo de texto e estado de \"enviando\", acessível por teclado e leitor de tela.",
+        "en": "A chat screen with message history, a text field and a \"sending\" state, accessible by keyboard and screen reader."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Um **Client Component** guarda as mensagens no estado e envia a conversa para `/api/chat`.\n- Diferencie visualmente as mensagens do usuário e do assistente. Role a tela para a última mensagem automaticamente.\n- `Enter` envia e `Shift+Enter` quebra linha. Desabilite o envio enquanto espera a resposta.\n- **Acessibilidade:** a área de mensagens precisa anunciar respostas novas para leitores de tela (pesquise `aria-live`), o campo precisa de um rótulo e o foco não pode se perder depois do envio.\n- Respostas de IA costumam vir em Markdown: renderize com uma biblioteca de Markdown segura, que não execute HTML vindo do modelo.",
+        "en": "- A **Client Component** keeps the messages in state and sends the conversation to `/api/chat`.\n- Visually distinguish user and assistant messages. Auto-scroll to the latest message.\n- `Enter` sends and `Shift+Enter` adds a new line. Disable sending while waiting for the reply.\n- **Accessibility:** the message area must announce new replies to screen readers (look up `aria-live`), the field needs a label and focus must not get lost after sending.\n- AI replies often come in Markdown: render them with a safe Markdown library that won't execute HTML coming from the model."
+      },
+      "resources": ["react-learn-en", "web-dev-learn-a11y", "tailwind-docs"],
+      "checklist": [
+        { "pt": "Histórico com mensagens do usuário e do assistente", "en": "History with user and assistant messages" },
+        { "pt": "Enter envia, Shift+Enter quebra linha, botão desabilita durante o envio", "en": "Enter sends, Shift+Enter adds a line, button disables while sending" },
+        { "pt": "Respostas novas anunciadas com `aria-live`", "en": "New replies announced with `aria-live`" },
+        { "pt": "Markdown renderizado sem executar HTML", "en": "Markdown rendered without executing HTML" }
+      ]
+    },
+    {
+      "id": "streaming",
+      "title": { "pt": "Mostre a resposta em tempo real", "en": "Show the reply in real time" },
+      "goal": {
+        "pt": "A resposta aparece palavra por palavra enquanto é gerada, e um botão \"parar\" interrompe a geração.",
+        "en": "The reply appears word by word as it's generated, and a \"stop\" button interrupts generation."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "Esperar 15 segundos por uma resposta inteira parece travado. Com **streaming**, o texto começa a aparecer em menos de um segundo.\n\n- No servidor, peça a resposta em modo streaming ao provedor e repasse os pedaços para o navegador conforme chegam (um `ReadableStream` na resposta do Route Handler, ou os helpers do AI SDK).\n- No navegador, leia a resposta pedaço por pedaço e vá acrescentando o texto à última mensagem.\n- Botão **parar:** cancele a requisição com um `AbortController`. Confira que o servidor também para de pedir tokens, senão você continua pagando por eles.\n- Mostre um indicador enquanto o primeiro pedaço não chega.",
+        "en": "Waiting 15 seconds for a full reply feels frozen. With **streaming**, text starts appearing in under a second.\n\n- On the server, request the reply in streaming mode from the provider and forward the chunks to the browser as they arrive (a `ReadableStream` in the Route Handler response, or the AI SDK helpers).\n- In the browser, read the response chunk by chunk and keep appending text to the last message.\n- **Stop** button: cancel the request with an `AbortController`. Check that the server also stops requesting tokens, otherwise you keep paying for them.\n- Show an indicator until the first chunk arrives."
+      },
+      "resources": ["mdn-readablestream", "mdn-abortcontroller-pt", "mdn-sse-pt", "ai-sdk-docs"],
+      "checklist": [
+        { "pt": "Texto aparece aos poucos enquanto é gerado", "en": "Text appears gradually as it's generated" },
+        { "pt": "Botão parar cancela no navegador e no servidor", "en": "Stop button cancels in the browser and on the server" },
+        { "pt": "Indicador antes do primeiro pedaço", "en": "Indicator before the first chunk" }
+      ]
+    },
+    {
+      "id": "system-prompt",
+      "title": { "pt": "Dê personalidade e limites ao assistente", "en": "Give the assistant a personality and limits" },
+      "goal": {
+        "pt": "O assistente tem um papel claro definido no system prompt, e o histórico enviado tem tamanho limitado para controlar o custo.",
+        "en": "The assistant has a clear role defined in the system prompt, and the history sent is size-limited to control cost."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Escreva um **system prompt**: quem é o assistente, para quem ele fala, o que deve e o que não deve fazer, o tom e o formato das respostas. Leia o guia de *prompt engineering* do provedor.\n- Teste com perguntas fora do tema e veja se ele se comporta como você definiu. Ajuste e teste de novo. **Escrever prompts é iterativo.**\n- Cada chamada reenvia o histórico inteiro, então conversas longas ficam caras e lentas. Limite: mande só as últimas N mensagens (ou um número máximo de tokens).\n- Limite também o tamanho máximo da resposta (o parâmetro de máximo de tokens).\n- Guarde o system prompt num arquivo próprio, versionado, para ver no Git como ele evoluiu.",
+        "en": "- Write a **system prompt**: who the assistant is, who it talks to, what it should and shouldn't do, the tone and the reply format. Read your provider's *prompt engineering* guide.\n- Test with off-topic questions and see whether it behaves as you defined. Adjust and test again. **Writing prompts is iterative.**\n- Each call resends the whole history, so long conversations get expensive and slow. Limit it: send only the last N messages (or a maximum number of tokens).\n- Also limit the maximum reply length (the max tokens parameter).\n- Keep the system prompt in its own versioned file so you can see in Git how it evolved."
+      },
+      "resources": ["claude-prompt-engineering", "prompting-guide-pt", "deeplearning-ai-short-courses"],
+      "checklist": [
+        { "pt": "System prompt com papel, limites, tom e formato", "en": "System prompt with role, limits, tone and format" },
+        { "pt": "Testado com perguntas fora do tema", "en": "Tested with off-topic questions" },
+        { "pt": "Histórico enviado é limitado", "en": "The history sent is limited" },
+        { "pt": "Tamanho máximo de resposta configurado", "en": "Maximum reply length configured" }
+      ]
+    },
+    {
+      "id": "erros-limites",
+      "title": { "pt": "Erros, abuso e honestidade", "en": "Errors, abuse and honesty" },
+      "goal": {
+        "pt": "Falhas do provedor viram mensagens amigáveis, há um limite de requisições por visitante e a interface avisa que a IA pode errar.",
+        "en": "Provider failures become friendly messages, there's a per-visitor request limit and the interface warns that AI can be wrong."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "Um chatbot público na internet vai receber uso que você não imagina.\n\n- Trate os erros do provedor: limite de requisições (`429`), chave inválida (`401`), serviço fora do ar (`5xx`), tempo esgotado. O usuário vê uma mensagem clara; os detalhes vão para o log do servidor.\n- Implemente um **limite de requisições** por visitante (por IP, por exemplo) para ninguém esgotar seus créditos. Comece simples, em memória, e anote as limitações dessa abordagem.\n- Limite o tamanho da mensagem de entrada.\n- Mostre um aviso visível: as respostas são geradas por IA e podem conter erros.\n- Pense em *prompt injection*: o que acontece se alguém pedir \"ignore suas instruções\"? Teste e anote no README o que você observou.",
+        "en": "A public chatbot on the internet will get usage you can't imagine.\n\n- Handle provider errors: rate limits (`429`), invalid key (`401`), service down (`5xx`), timeouts. The user sees a clear message; details go to the server log.\n- Implement a per-visitor **rate limit** (by IP, for example) so nobody burns through your credits. Start simple, in memory, and note the limitations of this approach.\n- Limit the input message size.\n- Show a visible notice: replies are AI-generated and may contain mistakes.\n- Think about *prompt injection*: what happens if someone asks it to \"ignore your instructions\"? Test it and note what you observed in the README."
+      },
+      "resources": ["claude-docs", "openai-docs", "node-best-practices"],
+      "checklist": [
+        { "pt": "Erros 401/429/5xx viram mensagens amigáveis", "en": "401/429/5xx errors become friendly messages" },
+        { "pt": "Limite de requisições por visitante", "en": "Per-visitor rate limit" },
+        { "pt": "Tamanho de entrada limitado", "en": "Input size limited" },
+        { "pt": "Aviso de que a IA pode errar", "en": "Notice that AI can be wrong" }
+      ]
+    },
+    {
+      "id": "readme-deploy",
+      "title": { "pt": "README e deploy na Vercel", "en": "README and deploy on Vercel" },
+      "goal": {
+        "pt": "O chatbot está no ar na Vercel com a chave configurada no painel, e o README explica a arquitetura e os custos.",
+        "en": "The chatbot is live on Vercel with the key set in the dashboard, and the README explains the architecture and costs."
+      },
+      "estimatedMinutes": 60,
+      "instructions": {
+        "pt": "- Importe o repositório na Vercel e configure a chave em **Environment Variables**, nunca no código.\n- Teste o streaming em produção (às vezes se comporta diferente do ambiente local).\n- README com: o que o assistente faz, GIF da conversa, diagrama simples (navegador → rota do Next.js → provedor de IA), por que a chave fica no servidor, como o custo é controlado e como rodar localmente.\n- Se usou Ollama localmente, explique como trocar para uma API para o deploy (ou publique só o repositório com instruções).\n- Mantenha o limite de gastos no painel do provedor depois de publicar.",
+        "en": "- Import the repository on Vercel and set the key under **Environment Variables**, never in code.\n- Test streaming in production (it sometimes behaves differently than locally).\n- README with: what the assistant does, a conversation GIF, a simple diagram (browser → Next.js route → AI provider), why the key stays on the server, how cost is controlled and how to run locally.\n- If you used Ollama locally, explain how to switch to an API for deployment (or publish only the repository with instructions).\n- Keep the spending limit in the provider dashboard after publishing."
+      },
+      "resources": ["vercel-docs", "vercel-env-vars", "github-docs-start-pt"],
+      "checklist": [
+        { "pt": "App no ar na Vercel com streaming funcionando", "en": "App live on Vercel with streaming working" },
+        { "pt": "Chave só nas variáveis de ambiente da Vercel", "en": "Key only in Vercel's environment variables" },
+        { "pt": "README com diagrama, segurança e custos", "en": "README with diagram, security and costs" }
+      ]
+    }
+  ],
+  "extraChallenges": [
+    { "pt": "Salvar conversas e permitir voltar a elas", "en": "Save conversations and allow going back to them" },
+    { "pt": "Permitir escolher entre dois modelos e comparar velocidade, custo e qualidade", "en": "Let users pick between two models and compare speed, cost and quality" },
+    { "pt": "Um botão de avaliação (👍/👎) por resposta, guardado para analisar depois", "en": "A rating button (👍/👎) per reply, stored for later analysis" }
+  ],
+  "portfolioTip": {
+    "pt": "Todo mundo tem \"um chatbot\". Destaque o que é seu: o assistente especializado, o streaming com botão parar, a chave protegida e o controle de custos. Explique essas decisões no README e no LinkedIn.",
+    "en": "Everyone has \"a chatbot\". Highlight what's yours: the specialized assistant, streaming with a stop button, the protected key and cost control. Explain those decisions in the README and on LinkedIn."
+  }
+}

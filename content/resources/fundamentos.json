@@ -1,0 +1,689 @@
+[
+  {
+    "id": "pro-git-pt",
+    "title": "Pro Git (2ª edição, em português)",
+    "type": "book",
+    "url": "https://git-scm.com/book/pt-br/v2",
+    "author": "Scott Chacon e Ben Straub",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "git"
+    ],
+    "free": true,
+    "description": {
+      "pt": "O livro de referência sobre Git, gratuito e traduzido. Os capítulos 1 a 3 cobrem tudo que um júnior precisa.",
+      "en": "The reference book on Git, free and translated into Portuguese. Chapters 1 to 3 cover everything a junior needs."
+    },
+    "verified": true
+  },
+  {
+    "id": "pro-git-en",
+    "title": "Pro Git (2nd edition)",
+    "type": "book",
+    "url": "https://git-scm.com/book/en/v2",
+    "author": "Scott Chacon e Ben Straub",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "git"
+    ],
+    "free": true,
+    "description": {
+      "pt": "O livro de referência sobre Git, na versão original em inglês.",
+      "en": "The reference book on Git, in its original English version."
+    },
+    "verified": true
+  },
+  {
+    "id": "learn-git-branching",
+    "title": "Learn Git Branching",
+    "type": "interactive",
+    "url": "https://learngitbranching.js.org/?locale=pt_BR",
+    "author": "Peter Cottle e comunidade",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "git"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Jogo visual para entender commits, branches, merge e rebase sem medo.",
+      "en": "A visual game to understand commits, branches, merge and rebase without fear."
+    },
+    "verified": true
+  },
+  {
+    "id": "github-docs-start-pt",
+    "title": "GitHub Docs: Introdução",
+    "type": "docs",
+    "url": "https://docs.github.com/pt/get-started",
+    "author": "GitHub",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "github",
+      "git"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Documentação oficial do GitHub em português: conta, repositórios, Markdown e primeiros passos.",
+      "en": "GitHub's official docs in Portuguese: account, repositories, Markdown and first steps."
+    },
+    "verified": true
+  },
+  {
+    "id": "github-pages-quickstart-pt",
+    "title": "Início rápido do GitHub Pages",
+    "type": "docs",
+    "url": "https://docs.github.com/pt/pages/quickstart",
+    "author": "GitHub",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "github",
+      "deploy"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Guia oficial para publicar um site estático de graça direto do seu repositório.",
+      "en": "Official guide to publish a static site for free straight from your repository."
+    },
+    "verified": true
+  },
+  {
+    "id": "mdn-html-pt",
+    "title": "MDN: HTML",
+    "type": "docs",
+    "url": "https://developer.mozilla.org/pt-BR/docs/Web/HTML",
+    "author": "Mozilla (MDN Web Docs)",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "html"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Referência e guias de HTML em português. Consulte sempre que tiver dúvida sobre uma tag.",
+      "en": "HTML reference and guides in Portuguese. Check it whenever you are unsure about a tag."
+    },
+    "verified": true
+  },
+  {
+    "id": "mdn-css-pt",
+    "title": "MDN: CSS",
+    "type": "docs",
+    "url": "https://developer.mozilla.org/pt-BR/docs/Web/CSS",
+    "author": "Mozilla (MDN Web Docs)",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "css"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Referência e guias de CSS em português: seletores, box model, flexbox, grid e mais.",
+      "en": "CSS reference and guides in Portuguese: selectors, box model, flexbox, grid and more."
+    },
+    "verified": true
+  },
+  {
+    "id": "mdn-a11y-pt",
+    "title": "MDN: Acessibilidade",
+    "type": "docs",
+    "url": "https://developer.mozilla.org/pt-BR/docs/Web/Accessibility",
+    "author": "Mozilla (MDN Web Docs)",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "acessibilidade",
+      "html"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Como fazer páginas que todo mundo consegue usar: semântica, contraste, teclado e leitores de tela.",
+      "en": "How to build pages everyone can use: semantics, contrast, keyboard and screen readers."
+    },
+    "verified": true
+  },
+  {
+    "id": "curso-em-video-html-css",
+    "title": "Curso de HTML5 e CSS3 (Módulo 1)",
+    "type": "video",
+    "url": "https://www.youtube.com/playlist?list=PLHz_AreHm4dkZ9-atkcmcBaMZdmLHft8n",
+    "author": "Gustavo Guanabara (Curso em Vídeo)",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "html",
+      "css"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Playlist gratuita no YouTube, didática e em português. Ideal para quem nunca escreveu HTML.",
+      "en": "Free YouTube playlist in Brazilian Portuguese. Ideal if you have never written HTML."
+    },
+    "verified": true
+  },
+  {
+    "id": "guanabara-html-css-material",
+    "title": "Material do curso de HTML5 e CSS3 (PDFs e exercícios)",
+    "type": "course",
+    "url": "https://gustavoguanabara.github.io/html-css/",
+    "author": "Gustavo Guanabara (Curso em Vídeo)",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "html",
+      "css"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Capítulos em PDF, exercícios e desafios que acompanham o curso em vídeo.",
+      "en": "PDF chapters, exercises and challenges that go with the video course."
+    },
+    "verified": true
+  },
+  {
+    "id": "web-dev-learn-html",
+    "title": "Learn HTML",
+    "type": "course",
+    "url": "https://web.dev/learn/html",
+    "author": "Google (web.dev)",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "html",
+      "acessibilidade"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Curso gratuito de HTML com foco em semântica e acessibilidade.",
+      "en": "Free HTML course focused on semantics and accessibility."
+    },
+    "verified": true
+  },
+  {
+    "id": "web-dev-learn-css",
+    "title": "Learn CSS",
+    "type": "course",
+    "url": "https://web.dev/learn/css",
+    "author": "Google (web.dev)",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "css"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Curso gratuito que explica CSS de verdade: box model, cascata, especificidade, flexbox e grid.",
+      "en": "Free course that truly explains CSS: box model, cascade, specificity, flexbox and grid."
+    },
+    "verified": true
+  },
+  {
+    "id": "flexbox-froggy",
+    "title": "Flexbox Froggy",
+    "type": "interactive",
+    "url": "https://flexboxfroggy.com/#pt-br",
+    "author": "Thomas Park",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "css"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Jogo curto para fixar flexbox ajudando sapos a chegar às vitórias-régias.",
+      "en": "A short game to master flexbox by helping frogs reach their lily pads."
+    },
+    "verified": true
+  },
+  {
+    "id": "css-grid-garden",
+    "title": "Grid Garden",
+    "type": "interactive",
+    "url": "https://cssgridgarden.com/#pt-br",
+    "author": "Thomas Park",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "css"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Jogo para aprender CSS Grid regando uma horta.",
+      "en": "A game to learn CSS Grid by watering a garden."
+    },
+    "verified": true
+  },
+  {
+    "id": "mdn-http-overview-pt",
+    "title": "MDN: Uma visão geral do HTTP",
+    "type": "docs",
+    "url": "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Guides/Overview",
+    "author": "Mozilla (MDN Web Docs)",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "http"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Como navegador e servidor conversam: requisições, respostas, métodos e cabeçalhos.",
+      "en": "How browsers and servers talk: requests, responses, methods and headers."
+    },
+    "verified": true
+  },
+  {
+    "id": "sqlbolt",
+    "title": "SQLBolt",
+    "type": "interactive",
+    "url": "https://sqlbolt.com/",
+    "author": "SQLBolt",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "sql"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Lições curtas e interativas de SQL direto no navegador.",
+      "en": "Short, interactive SQL lessons right in the browser."
+    },
+    "verified": true
+  },
+  {
+    "id": "postgresql-tutorial",
+    "title": "PostgreSQL Tutorial (documentação oficial)",
+    "type": "docs",
+    "url": "https://www.postgresql.org/docs/current/tutorial.html",
+    "author": "PostgreSQL Global Development Group",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "sql",
+      "postgresql"
+    ],
+    "free": true,
+    "description": {
+      "pt": "O tutorial oficial do PostgreSQL: criar tabelas, consultar, juntar e agregar dados.",
+      "en": "The official PostgreSQL tutorial: create tables, query, join and aggregate data."
+    },
+    "verified": true
+  },
+  {
+    "id": "mdn-dom-pt",
+    "title": "MDN: Introdução ao DOM",
+    "type": "docs",
+    "url": "https://developer.mozilla.org/pt-BR/docs/Web/API/Document_Object_Model/Introduction",
+    "author": "Mozilla (MDN Web Docs)",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "javascript",
+      "html"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Como o JavaScript enxerga e altera a página: nós, elementos, eventos.",
+      "en": "How JavaScript sees and changes the page: nodes, elements, events."
+    },
+    "verified": true
+  },
+  {
+    "id": "github-skills",
+    "title": "GitHub Skills",
+    "type": "interactive",
+    "url": "https://skills.github.com/",
+    "author": "GitHub",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "git",
+      "github"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Cursos práticos que rodam dentro de repositórios reais no GitHub.",
+      "en": "Hands-on courses that run inside real GitHub repositories."
+    },
+    "verified": true
+  },
+  {
+    "id": "git-docs",
+    "title": "Documentação de referência do Git",
+    "type": "docs",
+    "url": "https://git-scm.com/docs",
+    "author": "Git (git-scm.com)",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "git"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Referência oficial de todos os comandos do Git.",
+      "en": "Official reference for every Git command."
+    },
+    "verified": true
+  },
+  {
+    "id": "atlassian-git-pt",
+    "title": "Tutoriais de Git da Atlassian",
+    "type": "article",
+    "url": "https://www.atlassian.com/br/git/tutorials",
+    "author": "Atlassian",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "git"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Tutoriais em português sobre Git, branches e fluxos de trabalho em equipe.",
+      "en": "Portuguese tutorials on Git, branches and team workflows."
+    },
+    "verified": true
+  },
+  {
+    "id": "sqlite-docs",
+    "title": "Documentação do SQLite",
+    "type": "docs",
+    "url": "https://www.sqlite.org/docs.html",
+    "author": "SQLite",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "sql",
+      "sqlite"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Documentação oficial do SQLite, o banco em um único arquivo.",
+      "en": "Official docs for SQLite, the single-file database."
+    },
+    "verified": true
+  },
+  {
+    "id": "db-browser-sqlite",
+    "title": "DB Browser for SQLite",
+    "type": "interactive",
+    "url": "https://sqlitebrowser.org/",
+    "author": "Projeto DB4S (open source)",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "sql",
+      "sqlite"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Ferramenta visual e gratuita para criar, ver e consultar bancos SQLite.",
+      "en": "Free visual tool to create, browse and query SQLite databases."
+    },
+    "verified": true
+  },
+  {
+    "id": "dbdiagram",
+    "title": "dbdiagram.io",
+    "type": "interactive",
+    "url": "https://dbdiagram.io/",
+    "author": "Holistics",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "sql",
+      "modelagem"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Desenhe diagramas de banco de dados escrevendo texto. Tem plano gratuito.",
+      "en": "Draw database diagrams by writing text. Has a free plan."
+    },
+    "verified": true
+  },
+  {
+    "id": "sql-murder-mystery",
+    "title": "SQL Murder Mystery",
+    "type": "interactive",
+    "url": "https://mystery.knightlab.com/",
+    "author": "Northwestern University Knight Lab",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "sql"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Resolva um crime usando consultas SQL. Ótimo para treinar JOINs.",
+      "en": "Solve a crime using SQL queries. Great JOIN practice."
+    },
+    "verified": true
+  },
+  {
+    "id": "khan-sql",
+    "title": "Intro to SQL",
+    "type": "course",
+    "url": "https://www.khanacademy.org/computing/computer-programming/sql",
+    "author": "Khan Academy",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "sql"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Curso introdutório com vídeos e desafios no navegador.",
+      "en": "Intro course with videos and in-browser challenges."
+    },
+    "verified": true
+  },
+  {
+    "id": "w3schools-sql",
+    "title": "W3Schools SQL Tutorial",
+    "type": "interactive",
+    "url": "https://www.w3schools.com/sql/",
+    "author": "W3Schools",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "sql"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Referência rápida com exemplos executáveis de cada comando SQL.",
+      "en": "Quick reference with runnable examples of every SQL command."
+    },
+    "verified": true
+  },
+  {
+    "id": "select-star-sql",
+    "title": "Select Star SQL",
+    "type": "book",
+    "url": "https://selectstarsql.com/",
+    "author": "Zi Chong Kao",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "sql"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Livro interativo que ensina SQL consultando um conjunto de dados real.",
+      "en": "Interactive book that teaches SQL by querying a real dataset."
+    },
+    "verified": true
+  },
+  {
+    "id": "pgexercises",
+    "title": "PostgreSQL Exercises",
+    "type": "interactive",
+    "url": "https://pgexercises.com/",
+    "author": "Alisdair Owens",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "sql",
+      "postgresql"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Exercícios progressivos de consultas no PostgreSQL.",
+      "en": "Progressive query exercises on PostgreSQL."
+    },
+    "verified": true
+  },
+  {
+    "id": "mdn-http-status-pt",
+    "title": "MDN: Códigos de status HTTP",
+    "type": "docs",
+    "url": "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Status",
+    "author": "Mozilla (MDN Web Docs)",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "http"
+    ],
+    "free": true,
+    "description": {
+      "pt": "O que significa cada código: 200, 201, 400, 404, 500 e os outros.",
+      "en": "What each code means: 200, 201, 400, 404, 500 and the rest."
+    },
+    "verified": true
+  },
+  {
+    "id": "mdn-http-methods-pt",
+    "title": "MDN: Métodos de requisição HTTP",
+    "type": "docs",
+    "url": "https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Methods",
+    "author": "Mozilla (MDN Web Docs)",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "http",
+      "api"
+    ],
+    "free": true,
+    "description": {
+      "pt": "GET, POST, PUT, PATCH, DELETE: quando usar cada um.",
+      "en": "GET, POST, PUT, PATCH, DELETE: when to use each."
+    },
+    "verified": true
+  },
+  {
+    "id": "mdn-fetch-pt",
+    "title": "MDN: Fetch API",
+    "type": "docs",
+    "url": "https://developer.mozilla.org/pt-BR/docs/Web/API/Fetch_API",
+    "author": "Mozilla (MDN Web Docs)",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "javascript",
+      "http"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Como fazer requisições HTTP com fetch no navegador e no Node.js.",
+      "en": "How to make HTTP requests with fetch in the browser and Node.js."
+    },
+    "verified": true
+  },
+  {
+    "id": "everything-curl",
+    "title": "Everything curl",
+    "type": "book",
+    "url": "https://everything.curl.dev/",
+    "author": "Daniel Stenberg",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "http",
+      "terminal"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Livro gratuito do criador do curl: requisições HTTP direto do terminal.",
+      "en": "Free book by curl's creator: HTTP requests straight from the terminal."
+    },
+    "verified": true
+  },
+  {
+    "id": "tlcl",
+    "title": "The Linux Command Line",
+    "type": "book",
+    "url": "https://linuxcommand.org/tlcl.php",
+    "author": "William Shotts",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "terminal",
+      "linux",
+      "bash"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Livro gratuito e completo sobre terminal e shell scripting.",
+      "en": "Complete free book on the terminal and shell scripting."
+    },
+    "verified": true
+  },
+  {
+    "id": "public-apis",
+    "title": "Public APIs",
+    "type": "docs",
+    "url": "https://github.com/public-apis/public-apis",
+    "author": "Comunidade public-apis",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "api",
+      "http"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Lista enorme de APIs públicas e gratuitas para usar em projetos.",
+      "en": "A huge list of free public APIs to use in projects."
+    },
+    "verified": true
+  },
+  {
+    "id": "viacep",
+    "title": "ViaCEP",
+    "type": "docs",
+    "url": "https://viacep.com.br/",
+    "author": "ViaCEP",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "api",
+      "http"
+    ],
+    "free": true,
+    "description": {
+      "pt": "API brasileira e gratuita de consulta de CEP, sem cadastro.",
+      "en": "Free Brazilian postal code (CEP) API, no sign-up needed."
+    },
+    "verified": true
+  },
+  {
+    "id": "open-meteo",
+    "title": "Open-Meteo API",
+    "type": "docs",
+    "url": "https://open-meteo.com/en/docs",
+    "author": "Open-Meteo",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "api",
+      "http"
+    ],
+    "free": true,
+    "description": {
+      "pt": "API de previsão do tempo gratuita e sem chave para uso não comercial.",
+      "en": "Free weather forecast API with no key for non-commercial use."
+    },
+    "verified": true
+  }
+]

@@ -1,0 +1,335 @@
+{
+  "id": "blog-nextjs-mdx",
+  "track": "web",
+  "order": 3,
+  "title": {
+    "pt": "Blog com Next.js, MDX e SEO",
+    "en": "Blog with Next.js, MDX and SEO"
+  },
+  "level": 2,
+  "stack": [
+    "Next.js",
+    "TypeScript",
+    "MDX",
+    "Tailwind",
+    "Vercel"
+  ],
+  "whatYouBuild": {
+    "pt": "Um blog (ou mini CMS em arquivos) feito com Next.js: os posts são arquivos MDX no repositório, com lista por data, páginas de tag, tempo de leitura, componentes especiais dentro do texto, feed RSS e tudo o que o Google precisa para encontrar e mostrar bem as páginas.",
+    "en": "A blog (or file-based mini CMS) built with Next.js: posts are MDX files in the repository, with a date-sorted list, tag pages, reading time, special components inside the text, an RSS feed and everything Google needs to find and display the pages well."
+  },
+  "whatYouLearn": [
+    {
+      "pt": "App Router do Next.js: layouts, rotas dinâmicas e Server Components",
+      "en": "Next.js App Router: layouts, dynamic routes and Server Components"
+    },
+    {
+      "pt": "Geração estática de páginas a partir de arquivos",
+      "en": "Static page generation from files"
+    },
+    {
+      "pt": "MDX: Markdown com componentes React",
+      "en": "MDX: Markdown with React components"
+    },
+    {
+      "pt": "SEO técnico: metadados, Open Graph, sitemap e robots",
+      "en": "Technical SEO: metadata, Open Graph, sitemap and robots"
+    },
+    {
+      "pt": "Route Handlers para gerar RSS",
+      "en": "Route Handlers to generate RSS"
+    }
+  ],
+  "prerequisites": [
+    "landing-page",
+    "app-tarefas-react"
+  ],
+  "steps": [
+    {
+      "id": "setup-rotas",
+      "title": {
+        "pt": "Crie o projeto e as rotas",
+        "en": "Create the project and routes"
+      },
+      "goal": {
+        "pt": "As rotas `/`, `/blog` e `/blog/[slug]` existem com conteúdo provisório, todas dentro de um layout comum.",
+        "en": "The `/`, `/blog` and `/blog/[slug]` routes exist with placeholder content, all inside a shared layout."
+      },
+      "estimatedMinutes": 60,
+      "instructions": {
+        "pt": "- Crie o projeto com `create-next-app` (TypeScript, Tailwind, App Router).\n- No App Router, cada pasta dentro de `app/` vira uma rota e o arquivo `page.tsx` é a página. O `layout.tsx` envolve as páginas filhas: ponha ali cabeçalho e rodapé.\n- Crie a rota dinâmica `app/blog/[slug]/page.tsx` e mostre o `slug` recebido na tela.\n- Entenda a diferença: por padrão os componentes rodam no servidor (Server Components). Só use `\"use client\"` quando precisar de interação no navegador.\n- Commit a cada rota funcionando.",
+        "en": "- Create the project with `create-next-app` (TypeScript, Tailwind, App Router).\n- In the App Router, each folder inside `app/` becomes a route and `page.tsx` is the page. `layout.tsx` wraps the child pages: put the header and footer there.\n- Create the dynamic route `app/blog/[slug]/page.tsx` and show the received `slug` on screen.\n- Understand the difference: by default components run on the server (Server Components). Only use `\"use client\"` when you need interactivity in the browser.\n- Commit each working route."
+      },
+      "resources": [
+        "nextjs-learn",
+        "nextjs-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Projeto Next.js com App Router e TypeScript",
+          "en": "Next.js project with App Router and TypeScript"
+        },
+        {
+          "pt": "Layout comum com cabeçalho e rodapé",
+          "en": "Shared layout with header and footer"
+        },
+        {
+          "pt": "Rota dinâmica mostrando o slug",
+          "en": "Dynamic route showing the slug"
+        },
+        {
+          "pt": "Sabe explicar Server vs Client Components",
+          "en": "Can explain Server vs Client Components"
+        }
+      ]
+    },
+    {
+      "id": "posts-mdx",
+      "title": {
+        "pt": "Posts em arquivos MDX",
+        "en": "Posts as MDX files"
+      },
+      "goal": {
+        "pt": "Três posts de exemplo em `content/posts/*.mdx` aparecem renderizados em `/blog/[slug]`, e um slug inexistente mostra 404.",
+        "en": "Three sample posts in `content/posts/*.mdx` render at `/blog/[slug]`, and a missing slug shows a 404."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Escreva três posts em MDX com um cabeçalho de metadados (*frontmatter*): título, data, resumo e tags.\n- Crie um módulo que lê a pasta de posts, separa metadados e conteúdo e devolve a lista tipada. Ele roda só no servidor, então pode usar `fs` do Node.\n- Escolha como renderizar o MDX: o suporte oficial do Next (`@next/mdx`) ou uma biblioteca que compila o MDX a partir de texto. Leia a documentação do MDX para entender o que cada opção faz.\n- Use `generateStaticParams` para o Next gerar todas as páginas de post no build.\n- Slug que não existe chama `notFound()`.",
+        "en": "- Write three MDX posts with a metadata header (*frontmatter*): title, date, summary and tags.\n- Create a module that reads the posts folder, separates metadata from content and returns a typed list. It only runs on the server, so it can use Node's `fs`.\n- Choose how to render MDX: Next's official support (`@next/mdx`) or a library that compiles MDX from a string. Read the MDX docs to understand what each option does.\n- Use `generateStaticParams` so Next generates every post page at build time.\n- A slug that doesn't exist calls `notFound()`."
+      },
+      "resources": [
+        "mdx-docs",
+        "nextjs-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Posts em MDX com frontmatter",
+          "en": "MDX posts with frontmatter"
+        },
+        {
+          "pt": "Leitura dos posts tipada e só no servidor",
+          "en": "Typed, server-only post loading"
+        },
+        {
+          "pt": "Páginas geradas no build",
+          "en": "Pages generated at build time"
+        },
+        {
+          "pt": "Slug inexistente dá 404",
+          "en": "Missing slug returns 404"
+        }
+      ],
+      "hint": {
+        "pt": "Valide o frontmatter (com zod, por exemplo): um post sem data deve quebrar o build com uma mensagem clara, não aparecer quebrado no site.",
+        "en": "Validate the frontmatter (with zod, for example): a post without a date should fail the build with a clear message, not show up broken on the site."
+      }
+    },
+    {
+      "id": "lista-tags",
+      "title": {
+        "pt": "Lista, tags e tempo de leitura",
+        "en": "List, tags and reading time"
+      },
+      "goal": {
+        "pt": "`/blog` lista os posts do mais novo ao mais antigo com tempo de leitura, e `/tags/[tag]` mostra os posts de cada tag.",
+        "en": "`/blog` lists posts newest first with reading time, and `/tags/[tag]` shows the posts for each tag."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Ordene os posts por data na função de leitura, não em cada página.\n- Calcule o tempo de leitura contando palavras (algo como 200 palavras por minuto). É uma função pura: escreva um teste para ela.\n- Crie a rota de tags com `generateStaticParams` gerando uma página por tag existente.\n- Formate datas com `Intl.DateTimeFormat` no idioma do blog, em vez de montar a string na mão.\n- Se tiver muitos posts, faça paginação simples (`/blog/page/2`).",
+        "en": "- Sort posts by date in the loading function, not in each page.\n- Compute reading time by counting words (around 200 words per minute). It's a pure function: write a test for it.\n- Create the tags route with `generateStaticParams` generating one page per existing tag.\n- Format dates with `Intl.DateTimeFormat` in the blog's language instead of building the string by hand.\n- With many posts, add simple pagination (`/blog/page/2`)."
+      },
+      "resources": [
+        "nextjs-docs",
+        "javascript-info"
+      ],
+      "checklist": [
+        {
+          "pt": "Lista ordenada por data",
+          "en": "List sorted by date"
+        },
+        {
+          "pt": "Tempo de leitura com teste",
+          "en": "Reading time with a test"
+        },
+        {
+          "pt": "Uma página por tag",
+          "en": "One page per tag"
+        },
+        {
+          "pt": "Datas formatadas com Intl",
+          "en": "Dates formatted with Intl"
+        }
+      ]
+    },
+    {
+      "id": "componentes-mdx",
+      "title": {
+        "pt": "Componentes dentro do texto",
+        "en": "Components inside the text"
+      },
+      "goal": {
+        "pt": "Os posts usam pelo menos um componente próprio (ex.: caixa de aviso), blocos de código com destaque de sintaxe e imagens otimizadas.",
+        "en": "Posts use at least one custom component (e.g. a callout box), syntax-highlighted code blocks and optimized images."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Crie um componente `Callout` (dica, aviso, perigo) e disponibilize-o para os arquivos MDX. É isso que torna o MDX mais poderoso que Markdown puro.\n- Substitua as tags padrão: por exemplo, links externos abrindo com o ícone de link externo e imagens usando `next/image`.\n- Adicione destaque de sintaxe nos blocos de código com um plugin de MDX (procure por plugins *rehype* de highlight).\n- Cuide da tipografia: tamanho de linha confortável (60 a 80 caracteres), espaçamento e contraste.",
+        "en": "- Create a `Callout` component (tip, warning, danger) and make it available to MDX files. That's what makes MDX more powerful than plain Markdown.\n- Replace default tags: for example, external links with an external-link icon and images using `next/image`.\n- Add syntax highlighting to code blocks with an MDX plugin (look for *rehype* highlight plugins).\n- Take care of typography: comfortable line length (60 to 80 characters), spacing and contrast."
+      },
+      "resources": [
+        "mdx-docs",
+        "nextjs-docs",
+        "tailwind-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Componente próprio usado num post",
+          "en": "Custom component used in a post"
+        },
+        {
+          "pt": "Código com destaque de sintaxe",
+          "en": "Code with syntax highlighting"
+        },
+        {
+          "pt": "Imagens com `next/image`",
+          "en": "Images with `next/image`"
+        },
+        {
+          "pt": "Texto confortável de ler",
+          "en": "Text comfortable to read"
+        }
+      ]
+    },
+    {
+      "id": "seo",
+      "title": {
+        "pt": "SEO técnico",
+        "en": "Technical SEO"
+      },
+      "goal": {
+        "pt": "Cada página tem título e descrição próprios, compartilhar um post mostra uma prévia com imagem, e existem `sitemap.xml` e `robots.txt`.",
+        "en": "Every page has its own title and description, sharing a post shows a preview with an image, and `sitemap.xml` and `robots.txt` exist."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Use `generateMetadata` na página do post para gerar título e descrição a partir do frontmatter.\n- Configure Open Graph (título, descrição, imagem) para os links ficarem bonitos no LinkedIn e no WhatsApp. O Next consegue gerar a imagem por código.\n- Crie `app/sitemap.ts` e `app/robots.ts`. Eles viram `/sitemap.xml` e `/robots.txt`.\n- Defina a URL canônica de cada post.\n- Rode o Lighthouse na aba SEO e leia o guia do Google para entender o que realmente importa: conteúdo útil vem antes de truques.",
+        "en": "- Use `generateMetadata` on the post page to build the title and description from the frontmatter.\n- Configure Open Graph (title, description, image) so links look good on LinkedIn and WhatsApp. Next can generate the image from code.\n- Create `app/sitemap.ts` and `app/robots.ts`. They become `/sitemap.xml` and `/robots.txt`.\n- Set the canonical URL for each post.\n- Run Lighthouse's SEO audit and read Google's guide to understand what really matters: helpful content comes before tricks."
+      },
+      "resources": [
+        "google-seo-starter-pt",
+        "nextjs-docs",
+        "lighthouse-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Título e descrição por página",
+          "en": "Title and description per page"
+        },
+        {
+          "pt": "Prévia com imagem ao compartilhar",
+          "en": "Preview with image when shared"
+        },
+        {
+          "pt": "`sitemap.xml` e `robots.txt` gerados",
+          "en": "`sitemap.xml` and `robots.txt` generated"
+        },
+        {
+          "pt": "SEO 100 no Lighthouse",
+          "en": "SEO 100 in Lighthouse"
+        }
+      ]
+    },
+    {
+      "id": "rss-404",
+      "title": {
+        "pt": "Feed RSS e página 404",
+        "en": "RSS feed and 404 page"
+      },
+      "goal": {
+        "pt": "`/feed.xml` devolve um RSS válido com os posts, e páginas inexistentes mostram uma 404 com a cara do blog.",
+        "en": "`/feed.xml` returns a valid RSS feed with the posts, and missing pages show a 404 that matches the blog."
+      },
+      "estimatedMinutes": 60,
+      "instructions": {
+        "pt": "- Crie um Route Handler (`app/feed.xml/route.ts`) que monta o XML do RSS a partir da lista de posts e responde com o `Content-Type` certo.\n- Escape caracteres especiais no XML (`&`, `<`, `>`): é um erro comum que quebra o feed.\n- Valide o feed num validador de RSS online e assine com um leitor de feeds.\n- Crie `app/not-found.tsx` com um link de volta para a lista de posts.",
+        "en": "- Create a Route Handler (`app/feed.xml/route.ts`) that builds the RSS XML from the post list and responds with the right `Content-Type`.\n- Escape special characters in the XML (`&`, `<`, `>`): it's a common mistake that breaks the feed.\n- Validate the feed with an online RSS validator and subscribe with a feed reader.\n- Create `app/not-found.tsx` with a link back to the post list."
+      },
+      "resources": [
+        "nextjs-route-handlers",
+        "mdn-http-overview-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Feed RSS válido",
+          "en": "Valid RSS feed"
+        },
+        {
+          "pt": "Caracteres especiais escapados",
+          "en": "Special characters escaped"
+        },
+        {
+          "pt": "404 personalizada",
+          "en": "Custom 404"
+        },
+        {
+          "pt": "Feed testado num leitor",
+          "en": "Feed tested in a reader"
+        }
+      ]
+    },
+    {
+      "id": "deploy",
+      "title": {
+        "pt": "README e deploy na Vercel",
+        "en": "README and deploy on Vercel"
+      },
+      "goal": {
+        "pt": "O blog está no ar, publicar um post novo é só criar um arquivo e dar `git push`.",
+        "en": "The blog is live, and publishing a new post is just creating a file and running `git push`."
+      },
+      "estimatedMinutes": 45,
+      "instructions": {
+        "pt": "- Faça o deploy na Vercel conectando o repositório.\n- Publique um post novo pelo fluxo real: escreva o MDX, abra um pull request, veja o preview e faça o merge.\n- Envie o sitemap no Google Search Console se tiver um domínio próprio (opcional).\n- README: como escrever um post, a estrutura de pastas e as decisões de SEO.",
+        "en": "- Deploy on Vercel by connecting the repository.\n- Publish a new post through the real flow: write the MDX, open a pull request, check the preview and merge.\n- Submit the sitemap in Google Search Console if you have your own domain (optional).\n- README: how to write a post, the folder structure and the SEO decisions."
+      },
+      "resources": [
+        "vercel-docs",
+        "github-docs-start-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Blog no ar",
+          "en": "Blog live"
+        },
+        {
+          "pt": "Post novo publicado via pull request",
+          "en": "New post published via pull request"
+        },
+        {
+          "pt": "README explica como escrever posts",
+          "en": "README explains how to write posts"
+        }
+      ]
+    }
+  ],
+  "extraChallenges": [
+    {
+      "pt": "Busca nos posts sem servidor (índice gerado no build)",
+      "en": "Post search without a server (index generated at build time)"
+    },
+    {
+      "pt": "Modo escuro que respeita a preferência do sistema",
+      "en": "Dark mode that follows the system preference"
+    },
+    {
+      "pt": "Posts em dois idiomas com rotas por idioma",
+      "en": "Posts in two languages with per-language routes"
+    }
+  ],
+  "portfolioTip": {
+    "pt": "Use o blog de verdade: escreva sobre o que aprendeu nos projetos da DevCity. Um blog com 3 ou 4 posts técnicos seus vale mais no LinkedIn do que só o código do blog.",
+    "en": "Actually use the blog: write about what you learned in the DevCity projects. A blog with 3 or 4 technical posts of your own is worth more on LinkedIn than the blog's code alone."
+  }
+}

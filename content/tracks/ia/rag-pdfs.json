@@ -1,0 +1,375 @@
+{
+  "id": "rag-pdfs",
+  "track": "ia",
+  "order": 2,
+  "title": {
+    "pt": "RAG: converse com seus PDFs",
+    "en": "RAG: chat with your PDFs"
+  },
+  "level": 3,
+  "stack": [
+    "Python ou TypeScript",
+    "API de LLM",
+    "Embeddings",
+    "PostgreSQL + pgvector",
+    "FastAPI ou Next.js"
+  ],
+  "whatYouBuild": {
+    "pt": "Um app em que você envia PDFs (apostilas, editais, documentação) e faz perguntas sobre eles. As respostas citam o documento e a página de onde vieram, e o app diz \"não encontrei isso nos documentos\" quando a resposta não está lá, em vez de inventar. Você também mede se a busca está achando os trechos certos.",
+    "en": "An app where you upload PDFs (study guides, public notices, documentation) and ask questions about them. Answers cite the document and page they came from, and the app says \"I couldn't find that in the documents\" when the answer isn't there, instead of making it up. You also measure whether search finds the right passages."
+  },
+  "whatYouLearn": [
+    {
+      "pt": "Como funciona RAG: indexação e consulta",
+      "en": "How RAG works: indexing and querying"
+    },
+    {
+      "pt": "Extração de texto e divisão em trechos (chunking)",
+      "en": "Text extraction and splitting into chunks"
+    },
+    {
+      "pt": "Embeddings e busca por similaridade com pgvector",
+      "en": "Embeddings and similarity search with pgvector"
+    },
+    {
+      "pt": "Prompts com contexto e citações",
+      "en": "Prompts with context and citations"
+    },
+    {
+      "pt": "Avaliação da busca e das respostas",
+      "en": "Evaluating retrieval and answers"
+    }
+  ],
+  "prerequisites": [
+    "chatbot-streaming",
+    "banco-biblioteca-sql"
+  ],
+  "steps": [
+    {
+      "id": "entender",
+      "title": {
+        "pt": "Entenda RAG e desenhe o sistema",
+        "en": "Understand RAG and design the system"
+      },
+      "goal": {
+        "pt": "Existe um diagrama das duas etapas (indexar e perguntar) e a stack está escolhida.",
+        "en": "There's a diagram of both stages (indexing and asking) and the stack is chosen."
+      },
+      "estimatedMinutes": 45,
+      "instructions": {
+        "pt": "- Entenda o problema: o modelo não conhece seus documentos e pode inventar respostas. RAG busca os trechos relevantes e entrega junto com a pergunta.\n- Desenhe as duas etapas. **Indexação:** extrair texto, dividir em trechos, gerar embeddings, guardar. **Consulta:** gerar o embedding da pergunta, buscar os trechos parecidos, montar o prompt, responder citando.\n- Escolha a stack: Python (FastAPI) ou TypeScript (Next.js), o provedor de LLM e onde gerar embeddings (API paga ou modelo local gratuito).\n- Escolha 3 a 5 PDFs de teste que você conhece bem.\n- Crie o repositório no GitHub e faça commits pequenos a cada parte que funcionar: o histórico conta a história do projeto.",
+        "en": "- Understand the problem: the model doesn't know your documents and may make up answers. RAG retrieves the relevant passages and sends them along with the question.\n- Draw the two stages. **Indexing:** extract text, split into chunks, generate embeddings, store. **Querying:** embed the question, search for similar chunks, build the prompt, answer with citations.\n- Choose the stack: Python (FastAPI) or TypeScript (Next.js), the LLM provider and where to generate embeddings (paid API or free local model).\n- Pick 3 to 5 test PDFs you know well.\n- Create the GitHub repository and make small commits each time a part works: the history tells the project's story."
+      },
+      "resources": [
+        "hf-llm-course",
+        "openai-embeddings",
+        "claude-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Diagrama de indexação e consulta",
+          "en": "Indexing and querying diagram"
+        },
+        {
+          "pt": "Stack escolhida e justificada",
+          "en": "Stack chosen and justified"
+        },
+        {
+          "pt": "PDFs de teste separados",
+          "en": "Test PDFs selected"
+        },
+        {
+          "pt": "Repositório no GitHub com o primeiro commit",
+          "en": "GitHub repository with the first commit"
+        }
+      ]
+    },
+    {
+      "id": "extrair",
+      "title": {
+        "pt": "Upload e extração de texto",
+        "en": "Upload and text extraction"
+      },
+      "goal": {
+        "pt": "Enviar um PDF guarda o documento e o texto de cada página; PDF escaneado (sem texto) recebe um aviso claro.",
+        "en": "Uploading a PDF stores the document and each page's text; a scanned PDF (no text) gets a clear warning."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Crie o upload com limite de tamanho e validação do tipo de arquivo.\n- Extraia o texto **página por página** (em Python, com o pypdf), guardando o número da página: ele será a citação.\n- PDFs escaneados são imagens: não têm texto para extrair. Detecte (quase nenhum texto) e avise. OCR fica como desafio.\n- Guarde os metadados do documento (nome, quantidade de páginas, data de envio) numa tabela.",
+        "en": "- Build the upload with a size limit and file type validation.\n- Extract text **page by page** (in Python, with pypdf), keeping the page number: it will be the citation.\n- Scanned PDFs are images: there's no text to extract. Detect it (almost no text) and warn. OCR is a challenge.\n- Store document metadata (name, page count, upload date) in a table."
+      },
+      "resources": [
+        "pypdf-docs",
+        "fastapi-docs-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Upload com validação",
+          "en": "Upload with validation"
+        },
+        {
+          "pt": "Texto extraído por página",
+          "en": "Text extracted per page"
+        },
+        {
+          "pt": "PDF sem texto detectado e avisado",
+          "en": "Text-less PDF detected and flagged"
+        },
+        {
+          "pt": "Metadados guardados",
+          "en": "Metadata stored"
+        }
+      ]
+    },
+    {
+      "id": "chunking",
+      "title": {
+        "pt": "Divida em trechos",
+        "en": "Split into chunks"
+      },
+      "goal": {
+        "pt": "Cada documento vira trechos de tamanho controlado, com sobreposição, cada um sabendo de qual página veio.",
+        "en": "Each document becomes chunks of controlled size, with overlap, each one knowing which page it came from."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Divida o texto em trechos de tamanho parecido (algo entre 500 e 1000 tokens é um bom começo), com uma pequena sobreposição para não cortar ideias no meio.\n- Prefira cortar em limites naturais (parágrafos, frases) a cortar no meio de palavras.\n- Cada trecho guarda o documento e a página (ou páginas) de origem.\n- Escreva a função de divisão como função pura e teste. Anote o tamanho escolhido: você vai voltar a ele na avaliação.",
+        "en": "- Split the text into similarly sized chunks (somewhere between 500 and 1000 tokens is a good start), with a small overlap so ideas don't get cut in half.\n- Prefer cutting at natural boundaries (paragraphs, sentences) over cutting mid-word.\n- Each chunk keeps its source document and page (or pages).\n- Write the splitting function as a pure function and test it. Note the chosen size: you'll come back to it during evaluation."
+      },
+      "resources": [
+        "hf-llm-course"
+      ],
+      "checklist": [
+        {
+          "pt": "Trechos com tamanho controlado e sobreposição",
+          "en": "Chunks with controlled size and overlap"
+        },
+        {
+          "pt": "Cortes em limites naturais",
+          "en": "Cuts at natural boundaries"
+        },
+        {
+          "pt": "Página de origem em cada trecho",
+          "en": "Source page on every chunk"
+        },
+        {
+          "pt": "Função de divisão testada",
+          "en": "Splitting function tested"
+        }
+      ]
+    },
+    {
+      "id": "embeddings",
+      "title": {
+        "pt": "Embeddings no PostgreSQL com pgvector",
+        "en": "Embeddings in PostgreSQL with pgvector"
+      },
+      "goal": {
+        "pt": "Os trechos de todos os documentos estão salvos com seus embeddings numa tabela do PostgreSQL com pgvector e um índice vetorial.",
+        "en": "Chunks from every document are saved with their embeddings in a PostgreSQL table with pgvector and a vector index."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Suba um PostgreSQL com a extensão pgvector (há imagem Docker pronta) ou use o Supabase, que já vem com ela.\n- Crie a tabela de trechos com uma coluna `vector` do tamanho do modelo de embeddings escolhido.\n- Gere os embeddings em lotes, não um por requisição. Se usar API paga, calcule antes quanto vai custar.\n- Alternativa gratuita: gere embeddings localmente com Sentence Transformers.\n- Crie um índice vetorial (HNSW) e entenda por que ele deixa a busca rápida.",
+        "en": "- Run PostgreSQL with the pgvector extension (there's a ready Docker image) or use Supabase, which ships with it.\n- Create the chunks table with a `vector` column sized for the chosen embedding model.\n- Generate embeddings in batches, not one per request. If you use a paid API, estimate the cost first.\n- Free alternative: generate embeddings locally with Sentence Transformers.\n- Create a vector index (HNSW) and understand why it makes search fast."
+      },
+      "resources": [
+        "pgvector",
+        "supabase-ai",
+        "sbert",
+        "openai-embeddings"
+      ],
+      "checklist": [
+        {
+          "pt": "pgvector instalado",
+          "en": "pgvector installed"
+        },
+        {
+          "pt": "Embeddings gerados em lotes",
+          "en": "Embeddings generated in batches"
+        },
+        {
+          "pt": "Custo estimado (ou modelo local)",
+          "en": "Cost estimated (or local model)"
+        },
+        {
+          "pt": "Índice vetorial criado",
+          "en": "Vector index created"
+        }
+      ]
+    },
+    {
+      "id": "busca",
+      "title": {
+        "pt": "Busca semântica",
+        "en": "Semantic search"
+      },
+      "goal": {
+        "pt": "Digitar uma pergunta mostra os trechos mais parecidos, com documento, página e nota de similaridade, num painel de depuração.",
+        "en": "Typing a question shows the most similar chunks, with document, page and similarity score, in a debug panel."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Gere o embedding da pergunta com o **mesmo** modelo usado nos trechos.\n- Busque os `k` trechos mais próximos com o operador de distância do pgvector (cosseno é o mais comum).\n- Mostre os resultados num painel de depuração antes de ligar o LLM. Se a busca trouxer trechos ruins, a resposta vai ser ruim: o problema quase sempre está aqui.\n- Teste com perguntas que usam palavras diferentes das do texto: é aí que a busca semântica brilha.",
+        "en": "- Embed the question with the **same** model used for the chunks.\n- Fetch the `k` nearest chunks with pgvector's distance operator (cosine is the most common).\n- Show the results in a debug panel before wiring up the LLM. If search returns bad chunks, the answer will be bad: the problem is almost always here.\n- Test with questions that use different words from the text: that's where semantic search shines."
+      },
+      "resources": [
+        "pgvector",
+        "openai-embeddings"
+      ],
+      "checklist": [
+        {
+          "pt": "Mesmo modelo para pergunta e trechos",
+          "en": "Same model for question and chunks"
+        },
+        {
+          "pt": "Top-k por similaridade de cosseno",
+          "en": "Top-k by cosine similarity"
+        },
+        {
+          "pt": "Painel de depuração dos resultados",
+          "en": "Results debug panel"
+        }
+      ]
+    },
+    {
+      "id": "resposta",
+      "title": {
+        "pt": "Respostas com citações",
+        "en": "Answers with citations"
+      },
+      "goal": {
+        "pt": "O app responde com streaming usando só os trechos encontrados, cita [documento, página] em cada afirmação e diz que não encontrou quando a resposta não está nos documentos.",
+        "en": "The app answers with streaming using only the retrieved chunks, cites [document, page] for each claim and says it didn't find it when the answer isn't in the documents."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Monte o prompt com instruções claras: responder só com base nos trechos, citar a origem de cada informação e dizer explicitamente quando não encontrar.\n- Separe bem as instruções dos trechos (por exemplo, com marcações delimitando cada trecho e sua origem).\n- Reaproveite o streaming do projeto de chatbot.\n- Transforme as citações em links clicáveis que mostram o trecho original.\n- Teste perguntas cuja resposta **não** está nos PDFs. O app deve recusar, não inventar.",
+        "en": "- Build the prompt with clear instructions: answer only from the chunks, cite the source of each piece of information and say explicitly when it can't find something.\n- Keep instructions clearly separate from chunks (for example, with markers delimiting each chunk and its source).\n- Reuse the streaming from the chatbot project.\n- Turn citations into clickable links that show the original passage.\n- Test questions whose answer is **not** in the PDFs. The app should decline, not make things up."
+      },
+      "resources": [
+        "claude-prompt-engineering",
+        "prompting-guide-pt",
+        "ai-sdk-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Prompt restrito aos trechos",
+          "en": "Prompt restricted to the chunks"
+        },
+        {
+          "pt": "Citações clicáveis",
+          "en": "Clickable citations"
+        },
+        {
+          "pt": "Recusa quando a resposta não está nos documentos",
+          "en": "Declines when the answer isn't in the documents"
+        },
+        {
+          "pt": "Resposta com streaming",
+          "en": "Streaming answer"
+        }
+      ],
+      "hint": {
+        "pt": "Se o modelo insiste em responder com conhecimento próprio, peça para ele primeiro listar os trechos relevantes e só depois responder.",
+        "en": "If the model insists on answering from its own knowledge, ask it to first list the relevant chunks and only then answer."
+      }
+    },
+    {
+      "id": "avaliacao",
+      "title": {
+        "pt": "Avalie e melhore",
+        "en": "Evaluate and improve"
+      },
+      "goal": {
+        "pt": "Um conjunto de 10 a 20 perguntas com a página esperada mede quantas vezes a busca acha o trecho certo, antes e depois de um ajuste.",
+        "en": "A set of 10 to 20 questions with the expected page measures how often search finds the right chunk, before and after an adjustment."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Escreva perguntas de teste com a resposta esperada e a página onde ela está.\n- Meça a taxa de acerto da busca: em quantas perguntas a página certa aparece entre os `k` resultados?\n- Mude uma coisa por vez (tamanho do trecho, `k`, sobreposição) e compare os números.\n- Experimente busca híbrida: combinar a busca vetorial com a busca por texto do PostgreSQL ajuda com nomes e siglas.\n- Registre os resultados numa tabela no README.",
+        "en": "- Write test questions with the expected answer and the page where it lives.\n- Measure retrieval hit rate: in how many questions does the right page show up in the top `k` results?\n- Change one thing at a time (chunk size, `k`, overlap) and compare the numbers.\n- Try hybrid search: combining vector search with PostgreSQL's full-text search helps with names and acronyms.\n- Record the results in a table in the README."
+      },
+      "resources": [
+        "promptfoo",
+        "pgvector",
+        "postgresql-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Conjunto de perguntas com página esperada",
+          "en": "Question set with expected page"
+        },
+        {
+          "pt": "Taxa de acerto da busca medida",
+          "en": "Retrieval hit rate measured"
+        },
+        {
+          "pt": "Comparação antes e depois de um ajuste",
+          "en": "Before/after comparison for an adjustment"
+        },
+        {
+          "pt": "Resultados no README",
+          "en": "Results in the README"
+        }
+      ]
+    },
+    {
+      "id": "deploy",
+      "title": {
+        "pt": "Deploy, custos e README",
+        "en": "Deploy, costs and README"
+      },
+      "goal": {
+        "pt": "O app está no ar com um PDF de demonstração, e o README explica a arquitetura, os custos e os cuidados com privacidade.",
+        "en": "The app is live with a demo PDF, and the README explains the architecture, costs and privacy precautions."
+      },
+      "estimatedMinutes": 60,
+      "instructions": {
+        "pt": "- Publique (Supabase com pgvector + Vercel ou Render). A chave do LLM fica só no servidor.\n- Na demonstração pública, use um PDF seu e de conteúdo público. Avise que documentos enviados vão para um serviço externo: ninguém deve subir documentos sensíveis numa demo.\n- Limite o tamanho e a quantidade de uploads para não ter surpresas na conta.\n- README: diagrama, decisões (tamanho dos trechos, modelo de embeddings), tabela da avaliação e custo estimado por documento e por pergunta.",
+        "en": "- Publish it (Supabase with pgvector + Vercel or Render). The LLM key stays on the server only.\n- In the public demo, use a PDF of your own with public content. Warn that uploaded documents go to an external service: nobody should upload sensitive documents to a demo.\n- Limit upload size and count to avoid surprises on the bill.\n- README: diagram, decisions (chunk size, embedding model), evaluation table and estimated cost per document and per question."
+      },
+      "resources": [
+        "supabase-ai",
+        "vercel-env-vars"
+      ],
+      "checklist": [
+        {
+          "pt": "App no ar com PDF de demonstração",
+          "en": "App live with a demo PDF"
+        },
+        {
+          "pt": "Chave só no servidor",
+          "en": "Key on the server only"
+        },
+        {
+          "pt": "Aviso de privacidade e limites de upload",
+          "en": "Privacy notice and upload limits"
+        },
+        {
+          "pt": "README com avaliação e custos",
+          "en": "README with evaluation and costs"
+        }
+      ]
+    }
+  ],
+  "extraChallenges": [
+    {
+      "pt": "OCR para PDFs escaneados",
+      "en": "OCR for scanned PDFs"
+    },
+    {
+      "pt": "Reordenar os resultados com um modelo de reranking",
+      "en": "Rerank results with a reranking model"
+    },
+    {
+      "pt": "Conversa com memória: perguntas de acompanhamento",
+      "en": "Conversation with memory: follow-up questions"
+    }
+  ],
+  "portfolioTip": {
+    "pt": "RAG é o assunto de IA mais pedido em vagas hoje. O que diferencia o seu projeto é a avaliação: uma tabela mostrando que você mediu e melhorou a busca vale mais que uma interface bonita.",
+    "en": "RAG is the most requested AI topic in job ads today. What sets your project apart is evaluation: a table showing you measured and improved retrieval is worth more than a pretty interface."
+  }
+}

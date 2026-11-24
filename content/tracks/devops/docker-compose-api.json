@@ -1,0 +1,320 @@
+{
+  "id": "docker-compose-api",
+  "track": "devops",
+  "order": 2,
+  "title": {
+    "pt": "Dockerize uma API com Docker Compose",
+    "en": "Dockerize an API with Docker Compose"
+  },
+  "level": 2,
+  "stack": [
+    "Docker",
+    "Docker Compose",
+    "Node.js (ou outra API do Backend)",
+    "PostgreSQL",
+    "GitHub Container Registry"
+  ],
+  "whatYouBuild": {
+    "pt": "Você pega a API de biblioteca do Distrito Backend (ou outra API sua) e coloca tudo em containers: uma imagem pequena e segura da API, o PostgreSQL com dados persistentes, migrations automáticas, verificação de saúde e um ambiente de desenvolvimento com recarga automática. No fim, qualquer pessoa roda o projeto inteiro com um único comando.",
+    "en": "You take the library API from the Backend District (or another API of yours) and put everything in containers: a small, secure API image, PostgreSQL with persistent data, automatic migrations, health checks and a development environment with auto reload. In the end, anyone runs the whole project with a single command."
+  },
+  "whatYouLearn": [
+    {
+      "pt": "Imagens, containers, volumes e redes",
+      "en": "Images, containers, volumes and networks"
+    },
+    {
+      "pt": "Dockerfile bem escrito: cache de camadas e usuário sem privilégios",
+      "en": "Well-written Dockerfiles: layer caching and a non-root user"
+    },
+    {
+      "pt": "Builds em múltiplos estágios",
+      "en": "Multi-stage builds"
+    },
+    {
+      "pt": "Docker Compose para vários serviços",
+      "en": "Docker Compose for multiple services"
+    },
+    {
+      "pt": "Publicação de imagens num registry",
+      "en": "Publishing images to a registry"
+    }
+  ],
+  "prerequisites": [
+    "linux-terminal",
+    "api-biblioteca-node"
+  ],
+  "steps": [
+    {
+      "id": "conceitos",
+      "title": {
+        "pt": "Docker na prática",
+        "en": "Docker in practice"
+      },
+      "goal": {
+        "pt": "Você roda um PostgreSQL em container, conecta nele e sabe explicar imagem, container e volume.",
+        "en": "You run PostgreSQL in a container, connect to it and can explain image, container and volume."
+      },
+      "estimatedMinutes": 45,
+      "instructions": {
+        "pt": "- Instale o Docker (Docker Desktop no Windows/macOS ou Docker Engine no Linux) e rode `docker run hello-world`.\n- Suba um PostgreSQL com `docker run`, passando senha por variável de ambiente e mapeando a porta. Conecte com um cliente.\n- Apague o container e suba de novo: os dados sumiram. Agora use um volume e repita. Esse é o conceito mais importante da etapa.\n- Pratique `docker ps`, `docker logs`, `docker exec` e `docker stop`.\n- Crie o repositório no GitHub e faça commits pequenos a cada parte que funcionar: o histórico conta a história do projeto.",
+        "en": "- Install Docker (Docker Desktop on Windows/macOS or Docker Engine on Linux) and run `docker run hello-world`.\n- Start PostgreSQL with `docker run`, passing the password via an environment variable and mapping the port. Connect with a client.\n- Delete the container and start it again: the data is gone. Now use a volume and repeat. That's the most important concept of this step.\n- Practice `docker ps`, `docker logs`, `docker exec` and `docker stop`.\n- Create the GitHub repository and make small commits each time a part works: the history tells the project's story."
+      },
+      "resources": [
+        "docker-get-started",
+        "docker-para-devs",
+        "postgres-docker-image",
+        "play-with-docker"
+      ],
+      "checklist": [
+        {
+          "pt": "Docker instalado",
+          "en": "Docker installed"
+        },
+        {
+          "pt": "PostgreSQL rodando em container",
+          "en": "PostgreSQL running in a container"
+        },
+        {
+          "pt": "Dados preservados com volume",
+          "en": "Data preserved with a volume"
+        },
+        {
+          "pt": "Sabe a diferença entre imagem, container e volume",
+          "en": "Knows the difference between image, container and volume"
+        },
+        {
+          "pt": "Repositório no GitHub com o primeiro commit",
+          "en": "GitHub repository with the first commit"
+        }
+      ]
+    },
+    {
+      "id": "dockerfile",
+      "title": {
+        "pt": "Escreva o Dockerfile da API",
+        "en": "Write the API's Dockerfile"
+      },
+      "goal": {
+        "pt": "`docker build` gera a imagem da API e `docker run` sobe a API acessível no navegador.",
+        "en": "`docker build` produces the API image and `docker run` starts the API, reachable in the browser."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Escolha uma imagem base oficial e com versão fixa (nada de `latest`).\n- Copie primeiro só os arquivos de dependências, instale, e só depois copie o resto do código. Assim o Docker reaproveita a camada de dependências quando só o código muda. Teste mudando um arquivo e reconstruindo.\n- Crie um `.dockerignore` (sem `node_modules`, `.env`, `.git`).\n- Rode o processo com um usuário sem privilégios de administrador.\n- Configuração vem de variáveis de ambiente, como no deploy.",
+        "en": "- Pick an official base image with a pinned version (no `latest`).\n- Copy only the dependency files first, install, and only then copy the rest of the code. That way Docker reuses the dependency layer when only code changes. Test it by changing a file and rebuilding.\n- Create a `.dockerignore` (no `node_modules`, `.env`, `.git`).\n- Run the process as a non-administrator user.\n- Configuration comes from environment variables, just like in deployment."
+      },
+      "resources": [
+        "dockerfile-reference",
+        "docker-curriculum"
+      ],
+      "checklist": [
+        {
+          "pt": "Imagem base com versão fixa",
+          "en": "Base image with a pinned version"
+        },
+        {
+          "pt": "Cache de dependências funcionando",
+          "en": "Dependency caching working"
+        },
+        {
+          "pt": "`.dockerignore` criado",
+          "en": "`.dockerignore` created"
+        },
+        {
+          "pt": "Processo sem privilégios de root",
+          "en": "Process running without root privileges"
+        }
+      ]
+    },
+    {
+      "id": "multistage",
+      "title": {
+        "pt": "Imagem menor com múltiplos estágios",
+        "en": "Smaller image with multiple stages"
+      },
+      "goal": {
+        "pt": "A imagem final ficou bem menor que a primeira versão, sem ferramentas de build dentro.",
+        "en": "The final image is much smaller than the first version, with no build tools inside."
+      },
+      "estimatedMinutes": 60,
+      "instructions": {
+        "pt": "- Separe em estágios: um para instalar dependências e compilar (se houver TypeScript, por exemplo) e um final só com o necessário para rodar.\n- Compare os tamanhos com `docker images` e anote no README.\n- Menos coisas dentro da imagem significa menos vulnerabilidades. Experimente uma ferramenta de varredura de vulnerabilidades de imagens.",
+        "en": "- Split into stages: one to install dependencies and build (if there's TypeScript, for example) and a final one with only what's needed to run.\n- Compare sizes with `docker images` and note them in the README.\n- Fewer things inside the image means fewer vulnerabilities. Try an image vulnerability scanner."
+      },
+      "resources": [
+        "docker-multistage"
+      ],
+      "checklist": [
+        {
+          "pt": "Build em múltiplos estágios",
+          "en": "Multi-stage build"
+        },
+        {
+          "pt": "Tamanhos comparados no README",
+          "en": "Sizes compared in the README"
+        }
+      ]
+    },
+    {
+      "id": "compose",
+      "title": {
+        "pt": "API e banco com Docker Compose",
+        "en": "API and database with Docker Compose"
+      },
+      "goal": {
+        "pt": "`docker compose up` sobe API e PostgreSQL juntos, a API espera o banco ficar pronto e os dados sobrevivem a um `down`.",
+        "en": "`docker compose up` starts the API and PostgreSQL together, the API waits for the database to be ready and data survives a `down`."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Crie o `compose.yaml` com dois serviços: `api` e `db`.\n- Dentro do Compose, os serviços se encontram pelo nome: a API conecta em `db`, não em `localhost`. Entenda por quê.\n- Use um volume nomeado para os dados do banco.\n- Adicione um *healthcheck* ao banco e faça a API depender dele estar saudável, não só iniciado.\n- Variáveis sensíveis vêm de um arquivo `.env` que não vai para o Git; deixe um `.env.example` no repositório.",
+        "en": "- Create `compose.yaml` with two services: `api` and `db`.\n- Inside Compose, services find each other by name: the API connects to `db`, not `localhost`. Understand why.\n- Use a named volume for the database data.\n- Add a *healthcheck* to the database and make the API depend on it being healthy, not just started.\n- Sensitive variables come from a `.env` file kept out of Git; leave a `.env.example` in the repository."
+      },
+      "resources": [
+        "docker-compose-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Compose com API e banco",
+          "en": "Compose with API and database"
+        },
+        {
+          "pt": "Conexão pelo nome do serviço",
+          "en": "Connection by service name"
+        },
+        {
+          "pt": "Healthcheck no banco",
+          "en": "Healthcheck on the database"
+        },
+        {
+          "pt": "`.env.example` no repositório",
+          "en": "`.env.example` in the repository"
+        }
+      ],
+      "hint": {
+        "pt": "Se a API cair na subida com erro de conexão, é porque o banco ainda não estava pronto: é exatamente isso que o `depends_on` com `condition: service_healthy` resolve.",
+        "en": "If the API crashes on startup with a connection error, the database wasn't ready yet: that's exactly what `depends_on` with `condition: service_healthy` solves."
+      }
+    },
+    {
+      "id": "migrations",
+      "title": {
+        "pt": "Migrations e dados de exemplo",
+        "en": "Migrations and sample data"
+      },
+      "goal": {
+        "pt": "Subir o ambiente do zero cria as tabelas e os dados de exemplo sem nenhum passo manual.",
+        "en": "Starting the environment from scratch creates the tables and sample data with no manual steps."
+      },
+      "estimatedMinutes": 60,
+      "instructions": {
+        "pt": "- Escolha um jeito de aplicar as migrations: um serviço do Compose que roda e termina antes da API, ou um comando na inicialização da API.\n- Crie um seed com dados de exemplo para quem clonar o projeto.\n- Teste o caminho de quem chega agora: `docker compose down -v` (apaga os volumes) e `docker compose up`. Tudo deve funcionar.",
+        "en": "- Pick a way to apply migrations: a Compose service that runs and exits before the API, or a command on API startup.\n- Create a seed with sample data for anyone who clones the project.\n- Test the newcomer path: `docker compose down -v` (deletes the volumes) and `docker compose up`. Everything should work."
+      },
+      "resources": [
+        "docker-compose-docs",
+        "postgres-docker-image"
+      ],
+      "checklist": [
+        {
+          "pt": "Migrations aplicadas automaticamente",
+          "en": "Migrations applied automatically"
+        },
+        {
+          "pt": "Seed com dados de exemplo",
+          "en": "Seed with sample data"
+        },
+        {
+          "pt": "Ambiente sobe do zero sem passos manuais",
+          "en": "Environment starts from scratch with no manual steps"
+        }
+      ]
+    },
+    {
+      "id": "dev",
+      "title": {
+        "pt": "Ambiente de desenvolvimento com recarga",
+        "en": "Development environment with reload"
+      },
+      "goal": {
+        "pt": "Editar o código no seu editor reinicia a API dentro do container, sem reconstruir a imagem.",
+        "en": "Editing code in your editor restarts the API inside the container, without rebuilding the image."
+      },
+      "estimatedMinutes": 60,
+      "instructions": {
+        "pt": "- Crie uma configuração de desenvolvimento separada (um arquivo de override ou um *profile*).\n- Use o `docker compose watch` (ou um *bind mount*) para sincronizar o código e rodar a API em modo de desenvolvimento.\n- Mantenha a imagem de produção limpa: as ferramentas de desenvolvimento ficam só na configuração de dev.",
+        "en": "- Create a separate development configuration (an override file or a *profile*).\n- Use `docker compose watch` (or a *bind mount*) to sync the code and run the API in development mode.\n- Keep the production image clean: development tools stay only in the dev configuration."
+      },
+      "resources": [
+        "docker-compose-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Configuração de dev separada",
+          "en": "Separate dev configuration"
+        },
+        {
+          "pt": "Recarga automática dentro do container",
+          "en": "Auto reload inside the container"
+        },
+        {
+          "pt": "Imagem de produção sem ferramentas de dev",
+          "en": "Production image without dev tools"
+        }
+      ]
+    },
+    {
+      "id": "publicar",
+      "title": {
+        "pt": "Publique a imagem e documente",
+        "en": "Publish the image and document"
+      },
+      "goal": {
+        "pt": "A imagem está publicada no GitHub Container Registry e o README ensina a rodar tudo com um comando.",
+        "en": "The image is published on GitHub Container Registry and the README teaches how to run everything with one command."
+      },
+      "estimatedMinutes": 60,
+      "instructions": {
+        "pt": "- Faça login no GitHub Container Registry (`ghcr.io`) com um token pessoal de escopo mínimo e publique a imagem com uma tag de versão.\n- Teste baixando a imagem em outra máquina (ou no Play with Docker) e rodando.\n- README: pré-requisitos, `docker compose up`, variáveis de ambiente, tamanho da imagem antes e depois e decisões tomadas.",
+        "en": "- Sign in to GitHub Container Registry (`ghcr.io`) with a minimal-scope personal token and publish the image with a version tag.\n- Test by pulling the image on another machine (or on Play with Docker) and running it.\n- README: prerequisites, `docker compose up`, environment variables, image size before and after and the decisions made."
+      },
+      "resources": [
+        "github-actions-pt",
+        "play-with-docker"
+      ],
+      "checklist": [
+        {
+          "pt": "Imagem publicada com tag de versão",
+          "en": "Image published with a version tag"
+        },
+        {
+          "pt": "Testada em outra máquina",
+          "en": "Tested on another machine"
+        },
+        {
+          "pt": "README com setup de um comando",
+          "en": "README with one-command setup"
+        }
+      ]
+    }
+  ],
+  "extraChallenges": [
+    {
+      "pt": "Adicione um Redis ao Compose e use como cache na API",
+      "en": "Add Redis to Compose and use it as a cache in the API"
+    },
+    {
+      "pt": "Dockerize também uma das APIs em Python, Java ou Go",
+      "en": "Also dockerize one of the Python, Java or Go APIs"
+    },
+    {
+      "pt": "Varredura de vulnerabilidades da imagem no seu fluxo",
+      "en": "Image vulnerability scanning in your workflow"
+    }
+  ],
+  "portfolioTip": {
+    "pt": "\"Clone e rode `docker compose up`\" no README é uma das melhores impressões que um repositório pode causar. Mostre também o tamanho da imagem antes e depois do build em estágios.",
+    "en": "\"Clone and run `docker compose up`\" in a README is one of the best impressions a repository can make. Also show the image size before and after the multi-stage build."
+  }
+}

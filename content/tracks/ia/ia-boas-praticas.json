@@ -1,0 +1,335 @@
+{
+  "id": "ia-boas-praticas",
+  "track": "ia",
+  "order": 4,
+  "title": {
+    "pt": "IA em produção: custos, segurança e avaliação",
+    "en": "AI in production: costs, security and evaluation"
+  },
+  "level": 3,
+  "stack": [
+    "Seu chatbot ou RAG",
+    "Variáveis de ambiente",
+    "Rate limiting",
+    "promptfoo (ou testes próprios)",
+    "GitHub Actions"
+  ],
+  "whatYouBuild": {
+    "pt": "Você leva o seu chatbot (ou o RAG) a um nível de produção: chave protegida no servidor com limite de gastos, custo visível por conversa, limites por usuário, defesas contra injeção de prompt, um conjunto de avaliação automatizado que roda no CI e uma página honesta explicando o que a IA do app faz bem, o que faz mal e o que acontece com os dados.",
+    "en": "You take your chatbot (or the RAG app) to production level: a key protected on the server with a spending limit, visible cost per conversation, per-user limits, defenses against prompt injection, an automated evaluation set that runs in CI and an honest page explaining what the app's AI does well, what it does badly and what happens to the data."
+  },
+  "whatYouLearn": [
+    {
+      "pt": "Gestão segura de chaves de API",
+      "en": "Secure API key management"
+    },
+    {
+      "pt": "Custos de LLM: tokens, preços e estratégias para gastar menos",
+      "en": "LLM costs: tokens, pricing and strategies to spend less"
+    },
+    {
+      "pt": "Limites de uso e degradação elegante",
+      "en": "Usage limits and graceful degradation"
+    },
+    {
+      "pt": "Riscos de segurança em apps com LLM",
+      "en": "Security risks in LLM apps"
+    },
+    {
+      "pt": "Avaliação automatizada de respostas",
+      "en": "Automated response evaluation"
+    }
+  ],
+  "prerequisites": [
+    "chatbot-streaming"
+  ],
+  "steps": [
+    {
+      "id": "chaves",
+      "title": {
+        "pt": "Chaves seguras e limite de gastos",
+        "en": "Secure keys and spending limits"
+      },
+      "goal": {
+        "pt": "A chave do LLM só existe no servidor, o histórico do Git está limpo e o painel do provedor tem um limite de gastos.",
+        "en": "The LLM key exists only on the server, the Git history is clean and the provider dashboard has a spending limit."
+      },
+      "estimatedMinutes": 60,
+      "instructions": {
+        "pt": "- Confirme que a chave nunca vai para o navegador: procure por ela no bundle de produção e nas requisições da aba Rede.\n- Varra o histórico do Git atrás de chaves já commitadas. Se achar, **revogue** a chave no provedor: apagar o commit não basta, porque cópias podem existir.\n- Use chaves diferentes para desenvolvimento e produção.\n- Configure no painel do provedor um limite de gastos mensal e um alerta.",
+        "en": "- Confirm the key never reaches the browser: search for it in the production bundle and in the Network tab's requests.\n- Scan the Git history for keys that were committed. If you find one, **revoke** it at the provider: deleting the commit isn't enough, because copies may exist.\n- Use different keys for development and production.\n- Set a monthly spending limit and an alert in the provider dashboard."
+      },
+      "resources": [
+        "claude-docs",
+        "openai-docs",
+        "vercel-env-vars"
+      ],
+      "checklist": [
+        {
+          "pt": "Chave ausente do bundle e das requisições",
+          "en": "Key absent from the bundle and requests"
+        },
+        {
+          "pt": "Histórico do Git verificado",
+          "en": "Git history checked"
+        },
+        {
+          "pt": "Chaves separadas por ambiente",
+          "en": "Separate keys per environment"
+        },
+        {
+          "pt": "Limite de gastos configurado",
+          "en": "Spending limit configured"
+        }
+      ]
+    },
+    {
+      "id": "custos",
+      "title": {
+        "pt": "Custo por conversa",
+        "en": "Cost per conversation"
+      },
+      "goal": {
+        "pt": "Cada resposta registra tokens de entrada e saída, e o app mostra quanto custou cada conversa.",
+        "en": "Each response records input and output tokens, and the app shows how much each conversation cost."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- As respostas da API informam quantos tokens foram usados. Registre isso em cada chamada.\n- Monte uma pequena tabela de preços do modelo (consulte a página de preços do provedor) e calcule o custo. Entrada e saída costumam ter preços diferentes.\n- Mostre o custo por conversa num painel simples.\n- Teste estratégias e meça: limitar o histórico enviado, definir `max_tokens`, usar um modelo menor para tarefas simples, aproveitar cache de prompt quando o provedor oferecer.",
+        "en": "- API responses report how many tokens were used. Record that on every call.\n- Build a small model price table (check the provider's pricing page) and compute the cost. Input and output usually have different prices.\n- Show the cost per conversation in a simple dashboard.\n- Try strategies and measure: trimming the history you send, setting `max_tokens`, using a smaller model for simple tasks, using prompt caching when the provider offers it."
+      },
+      "resources": [
+        "claude-docs",
+        "openai-docs",
+        "gemini-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Tokens registrados por chamada",
+          "en": "Tokens recorded per call"
+        },
+        {
+          "pt": "Custo calculado com a tabela de preços",
+          "en": "Cost computed from the price table"
+        },
+        {
+          "pt": "Painel de custo por conversa",
+          "en": "Cost per conversation dashboard"
+        },
+        {
+          "pt": "Pelo menos uma estratégia de economia medida",
+          "en": "At least one cost-saving strategy measured"
+        }
+      ]
+    },
+    {
+      "id": "limites",
+      "title": {
+        "pt": "Limites de uso",
+        "en": "Usage limits"
+      },
+      "goal": {
+        "pt": "Um mesmo usuário ou IP não passa de N mensagens por minuto, mensagens gigantes são recusadas e, se o provedor cair, o app mostra um aviso amigável.",
+        "en": "A single user or IP can't exceed N messages per minute, giant messages are refused and, if the provider goes down, the app shows a friendly notice."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Implemente limite de requisições por IP ou usuário (o token bucket do projeto de Go é uma ótima referência). Responda 429 com uma mensagem clara.\n- Limite o tamanho da mensagem e do histórico enviado.\n- Coloque tempo limite nas chamadas ao LLM.\n- Trate erros do provedor (sobrecarga, limite de taxa) com nova tentativa espaçada e, se não der, um aviso amigável.",
+        "en": "- Implement per-IP or per-user rate limiting (the token bucket from the Go project is a great reference). Respond 429 with a clear message.\n- Limit the size of the message and the history you send.\n- Add timeouts to LLM calls.\n- Handle provider errors (overload, rate limits) with spaced retries and, failing that, a friendly notice."
+      },
+      "resources": [
+        "go-rate",
+        "mdn-http-status-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Limite por usuário ou IP com 429",
+          "en": "Per-user or per-IP limit with 429"
+        },
+        {
+          "pt": "Tamanho de mensagem limitado",
+          "en": "Message size limited"
+        },
+        {
+          "pt": "Tempo limite nas chamadas",
+          "en": "Timeouts on calls"
+        },
+        {
+          "pt": "Falha do provedor tratada",
+          "en": "Provider failure handled"
+        }
+      ]
+    },
+    {
+      "id": "injecao",
+      "title": {
+        "pt": "Injeção de prompt e outros riscos",
+        "en": "Prompt injection and other risks"
+      },
+      "goal": {
+        "pt": "Você testou pelo menos 5 ataques de injeção de prompt contra o seu app, registrou o resultado e aplicou mitigações.",
+        "en": "You tested at least 5 prompt injection attacks against your app, recorded the results and applied mitigations."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Leia o OWASP Top 10 para apps com LLM e liste quais riscos se aplicam ao seu app.\n- Teste ataques: pedir para ignorar as instruções, revelar o prompt do sistema, assumir outro papel. Se for RAG, esconda instruções maliciosas dentro de um PDF.\n- Mitigações: nunca coloque segredos no prompt (assuma que ele pode vazar); separe instruções de conteúdo do usuário; limite o que o modelo pode fazer (ferramentas com menor privilégio); confira a saída antes de usá-la em algo sensível.\n- Seja honesto: não existe defesa perfeita contra injeção de prompt. O objetivo é reduzir o estrago possível.",
+        "en": "- Read the OWASP Top 10 for LLM apps and list which risks apply to your app.\n- Test attacks: asking it to ignore instructions, reveal the system prompt, take on another role. If it's RAG, hide malicious instructions inside a PDF.\n- Mitigations: never put secrets in the prompt (assume it can leak); separate instructions from user content; limit what the model can do (least-privilege tools); check output before using it for anything sensitive.\n- Be honest: there's no perfect defense against prompt injection. The goal is to reduce the possible damage."
+      },
+      "resources": [
+        "owasp-llm-top10",
+        "claude-prompt-engineering"
+      ],
+      "checklist": [
+        {
+          "pt": "Riscos do OWASP mapeados para o app",
+          "en": "OWASP risks mapped to the app"
+        },
+        {
+          "pt": "Pelo menos 5 ataques testados e registrados",
+          "en": "At least 5 attacks tested and recorded"
+        },
+        {
+          "pt": "Nenhum segredo no prompt",
+          "en": "No secrets in the prompt"
+        },
+        {
+          "pt": "Mitigações aplicadas",
+          "en": "Mitigations applied"
+        }
+      ],
+      "hint": {
+        "pt": "Uma tabela simples \"ataque | resposta do app | passou ou falhou\" no README já mostra mais cuidado do que a maioria dos projetos de IA.",
+        "en": "A simple \"attack | app response | passed or failed\" table in the README already shows more care than most AI projects."
+      }
+    },
+    {
+      "id": "avaliacao",
+      "title": {
+        "pt": "Conjunto de avaliação",
+        "en": "Evaluation set"
+      },
+      "goal": {
+        "pt": "Um comando roda 15 a 30 casos de teste contra o app e dá uma nota, que você usa para comparar dois prompts ou dois modelos.",
+        "en": "One command runs 15 to 30 test cases against the app and produces a score, which you use to compare two prompts or two models."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Escreva casos de teste com entrada e o que a resposta **deve ter** (ou não ter): \"cita a página\", \"recusa pedidos fora do tema\", \"responde em português\", \"não inventa\".\n- Use verificações objetivas sempre que der (contém tal texto, é um JSON válido). Para critérios subjetivos, dá para usar outro modelo como juiz, sabendo que ele também erra.\n- Rode com o promptfoo ou com um script seu.\n- Compare dois prompts (ou dois modelos) pela nota e pelo custo. Mudança de prompt sem avaliação é chute.",
+        "en": "- Write test cases with an input and what the response **must have** (or not have): \"cites the page\", \"declines off-topic requests\", \"answers in Portuguese\", \"doesn't make things up\".\n- Use objective checks whenever possible (contains some text, is valid JSON). For subjective criteria, you can use another model as a judge, knowing it makes mistakes too.\n- Run them with promptfoo or a script of your own.\n- Compare two prompts (or two models) by score and cost. Changing a prompt without evaluation is guessing."
+      },
+      "resources": [
+        "promptfoo",
+        "claude-prompt-engineering",
+        "hf-llm-course"
+      ],
+      "checklist": [
+        {
+          "pt": "Casos de teste com critérios claros",
+          "en": "Test cases with clear criteria"
+        },
+        {
+          "pt": "Verificações objetivas onde possível",
+          "en": "Objective checks where possible"
+        },
+        {
+          "pt": "Nota calculada por um comando",
+          "en": "Score computed by one command"
+        },
+        {
+          "pt": "Comparação de prompts ou modelos",
+          "en": "Comparison of prompts or models"
+        }
+      ]
+    },
+    {
+      "id": "ci",
+      "title": {
+        "pt": "Avaliação no CI",
+        "en": "Evaluation in CI"
+      },
+      "goal": {
+        "pt": "Pull requests que mexem no prompt rodam um conjunto pequeno de avaliação no GitHub Actions e falham se a nota cair.",
+        "en": "Pull requests that change the prompt run a small evaluation set on GitHub Actions and fail if the score drops."
+      },
+      "estimatedMinutes": 60,
+      "instructions": {
+        "pt": "- Crie um workflow que roda só quando arquivos de prompt mudam.\n- Use um subconjunto pequeno dos casos para controlar o custo, com uma chave de teste guardada como segredo e limite de gastos baixo.\n- Defina uma nota mínima: abaixo dela, o check falha.\n- Publique o resultado como comentário ou artefato do workflow.",
+        "en": "- Create a workflow that only runs when prompt files change.\n- Use a small subset of cases to control cost, with a test key stored as a secret and a low spending limit.\n- Set a minimum score: below it, the check fails.\n- Publish the result as a comment or workflow artifact."
+      },
+      "resources": [
+        "github-actions-pt",
+        "promptfoo"
+      ],
+      "checklist": [
+        {
+          "pt": "Workflow disparado por mudança de prompt",
+          "en": "Workflow triggered by prompt changes"
+        },
+        {
+          "pt": "Custo controlado com subconjunto e chave de teste",
+          "en": "Cost controlled with a subset and test key"
+        },
+        {
+          "pt": "Check falha se a nota cair",
+          "en": "Check fails if the score drops"
+        }
+      ]
+    },
+    {
+      "id": "transparencia",
+      "title": {
+        "pt": "Limites da IA e transparência",
+        "en": "AI limits and transparency"
+      },
+      "goal": {
+        "pt": "O app tem uma página clara sobre o que a IA faz, seus limites e o uso dos dados, e um botão de feedback em cada resposta.",
+        "en": "The app has a clear page about what the AI does, its limits and data use, and a feedback button on each response."
+      },
+      "estimatedMinutes": 60,
+      "instructions": {
+        "pt": "- Escreva uma página curta e honesta: a IA pode errar; tem data de corte de conhecimento; não substitui profissionais em decisões médicas, jurídicas ou financeiras; o que é enviado ao provedor e por quanto tempo fica guardado.\n- Adicione um botão de \"útil / não útil\" em cada resposta e guarde junto com a conversa (sem dados pessoais desnecessários).\n- Use o feedback negativo para criar novos casos de avaliação.\n- README: custos medidos, tabela de ataques, nota da avaliação e o link para a página de limites.",
+        "en": "- Write a short, honest page: the AI can be wrong; it has a knowledge cutoff; it doesn't replace professionals in medical, legal or financial decisions; what is sent to the provider and how long it's kept.\n- Add a \"helpful / not helpful\" button to each response and store it with the conversation (without unnecessary personal data).\n- Use negative feedback to create new evaluation cases.\n- README: measured costs, attack table, evaluation score and the link to the limits page."
+      },
+      "resources": [
+        "owasp-llm-top10",
+        "claude-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Página de limites e uso de dados",
+          "en": "Limits and data use page"
+        },
+        {
+          "pt": "Feedback em cada resposta",
+          "en": "Feedback on each response"
+        },
+        {
+          "pt": "Feedback vira caso de avaliação",
+          "en": "Feedback becomes evaluation cases"
+        },
+        {
+          "pt": "README com custos, ataques e avaliação",
+          "en": "README with costs, attacks and evaluation"
+        }
+      ]
+    }
+  ],
+  "extraChallenges": [
+    {
+      "pt": "Moderação de conteúdo na entrada e na saída",
+      "en": "Content moderation on input and output"
+    },
+    {
+      "pt": "Painel de qualidade ao longo do tempo com as notas do CI",
+      "en": "Quality dashboard over time with CI scores"
+    },
+    {
+      "pt": "Rodar a mesma avaliação num modelo local (Ollama) e comparar",
+      "en": "Run the same evaluation on a local model (Ollama) and compare"
+    }
+  ],
+  "portfolioTip": {
+    "pt": "Muita gente sabe chamar uma API de IA; poucos sabem colocar IA em produção com responsabilidade. Mostre custo por conversa, avaliação no CI e a tabela de ataques: é exatamente o que times de produto procuram.",
+    "en": "Many people can call an AI API; few know how to put AI into production responsibly. Show cost per conversation, evaluation in CI and the attack table: it's exactly what product teams look for."
+  }
+}

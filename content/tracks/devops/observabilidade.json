@@ -1,0 +1,331 @@
+{
+  "id": "observabilidade",
+  "track": "devops",
+  "order": 5,
+  "title": {
+    "pt": "Observabilidade: logs, health checks e monitoramento",
+    "en": "Observability: logs, health checks and monitoring"
+  },
+  "level": 3,
+  "stack": [
+    "Logs estruturados",
+    "Prometheus",
+    "Grafana",
+    "Uptime Kuma",
+    "Sentry",
+    "Docker Compose",
+    "OpenTelemetry (opcional)"
+  ],
+  "whatYouBuild": {
+    "pt": "Você dá \"olhos\" à sua API: logs estruturados com um id por requisição, verificações de saúde que o Docker e a nuvem entendem, métricas de latência, erros e tráfego num painel do Grafana, alertas quando algo sai do normal, um monitor externo de disponibilidade e captura de erros com contexto. No fim, simula um incidente e escreve um relatório sobre ele.",
+    "en": "You give your API \"eyes\": structured logs with an id per request, health checks that Docker and the cloud understand, latency, error and traffic metrics in a Grafana dashboard, alerts when something goes off, an external uptime monitor and error tracking with context. In the end, you simulate an incident and write a report about it."
+  },
+  "whatYouLearn": [
+    {
+      "pt": "Os três pilares: logs, métricas e traces",
+      "en": "The three pillars: logs, metrics and traces"
+    },
+    {
+      "pt": "Logs estruturados e correlação por requisição",
+      "en": "Structured logs and per-request correlation"
+    },
+    {
+      "pt": "Health checks de liveness e readiness",
+      "en": "Liveness and readiness health checks"
+    },
+    {
+      "pt": "Métricas com Prometheus e painéis no Grafana",
+      "en": "Metrics with Prometheus and Grafana dashboards"
+    },
+    {
+      "pt": "Alertas, monitoramento externo e resposta a incidentes",
+      "en": "Alerts, external monitoring and incident response"
+    }
+  ],
+  "prerequisites": [
+    "docker-compose-api"
+  ],
+  "steps": [
+    {
+      "id": "logs",
+      "title": {
+        "pt": "Logs estruturados",
+        "en": "Structured logs"
+      },
+      "goal": {
+        "pt": "Cada requisição gera uma linha de log em JSON com método, rota, status, duração e um id de requisição, e o mesmo id aparece em todos os logs daquela requisição.",
+        "en": "Each request produces a JSON log line with method, route, status, duration and a request id, and the same id shows up in every log for that request."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Troque os `console.log` por um logger que gera JSON (como o Pino, no Node). Log em JSON pode ser filtrado e pesquisado; texto solto, não.\n- Use níveis (`debug`, `info`, `warn`, `error`) e configure o nível por variável de ambiente.\n- Gere um id por requisição num middleware, inclua em todos os logs e devolva no cabeçalho da resposta. Com ele, você segue uma requisição do começo ao fim.\n- Nunca registre senhas, tokens ou dados pessoais. Configure o logger para esconder esses campos.\n- Crie o repositório no GitHub e faça commits pequenos a cada parte que funcionar: o histórico conta a história do projeto.",
+        "en": "- Replace `console.log` with a logger that outputs JSON (like Pino, in Node). JSON logs can be filtered and searched; loose text can't.\n- Use levels (`debug`, `info`, `warn`, `error`) and set the level through an environment variable.\n- Generate a request id in middleware, include it in every log and return it in a response header. With it, you can follow a request from start to finish.\n- Never log passwords, tokens or personal data. Configure the logger to redact those fields.\n- Create the GitHub repository and make small commits each time a part works: the history tells the project's story."
+      },
+      "resources": [
+        "pino-docs",
+        "twelve-factor-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Logs em JSON com níveis",
+          "en": "JSON logs with levels"
+        },
+        {
+          "pt": "Id de requisição em todos os logs",
+          "en": "Request id in every log"
+        },
+        {
+          "pt": "Dados sensíveis escondidos",
+          "en": "Sensitive data redacted"
+        },
+        {
+          "pt": "Repositório no GitHub com o primeiro commit",
+          "en": "GitHub repository with the first commit"
+        }
+      ]
+    },
+    {
+      "id": "health",
+      "title": {
+        "pt": "Health checks e desligamento limpo",
+        "en": "Health checks and graceful shutdown"
+      },
+      "goal": {
+        "pt": "`/health/live` diz se o processo está vivo, `/health/ready` diz se ele consegue atender (inclusive se o banco responde), e o container tem `HEALTHCHECK`.",
+        "en": "`/health/live` says whether the process is alive, `/health/ready` says whether it can serve requests (including whether the database responds), and the container has a `HEALTHCHECK`."
+      },
+      "estimatedMinutes": 60,
+      "instructions": {
+        "pt": "- Entenda a diferença: *liveness* responde \"devo ser reiniciado?\"; *readiness* responde \"posso receber tráfego agora?\". Misturar os dois causa reinícios em cascata.\n- O readiness confere as dependências (banco) com um tempo limite curto.\n- Adicione `HEALTHCHECK` no Dockerfile ou no Compose.\n- Desligamento limpo: ao receber o sinal de término, pare de aceitar requisições novas, termine as em andamento e feche as conexões com o banco.",
+        "en": "- Understand the difference: *liveness* answers \"should I be restarted?\"; *readiness* answers \"can I take traffic right now?\". Mixing them up causes cascading restarts.\n- Readiness checks dependencies (the database) with a short timeout.\n- Add a `HEALTHCHECK` to the Dockerfile or Compose file.\n- Graceful shutdown: on the termination signal, stop accepting new requests, finish the in-flight ones and close database connections."
+      },
+      "resources": [
+        "dockerfile-reference",
+        "docker-compose-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Endpoints de liveness e readiness",
+          "en": "Liveness and readiness endpoints"
+        },
+        {
+          "pt": "Readiness confere o banco",
+          "en": "Readiness checks the database"
+        },
+        {
+          "pt": "`HEALTHCHECK` no container",
+          "en": "`HEALTHCHECK` on the container"
+        },
+        {
+          "pt": "Desligamento limpo",
+          "en": "Graceful shutdown"
+        }
+      ]
+    },
+    {
+      "id": "metricas",
+      "title": {
+        "pt": "Métricas da aplicação",
+        "en": "Application metrics"
+      },
+      "goal": {
+        "pt": "`/metrics` expõe contadores de requisições e histogramas de duração por rota e status, no formato do Prometheus.",
+        "en": "`/metrics` exposes request counters and duration histograms per route and status, in Prometheus format."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Use a biblioteca de cliente do Prometheus da sua linguagem (no Node, `prom-client`).\n- Comece pelas métricas **RED**: *Rate* (requisições por segundo), *Errors* (erros) e *Duration* (latência).\n- Use histograma para duração: média esconde problemas; o que importa é o p95 (95% das requisições abaixo de quanto?).\n- Cuidado com rótulos de alta cardinalidade: use a rota com parâmetros (`/livros/:id`), nunca a URL com o id real.",
+        "en": "- Use your language's Prometheus client library (in Node, `prom-client`).\n- Start with **RED** metrics: *Rate* (requests per second), *Errors* and *Duration* (latency).\n- Use a histogram for duration: averages hide problems; what matters is the p95 (95% of requests below what?).\n- Watch out for high-cardinality labels: use the route pattern (`/books/:id`), never the URL with the real id."
+      },
+      "resources": [
+        "prometheus-docs",
+        "opentelemetry-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Endpoint `/metrics` no formato do Prometheus",
+          "en": "`/metrics` endpoint in Prometheus format"
+        },
+        {
+          "pt": "Métricas RED por rota e status",
+          "en": "RED metrics per route and status"
+        },
+        {
+          "pt": "Duração em histograma",
+          "en": "Duration as a histogram"
+        },
+        {
+          "pt": "Rótulos com a rota, não a URL",
+          "en": "Labels with the route, not the URL"
+        }
+      ]
+    },
+    {
+      "id": "painel",
+      "title": {
+        "pt": "Prometheus e Grafana",
+        "en": "Prometheus and Grafana"
+      },
+      "goal": {
+        "pt": "O Compose sobe Prometheus e Grafana, e um painel mostra requisições por segundo, taxa de erros e p95 de latência da sua API.",
+        "en": "Compose starts Prometheus and Grafana, and a dashboard shows your API's requests per second, error rate and p95 latency."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Adicione Prometheus e Grafana ao `compose.yaml`. Configure o Prometheus para coletar o `/metrics` da API.\n- No Grafana, conecte o Prometheus como fonte de dados e monte um painel com três gráficos: tráfego, taxa de erros e p95.\n- Aprenda o básico de PromQL: `rate()` para contadores e `histogram_quantile()` para percentis.\n- Gere tráfego com um script (ou um teste de carga) para ver os gráficos se mexerem.\n- Exporte o painel como JSON e versione no repositório.",
+        "en": "- Add Prometheus and Grafana to `compose.yaml`. Configure Prometheus to scrape the API's `/metrics`.\n- In Grafana, connect Prometheus as a data source and build a dashboard with three charts: traffic, error rate and p95.\n- Learn basic PromQL: `rate()` for counters and `histogram_quantile()` for percentiles.\n- Generate traffic with a script (or a load test) to see the charts move.\n- Export the dashboard as JSON and version it in the repository."
+      },
+      "resources": [
+        "prometheus-docs",
+        "grafana-docs",
+        "docker-compose-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Prometheus coletando a API",
+          "en": "Prometheus scraping the API"
+        },
+        {
+          "pt": "Painel com tráfego, erros e p95",
+          "en": "Dashboard with traffic, errors and p95"
+        },
+        {
+          "pt": "Consultas com `rate` e `histogram_quantile`",
+          "en": "Queries with `rate` and `histogram_quantile`"
+        },
+        {
+          "pt": "Painel versionado em JSON",
+          "en": "Dashboard versioned as JSON"
+        }
+      ]
+    },
+    {
+      "id": "alertas",
+      "title": {
+        "pt": "Alertas",
+        "en": "Alerts"
+      },
+      "goal": {
+        "pt": "Um alerta dispara (por e-mail ou webhook do Discord, por exemplo) quando a taxa de erros ou o p95 passam de um limite por alguns minutos.",
+        "en": "An alert fires (by email or a Discord webhook, for example) when the error rate or p95 crosses a threshold for a few minutes."
+      },
+      "estimatedMinutes": 60,
+      "instructions": {
+        "pt": "- Defina regras de alerta para sintomas que afetam o usuário (muitos erros, lentidão), não para tudo o que dá para medir.\n- Use uma janela de tempo (ex.: 5 minutos) para não alertar por um pico isolado.\n- Configure um canal de notificação e force o alerta para testar.\n- Escreva, para cada alerta, o que fazer quando ele tocar.",
+        "en": "- Define alert rules for symptoms that affect users (many errors, slowness), not for everything you can measure.\n- Use a time window (e.g. 5 minutes) so a single spike doesn't alert.\n- Configure a notification channel and force the alert to test it.\n- For each alert, write down what to do when it fires."
+      },
+      "resources": [
+        "grafana-docs",
+        "prometheus-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Alertas de erro e latência",
+          "en": "Error and latency alerts"
+        },
+        {
+          "pt": "Janela de tempo para evitar falso alarme",
+          "en": "Time window to avoid false alarms"
+        },
+        {
+          "pt": "Canal de notificação testado",
+          "en": "Notification channel tested"
+        },
+        {
+          "pt": "Instrução para cada alerta",
+          "en": "Instructions for each alert"
+        }
+      ]
+    },
+    {
+      "id": "externo",
+      "title": {
+        "pt": "Monitor externo e captura de erros",
+        "en": "External monitor and error tracking"
+      },
+      "goal": {
+        "pt": "Um monitor externo verifica a API a cada minuto, e erros não tratados aparecem no Sentry com stack trace e versão.",
+        "en": "An external monitor checks the API every minute, and unhandled errors show up in Sentry with a stack trace and release."
+      },
+      "estimatedMinutes": 60,
+      "instructions": {
+        "pt": "- Seu Prometheus roda junto da API: se o servidor inteiro cair, ele cai junto. Por isso existe monitoramento **de fora**. Suba um Uptime Kuma (ou use um serviço gratuito) apontando para a API publicada.\n- Integre o Sentry (plano gratuito) e provoque um erro de propósito para ver o relatório.\n- Envie a versão do deploy junto com os erros: assim você sabe qual deploy introduziu o problema.",
+        "en": "- Your Prometheus runs next to the API: if the whole server goes down, it goes down too. That's why monitoring **from outside** exists. Run Uptime Kuma (or use a free service) pointing at the published API.\n- Integrate Sentry (free tier) and trigger an error on purpose to see the report.\n- Send the deploy version along with errors: that way you know which deploy introduced the problem."
+      },
+      "resources": [
+        "uptime-kuma",
+        "sentry-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Monitor externo verificando a API",
+          "en": "External monitor checking the API"
+        },
+        {
+          "pt": "Erros capturados no Sentry",
+          "en": "Errors captured in Sentry"
+        },
+        {
+          "pt": "Versão do deploy associada aos erros",
+          "en": "Deploy version attached to errors"
+        }
+      ]
+    },
+    {
+      "id": "incidente",
+      "title": {
+        "pt": "Simule um incidente e escreva o relatório",
+        "en": "Simulate an incident and write the report"
+      },
+      "goal": {
+        "pt": "Você simulou uma falha, a encontrou pelos alertas e painéis, e escreveu um relatório de incidente sem culpados.",
+        "en": "You simulated a failure, found it through alerts and dashboards, and wrote a blameless incident report."
+      },
+      "estimatedMinutes": 60,
+      "instructions": {
+        "pt": "- Provoque um problema: derrube o banco, adicione um atraso artificial numa rota ou faça uma rota falhar 30% das vezes.\n- Use só as ferramentas de observabilidade para descobrir o que está acontecendo: alerta, painel, logs com o id da requisição.\n- Escreva um relatório curto: linha do tempo, impacto, causa, como foi detectado e o que vai melhorar. Sem procurar culpados: o foco é o sistema.\n- README com prints do painel e o relatório.",
+        "en": "- Cause a problem: take the database down, add an artificial delay to a route or make a route fail 30% of the time.\n- Use only the observability tools to figure out what's happening: alert, dashboard, logs with the request id.\n- Write a short report: timeline, impact, cause, how it was detected and what will improve. No blame: the focus is the system.\n- README with dashboard screenshots and the report."
+      },
+      "resources": [
+        "grafana-docs",
+        "pino-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Falha simulada",
+          "en": "Failure simulated"
+        },
+        {
+          "pt": "Problema encontrado pelos alertas e painéis",
+          "en": "Problem found through alerts and dashboards"
+        },
+        {
+          "pt": "Relatório de incidente escrito",
+          "en": "Incident report written"
+        },
+        {
+          "pt": "README com prints e relatório",
+          "en": "README with screenshots and report"
+        }
+      ]
+    }
+  ],
+  "extraChallenges": [
+    {
+      "pt": "Traces distribuídos com OpenTelemetry entre duas APIs",
+      "en": "Distributed traces with OpenTelemetry across two APIs"
+    },
+    {
+      "pt": "Centralizar logs com Grafana Loki",
+      "en": "Centralize logs with Grafana Loki"
+    },
+    {
+      "pt": "Definir um SLO (ex.: 99% das requisições abaixo de 300 ms)",
+      "en": "Define an SLO (e.g. 99% of requests under 300 ms)"
+    }
+  ],
+  "portfolioTip": {
+    "pt": "Pouquíssimos júniores mostram observabilidade no portfólio. Um print do painel no Grafana e um relatório de incidente bem escrito impressionam qualquer time de backend ou de plataforma.",
+    "en": "Very few juniors show observability in their portfolio. A Grafana dashboard screenshot and a well-written incident report impress any backend or platform team."
+  }
+}

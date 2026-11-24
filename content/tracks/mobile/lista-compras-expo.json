@@ -1,0 +1,172 @@
+{
+  "id": "lista-compras-expo",
+  "track": "mobile",
+  "order": 1,
+  "title": { "pt": "App de lista de compras com React Native (Expo)", "en": "Shopping list app with React Native (Expo)" },
+  "level": 2,
+  "stack": ["React Native", "Expo", "TypeScript", "AsyncStorage", "EAS"],
+  "whatYouBuild": {
+    "pt": "Um app de celular de verdade para listas de compras: criar várias listas, adicionar itens, marcar o que já está no carrinho e apagar. Os dados ficam salvos no aparelho, o app funciona com leitor de tela e, no fim, você gera um instalador para testar no seu celular e mandar para amigos.",
+    "en": "A real phone app for shopping lists: create several lists, add items, check off what's already in the cart and delete. Data is saved on the device, the app works with screen readers and, in the end, you build an installer to test on your phone and share with friends."
+  },
+  "whatYouLearn": [
+    { "pt": "Componentes do React Native: View, Text, TextInput, Pressable, FlatList", "en": "React Native components: View, Text, TextInput, Pressable, FlatList" },
+    { "pt": "Estado e efeitos com hooks (useState, useEffect)", "en": "State and effects with hooks (useState, useEffect)" },
+    { "pt": "Persistência local no aparelho", "en": "Local on-device persistence" },
+    { "pt": "Navegação entre telas com Expo Router", "en": "Navigation between screens with Expo Router" },
+    { "pt": "Acessibilidade mobile e geração de builds de teste", "en": "Mobile accessibility and building test releases" }
+  ],
+  "prerequisites": ["calculadora-jogo-da-velha"],
+  "steps": [
+    {
+      "id": "setup-expo",
+      "title": { "pt": "Crie o app e rode no celular", "en": "Create the app and run it on your phone" },
+      "goal": {
+        "pt": "O app de exemplo abre no seu celular pelo Expo Go, e uma mudança no código aparece na hora.",
+        "en": "The sample app opens on your phone through Expo Go, and a code change shows up instantly."
+      },
+      "estimatedMinutes": 60,
+      "instructions": {
+        "pt": "O **Expo** é o jeito recomendado de começar com React Native: você não precisa instalar Android Studio nem Xcode para desenvolver.\n\n1. Crie o projeto com o comando `create-expo-app` (veja o tutorial oficial do Expo). O template padrão já vem com TypeScript e Expo Router.\n2. Instale o app **Expo Go** no celular.\n3. Rode `npx expo start` e leia o QR code. Computador e celular precisam estar na mesma rede Wi-Fi.\n4. Mude um texto e veja atualizar sozinho (*fast refresh*).\n5. Explore a estrutura de pastas e faça o primeiro commit.\n\n**Nunca usou React?** Leia antes o \"Aprenda React\" (componentes, props e estado). React Native é React com outros componentes.",
+        "en": "**Expo** is the recommended way to start with React Native: you don't need Android Studio or Xcode to develop.\n\n1. Create the project with the `create-expo-app` command (see the official Expo tutorial). The default template already includes TypeScript and Expo Router.\n2. Install the **Expo Go** app on your phone.\n3. Run `npx expo start` and scan the QR code. Computer and phone must be on the same Wi-Fi network.\n4. Change some text and watch it update by itself (*fast refresh*).\n5. Explore the folder structure and make the first commit.\n\n**Never used React?** First read \"Learn React\" (components, props and state). React Native is React with different components."
+      },
+      "resources": ["expo-tutorial", "expo-docs", "react-docs-pt"],
+      "checklist": [
+        { "pt": "App abre no celular pelo Expo Go", "en": "App opens on the phone through Expo Go" },
+        { "pt": "Fast refresh funcionando", "en": "Fast refresh working" },
+        { "pt": "Primeiro commit feito", "en": "First commit made" }
+      ],
+      "hint": {
+        "pt": "O QR code não conecta? Tente `npx expo start --tunnel`. Redes de faculdade e empresa costumam bloquear a conexão direta.",
+        "en": "QR code won't connect? Try `npx expo start --tunnel`. University and office networks often block direct connections."
+      }
+    },
+    {
+      "id": "tela-itens",
+      "title": { "pt": "Monte a tela de itens", "en": "Build the items screen" },
+      "goal": {
+        "pt": "Uma tela com campo de texto e botão para adicionar itens, que aparecem numa lista abaixo.",
+        "en": "A screen with a text field and button to add items, which show up in a list below."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "No React Native não existe `div` nem `p`: você usa `View`, `Text`, `TextInput` e `Pressable`.\n\n- Guarde os itens num `useState` como um array de objetos (`id`, `nome`, `comprado`).\n- Renderize a lista com `FlatList`, não com `map` dentro de uma `ScrollView`: ela só desenha o que aparece na tela e aguenta listas grandes. Pesquise `keyExtractor`.\n- Ao adicionar: ignore texto vazio, limpe o campo e mantenha o teclado aberto para adicionar o próximo (pesquise as props `onSubmitEditing` e `submitBehavior`).\n- Estilos com `StyleSheet.create`. O layout usa **flexbox**, mas o padrão é coluna (`flexDirection: 'column'`).",
+        "en": "React Native has no `div` or `p`: you use `View`, `Text`, `TextInput` and `Pressable`.\n\n- Keep the items in a `useState` as an array of objects (`id`, `name`, `bought`).\n- Render the list with `FlatList`, not with `map` inside a `ScrollView`: it only draws what's on screen and handles large lists. Look up `keyExtractor`.\n- When adding: ignore empty text, clear the field and keep the keyboard open for the next item (look up the `onSubmitEditing` and `submitBehavior` props).\n- Styles with `StyleSheet.create`. Layout uses **flexbox**, but the default direction is column (`flexDirection: 'column'`)."
+      },
+      "resources": ["rn-basics", "rn-docs", "react-learn-en"],
+      "checklist": [
+        { "pt": "Adiciona itens pelo botão e pelo Enter do teclado", "en": "Adds items via the button and the keyboard's Enter" },
+        { "pt": "Lista feita com `FlatList` e `keyExtractor`", "en": "List built with `FlatList` and `keyExtractor`" },
+        { "pt": "Texto vazio é ignorado", "en": "Empty text is ignored" }
+      ]
+    },
+    {
+      "id": "marcar-apagar",
+      "title": { "pt": "Marque, edite e apague itens", "en": "Check off, edit and delete items" },
+      "goal": {
+        "pt": "Tocar num item marca como comprado (riscado), e dá para apagar com confirmação. Itens comprados vão para o fim da lista.",
+        "en": "Tapping an item marks it as bought (struck through), and you can delete with confirmation. Bought items move to the end of the list."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Ao tocar no item, alterne `comprado`. Atualize o estado **sem modificar o array original**: crie um novo array (pesquise `map` e o operador spread). Isso é essencial no React.\n- Mostre itens comprados riscados e com menos destaque.\n- Para apagar, use um botão no item e confirme com o `Alert` nativo antes de remover.\n- Ordene: pendentes primeiro, comprados depois. Calcule a lista ordenada na hora de renderizar, em vez de guardar duas listas.\n- Mostre um contador, como \"3 de 8 comprados\".\n- Lista vazia? Mostre uma mensagem amigável no lugar (pesquise `ListEmptyComponent`).",
+        "en": "- When tapping an item, toggle `bought`. Update state **without modifying the original array**: create a new array (look up `map` and the spread operator). This is essential in React.\n- Show bought items struck through and less prominent.\n- To delete, use a button on the item and confirm with the native `Alert` before removing.\n- Sort: pending first, bought last. Compute the sorted list while rendering instead of keeping two lists.\n- Show a counter, like \"3 of 8 bought\".\n- Empty list? Show a friendly message instead (look up `ListEmptyComponent`)."
+      },
+      "resources": ["rn-docs", "react-learn-en", "javascript-info"],
+      "checklist": [
+        { "pt": "Marcar/desmarcar como comprado", "en": "Check/uncheck as bought" },
+        { "pt": "Apagar com confirmação", "en": "Delete with confirmation" },
+        { "pt": "Estado atualizado sem mutar o array", "en": "State updated without mutating the array" },
+        { "pt": "Mensagem para lista vazia e contador", "en": "Empty list message and counter" }
+      ]
+    },
+    {
+      "id": "persistencia",
+      "title": { "pt": "Salve os dados no aparelho", "en": "Save data on the device" },
+      "goal": {
+        "pt": "Fechar o app completamente e abrir de novo mantém todos os itens.",
+        "en": "Fully closing and reopening the app keeps all the items."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Instale o **AsyncStorage** com `npx expo install` (esse comando escolhe a versão compatível com o seu Expo).\n- Ao abrir o app, carregue os itens salvos com um `useEffect`. Enquanto carrega, mostre um indicador, não a lista vazia.\n- Sempre que a lista mudar, salve. O AsyncStorage guarda só texto: converta com `JSON.stringify` e `JSON.parse`.\n- As funções são assíncronas: use `async`/`await` e trate erros (um JSON corrompido não pode travar o app).\n- Isole o armazenamento em funções próprias (`carregarListas`, `salvarListas`). Se um dia trocar por um banco SQLite, só elas mudam.",
+        "en": "- Install **AsyncStorage** with `npx expo install` (this command picks the version compatible with your Expo).\n- When the app opens, load saved items in a `useEffect`. While loading, show an indicator, not the empty list.\n- Whenever the list changes, save. AsyncStorage only stores text: convert with `JSON.stringify` and `JSON.parse`.\n- The functions are asynchronous: use `async`/`await` and handle errors (corrupted JSON must not crash the app).\n- Isolate storage in its own functions (`loadLists`, `saveLists`). If you ever switch to an SQLite database, only those change."
+      },
+      "resources": ["async-storage", "expo-docs", "react-learn-en"],
+      "checklist": [
+        { "pt": "Itens sobrevivem a fechar e abrir o app", "en": "Items survive closing and reopening the app" },
+        { "pt": "Indicador de carregamento na abertura", "en": "Loading indicator on startup" },
+        { "pt": "Erros de leitura tratados", "en": "Read errors handled" },
+        { "pt": "Armazenamento isolado em funções próprias", "en": "Storage isolated in its own functions" }
+      ]
+    },
+    {
+      "id": "varias-listas",
+      "title": { "pt": "Várias listas com navegação", "en": "Multiple lists with navigation" },
+      "goal": {
+        "pt": "Uma tela inicial mostra suas listas (Mercado, Farmácia...). Tocar numa delas abre a tela de itens daquela lista.",
+        "en": "A home screen shows your lists (Groceries, Pharmacy...). Tapping one opens that list's items screen."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- O **Expo Router** cria telas a partir de arquivos, como o Next.js na web: um arquivo para a tela inicial e uma rota dinâmica (`[id]`) para a tela de uma lista.\n- Reestruture os dados: agora são listas, cada uma com seus itens. Atualize a persistência para o novo formato.\n- A tela inicial mostra cada lista com o nome e o progresso (\"5/12\"). Permita criar e apagar listas.\n- Use o título da lista no cabeçalho da tela de itens.\n- Pense em como compartilhar o estado entre as telas. Pesquise *Context* do React ou uma biblioteca pequena como Zustand.",
+        "en": "- **Expo Router** creates screens from files, like Next.js on the web: one file for the home screen and a dynamic route (`[id]`) for a list's screen.\n- Restructure the data: now there are lists, each with its own items. Update persistence for the new format.\n- The home screen shows each list with its name and progress (\"5/12\"). Allow creating and deleting lists.\n- Use the list name in the items screen header.\n- Think about sharing state between screens. Look up React *Context* or a small library like Zustand."
+      },
+      "resources": ["expo-router", "expo-docs", "react-docs-pt"],
+      "checklist": [
+        { "pt": "Tela inicial com as listas e o progresso de cada uma", "en": "Home screen with lists and each one's progress" },
+        { "pt": "Rota dinâmica para a tela de uma lista", "en": "Dynamic route for a list's screen" },
+        { "pt": "Criar e apagar listas", "en": "Create and delete lists" },
+        { "pt": "Dados no novo formato continuam salvos", "en": "Data in the new format is still saved" }
+      ]
+    },
+    {
+      "id": "acessibilidade-ux",
+      "title": { "pt": "Acessibilidade e acabamento", "en": "Accessibility and polish" },
+      "goal": {
+        "pt": "Dá para usar o app inteiro com o leitor de tela ligado (TalkBack ou VoiceOver), e ele fica bom no modo escuro.",
+        "en": "You can use the whole app with the screen reader on (TalkBack or VoiceOver), and it looks good in dark mode."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Ative o **TalkBack** (Android) ou o **VoiceOver** (iPhone) e tente usar o app de olhos fechados. Você vai achar problemas rapidinho.\n- Use `accessibilityRole` (button, checkbox), `accessibilityLabel` em botões só com ícone e `accessibilityState` para informar se o item está marcado.\n- Áreas de toque de pelo menos 44x44 pontos (pesquise `hitSlop`).\n- Modo escuro: use o hook `useColorScheme` e defina as cores dos dois temas num só lugar.\n- Respeite o tamanho de fonte que a pessoa configurou no celular: não fixe alturas que cortem texto.",
+        "en": "- Turn on **TalkBack** (Android) or **VoiceOver** (iPhone) and try using the app with your eyes closed. You'll find problems fast.\n- Use `accessibilityRole` (button, checkbox), `accessibilityLabel` on icon-only buttons and `accessibilityState` to say whether an item is checked.\n- Touch targets of at least 44x44 points (look up `hitSlop`).\n- Dark mode: use the `useColorScheme` hook and define both themes' colors in one place.\n- Respect the font size the person set on their phone: don't fix heights that cut off text."
+      },
+      "resources": ["rn-accessibility", "rn-docs"],
+      "checklist": [
+        { "pt": "Testado com TalkBack ou VoiceOver", "en": "Tested with TalkBack or VoiceOver" },
+        { "pt": "Botões com papel e nome acessíveis; itens informam se estão marcados", "en": "Buttons have accessible roles and names; items announce whether they're checked" },
+        { "pt": "Áreas de toque de 44x44 ou mais", "en": "Touch targets of 44x44 or more" },
+        { "pt": "Modo escuro funcionando", "en": "Dark mode working" }
+      ]
+    },
+    {
+      "id": "readme-build",
+      "title": { "pt": "README e build de teste", "en": "README and test build" },
+      "goal": {
+        "pt": "Um instalador do app (APK para Android) gerado na nuvem, instalado no seu celular e com link no README.",
+        "en": "An app installer (Android APK) built in the cloud, installed on your phone and linked in the README."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Crie uma conta gratuita na Expo e use o **EAS Build** para gerar um build de teste. Para Android, configure um perfil que gere APK, que dá para instalar direto no celular.\n- Instale no seu celular e no de um amigo. Observe como ele usa o app sem você explicar nada.\n- README com GIF do app, recursos, tecnologias, como rodar com Expo Go e o link do build.\n- Para iPhone, o build exige conta paga de desenvolvedor Apple. Mencione no README que o app roda no iOS pelo Expo Go.",
+        "en": "- Create a free Expo account and use **EAS Build** to make a test build. For Android, set up a profile that produces an APK, which can be installed directly on the phone.\n- Install it on your phone and a friend's. Watch how they use the app without you explaining anything.\n- README with an app GIF, features, technologies, how to run with Expo Go and the build link.\n- For iPhone, builds require a paid Apple developer account. Mention in the README that the app runs on iOS through Expo Go."
+      },
+      "resources": ["eas-build", "expo-docs", "github-docs-start-pt"],
+      "checklist": [
+        { "pt": "Build de teste gerado com EAS", "en": "Test build created with EAS" },
+        { "pt": "App instalado e testado por outra pessoa", "en": "App installed and tested by someone else" },
+        { "pt": "README com GIF, instruções e link do build", "en": "README with GIF, instructions and build link" }
+      ]
+    }
+  ],
+  "extraChallenges": [
+    { "pt": "Arrastar para reordenar itens", "en": "Drag to reorder items" },
+    { "pt": "Compartilhar a lista por texto com a API de compartilhamento do sistema", "en": "Share the list as text with the system share API" },
+    { "pt": "Sincronizar com a API que você fez no Distrito Backend", "en": "Sync with the API you built in the Backend District" }
+  ],
+  "portfolioTip": {
+    "pt": "Um GIF do app rodando no celular no topo do README vale mais que qualquer descrição. Se puder, publique na Play Store em teste interno: ter um app na loja é um baita diferencial para um júnior.",
+    "en": "A GIF of the app running on a phone at the top of the README is worth more than any description. If you can, publish on the Play Store internal testing track: having an app in the store is a big plus for a junior."
+  }
+}

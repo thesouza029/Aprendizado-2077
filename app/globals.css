@@ -1,0 +1,183 @@
+@import "tailwindcss";
+
+/* ---------- Tema DevCity ---------- */
+@theme {
+  --color-night-950: #05060d;
+  --color-night-900: #0a0c18;
+  --color-night-800: #12152b;
+  --color-night-700: #1c2142;
+
+  /* Cores neon dos distritos (repetidas na cidade 3D) */
+  --color-hub: #67e8f9;
+  --color-library: #c084fc;
+  --color-fundamentos: #facc15;
+  --color-web: #22d3ee;
+  --color-backend: #4ade80;
+  --color-mobile: #f472b6;
+  --color-devops: #fb923c;
+  --color-ia: #e879f9;
+}
+
+/* As fontes vêm do next/font (variáveis definidas no layout) */
+@theme inline {
+  --font-display: var(--font-chakra), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    min-height: 100dvh;
+    background-color: var(--color-night-950);
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgb(103 232 249 / 0.12), transparent 60%),
+      radial-gradient(ellipse 60% 40% at 100% 0%, rgb(192 132 252 / 0.1), transparent 60%),
+      linear-gradient(rgb(255 255 255 / 0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.025) 1px, transparent 1px);
+    background-size:
+      auto,
+      auto,
+      48px 48px,
+      48px 48px;
+    background-attachment: fixed;
+    color: var(--color-zinc-100);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-hub);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  main:focus {
+    outline: none;
+  }
+}
+
+/* ---------- Componentes ---------- */
+
+/* Painel de leitura: fundo escuro e texto de alto contraste (o neon é só decoração) */
+@utility panel {
+  background-color: rgb(10 12 24 / 0.85);
+  border: 1px solid rgb(255 255 255 / 0.08);
+  border-radius: 1rem;
+  backdrop-filter: blur(8px);
+}
+
+/* Cor de destaque por distrito: defina style={{"--accent": "#hex"}} no elemento pai */
+@utility accent-text {
+  color: var(--accent, var(--color-hub));
+}
+@utility accent-border {
+  border-color: color-mix(in srgb, var(--accent, var(--color-hub)) 55%, transparent);
+}
+@utility accent-bar {
+  background-color: var(--accent, var(--color-hub));
+  box-shadow: 0 0 12px var(--accent, var(--color-hub));
+}
+@utility accent-soft {
+  background-color: color-mix(in srgb, var(--accent, var(--color-hub)) 12%, transparent);
+}
+@utility accent-glow {
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--accent, var(--color-hub)) 35%, transparent),
+    0 0 40px -16px var(--accent, var(--color-hub));
+}
+@utility neon-text {
+  text-shadow:
+    0 0 6px color-mix(in srgb, currentColor 70%, transparent),
+    0 0 24px color-mix(in srgb, currentColor 40%, transparent);
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 100;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  background: var(--color-hub);
+  color: var(--color-night-950);
+  font-weight: 600;
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* Conteúdo em Markdown das etapas */
+.md {
+  line-height: 1.7;
+  color: var(--color-zinc-200);
+}
+.md > * + * {
+  margin-top: 0.85em;
+}
+.md strong {
+  color: var(--color-zinc-50);
+  font-weight: 600;
+}
+.md em {
+  color: var(--color-zinc-100);
+}
+.md ul,
+.md ol {
+  padding-left: 1.4em;
+}
+.md ul {
+  list-style: disc;
+}
+.md ol {
+  list-style: decimal;
+}
+.md li + li {
+  margin-top: 0.35em;
+}
+.md li > ul,
+.md li > ol {
+  margin-top: 0.35em;
+}
+.md code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  padding: 0.1em 0.4em;
+  border-radius: 0.35em;
+  background: rgb(255 255 255 / 0.08);
+  color: var(--color-zinc-50);
+}
+.md a {
+  color: var(--accent, var(--color-hub));
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* cidade 3D em tela cheia: o rodapé sai do caminho */
+body[data-city="on"] > footer,
+body[data-city="on"] footer {
+  display: none;
+}
+
+dialog::backdrop {
+  background: rgb(5 6 13 / 0.75);
+  backdrop-filter: blur(4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

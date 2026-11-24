@@ -1,0 +1,288 @@
+{
+  "id": "admin-django",
+  "track": "backend",
+  "order": 7,
+  "title": {
+    "pt": "Painel administrativo com Django",
+    "en": "Admin panel with Django"
+  },
+  "level": 2,
+  "bonus": true,
+  "stack": [
+    "Python",
+    "Django",
+    "Django Admin",
+    "PostgreSQL ou SQLite",
+    "Render"
+  ],
+  "whatYouBuild": {
+    "pt": "Um sistema interno para uma escola de cursos livres ou ONG gerenciar alunos, turmas e matrículas, aproveitando o painel administrativo que o Django gera sozinho: listas com filtros e busca, edição de matrículas dentro da turma, ações em lote, exportação para CSV, permissões por grupo e uma página pública com as turmas abertas.",
+    "en": "An internal system for a short-course school or nonprofit to manage students, classes and enrollments, using the admin panel Django generates on its own: lists with filters and search, editing enrollments inside the class, bulk actions, CSV export, group permissions and a public page with open classes."
+  },
+  "whatYouLearn": [
+    {
+      "pt": "Django: projetos, apps, models e migrations",
+      "en": "Django: projects, apps, models and migrations"
+    },
+    {
+      "pt": "Personalização do Django Admin",
+      "en": "Customizing the Django Admin"
+    },
+    {
+      "pt": "Usuários, grupos e permissões",
+      "en": "Users, groups and permissions"
+    },
+    {
+      "pt": "Views e templates",
+      "en": "Views and templates"
+    },
+    {
+      "pt": "Configuração de produção e deploy",
+      "en": "Production configuration and deploy"
+    }
+  ],
+  "prerequisites": [
+    "encurtador-fastapi"
+  ],
+  "steps": [
+    {
+      "id": "setup",
+      "title": {
+        "pt": "Projeto e app Django",
+        "en": "Django project and app"
+      },
+      "goal": {
+        "pt": "`python manage.py runserver` mostra a página inicial do Django e o app `escola` está registrado.",
+        "en": "`python manage.py runserver` shows Django's welcome page and the `school` app is registered."
+      },
+      "estimatedMinutes": 60,
+      "instructions": {
+        "pt": "- Crie um ambiente virtual, instale o Django e crie o projeto. Depois crie um *app* para o domínio (`escola`).\n- Entenda a diferença: o projeto guarda configurações; os apps guardam funcionalidades reutilizáveis.\n- Registre o app em `INSTALLED_APPS` e rode o servidor.\n- Se nunca usou Django, faça antes as primeiras partes do tutorial oficial ou do Django Girls.\n- Crie o repositório no GitHub e faça commits pequenos a cada parte que funcionar: o histórico conta a história do projeto.",
+        "en": "- Create a virtual environment, install Django and create the project. Then create an *app* for the domain (`school`).\n- Understand the difference: the project holds settings; apps hold reusable features.\n- Register the app in `INSTALLED_APPS` and run the server.\n- If you've never used Django, first do the opening parts of the official tutorial or Django Girls.\n- Create the GitHub repository and make small commits each time a part works: the history tells the project's story."
+      },
+      "resources": [
+        "django-tutorial",
+        "django-girls-pt",
+        "django-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Projeto e app criados",
+          "en": "Project and app created"
+        },
+        {
+          "pt": "App registrado nas configurações",
+          "en": "App registered in settings"
+        },
+        {
+          "pt": "Servidor rodando",
+          "en": "Server running"
+        },
+        {
+          "pt": "Repositório no GitHub com o primeiro commit",
+          "en": "GitHub repository with the first commit"
+        }
+      ]
+    },
+    {
+      "id": "models-admin",
+      "title": {
+        "pt": "Models e o admin de graça",
+        "en": "Models and the free admin"
+      },
+      "goal": {
+        "pt": "Alunos, turmas e matrículas podem ser cadastrados pelo admin em `/admin`.",
+        "en": "Students, classes and enrollments can be managed through the admin at `/admin`."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Crie os models: aluno, curso, turma (curso, horário, vagas) e matrícula (aluno, turma, data, situação). Use `ForeignKey` e restrições de unicidade (um aluno não se matricula duas vezes na mesma turma).\n- Gere e aplique as migrations.\n- Crie um superusuário e registre os models no admin. Em poucos minutos você tem um sistema de cadastro completo: é por isso que o Django é tão usado para sistemas internos.\n- Defina o `__str__` de cada model para as listas ficarem legíveis.",
+        "en": "- Create the models: student, course, class (course, schedule, seats) and enrollment (student, class, date, status). Use `ForeignKey` and unique constraints (a student can't enroll twice in the same class).\n- Generate and apply the migrations.\n- Create a superuser and register the models in the admin. In minutes you have a complete data-entry system: that's why Django is so popular for internal tools.\n- Define each model's `__str__` so the lists are readable."
+      },
+      "resources": [
+        "django-docs",
+        "django-admin-docs",
+        "mdn-django-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Models com relacionamentos e unicidade",
+          "en": "Models with relationships and uniqueness"
+        },
+        {
+          "pt": "Migrations aplicadas",
+          "en": "Migrations applied"
+        },
+        {
+          "pt": "Models registrados no admin",
+          "en": "Models registered in the admin"
+        },
+        {
+          "pt": "`__str__` em todos os models",
+          "en": "`__str__` on every model"
+        }
+      ]
+    },
+    {
+      "id": "personalizar",
+      "title": {
+        "pt": "Personalize o admin",
+        "en": "Customize the admin"
+      },
+      "goal": {
+        "pt": "As listas do admin têm colunas úteis, filtros, busca, matrículas editáveis dentro da turma e uma ação que exporta CSV.",
+        "en": "Admin lists have useful columns, filters, search, enrollments editable inside the class and an action that exports CSV."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Configure `list_display`, `list_filter` e `search_fields` para cada model, pensando em quem vai usar todos os dias (a secretaria).\n- Use *inlines* para editar as matrículas dentro da página da turma.\n- Mostre colunas calculadas, como \"vagas restantes\".\n- Crie uma ação em lote para exportar os selecionados para CSV e outra para mudar a situação das matrículas.\n- Valide regras no model (`clean`): não matricular numa turma sem vagas.",
+        "en": "- Configure `list_display`, `list_filter` and `search_fields` for each model, thinking about who will use it every day (the front office).\n- Use *inlines* to edit enrollments inside the class page.\n- Show computed columns, like \"seats left\".\n- Create a bulk action to export the selected rows to CSV and another to change enrollment status.\n- Validate rules in the model (`clean`): no enrolling in a class with no seats left."
+      },
+      "resources": [
+        "django-admin-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Listas com colunas, filtros e busca",
+          "en": "Lists with columns, filters and search"
+        },
+        {
+          "pt": "Matrículas editadas dentro da turma",
+          "en": "Enrollments edited inside the class"
+        },
+        {
+          "pt": "Ação de exportar CSV",
+          "en": "CSV export action"
+        },
+        {
+          "pt": "Regra de vagas validada",
+          "en": "Seat rule validated"
+        }
+      ]
+    },
+    {
+      "id": "permissoes",
+      "title": {
+        "pt": "Grupos e permissões",
+        "en": "Groups and permissions"
+      },
+      "goal": {
+        "pt": "Um usuário do grupo \"Secretaria\" edita matrículas mas não apaga cursos, e cada alteração fica no histórico.",
+        "en": "A user in the \"Front office\" group edits enrollments but can't delete courses, and every change shows up in the history."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Crie grupos (Coordenação, Secretaria) e dê a cada um só as permissões necessárias. Isso é o princípio do menor privilégio.\n- Crie usuários de teste em cada grupo e entre com eles para ver o admin mudar.\n- Mostre o histórico de alterações que o admin já guarda.\n- Se quiser, crie um script ou migration de dados que cria os grupos automaticamente.",
+        "en": "- Create groups (Coordination, Front office) and give each one only the permissions it needs. That's the principle of least privilege.\n- Create test users in each group and sign in as them to see the admin change.\n- Show the change history the admin already keeps.\n- If you like, write a script or data migration that creates the groups automatically."
+      },
+      "resources": [
+        "django-docs",
+        "django-admin-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Grupos com permissões mínimas",
+          "en": "Groups with minimal permissions"
+        },
+        {
+          "pt": "Testado com usuários de cada grupo",
+          "en": "Tested with users from each group"
+        },
+        {
+          "pt": "Histórico de alterações visível",
+          "en": "Change history visible"
+        }
+      ]
+    },
+    {
+      "id": "publica-testes",
+      "title": {
+        "pt": "Página pública e testes",
+        "en": "Public page and tests"
+      },
+      "goal": {
+        "pt": "A página `/turmas` mostra as turmas abertas com vagas, e `python manage.py test` passa.",
+        "en": "The `/classes` page shows open classes with seats, and `python manage.py test` passes."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Crie uma view e um template para listar as turmas com vagas, sem login. Use a herança de templates do Django.\n- Filtre no banco (QuerySet), não no template.\n- Escreva testes com o `TestCase` do Django: a página pública só mostra turmas com vagas; a regra de vagas impede matrícula extra; a secretaria não consegue apagar curso.",
+        "en": "- Create a view and a template to list classes with seats, without sign-in. Use Django's template inheritance.\n- Filter in the database (QuerySet), not in the template.\n- Write tests with Django's `TestCase`: the public page only shows classes with seats; the seat rule blocks extra enrollments; the front office can't delete a course."
+      },
+      "resources": [
+        "django-docs",
+        "django-tutorial"
+      ],
+      "checklist": [
+        {
+          "pt": "Página pública com herança de templates",
+          "en": "Public page with template inheritance"
+        },
+        {
+          "pt": "Filtro feito no QuerySet",
+          "en": "Filtering done in the QuerySet"
+        },
+        {
+          "pt": "Testes de regra e permissão",
+          "en": "Rule and permission tests"
+        }
+      ]
+    },
+    {
+      "id": "deploy",
+      "title": {
+        "pt": "Configuração de produção e deploy",
+        "en": "Production settings and deploy"
+      },
+      "goal": {
+        "pt": "O sistema está no ar com `DEBUG` desligado, segredos em variáveis de ambiente e arquivos estáticos servidos corretamente.",
+        "en": "The system is live with `DEBUG` off, secrets in environment variables and static files served correctly."
+      },
+      "estimatedMinutes": 60,
+      "instructions": {
+        "pt": "- Separe as configurações de produção: `DEBUG=False`, `SECRET_KEY` e banco por variáveis de ambiente, `ALLOWED_HOSTS` definido.\n- Rode `python manage.py check --deploy` e corrija os avisos de segurança.\n- Configure os arquivos estáticos para produção (`collectstatic`).\n- Faça o deploy no Render com PostgreSQL. README com usuários de demonstração (sem senhas reais) e prints do admin.",
+        "en": "- Separate production settings: `DEBUG=False`, `SECRET_KEY` and database from environment variables, `ALLOWED_HOSTS` set.\n- Run `python manage.py check --deploy` and fix the security warnings.\n- Configure static files for production (`collectstatic`).\n- Deploy on Render with PostgreSQL. README with demo users (no real passwords) and admin screenshots."
+      },
+      "resources": [
+        "django-docs",
+        "render-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "`DEBUG` desligado e segredos fora do código",
+          "en": "`DEBUG` off and secrets out of the code"
+        },
+        {
+          "pt": "`check --deploy` sem avisos",
+          "en": "`check --deploy` without warnings"
+        },
+        {
+          "pt": "Sistema no ar",
+          "en": "System live"
+        },
+        {
+          "pt": "README com prints do admin",
+          "en": "README with admin screenshots"
+        }
+      ]
+    }
+  ],
+  "extraChallenges": [
+    {
+      "pt": "Relatório de frequência por turma",
+      "en": "Attendance report per class"
+    },
+    {
+      "pt": "API somente leitura com Django REST Framework",
+      "en": "Read-only API with Django REST Framework"
+    },
+    {
+      "pt": "Importação de alunos por planilha CSV",
+      "en": "Importing students from a CSV spreadsheet"
+    }
+  ],
+  "portfolioTip": {
+    "pt": "Sistemas internos são um mercado enorme para freelancers. Mostre o antes e depois do admin personalizado em prints e destaque as permissões por grupo: é exatamente o que um cliente pequeno precisa.",
+    "en": "Internal systems are a huge market for freelancers. Show before-and-after screenshots of the customized admin and highlight group permissions: it's exactly what a small client needs."
+  }
+}

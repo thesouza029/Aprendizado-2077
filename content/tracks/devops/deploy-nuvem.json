@@ -1,0 +1,327 @@
+{
+  "id": "deploy-nuvem",
+  "track": "devops",
+  "order": 4,
+  "title": {
+    "pt": "Sua API na nuvem com domínio e HTTPS",
+    "en": "Your API in the cloud with a domain and HTTPS"
+  },
+  "level": 3,
+  "stack": [
+    "AWS, Azure ou Google Cloud (plano gratuito)",
+    "Docker",
+    "PostgreSQL gerenciado",
+    "DNS",
+    "HTTPS",
+    "GitHub Actions"
+  ],
+  "whatYouBuild": {
+    "pt": "Você coloca a API containerizada num provedor de nuvem de verdade, dentro do plano gratuito: imagem num registry do provedor, serviço de containers gerenciado, banco gerenciado, segredos fora do código, domínio próprio com HTTPS e deploy disparado pelo GitHub Actions sem chaves de longa duração. E, antes de tudo, um alerta de gastos.",
+    "en": "You put the containerized API on a real cloud provider, within the free tier: image in the provider's registry, managed container service, managed database, secrets out of the code, your own domain with HTTPS and deploys triggered by GitHub Actions without long-lived keys. And, before anything else, a spending alert."
+  },
+  "whatYouLearn": [
+    {
+      "pt": "Conta na nuvem com segurança: MFA, IAM e alertas de custo",
+      "en": "A secure cloud account: MFA, IAM and cost alerts"
+    },
+    {
+      "pt": "Serviços gerenciados de containers e de banco",
+      "en": "Managed container and database services"
+    },
+    {
+      "pt": "Segredos e configuração por ambiente",
+      "en": "Secrets and per-environment configuration"
+    },
+    {
+      "pt": "DNS, domínios e certificados HTTPS",
+      "en": "DNS, domains and HTTPS certificates"
+    },
+    {
+      "pt": "Deploy automatizado com identidade federada (OIDC)",
+      "en": "Automated deploys with federated identity (OIDC)"
+    }
+  ],
+  "prerequisites": [
+    "ci-github-actions"
+  ],
+  "steps": [
+    {
+      "id": "conta",
+      "title": {
+        "pt": "Conta segura e alerta de custos",
+        "en": "Secure account and cost alerts"
+      },
+      "goal": {
+        "pt": "Sua conta na nuvem tem MFA, um alerta de orçamento configurado e você não usa o usuário principal no dia a dia.",
+        "en": "Your cloud account has MFA, a budget alert configured and you don't use the root user day to day."
+      },
+      "estimatedMinutes": 60,
+      "instructions": {
+        "pt": "- Compare os planos gratuitos de AWS, Azure e Google Cloud e escolha **um**. Leia o que é gratuito para sempre e o que é só por um período.\n- **Antes de criar qualquer recurso**, configure um alerta de orçamento baixo (ex.: 1 dólar). Histórias de contas de estudante com contas altas são reais.\n- Ative a autenticação em dois fatores na conta principal e crie um usuário ou papel separado para o trabalho do dia a dia.\n- Anote no README o que é cobrado e o que é gratuito no seu plano.",
+        "en": "- Compare the AWS, Azure and Google Cloud free tiers and pick **one**. Read what's free forever and what's free only for a period.\n- **Before creating any resource**, set up a low budget alert (e.g. 1 dollar). Stories of student accounts with large bills are real.\n- Enable two-factor authentication on the root account and create a separate user or role for daily work.\n- Note in the README what's billed and what's free in your plan."
+      },
+      "resources": [
+        "aws-free",
+        "azure-free",
+        "gcp-free"
+      ],
+      "checklist": [
+        {
+          "pt": "Provedor escolhido e plano gratuito entendido",
+          "en": "Provider chosen and free tier understood"
+        },
+        {
+          "pt": "Alerta de orçamento configurado",
+          "en": "Budget alert configured"
+        },
+        {
+          "pt": "MFA na conta principal",
+          "en": "MFA on the root account"
+        },
+        {
+          "pt": "Usuário separado para o dia a dia",
+          "en": "Separate user for daily work"
+        }
+      ]
+    },
+    {
+      "id": "cli-iam",
+      "title": {
+        "pt": "CLI e permissões mínimas",
+        "en": "CLI and least privilege"
+      },
+      "goal": {
+        "pt": "A CLI do provedor está instalada e autenticada com uma identidade que só pode fazer o necessário.",
+        "en": "The provider's CLI is installed and authenticated with an identity that can only do what's needed."
+      },
+      "estimatedMinutes": 60,
+      "instructions": {
+        "pt": "- Instale a CLI do provedor e autentique.\n- Aplique o princípio do menor privilégio: dê só as permissões que o projeto precisa (registry, serviço de containers, banco).\n- Chaves de acesso nunca entram no repositório. Confira o histórico do Git: se uma chave já foi commitada, revogue-a, não basta apagar o arquivo.",
+        "en": "- Install the provider's CLI and authenticate.\n- Apply the principle of least privilege: grant only the permissions the project needs (registry, container service, database).\n- Access keys never go into the repository. Check the Git history: if a key was ever committed, revoke it; deleting the file isn't enough."
+      },
+      "resources": [
+        "aws-free",
+        "azure-free",
+        "gcp-free"
+      ],
+      "checklist": [
+        {
+          "pt": "CLI instalada e autenticada",
+          "en": "CLI installed and authenticated"
+        },
+        {
+          "pt": "Permissões mínimas definidas",
+          "en": "Minimal permissions defined"
+        },
+        {
+          "pt": "Nenhuma chave no repositório",
+          "en": "No keys in the repository"
+        }
+      ]
+    },
+    {
+      "id": "registry",
+      "title": {
+        "pt": "Imagem no registry do provedor",
+        "en": "Image in the provider's registry"
+      },
+      "goal": {
+        "pt": "A imagem da API está no registry de containers do provedor.",
+        "en": "The API image is in the provider's container registry."
+      },
+      "estimatedMinutes": 60,
+      "instructions": {
+        "pt": "- Crie o repositório de imagens no serviço do provedor (ECR, Artifact Registry ou ACR).\n- Autentique o Docker no registry e publique a imagem com uma tag de versão.\n- Configure uma regra de limpeza para imagens antigas: armazenamento também custa.",
+        "en": "- Create the image repository in the provider's service (ECR, Artifact Registry or ACR).\n- Authenticate Docker against the registry and push the image with a version tag.\n- Configure a cleanup rule for old images: storage costs money too."
+      },
+      "resources": [
+        "dockerfile-reference",
+        "aws-free",
+        "gcp-free",
+        "azure-free"
+      ],
+      "checklist": [
+        {
+          "pt": "Repositório de imagens criado",
+          "en": "Image repository created"
+        },
+        {
+          "pt": "Imagem publicada com tag",
+          "en": "Image pushed with a tag"
+        },
+        {
+          "pt": "Regra de limpeza de imagens antigas",
+          "en": "Cleanup rule for old images"
+        }
+      ]
+    },
+    {
+      "id": "banco",
+      "title": {
+        "pt": "Banco gerenciado",
+        "en": "Managed database"
+      },
+      "goal": {
+        "pt": "A API tem um PostgreSQL gerenciado, com a senha guardada num serviço de segredos e acesso restrito.",
+        "en": "The API has a managed PostgreSQL, with the password stored in a secrets service and restricted access."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Bancos gerenciados raramente são gratuitos para sempre nos grandes provedores. Para não gastar, uma opção válida é usar um PostgreSQL gratuito externo (como o Supabase) e explicar a decisão no README.\n- Guarde a string de conexão no gerenciador de segredos do provedor e injete na aplicação como variável de ambiente.\n- Restrinja quem pode se conectar ao banco: nada de banco aberto para a internet inteira com senha fraca.\n- Rode as migrations contra o banco novo.",
+        "en": "- Managed databases are rarely free forever on the big providers. To avoid spending, a valid option is using a free external PostgreSQL (like Supabase) and explaining the decision in the README.\n- Store the connection string in the provider's secrets manager and inject it into the application as an environment variable.\n- Restrict who can connect to the database: no database open to the whole internet with a weak password.\n- Run migrations against the new database."
+      },
+      "resources": [
+        "supabase-docs",
+        "twelve-factor-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Banco gerenciado criado (ou alternativa justificada)",
+          "en": "Managed database created (or alternative justified)"
+        },
+        {
+          "pt": "Conexão guardada como segredo",
+          "en": "Connection stored as a secret"
+        },
+        {
+          "pt": "Acesso ao banco restrito",
+          "en": "Database access restricted"
+        },
+        {
+          "pt": "Migrations aplicadas",
+          "en": "Migrations applied"
+        }
+      ]
+    },
+    {
+      "id": "servico",
+      "title": {
+        "pt": "Serviço de containers",
+        "en": "Container service"
+      },
+      "goal": {
+        "pt": "A API responde numa URL do provedor, escala para zero quando ninguém usa e reinicia sozinha se falhar.",
+        "en": "The API responds at a provider URL, scales to zero when nobody uses it and restarts on its own if it fails."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Use um serviço gerenciado de containers que cobra por uso, como Cloud Run, App Runner ou Azure Container Apps. Evite máquinas virtuais ligadas 24 horas no começo.\n- Configure variáveis de ambiente e segredos, a porta e o health check da API.\n- Ative a escala para zero e defina um limite máximo de instâncias: é o seu teto de custo.\n- Veja os logs da aplicação no console do provedor.",
+        "en": "- Use a managed, pay-per-use container service, like Cloud Run, App Runner or Azure Container Apps. Avoid virtual machines running 24 hours at first.\n- Configure environment variables and secrets, the port and the API health check.\n- Enable scale to zero and set a maximum number of instances: that's your cost ceiling.\n- Check the application logs in the provider console."
+      },
+      "resources": [
+        "gcp-free",
+        "aws-free",
+        "azure-free",
+        "twelve-factor-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "API no ar numa URL do provedor",
+          "en": "API live at a provider URL"
+        },
+        {
+          "pt": "Segredos injetados como variáveis",
+          "en": "Secrets injected as variables"
+        },
+        {
+          "pt": "Escala para zero e limite de instâncias",
+          "en": "Scale to zero and instance limit"
+        },
+        {
+          "pt": "Logs visíveis no console",
+          "en": "Logs visible in the console"
+        }
+      ]
+    },
+    {
+      "id": "dominio",
+      "title": {
+        "pt": "Domínio e HTTPS",
+        "en": "Domain and HTTPS"
+      },
+      "goal": {
+        "pt": "A API responde em `https://api.seudominio...`, com certificado válido, e HTTP redireciona para HTTPS.",
+        "en": "The API responds at `https://api.yourdomain...`, with a valid certificate, and HTTP redirects to HTTPS."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Entenda o DNS: o domínio aponta para o serviço por registros `CNAME` ou `A`.\n- Use um domínio próprio (há opções baratas) ou um subdomínio gratuito, e configure o mapeamento de domínio no serviço do provedor.\n- Os serviços gerenciados emitem o certificado HTTPS sozinhos. Entenda o que o Let's Encrypt faz por trás.\n- Teste com `curl -I` o redirecionamento de HTTP para HTTPS.",
+        "en": "- Understand DNS: the domain points to the service through `CNAME` or `A` records.\n- Use your own domain (there are cheap options) or a free subdomain, and configure domain mapping in the provider's service.\n- Managed services issue the HTTPS certificate on their own. Understand what Let's Encrypt does behind the scenes.\n- Test the HTTP to HTTPS redirect with `curl -I`."
+      },
+      "resources": [
+        "cloudflare-dns-pt",
+        "letsencrypt"
+      ],
+      "checklist": [
+        {
+          "pt": "Domínio apontando para o serviço",
+          "en": "Domain pointing to the service"
+        },
+        {
+          "pt": "Certificado HTTPS válido",
+          "en": "Valid HTTPS certificate"
+        },
+        {
+          "pt": "HTTP redireciona para HTTPS",
+          "en": "HTTP redirects to HTTPS"
+        }
+      ]
+    },
+    {
+      "id": "automatizar",
+      "title": {
+        "pt": "Deploy pelo GitHub Actions e limpeza",
+        "en": "Deploy from GitHub Actions and cleanup"
+      },
+      "goal": {
+        "pt": "Um merge na `main` publica a nova versão na nuvem sem chaves guardadas no GitHub, e o README explica como desligar tudo.",
+        "en": "A merge to `main` publishes the new version to the cloud without keys stored in GitHub, and the README explains how to shut everything down."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Configure a federação de identidade (OIDC) entre o GitHub Actions e o provedor: o workflow recebe credenciais temporárias, sem chave de longa duração guardada.\n- Adapte o pipeline do projeto anterior: build, push para o registry do provedor e atualização do serviço.\n- Desenhe a arquitetura (GitHub → registry → serviço → banco, DNS na frente).\n- Escreva o passo a passo para apagar todos os recursos. Saber desligar faz parte de saber subir.",
+        "en": "- Configure identity federation (OIDC) between GitHub Actions and the provider: the workflow gets temporary credentials, with no long-lived key stored.\n- Adapt the previous project's pipeline: build, push to the provider's registry and update the service.\n- Draw the architecture (GitHub → registry → service → database, DNS in front).\n- Write the steps to delete every resource. Knowing how to shut down is part of knowing how to launch."
+      },
+      "resources": [
+        "github-actions-pt",
+        "twelve-factor-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Deploy com OIDC, sem chave guardada",
+          "en": "Deploy with OIDC, no stored key"
+        },
+        {
+          "pt": "Pipeline atualizando o serviço",
+          "en": "Pipeline updating the service"
+        },
+        {
+          "pt": "Diagrama da arquitetura",
+          "en": "Architecture diagram"
+        },
+        {
+          "pt": "Passo a passo de remoção dos recursos",
+          "en": "Steps to remove the resources"
+        }
+      ]
+    }
+  ],
+  "extraChallenges": [
+    {
+      "pt": "Descreva a infraestrutura com Terraform",
+      "en": "Describe the infrastructure with Terraform"
+    },
+    {
+      "pt": "Ambiente de homologação separado do de produção",
+      "en": "Staging environment separate from production"
+    },
+    {
+      "pt": "CDN na frente da API para respostas em cache",
+      "en": "CDN in front of the API for cached responses"
+    }
+  ],
+  "portfolioTip": {
+    "pt": "Ter um projeto rodando numa nuvem grande, com domínio, HTTPS e deploy por OIDC, já é diferencial para vagas júnior. Mostre o diagrama e o controle de custos: empresas valorizam quem cuida da fatura.",
+    "en": "Having a project running on a major cloud, with a domain, HTTPS and OIDC deploys, already stands out for junior roles. Show the diagram and the cost controls: companies value people who watch the bill."
+  }
+}

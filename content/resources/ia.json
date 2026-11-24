@@ -1,0 +1,453 @@
+[
+  {
+    "id": "claude-docs",
+    "title": "Documentação da API do Claude",
+    "type": "docs",
+    "url": "https://docs.claude.com/",
+    "author": "Anthropic",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "ia",
+      "llm",
+      "api"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Documentação oficial da API do Claude: mensagens, streaming e ferramentas.",
+      "en": "Official Claude API docs: messages, streaming and tools."
+    },
+    "verified": true
+  },
+  {
+    "id": "claude-prompt-engineering",
+    "title": "Prompt engineering (Claude)",
+    "type": "docs",
+    "url": "https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/overview",
+    "author": "Anthropic",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "ia",
+      "llm"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Técnicas para escrever prompts claros: contexto, exemplos, formato de saída.",
+      "en": "Techniques for writing clear prompts: context, examples, output format."
+    },
+    "verified": true
+  },
+  {
+    "id": "openai-docs",
+    "title": "Documentação da API da OpenAI",
+    "type": "docs",
+    "url": "https://platform.openai.com/docs",
+    "author": "OpenAI",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "ia",
+      "llm",
+      "api"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Documentação oficial da API da OpenAI.",
+      "en": "Official OpenAI API documentation."
+    },
+    "verified": true
+  },
+  {
+    "id": "gemini-docs",
+    "title": "Documentação da API do Gemini",
+    "type": "docs",
+    "url": "https://ai.google.dev/gemini-api/docs",
+    "author": "Google",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "ia",
+      "llm",
+      "api"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Documentação oficial da API do Gemini, que tem um nível gratuito para testes.",
+      "en": "Official Gemini API docs, which has a free tier for testing."
+    },
+    "verified": true
+  },
+  {
+    "id": "ollama",
+    "title": "Ollama",
+    "type": "docs",
+    "url": "https://ollama.com/",
+    "author": "Ollama",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "ia",
+      "llm"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Rode modelos de linguagem abertos no seu próprio computador, de graça.",
+      "en": "Run open language models on your own computer, for free."
+    },
+    "verified": true
+  },
+  {
+    "id": "ai-sdk-docs",
+    "title": "AI SDK",
+    "type": "docs",
+    "url": "https://ai-sdk.dev/docs",
+    "author": "Vercel",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "ia",
+      "llm",
+      "typescript",
+      "nextjs"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Biblioteca TypeScript que padroniza chamadas, streaming e ferramentas entre provedores de IA.",
+      "en": "TypeScript library that standardizes calls, streaming and tools across AI providers."
+    },
+    "verified": true
+  },
+  {
+    "id": "deeplearning-ai-short-courses",
+    "title": "DeepLearning.AI Short Courses",
+    "type": "video",
+    "url": "https://www.deeplearning.ai/short-courses/",
+    "author": "DeepLearning.AI",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "ia",
+      "llm"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Cursos curtos e gratuitos sobre prompts, RAG, agentes e mais.",
+      "en": "Short free courses on prompting, RAG, agents and more."
+    },
+    "verified": true
+  },
+  {
+    "id": "hf-llm-course",
+    "title": "Hugging Face LLM Course",
+    "type": "course",
+    "url": "https://huggingface.co/learn/llm-course",
+    "author": "Hugging Face",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "ia",
+      "llm",
+      "python"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Curso gratuito sobre como modelos de linguagem funcionam e como usá-los.",
+      "en": "Free course on how language models work and how to use them."
+    },
+    "verified": true
+  },
+  {
+    "id": "prompting-guide-pt",
+    "title": "Prompt Engineering Guide (em português)",
+    "type": "article",
+    "url": "https://www.promptingguide.ai/pt",
+    "author": "DAIR.AI",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "ia",
+      "llm"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Guia aberto sobre técnicas de prompt, com tradução para o português.",
+      "en": "Open guide to prompting techniques, with a Portuguese translation."
+    },
+    "verified": true
+  },
+  {
+    "id": "mdn-sse-pt",
+    "title": "MDN: Server-sent events",
+    "type": "docs",
+    "url": "https://developer.mozilla.org/pt-BR/docs/Web/API/Server-sent_events",
+    "author": "Mozilla (MDN Web Docs)",
+    "language": "pt-BR",
+    "level": "intermediario",
+    "technologies": [
+      "http",
+      "javascript"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Como o servidor envia dados aos poucos para o navegador (base do streaming).",
+      "en": "How servers push data to the browser bit by bit (the basis of streaming)."
+    },
+    "verified": true
+  },
+  {
+    "id": "mdn-readablestream",
+    "title": "MDN: ReadableStream",
+    "type": "docs",
+    "url": "https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream",
+    "author": "Mozilla (MDN Web Docs)",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "javascript",
+      "http"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Ler uma resposta HTTP pedaço por pedaço no JavaScript.",
+      "en": "Read an HTTP response chunk by chunk in JavaScript."
+    },
+    "verified": true
+  },
+  {
+    "id": "mdn-abortcontroller-pt",
+    "title": "MDN: AbortController",
+    "type": "docs",
+    "url": "https://developer.mozilla.org/pt-BR/docs/Web/API/AbortController",
+    "author": "Mozilla (MDN Web Docs)",
+    "language": "pt-BR",
+    "level": "intermediario",
+    "technologies": [
+      "javascript",
+      "http"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Cancelar requisições em andamento (por exemplo, um botão \"parar\").",
+      "en": "Cancel in-flight requests (for example, a \"stop\" button)."
+    },
+    "verified": true
+  },
+  {
+    "id": "pgvector",
+    "title": "pgvector",
+    "type": "docs",
+    "url": "https://github.com/pgvector/pgvector",
+    "author": "Andrew Kane",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "pgvector",
+      "postgresql",
+      "rag"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Extensão do PostgreSQL para guardar embeddings e buscar por similaridade.",
+      "en": "PostgreSQL extension to store embeddings and run similarity search."
+    },
+    "verified": true
+  },
+  {
+    "id": "openai-embeddings",
+    "title": "OpenAI: embeddings",
+    "type": "docs",
+    "url": "https://platform.openai.com/docs/guides/embeddings",
+    "author": "OpenAI",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "embeddings",
+      "ia",
+      "rag"
+    ],
+    "free": true,
+    "description": {
+      "pt": "O que são embeddings e como usá-los para busca semântica.",
+      "en": "What embeddings are and how to use them for semantic search."
+    },
+    "verified": true
+  },
+  {
+    "id": "openai-function-calling",
+    "title": "OpenAI: function calling",
+    "type": "docs",
+    "url": "https://platform.openai.com/docs/guides/function-calling",
+    "author": "OpenAI",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "agentes",
+      "ia",
+      "llm"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Como o modelo pede para chamar uma função sua e recebe o resultado.",
+      "en": "How the model asks to call one of your functions and receives the result."
+    },
+    "verified": true
+  },
+  {
+    "id": "claude-tool-use",
+    "title": "Claude: uso de ferramentas",
+    "type": "docs",
+    "url": "https://docs.claude.com/en/docs/agents-and-tools/tool-use/overview",
+    "author": "Anthropic",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "agentes",
+      "ia",
+      "llm"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Definição de ferramentas, ciclo de chamadas e boas práticas com a API do Claude.",
+      "en": "Tool definitions, the call loop and best practices with the Claude API."
+    },
+    "verified": false
+  },
+  {
+    "id": "building-effective-agents",
+    "title": "Building effective agents",
+    "type": "article",
+    "url": "https://www.anthropic.com/research/building-effective-agents",
+    "author": "Anthropic",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "agentes",
+      "ia"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Quando usar agentes e quando um fluxo simples resolve melhor, com padrões testados na prática.",
+      "en": "When to use agents and when a simple workflow works better, with patterns tested in practice."
+    },
+    "verified": false
+  },
+  {
+    "id": "mcp-docs",
+    "title": "Model Context Protocol",
+    "type": "docs",
+    "url": "https://modelcontextprotocol.io/",
+    "author": "Anthropic e comunidade",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "agentes",
+      "ia"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Protocolo aberto para conectar modelos a ferramentas e dados.",
+      "en": "Open protocol to connect models to tools and data."
+    },
+    "verified": true
+  },
+  {
+    "id": "sbert",
+    "title": "Sentence Transformers",
+    "type": "docs",
+    "url": "https://sbert.net/",
+    "author": "UKP Lab",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "embeddings",
+      "python",
+      "rag"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Biblioteca Python para gerar embeddings localmente, sem pagar por API.",
+      "en": "Python library to generate embeddings locally, without paying for an API."
+    },
+    "verified": true
+  },
+  {
+    "id": "pypdf-docs",
+    "title": "pypdf",
+    "type": "docs",
+    "url": "https://pypdf.readthedocs.io/",
+    "author": "pypdf",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "python",
+      "rag"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Extrai texto e metadados de PDFs em Python.",
+      "en": "Extracts text and metadata from PDFs in Python."
+    },
+    "verified": true
+  },
+  {
+    "id": "owasp-llm-top10",
+    "title": "OWASP Top 10 para aplicações com LLM",
+    "type": "article",
+    "url": "https://genai.owasp.org/llm-top-10/",
+    "author": "OWASP",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "seguranca",
+      "ia",
+      "llm"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Os principais riscos de segurança em apps com LLM: prompt injection, vazamento de dados e mais.",
+      "en": "The main security risks in LLM apps: prompt injection, data leakage and more."
+    },
+    "verified": false
+  },
+  {
+    "id": "promptfoo",
+    "title": "promptfoo",
+    "type": "docs",
+    "url": "https://www.promptfoo.dev/docs/intro/",
+    "author": "promptfoo",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "ia",
+      "llm",
+      "testes"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Ferramenta de código aberto para testar prompts e avaliar respostas de LLMs.",
+      "en": "Open-source tool to test prompts and evaluate LLM responses."
+    },
+    "verified": true
+  },
+  {
+    "id": "supabase-ai",
+    "title": "Supabase: IA e vetores",
+    "type": "docs",
+    "url": "https://supabase.com/docs/guides/ai",
+    "author": "Supabase",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "pgvector",
+      "postgresql",
+      "rag"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Guia de busca vetorial com pgvector num PostgreSQL gerenciado e gratuito.",
+      "en": "Guide to vector search with pgvector on a free managed PostgreSQL."
+    },
+    "verified": true
+  }
+]

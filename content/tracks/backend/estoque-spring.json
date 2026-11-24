@@ -1,0 +1,368 @@
+{
+  "id": "estoque-spring",
+  "track": "backend",
+  "order": 3,
+  "title": {
+    "pt": "Gestão de estoque com Java e Spring Boot",
+    "en": "Inventory management with Java and Spring Boot"
+  },
+  "level": 3,
+  "stack": [
+    "Java 21",
+    "Spring Boot",
+    "Spring Data JPA",
+    "PostgreSQL",
+    "Bean Validation",
+    "JUnit 5",
+    "Testcontainers",
+    "Docker"
+  ],
+  "whatYouBuild": {
+    "pt": "Uma API de gestão de estoque no estilo das grandes empresas: produtos, categorias e fornecedores, entradas e saídas que atualizam o saldo (que nunca fica negativo, nem com dois pedidos ao mesmo tempo), relatório de produtos abaixo do estoque mínimo, erros padronizados e documentação interativa.",
+    "en": "An inventory management API in big-company style: products, categories and suppliers, stock movements in and out that update the balance (which never goes negative, even with two requests at once), a report of products below minimum stock, standardized errors and interactive documentation."
+  },
+  "whatYouLearn": [
+    {
+      "pt": "Java moderno: records, tipos e orientação a objetos",
+      "en": "Modern Java: records, types and object orientation"
+    },
+    {
+      "pt": "Spring Boot: injeção de dependências e arquitetura em camadas",
+      "en": "Spring Boot: dependency injection and layered architecture"
+    },
+    {
+      "pt": "JPA/Hibernate: entidades, relacionamentos e consultas",
+      "en": "JPA/Hibernate: entities, relationships and queries"
+    },
+    {
+      "pt": "Transações e concorrência com bloqueio otimista",
+      "en": "Transactions and concurrency with optimistic locking"
+    },
+    {
+      "pt": "Testes com JUnit, Mockito e Testcontainers",
+      "en": "Tests with JUnit, Mockito and Testcontainers"
+    }
+  ],
+  "prerequisites": [
+    "api-biblioteca-node"
+  ],
+  "steps": [
+    {
+      "id": "java-setup",
+      "title": {
+        "pt": "Java e o primeiro projeto Spring",
+        "en": "Java and the first Spring project"
+      },
+      "goal": {
+        "pt": "O projeto gerado no Spring Initializr sobe, e `GET /actuator/health` responde `UP`.",
+        "en": "The project generated with Spring Initializr starts, and `GET /actuator/health` responds `UP`."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Instale um JDK 21 (versão LTS). Se Java for novo para você, faça antes os primeiros capítulos do dev.java ou do MOOC de Helsinque: a sintaxe parece com a de TypeScript, com tipos mais rígidos.\n- Gere o projeto no Spring Initializr com Maven (ou Gradle) e as dependências Web, Data JPA, Validation, PostgreSQL Driver e Actuator.\n- Abra numa IDE com bom suporte a Java (IntelliJ Community ou VS Code com o pacote de extensões Java).\n- Rode o projeto e acesse o health check do Actuator. Entenda o papel de `@SpringBootApplication` e da classe `main`.",
+        "en": "- Install a JDK 21 (LTS version). If Java is new to you, first do the opening chapters of dev.java or the Helsinki MOOC: the syntax looks like TypeScript, with stricter types.\n- Generate the project on Spring Initializr with Maven (or Gradle) and the Web, Data JPA, Validation, PostgreSQL Driver and Actuator dependencies.\n- Open it in an IDE with good Java support (IntelliJ Community or VS Code with the Java extension pack).\n- Run the project and hit the Actuator health check. Understand the role of `@SpringBootApplication` and the `main` class."
+      },
+      "resources": [
+        "dev-java-learn",
+        "java-mooc",
+        "spring-initializr",
+        "spring-guides"
+      ],
+      "checklist": [
+        {
+          "pt": "JDK 21 instalado",
+          "en": "JDK 21 installed"
+        },
+        {
+          "pt": "Projeto gerado com as dependências certas",
+          "en": "Project generated with the right dependencies"
+        },
+        {
+          "pt": "Health check do Actuator responde `UP`",
+          "en": "Actuator health check responds `UP`"
+        }
+      ]
+    },
+    {
+      "id": "entidades",
+      "title": {
+        "pt": "Entidades e banco",
+        "en": "Entities and database"
+      },
+      "goal": {
+        "pt": "As tabelas de produto, categoria e fornecedor existem no PostgreSQL e os relacionamentos estão mapeados.",
+        "en": "The product, category and supplier tables exist in PostgreSQL and the relationships are mapped."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Suba o PostgreSQL com Docker e configure a conexão no `application.properties` usando variáveis de ambiente.\n- Crie as entidades JPA: produto (nome, SKU único, preço, estoque mínimo), categoria e fornecedor, com os relacionamentos (`@ManyToOne`, `@OneToMany`).\n- Cuidado com o `ddl-auto=update`: é cômodo no começo, mas em empresas o banco é versionado com uma ferramenta de migrations (Flyway ou Liquibase). Pesquise e, se quiser, já adote uma.\n- Use `BigDecimal` para dinheiro em Java, nunca `double`.",
+        "en": "- Run PostgreSQL with Docker and configure the connection in `application.properties` using environment variables.\n- Create the JPA entities: product (name, unique SKU, price, minimum stock), category and supplier, with the relationships (`@ManyToOne`, `@OneToMany`).\n- Be careful with `ddl-auto=update`: it's handy at first, but companies version the database with a migrations tool (Flyway or Liquibase). Look into it and, if you like, adopt one now.\n- Use `BigDecimal` for money in Java, never `double`."
+      },
+      "resources": [
+        "spring-data-jpa",
+        "postgres-docker-image",
+        "baeldung-spring-boot"
+      ],
+      "checklist": [
+        {
+          "pt": "Entidades com relacionamentos mapeados",
+          "en": "Entities with mapped relationships"
+        },
+        {
+          "pt": "SKU único no banco",
+          "en": "Unique SKU in the database"
+        },
+        {
+          "pt": "Conexão configurada por variáveis de ambiente",
+          "en": "Connection configured via environment variables"
+        },
+        {
+          "pt": "Dinheiro em `BigDecimal`",
+          "en": "Money in `BigDecimal`"
+        }
+      ]
+    },
+    {
+      "id": "camadas",
+      "title": {
+        "pt": "CRUD em camadas",
+        "en": "Layered CRUD"
+      },
+      "goal": {
+        "pt": "Produtos, categorias e fornecedores têm CRUD completo, com validação e status HTTP corretos.",
+        "en": "Products, categories and suppliers have full CRUD, with validation and correct HTTP statuses."
+      },
+      "estimatedMinutes": 150,
+      "instructions": {
+        "pt": "- Separe em camadas: `Controller` (HTTP), `Service` (regras de negócio) e `Repository` (banco). O Spring injeta uma na outra pelo construtor.\n- Não exponha as entidades na API: use DTOs (os `record` do Java são perfeitos para isso) para entrada e saída.\n- Valide a entrada com Bean Validation (`@NotBlank`, `@Positive`) e `@Valid` no controller.\n- Responda com os status certos: 201 com `Location` ao criar, 204 ao apagar, 404 quando não existe.\n- Explique no README por que as camadas existem. Em empresas grandes, essa é a primeira coisa que você vai ver no código.",
+        "en": "- Split into layers: `Controller` (HTTP), `Service` (business rules) and `Repository` (database). Spring injects one into the other through the constructor.\n- Don't expose entities in the API: use DTOs (Java `record`s are perfect for this) for input and output.\n- Validate input with Bean Validation (`@NotBlank`, `@Positive`) and `@Valid` in the controller.\n- Respond with the right statuses: 201 with `Location` on create, 204 on delete, 404 when not found.\n- Explain in the README why the layers exist. At big companies, it's the first thing you'll see in the code."
+      },
+      "resources": [
+        "spring-guides",
+        "baeldung-spring-boot"
+      ],
+      "checklist": [
+        {
+          "pt": "Controller, Service e Repository separados",
+          "en": "Separate Controller, Service and Repository"
+        },
+        {
+          "pt": "DTOs com `record`",
+          "en": "DTOs with `record`"
+        },
+        {
+          "pt": "Validação com Bean Validation",
+          "en": "Validation with Bean Validation"
+        },
+        {
+          "pt": "Status HTTP corretos",
+          "en": "Correct HTTP statuses"
+        }
+      ]
+    },
+    {
+      "id": "movimentacoes",
+      "title": {
+        "pt": "Entradas, saídas e concorrência",
+        "en": "Stock movements and concurrency"
+      },
+      "goal": {
+        "pt": "Registrar entradas e saídas atualiza o saldo, uma saída maior que o saldo é recusada e duas saídas simultâneas não deixam o saldo negativo.",
+        "en": "Recording movements in and out updates the balance, an outgoing movement larger than the balance is refused and two simultaneous ones can't make it negative."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Crie a entidade de movimentação (tipo entrada/saída, quantidade, data, motivo) e um endpoint para registrar.\n- Use `@Transactional` no service: salvar a movimentação e atualizar o saldo acontecem juntos ou não acontecem.\n- Recuse saídas maiores que o saldo com um erro de negócio claro (409 ou 422; escolha e justifique).\n- Concorrência: adicione `@Version` ao produto (bloqueio otimista). Se duas transações mexerem no mesmo produto, uma falha e pode tentar de novo.\n- Teste a corrida disparando várias requisições em paralelo.",
+        "en": "- Create the movement entity (in/out type, quantity, date, reason) and an endpoint to record it.\n- Use `@Transactional` in the service: saving the movement and updating the balance happen together or not at all.\n- Refuse outgoing movements larger than the balance with a clear business error (409 or 422; pick one and justify it).\n- Concurrency: add `@Version` to the product (optimistic locking). If two transactions touch the same product, one fails and can retry.\n- Test the race by firing several requests in parallel."
+      },
+      "resources": [
+        "spring-data-jpa",
+        "baeldung-spring-boot"
+      ],
+      "checklist": [
+        {
+          "pt": "Movimentação e saldo na mesma transação",
+          "en": "Movement and balance in the same transaction"
+        },
+        {
+          "pt": "Saída maior que o saldo recusada",
+          "en": "Outgoing movement larger than balance refused"
+        },
+        {
+          "pt": "Bloqueio otimista com `@Version`",
+          "en": "Optimistic locking with `@Version`"
+        },
+        {
+          "pt": "Corrida testada",
+          "en": "Race tested"
+        }
+      ],
+      "hint": {
+        "pt": "Saldo derivado da soma das movimentações é a fonte da verdade; o campo de saldo no produto é uma otimização. Pense em como conferir se os dois batem.",
+        "en": "The balance derived from the sum of movements is the source of truth; the balance field on the product is an optimization. Think about how to check that both match."
+      }
+    },
+    {
+      "id": "erros-consultas",
+      "title": {
+        "pt": "Erros padronizados e relatórios",
+        "en": "Standardized errors and reports"
+      },
+      "goal": {
+        "pt": "Todo erro sai no mesmo formato JSON, a listagem é paginada e `GET /relatorios/estoque-baixo` lista os produtos abaixo do mínimo.",
+        "en": "Every error comes out in the same JSON format, listing is paginated and `GET /reports/low-stock` lists products below minimum."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Centralize o tratamento de erros com `@RestControllerAdvice` e responda no padrão *Problem Details* (o Spring já tem suporte).\n- Pagine as listagens com `Pageable`: nunca devolva uma tabela inteira de uma vez.\n- Escreva o relatório de estoque baixo com uma consulta derivada do nome do método ou com `@Query`. Veja o SQL gerado ligando o log de SQL.\n- Cuidado com o problema N+1 ao carregar relacionamentos: perceba no log e corrija.",
+        "en": "- Centralize error handling with `@RestControllerAdvice` and respond in the *Problem Details* format (Spring already supports it).\n- Paginate listings with `Pageable`: never return a whole table at once.\n- Write the low-stock report with a query derived from the method name or with `@Query`. Look at the generated SQL by enabling SQL logging.\n- Watch out for the N+1 problem when loading relationships: spot it in the log and fix it."
+      },
+      "resources": [
+        "spring-data-jpa",
+        "baeldung-spring-boot",
+        "mdn-http-status-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Erros no padrão Problem Details",
+          "en": "Errors in the Problem Details format"
+        },
+        {
+          "pt": "Listagens paginadas",
+          "en": "Paginated listings"
+        },
+        {
+          "pt": "Relatório de estoque baixo",
+          "en": "Low-stock report"
+        },
+        {
+          "pt": "Problema N+1 identificado e corrigido",
+          "en": "N+1 problem identified and fixed"
+        }
+      ]
+    },
+    {
+      "id": "testes",
+      "title": {
+        "pt": "Testes com JUnit, Mockito e Testcontainers",
+        "en": "Tests with JUnit, Mockito and Testcontainers"
+      },
+      "goal": {
+        "pt": "`mvn test` roda testes de unidade das regras e testes de integração com um PostgreSQL real em container.",
+        "en": "`mvn test` runs unit tests for the rules and integration tests with a real PostgreSQL in a container."
+      },
+      "estimatedMinutes": 150,
+      "instructions": {
+        "pt": "- Teste o service com JUnit 5 e Mockito, simulando o repository: saída maior que o saldo, entrada válida, produto inexistente.\n- Para integração, use Testcontainers: ele sobe um PostgreSQL de verdade durante os testes, então o teste pega erros que um banco em memória esconderia.\n- Teste os endpoints com MockMvc, conferindo status e corpo da resposta.\n- Rode `mvn test` antes de cada commit.",
+        "en": "- Test the service with JUnit 5 and Mockito, mocking the repository: outgoing larger than balance, valid incoming, missing product.\n- For integration, use Testcontainers: it starts a real PostgreSQL during tests, so tests catch errors an in-memory database would hide.\n- Test endpoints with MockMvc, checking status and response body.\n- Run `mvn test` before every commit."
+      },
+      "resources": [
+        "testcontainers",
+        "spring-guides",
+        "baeldung-spring-boot"
+      ],
+      "checklist": [
+        {
+          "pt": "Testes de unidade do service com Mockito",
+          "en": "Service unit tests with Mockito"
+        },
+        {
+          "pt": "Testes de integração com Testcontainers",
+          "en": "Integration tests with Testcontainers"
+        },
+        {
+          "pt": "Endpoints testados com MockMvc",
+          "en": "Endpoints tested with MockMvc"
+        }
+      ]
+    },
+    {
+      "id": "docs",
+      "title": {
+        "pt": "Documentação com OpenAPI",
+        "en": "Documentation with OpenAPI"
+      },
+      "goal": {
+        "pt": "A API tem uma página Swagger UI com todos os endpoints descritos.",
+        "en": "The API has a Swagger UI page with every endpoint described."
+      },
+      "estimatedMinutes": 60,
+      "instructions": {
+        "pt": "- Adicione a biblioteca springdoc-openapi: ela gera a especificação OpenAPI e a página Swagger UI a partir do código.\n- Descreva endpoints, parâmetros e respostas de erro com as anotações da biblioteca.\n- Exporte a especificação e use-a no README.",
+        "en": "- Add the springdoc-openapi library: it generates the OpenAPI spec and the Swagger UI page from the code.\n- Describe endpoints, parameters and error responses with the library's annotations.\n- Export the spec and use it in the README."
+      },
+      "resources": [
+        "openapi-initiative",
+        "baeldung-spring-boot"
+      ],
+      "checklist": [
+        {
+          "pt": "Swagger UI disponível",
+          "en": "Swagger UI available"
+        },
+        {
+          "pt": "Endpoints e erros descritos",
+          "en": "Endpoints and errors described"
+        }
+      ]
+    },
+    {
+      "id": "docker-deploy",
+      "title": {
+        "pt": "Docker, README e deploy",
+        "en": "Docker, README and deploy"
+      },
+      "goal": {
+        "pt": "`docker compose up` sobe API e banco, e a API está no ar num serviço gratuito.",
+        "en": "`docker compose up` starts the API and database, and the API is live on a free service."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Escreva um Dockerfile em múltiplos estágios: um estágio compila com Maven e o final roda só com um JRE, bem menor.\n- Crie o `compose.yaml` com a API e o PostgreSQL.\n- Faça o deploy num serviço que roda containers (Render ou Fly.io), com banco gerenciado.\n- README: diagrama das camadas, regras de negócio, como rodar os testes e link da documentação.",
+        "en": "- Write a multi-stage Dockerfile: one stage builds with Maven and the final one runs on a JRE only, much smaller.\n- Create the `compose.yaml` with the API and PostgreSQL.\n- Deploy on a service that runs containers (Render or Fly.io), with a managed database.\n- README: layer diagram, business rules, how to run the tests and a link to the docs."
+      },
+      "resources": [
+        "docker-multistage",
+        "docker-compose-docs",
+        "render-docs",
+        "fly-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Dockerfile em múltiplos estágios",
+          "en": "Multi-stage Dockerfile"
+        },
+        {
+          "pt": "Compose com API e banco",
+          "en": "Compose with API and database"
+        },
+        {
+          "pt": "API no ar",
+          "en": "API live"
+        },
+        {
+          "pt": "README com camadas e regras",
+          "en": "README with layers and rules"
+        }
+      ]
+    }
+  ],
+  "extraChallenges": [
+    {
+      "pt": "Autenticação com Spring Security e papéis (admin, operador)",
+      "en": "Authentication with Spring Security and roles (admin, operator)"
+    },
+    {
+      "pt": "Exportar relatórios em CSV",
+      "en": "Export reports as CSV"
+    },
+    {
+      "pt": "Auditoria: quem fez cada movimentação",
+      "en": "Auditing: who made each movement"
+    }
+  ],
+  "portfolioTip": {
+    "pt": "Vagas de Java pedem exatamente isto: Spring Boot, JPA, testes e Docker. No README, destaque transação e bloqueio otimista: são temas que separam júnior de pleno em entrevistas.",
+    "en": "Java job ads ask for exactly this: Spring Boot, JPA, tests and Docker. In the README, highlight transactions and optimistic locking: they separate junior from mid-level in interviews."
+  }
+}

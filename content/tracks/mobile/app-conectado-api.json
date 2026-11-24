@@ -1,0 +1,322 @@
+{
+  "id": "app-conectado-api",
+  "track": "mobile",
+  "order": 4,
+  "title": {
+    "pt": "Lista de compras conectada à sua API, com build de teste",
+    "en": "Shopping list connected to your API, with a test build"
+  },
+  "level": 3,
+  "stack": [
+    "React Native (Expo)",
+    "TypeScript",
+    "Node.js + Express",
+    "PostgreSQL",
+    "EAS Build"
+  ],
+  "whatYouBuild": {
+    "pt": "Você junta dois distritos: o app de lista de compras passa a sincronizar com uma API feita por você no estilo do Distrito Backend. Listas ficam salvas no servidor, podem ser compartilhadas entre aparelhos por um código, o app continua funcionando sem internet e sincroniza quando a conexão volta. No fim, um build de teste é distribuído por link para outras pessoas instalarem.",
+    "en": "You connect two districts: the shopping list app starts syncing with an API you build in the style of the Backend District. Lists are saved on the server, can be shared between devices with a code, the app keeps working offline and syncs when the connection returns. At the end, a test build is distributed by link for other people to install."
+  },
+  "whatYouLearn": [
+    {
+      "pt": "Integração entre app mobile e API própria",
+      "en": "Integrating a mobile app with your own API"
+    },
+    {
+      "pt": "Ambientes e variáveis de configuração no Expo",
+      "en": "Environments and configuration variables in Expo"
+    },
+    {
+      "pt": "Autenticação com token e armazenamento seguro",
+      "en": "Token authentication and secure storage"
+    },
+    {
+      "pt": "Funcionamento offline e sincronização",
+      "en": "Offline operation and sync"
+    },
+    {
+      "pt": "Distribuição de builds de teste com EAS",
+      "en": "Distributing test builds with EAS"
+    }
+  ],
+  "prerequisites": [
+    "lista-compras-expo",
+    "api-biblioteca-node"
+  ],
+  "steps": [
+    {
+      "id": "api",
+      "title": {
+        "pt": "Prepare e publique a API",
+        "en": "Prepare and publish the API"
+      },
+      "goal": {
+        "pt": "Uma API no ar responde a `GET /lists` e `POST /lists/:id/items`, com banco PostgreSQL.",
+        "en": "A live API responds to `GET /lists` and `POST /lists/:id/items`, with a PostgreSQL database."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Reaproveite o que você fez na API de biblioteca em Node: crie as rotas de listas e itens (criar, listar, marcar, remover) com validação.\n- Cada item tem um `updatedAt`: ele vai ser essencial para a sincronização.\n- Publique a API (Render, por exemplo). O celular não enxerga o `localhost` do seu computador, então ter a API no ar facilita tudo.\n- Teste as rotas com `curl` antes de mexer no app.\n- Crie o repositório no GitHub e faça commits pequenos a cada parte que funcionar: o histórico conta a história do projeto.",
+        "en": "- Reuse what you built in the Node library API: create the list and item routes (create, list, check, remove) with validation.\n- Each item has an `updatedAt`: it will be essential for syncing.\n- Publish the API (on Render, for example). The phone can't see your computer's `localhost`, so having the API online makes everything easier.\n- Test the routes with `curl` before touching the app.\n- Create the GitHub repository and make small commits each time a part works: the history tells the project's story."
+      },
+      "resources": [
+        "express-docs-pt",
+        "render-docs",
+        "node-postgres"
+      ],
+      "checklist": [
+        {
+          "pt": "Rotas de listas e itens com validação",
+          "en": "List and item routes with validation"
+        },
+        {
+          "pt": "Itens com `updatedAt`",
+          "en": "Items with `updatedAt`"
+        },
+        {
+          "pt": "API publicada e testada com curl",
+          "en": "API published and tested with curl"
+        },
+        {
+          "pt": "Repositório no GitHub com o primeiro commit",
+          "en": "GitHub repository with the first commit"
+        }
+      ]
+    },
+    {
+      "id": "ambiente",
+      "title": {
+        "pt": "Endereço da API por ambiente",
+        "en": "API address per environment"
+      },
+      "goal": {
+        "pt": "O app usa o endereço da API vindo de uma variável de ambiente, diferente em desenvolvimento e no build de teste.",
+        "en": "The app uses the API address from an environment variable, different in development and in the test build."
+      },
+      "estimatedMinutes": 45,
+      "instructions": {
+        "pt": "- Use as variáveis `EXPO_PUBLIC_*` para o endereço da API. Nunca coloque o endereço fixo no código.\n- Em desenvolvimento, você pode apontar para o IP da sua máquina na rede local ou para a API publicada.\n- Lembre: tudo que vai no app pode ser lido por quem instalou. Variáveis públicas são para endereços, nunca para segredos.",
+        "en": "- Use `EXPO_PUBLIC_*` variables for the API address. Never hard-code the address.\n- In development, you can point to your machine's IP on the local network or to the published API.\n- Remember: everything shipped in the app can be read by whoever installed it. Public variables are for addresses, never for secrets."
+      },
+      "resources": [
+        "expo-env-vars"
+      ],
+      "checklist": [
+        {
+          "pt": "Endereço da API em variável de ambiente",
+          "en": "API address in an environment variable"
+        },
+        {
+          "pt": "Valores diferentes por ambiente",
+          "en": "Different values per environment"
+        },
+        {
+          "pt": "Nenhum segredo dentro do app",
+          "en": "No secrets inside the app"
+        }
+      ]
+    },
+    {
+      "id": "cliente",
+      "title": {
+        "pt": "Cliente HTTP no app",
+        "en": "HTTP client in the app"
+      },
+      "goal": {
+        "pt": "O app carrega e altera as listas pela API, com indicador de carregamento, mensagens de erro e tempo limite.",
+        "en": "The app loads and changes lists through the API, with a loading indicator, error messages and a timeout."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Crie um módulo de API com funções tipadas (`getLists`, `addItem`...). As telas não chamam `fetch` direto.\n- Trate erros de rede e de servidor de forma diferente: \"sem conexão\" pede outra ação que \"erro no servidor\".\n- Use `AbortController` para cancelar requisições demoradas.\n- Considere uma biblioteca de cache de requisições (como TanStack Query) quando a lógica de carregar e recarregar crescer.",
+        "en": "- Create an API module with typed functions (`getLists`, `addItem`...). Screens don't call `fetch` directly.\n- Handle network and server errors differently: \"no connection\" calls for a different action than \"server error\".\n- Use `AbortController` to cancel slow requests.\n- Consider a request caching library (like TanStack Query) when loading and reloading logic grows."
+      },
+      "resources": [
+        "mdn-fetch-pt",
+        "mdn-abortcontroller-pt",
+        "rn-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Módulo de API tipado",
+          "en": "Typed API module"
+        },
+        {
+          "pt": "Erros de rede e servidor tratados",
+          "en": "Network and server errors handled"
+        },
+        {
+          "pt": "Timeout com AbortController",
+          "en": "Timeout with AbortController"
+        }
+      ]
+    },
+    {
+      "id": "auth",
+      "title": {
+        "pt": "Contas e token",
+        "en": "Accounts and tokens"
+      },
+      "goal": {
+        "pt": "Cada pessoa entra com e-mail e senha, vê só as próprias listas e continua logada ao reabrir o app.",
+        "en": "Each person signs in with email and password, sees only their own lists and stays signed in when reopening the app."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Na API: cadastro e login com senha guardada com hash; o login devolve um token (JWT, por exemplo). Rotas de listas exigem o token.\n- No app: guarde o token com o armazenamento seguro do Expo (`expo-secure-store`), não no AsyncStorage comum.\n- Envie o token no cabeçalho `Authorization` pelo módulo de API.\n- Token expirado ou inválido: leve a pessoa de volta para o login.",
+        "en": "- In the API: sign-up and sign-in with a hashed password; sign-in returns a token (a JWT, for example). List routes require the token.\n- In the app: store the token with Expo's secure storage (`expo-secure-store`), not regular AsyncStorage.\n- Send the token in the `Authorization` header through the API module.\n- Expired or invalid token: send the person back to sign-in."
+      },
+      "resources": [
+        "expo-docs",
+        "express-docs-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Cadastro e login na API",
+          "en": "Sign-up and sign-in in the API"
+        },
+        {
+          "pt": "Token guardado com armazenamento seguro",
+          "en": "Token kept in secure storage"
+        },
+        {
+          "pt": "Cada usuário vê só as próprias listas",
+          "en": "Each user sees only their own lists"
+        },
+        {
+          "pt": "Token inválido leva ao login",
+          "en": "Invalid token leads to sign-in"
+        }
+      ]
+    },
+    {
+      "id": "offline",
+      "title": {
+        "pt": "Funciona sem internet",
+        "en": "Works offline"
+      },
+      "goal": {
+        "pt": "Sem internet, dá para adicionar e marcar itens; quando a conexão volta, as mudanças são enviadas sozinhas.",
+        "en": "Offline, you can add and check items; when the connection returns, changes are sent on their own."
+      },
+      "estimatedMinutes": 150,
+      "instructions": {
+        "pt": "- Guarde uma cópia local das listas (AsyncStorage) e mostre-a primeiro, atualizando quando a API responder.\n- Mudanças feitas offline entram numa fila local de pendências.\n- Detecte a volta da conexão (por exemplo com o NetInfo) e envie a fila em ordem.\n- Defina uma estratégia de conflito simples e explique no README: \"a última alteração vence\", comparando o `updatedAt`.\n- Teste de verdade: modo avião, mude coisas, desligue o modo avião.",
+        "en": "- Keep a local copy of the lists (AsyncStorage) and show it first, updating when the API responds.\n- Changes made offline go into a local pending queue.\n- Detect when the connection returns (for example with NetInfo) and send the queue in order.\n- Define a simple conflict strategy and explain it in the README: \"last write wins\", comparing `updatedAt`.\n- Test for real: airplane mode, change things, turn airplane mode off."
+      },
+      "resources": [
+        "async-storage",
+        "expo-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Cópia local mostrada primeiro",
+          "en": "Local copy shown first"
+        },
+        {
+          "pt": "Fila de pendências offline",
+          "en": "Offline pending queue"
+        },
+        {
+          "pt": "Sincronização ao voltar a conexão",
+          "en": "Sync when the connection returns"
+        },
+        {
+          "pt": "Estratégia de conflito documentada",
+          "en": "Conflict strategy documented"
+        }
+      ],
+      "hint": {
+        "pt": "Dê um id gerado no próprio aparelho para cada item novo. Assim o item existe localmente antes de o servidor responder, e você não cria duplicados ao reenviar.",
+        "en": "Give each new item an id generated on the device itself. That way the item exists locally before the server responds, and you don't create duplicates when resending."
+      }
+    },
+    {
+      "id": "compartilhar",
+      "title": {
+        "pt": "Listas compartilhadas",
+        "en": "Shared lists"
+      },
+      "goal": {
+        "pt": "Duas pessoas, em dois celulares, editam a mesma lista e veem as mudanças uma da outra.",
+        "en": "Two people, on two phones, edit the same list and see each other's changes."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Crie na API um código de convite por lista e uma rota para entrar numa lista pelo código.\n- Atualize a regra de autorização: membros da lista podem ver e editar.\n- No app, atualize ao puxar a tela para baixo e ao voltar para o app. Atualização em tempo real (WebSocket) fica como desafio.\n- Use o compartilhamento nativo do sistema para enviar o código.",
+        "en": "- Create an invite code per list in the API and a route to join a list by code.\n- Update the authorization rule: list members can view and edit.\n- In the app, refresh on pull-down and when returning to the app. Real-time updates (WebSocket) are a challenge.\n- Use the system's native share sheet to send the code."
+      },
+      "resources": [
+        "expo-docs",
+        "rn-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Código de convite por lista",
+          "en": "Invite code per list"
+        },
+        {
+          "pt": "Autorização para membros",
+          "en": "Authorization for members"
+        },
+        {
+          "pt": "Testado em dois aparelhos",
+          "en": "Tested on two devices"
+        }
+      ]
+    },
+    {
+      "id": "build",
+      "title": {
+        "pt": "Build de teste e README",
+        "en": "Test build and README"
+      },
+      "goal": {
+        "pt": "Um build de teste instalável por link está disponível, e o README explica a arquitetura app + API.",
+        "en": "A test build installable from a link is available, and the README explains the app + API architecture."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Configure o EAS Build e gere um build de distribuição interna. Mande o link para duas pessoas instalarem.\n- Colete o retorno delas e corrija pelo menos um problema encontrado.\n- README dos dois repositórios: diagrama (app ↔ API ↔ banco), como funciona a sincronização, como rodar cada parte e o link do build.",
+        "en": "- Set up EAS Build and generate an internal distribution build. Send the link to two people to install.\n- Collect their feedback and fix at least one problem they found.\n- README for both repositories: diagram (app ↔ API ↔ database), how sync works, how to run each part and the build link."
+      },
+      "resources": [
+        "eas-internal-distribution",
+        "eas-build"
+      ],
+      "checklist": [
+        {
+          "pt": "Build de distribuição interna gerado",
+          "en": "Internal distribution build generated"
+        },
+        {
+          "pt": "Testado por outras pessoas",
+          "en": "Tested by other people"
+        },
+        {
+          "pt": "README com diagrama e sincronização",
+          "en": "README with diagram and sync explanation"
+        }
+      ]
+    }
+  ],
+  "extraChallenges": [
+    {
+      "pt": "Atualização em tempo real com WebSocket",
+      "en": "Real-time updates with WebSocket"
+    },
+    {
+      "pt": "Publicar na loja em teste fechado",
+      "en": "Publish to the store in closed testing"
+    },
+    {
+      "pt": "Notificação quando alguém adiciona item na lista compartilhada",
+      "en": "Notification when someone adds an item to a shared list"
+    }
+  ],
+  "portfolioTip": {
+    "pt": "Este projeto mostra que você enxerga o sistema inteiro, do celular ao banco. Grave um vídeo com dois celulares editando a mesma lista, um deles em modo avião: é uma demonstração difícil de esquecer.",
+    "en": "This project shows you see the whole system, from phone to database. Record a video with two phones editing the same list, one of them in airplane mode: it's a hard demo to forget."
+  }
+}

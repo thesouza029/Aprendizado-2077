@@ -1,0 +1,188 @@
+[
+  {
+    "id": "roadmap-sh",
+    "title": "roadmap.sh",
+    "type": "interactive",
+    "url": "https://roadmap.sh/",
+    "author": "roadmap.sh (Kamran Ahmed e comunidade)",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "geral",
+      "carreira"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Mapas visuais do que estudar para cada carreira (front-end, backend, DevOps, IA...). Ótimo para se localizar.",
+      "en": "Visual maps of what to study for each career (front-end, backend, DevOps, AI...). Great for finding your way."
+    },
+    "verified": true
+  },
+  {
+    "id": "the-odin-project",
+    "title": "The Odin Project",
+    "type": "course",
+    "url": "https://www.theodinproject.com/",
+    "author": "The Odin Project (comunidade open source)",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "html",
+      "css",
+      "javascript",
+      "git",
+      "node",
+      "react"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Currículo completo e gratuito de desenvolvimento web baseado em projetos, do zero ao fullstack.",
+      "en": "A complete, free, project-based web development curriculum, from zero to fullstack."
+    },
+    "verified": true
+  },
+  {
+    "id": "freecodecamp",
+    "title": "freeCodeCamp",
+    "type": "course",
+    "url": "https://www.freecodecamp.org/learn/",
+    "author": "freeCodeCamp.org",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "html",
+      "css",
+      "javascript",
+      "react",
+      "python"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Exercícios interativos no navegador e certificações gratuitas em web, JavaScript, Python e mais.",
+      "en": "Interactive in-browser exercises and free certifications in web, JavaScript, Python and more."
+    },
+    "verified": true
+  },
+  {
+    "id": "cs50x",
+    "title": "CS50x: Introduction to Computer Science",
+    "type": "course",
+    "url": "https://cs50.harvard.edu/x/",
+    "author": "Harvard University (David J. Malan)",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "logica",
+      "c",
+      "python",
+      "sql"
+    ],
+    "free": true,
+    "description": {
+      "pt": "O curso introdutório de ciência da computação de Harvard: lógica, algoritmos, memória, SQL e web.",
+      "en": "Harvard's intro to computer science: logic, algorithms, memory, SQL and web."
+    },
+    "verified": true
+  },
+  {
+    "id": "mdn-learn",
+    "title": "MDN: Learn web development",
+    "type": "course",
+    "url": "https://developer.mozilla.org/en-US/docs/Learn_web_development",
+    "author": "Mozilla (MDN Web Docs)",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "html",
+      "css",
+      "javascript",
+      "acessibilidade"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Trilha oficial da Mozilla para aprender web do jeito certo, com módulos e desafios.",
+      "en": "Mozilla's official path to learn the web the right way, with modules and challenges."
+    },
+    "verified": true
+  },
+  {
+    "id": "curso-em-video",
+    "title": "Curso em Vídeo",
+    "type": "course",
+    "url": "https://www.cursoemvideo.com/",
+    "author": "Gustavo Guanabara",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "logica",
+      "html",
+      "css",
+      "javascript",
+      "python",
+      "git",
+      "sql"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Cursos gratuitos em português com certificado: algoritmos, HTML/CSS, JavaScript, Python, Git e mais.",
+      "en": "Free Brazilian Portuguese courses with certificates: algorithms, HTML/CSS, JavaScript, Python, Git and more."
+    },
+    "verified": true
+  },
+  {
+    "id": "missing-semester",
+    "title": "The Missing Semester of Your CS Education",
+    "type": "course",
+    "url": "https://missing.csail.mit.edu/",
+    "author": "MIT CSAIL",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "terminal",
+      "git",
+      "linux"
+    ],
+    "free": true,
+    "description": {
+      "pt": "O que a faculdade esquece de ensinar: terminal, shell, editores, Git e ferramentas do dia a dia.",
+      "en": "What college forgets to teach: terminal, shell, editors, Git and everyday tools."
+    },
+    "verified": true
+  },
+  {
+    "id": "python-tutorial-pt",
+    "title": "Tutorial oficial do Python",
+    "type": "docs",
+    "url": "https://docs.python.org/pt-br/3/tutorial/",
+    "author": "Python Software Foundation",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "python"
+    ],
+    "free": true,
+    "description": {
+      "pt": "O tutorial da documentação oficial, traduzido para português.",
+      "en": "The official documentation tutorial, translated into Portuguese."
+    },
+    "verified": true
+  },
+  {
+    "id": "automate-boring-stuff",
+    "title": "Automate the Boring Stuff with Python",
+    "type": "book",
+    "url": "https://automatetheboringstuff.com/",
+    "author": "Al Sweigart",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "python"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Livro gratuito para aprender Python automatizando tarefas reais: planilhas, arquivos, web.",
+      "en": "Free book to learn Python by automating real tasks: spreadsheets, files, the web."
+    },
+    "verified": true
+  }
+]

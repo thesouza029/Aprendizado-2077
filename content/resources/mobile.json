@@ -1,0 +1,478 @@
+[
+  {
+    "id": "expo-docs",
+    "title": "Documentação do Expo",
+    "type": "docs",
+    "url": "https://docs.expo.dev/",
+    "author": "Expo",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "react-native",
+      "expo"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Documentação oficial do Expo, o jeito mais fácil de começar com React Native.",
+      "en": "Official Expo docs, the easiest way to start with React Native."
+    },
+    "verified": true
+  },
+  {
+    "id": "expo-tutorial",
+    "title": "Expo: tutorial oficial",
+    "type": "course",
+    "url": "https://docs.expo.dev/tutorial/introduction/",
+    "author": "Expo",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "react-native",
+      "expo"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Construa um app do zero com Expo, passo a passo.",
+      "en": "Build an app from scratch with Expo, step by step."
+    },
+    "verified": true
+  },
+  {
+    "id": "expo-router",
+    "title": "Expo Router",
+    "type": "docs",
+    "url": "https://docs.expo.dev/router/introduction/",
+    "author": "Expo",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "react-native",
+      "expo"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Navegação entre telas baseada em arquivos, como no Next.js.",
+      "en": "File-based navigation between screens, like in Next.js."
+    },
+    "verified": true
+  },
+  {
+    "id": "eas-build",
+    "title": "EAS Build",
+    "type": "docs",
+    "url": "https://docs.expo.dev/build/introduction/",
+    "author": "Expo",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "react-native",
+      "expo",
+      "deploy"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Gere instaladores do seu app (APK/AAB/IPA) na nuvem.",
+      "en": "Build installable app binaries (APK/AAB/IPA) in the cloud."
+    },
+    "verified": true
+  },
+  {
+    "id": "rn-docs",
+    "title": "Documentação do React Native",
+    "type": "docs",
+    "url": "https://reactnative.dev/docs/getting-started",
+    "author": "Meta e comunidade",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "react-native",
+      "react"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Documentação oficial do React Native: componentes, estilos e APIs.",
+      "en": "Official React Native docs: components, styles and APIs."
+    },
+    "verified": true
+  },
+  {
+    "id": "rn-basics",
+    "title": "React Native: Learn the Basics",
+    "type": "docs",
+    "url": "https://reactnative.dev/docs/tutorial",
+    "author": "Meta e comunidade",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "react-native",
+      "react"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Os fundamentos: componentes nativos, JSX, props e estado no mobile.",
+      "en": "The fundamentals: native components, JSX, props and state on mobile."
+    },
+    "verified": true
+  },
+  {
+    "id": "rn-accessibility",
+    "title": "React Native: Accessibility",
+    "type": "docs",
+    "url": "https://reactnative.dev/docs/accessibility",
+    "author": "Meta e comunidade",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "react-native",
+      "acessibilidade"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Como deixar seu app usável com leitores de tela (TalkBack e VoiceOver).",
+      "en": "How to make your app usable with screen readers (TalkBack and VoiceOver)."
+    },
+    "verified": true
+  },
+  {
+    "id": "async-storage",
+    "title": "AsyncStorage",
+    "type": "docs",
+    "url": "https://react-native-async-storage.github.io/async-storage/",
+    "author": "Comunidade React Native",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "react-native"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Armazenamento chave-valor no aparelho, o \"localStorage\" do React Native.",
+      "en": "On-device key-value storage, React Native's \"localStorage\"."
+    },
+    "verified": true
+  },
+  {
+    "id": "flutter-docs",
+    "title": "Documentação do Flutter",
+    "type": "docs",
+    "url": "https://docs.flutter.dev/",
+    "author": "Google",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "flutter",
+      "dart"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Documentação oficial do Flutter, com codelabs para iniciantes.",
+      "en": "Official Flutter docs, with beginner codelabs."
+    },
+    "verified": true
+  },
+  {
+    "id": "kotlin-docs",
+    "title": "Documentação do Kotlin",
+    "type": "docs",
+    "url": "https://kotlinlang.org/docs/home.html",
+    "author": "JetBrains",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "kotlin"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Documentação oficial da linguagem Kotlin.",
+      "en": "Official Kotlin language documentation."
+    },
+    "verified": true
+  },
+  {
+    "id": "android-compose-basics",
+    "title": "Android Basics with Compose",
+    "type": "course",
+    "url": "https://developer.android.com/courses/android-basics-compose/course",
+    "author": "Google",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "kotlin",
+      "android"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Curso oficial e gratuito do Google para criar apps Android com Kotlin e Jetpack Compose.",
+      "en": "Google's free official course to build Android apps with Kotlin and Jetpack Compose."
+    },
+    "verified": true
+  },
+  {
+    "id": "dart-language",
+    "title": "Dart: a linguagem",
+    "type": "docs",
+    "url": "https://dart.dev/language",
+    "author": "Equipe Dart",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "dart"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Tour pela linguagem Dart: tipos, null safety, classes e async.",
+      "en": "Tour of the Dart language: types, null safety, classes and async."
+    },
+    "verified": true
+  },
+  {
+    "id": "dartpad",
+    "title": "DartPad",
+    "type": "interactive",
+    "url": "https://dartpad.dev/",
+    "author": "Equipe Dart",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "dart",
+      "flutter"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Editor no navegador para rodar Dart e Flutter sem instalar nada.",
+      "en": "In-browser editor to run Dart and Flutter without installing anything."
+    },
+    "verified": true
+  },
+  {
+    "id": "flutter-codelab-first",
+    "title": "Codelab: seu primeiro app Flutter",
+    "type": "course",
+    "url": "https://codelabs.developers.google.com/codelabs/flutter-codelab-first",
+    "author": "Google",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "flutter",
+      "dart"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Codelab oficial que constrói um app do zero, explicando widgets e estado.",
+      "en": "Official codelab that builds an app from scratch, explaining widgets and state."
+    },
+    "verified": true
+  },
+  {
+    "id": "flutter-fetch-data",
+    "title": "Flutter: buscar dados da internet",
+    "type": "docs",
+    "url": "https://docs.flutter.dev/cookbook/networking/fetch-data",
+    "author": "Google",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "flutter",
+      "dart",
+      "http"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Receita oficial de requisição HTTP, conversão de JSON e exibição com FutureBuilder.",
+      "en": "Official recipe for an HTTP request, JSON parsing and display with FutureBuilder."
+    },
+    "verified": true
+  },
+  {
+    "id": "pub-http",
+    "title": "Pacote http (pub.dev)",
+    "type": "docs",
+    "url": "https://pub.dev/packages/http",
+    "author": "Equipe Dart",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "dart",
+      "flutter",
+      "http"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Pacote oficial para fazer requisições HTTP em Dart e Flutter.",
+      "en": "Official package for HTTP requests in Dart and Flutter."
+    },
+    "verified": true
+  },
+  {
+    "id": "shared-preferences",
+    "title": "Pacote shared_preferences",
+    "type": "docs",
+    "url": "https://pub.dev/packages/shared_preferences",
+    "author": "Equipe Flutter",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "flutter",
+      "dart"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Guarda dados simples no aparelho, como a última cidade buscada.",
+      "en": "Stores simple data on the device, like the last searched city."
+    },
+    "verified": true
+  },
+  {
+    "id": "kotlin-koans",
+    "title": "Kotlin Koans",
+    "type": "interactive",
+    "url": "https://play.kotlinlang.org/koans/overview",
+    "author": "JetBrains",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "kotlin"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Exercícios curtos no navegador para aprender a sintaxe do Kotlin.",
+      "en": "Short in-browser exercises to learn Kotlin syntax."
+    },
+    "verified": true
+  },
+  {
+    "id": "compose-tutorial",
+    "title": "Jetpack Compose: tutorial",
+    "type": "course",
+    "url": "https://developer.android.com/develop/ui/compose/tutorial",
+    "author": "Google",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "kotlin",
+      "android",
+      "jetpack-compose"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Tutorial oficial de interfaces declarativas no Android.",
+      "en": "Official tutorial on declarative UIs on Android."
+    },
+    "verified": true
+  },
+  {
+    "id": "android-room",
+    "title": "Room: banco local no Android",
+    "type": "docs",
+    "url": "https://developer.android.com/training/data-storage/room",
+    "author": "Google",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "kotlin",
+      "android",
+      "sql"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Camada sobre o SQLite com entidades, DAOs e consultas verificadas na compilação.",
+      "en": "SQLite layer with entities, DAOs and compile-time checked queries."
+    },
+    "verified": true
+  },
+  {
+    "id": "android-datastore",
+    "title": "DataStore",
+    "type": "docs",
+    "url": "https://developer.android.com/topic/libraries/architecture/datastore",
+    "author": "Google",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "kotlin",
+      "android"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Guarda preferências e dados pequenos de forma assíncrona.",
+      "en": "Stores preferences and small data asynchronously."
+    },
+    "verified": true
+  },
+  {
+    "id": "android-studio",
+    "title": "Android Studio",
+    "type": "docs",
+    "url": "https://developer.android.com/studio",
+    "author": "Google",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "android",
+      "kotlin"
+    ],
+    "free": true,
+    "description": {
+      "pt": "IDE oficial do Android, com emulador e ferramentas de inspeção.",
+      "en": "Official Android IDE, with emulator and inspection tools."
+    },
+    "verified": true
+  },
+  {
+    "id": "exercism-kotlin",
+    "title": "Exercism: Kotlin",
+    "type": "interactive",
+    "url": "https://exercism.org/tracks/kotlin",
+    "author": "Exercism",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "kotlin"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Exercícios de Kotlin com mentoria gratuita.",
+      "en": "Kotlin exercises with free mentoring."
+    },
+    "verified": true
+  },
+  {
+    "id": "expo-env-vars",
+    "title": "Expo: variáveis de ambiente",
+    "type": "docs",
+    "url": "https://docs.expo.dev/guides/environment-variables/",
+    "author": "Expo",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "expo",
+      "react-native"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Como apontar o app para endereços diferentes de API em desenvolvimento e produção.",
+      "en": "How to point the app to different API addresses in development and production."
+    },
+    "verified": true
+  },
+  {
+    "id": "eas-internal-distribution",
+    "title": "EAS: distribuição interna",
+    "type": "docs",
+    "url": "https://docs.expo.dev/build/internal-distribution/",
+    "author": "Expo",
+    "language": "en",
+    "level": "intermediario",
+    "technologies": [
+      "expo",
+      "react-native",
+      "deploy"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Gera um build de teste instalável por link, sem passar pelas lojas.",
+      "en": "Generates a test build installable from a link, without going through the stores."
+    },
+    "verified": true
+  }
+]

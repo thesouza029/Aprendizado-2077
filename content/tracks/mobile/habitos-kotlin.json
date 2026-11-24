@@ -1,0 +1,327 @@
+{
+  "id": "habitos-kotlin",
+  "track": "mobile",
+  "order": 3,
+  "title": {
+    "pt": "App de hábitos nativo com Kotlin e Jetpack Compose",
+    "en": "Native habit app with Kotlin and Jetpack Compose"
+  },
+  "level": 3,
+  "stack": [
+    "Kotlin",
+    "Jetpack Compose",
+    "ViewModel",
+    "Coroutines e Flow",
+    "Room",
+    "WorkManager",
+    "Android Studio"
+  ],
+  "whatYouBuild": {
+    "pt": "Um app Android nativo para acompanhar hábitos: criar hábitos, marcar o dia com um toque, ver a sequência de dias seguidos e o histórico do mês num calendário, e receber um lembrete diário. Os dados ficam num banco local e a interface é feita com Jetpack Compose.",
+    "en": "A native Android app to track habits: create habits, check off the day with one tap, see the streak of consecutive days and the month's history in a calendar, and get a daily reminder. Data lives in a local database and the interface is built with Jetpack Compose."
+  },
+  "whatYouLearn": [
+    {
+      "pt": "Kotlin: null safety, data classes, lambdas e coroutines",
+      "en": "Kotlin: null safety, data classes, lambdas and coroutines"
+    },
+    {
+      "pt": "Interfaces declarativas com Jetpack Compose",
+      "en": "Declarative interfaces with Jetpack Compose"
+    },
+    {
+      "pt": "Arquitetura recomendada: ViewModel, estado de UI e repositório",
+      "en": "Recommended architecture: ViewModel, UI state and repository"
+    },
+    {
+      "pt": "Banco local com Room e dados reativos com Flow",
+      "en": "Local database with Room and reactive data with Flow"
+    },
+    {
+      "pt": "Notificações e tarefas agendadas com WorkManager",
+      "en": "Notifications and scheduled work with WorkManager"
+    }
+  ],
+  "prerequisites": [
+    "lista-compras-expo"
+  ],
+  "steps": [
+    {
+      "id": "setup",
+      "title": {
+        "pt": "Android Studio e Kotlin",
+        "en": "Android Studio and Kotlin"
+      },
+      "goal": {
+        "pt": "Um projeto Compose novo roda no emulador ou no seu celular Android.",
+        "en": "A new Compose project runs on the emulator or your Android phone."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Instale o Android Studio e crie um emulador (ou ative o modo desenvolvedor no seu celular).\n- Crie um projeto com o modelo de atividade vazia do Compose e rode.\n- Se Kotlin for novo, faça os Kotlin Koans: em poucas horas você pega `val`/`var`, `null safety`, `data class` e lambdas.\n- Explore o *Preview* do Compose: dá para ver os componentes sem rodar o app.\n- Crie o repositório no GitHub e faça commits pequenos a cada parte que funcionar: o histórico conta a história do projeto.",
+        "en": "- Install Android Studio and create an emulator (or enable developer mode on your phone).\n- Create a project with Compose's empty activity template and run it.\n- If Kotlin is new, do the Kotlin Koans: in a few hours you'll pick up `val`/`var`, `null safety`, `data class` and lambdas.\n- Explore Compose's *Preview*: you can see components without running the app.\n- Create the GitHub repository and make small commits each time a part works: the history tells the project's story."
+      },
+      "resources": [
+        "android-studio",
+        "kotlin-koans",
+        "kotlin-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Android Studio e emulador funcionando",
+          "en": "Android Studio and emulator working"
+        },
+        {
+          "pt": "Projeto Compose rodando",
+          "en": "Compose project running"
+        },
+        {
+          "pt": "Kotlin Koans principais feitos",
+          "en": "Main Kotlin Koans done"
+        },
+        {
+          "pt": "Repositório no GitHub com o primeiro commit",
+          "en": "GitHub repository with the first commit"
+        }
+      ]
+    },
+    {
+      "id": "compose-ui",
+      "title": {
+        "pt": "Interface com Compose",
+        "en": "Interface with Compose"
+      },
+      "goal": {
+        "pt": "A tela lista hábitos de exemplo com um botão para marcar o dia, e um formulário cria hábitos novos (ainda só na memória).",
+        "en": "The screen lists sample habits with a button to check off the day, and a form creates new habits (still only in memory)."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Escreva funções `@Composable` pequenas: item do hábito, lista (`LazyColumn`) e formulário.\n- Pratique *state hoisting*: o componente recebe o estado e avisa mudanças por parâmetros de função. Lembra props no React?\n- Use os componentes do Material 3 e o tema do app.\n- Crie *previews* para cada componente com dados de exemplo.",
+        "en": "- Write small `@Composable` functions: habit item, list (`LazyColumn`) and form.\n- Practice *state hoisting*: the component receives state and reports changes through function parameters. Reminds you of props in React?\n- Use Material 3 components and the app theme.\n- Create *previews* for each component with sample data."
+      },
+      "resources": [
+        "compose-tutorial",
+        "android-compose-basics"
+      ],
+      "checklist": [
+        {
+          "pt": "Componentes pequenos com state hoisting",
+          "en": "Small components with state hoisting"
+        },
+        {
+          "pt": "Lista com `LazyColumn`",
+          "en": "List with `LazyColumn`"
+        },
+        {
+          "pt": "Previews dos componentes",
+          "en": "Component previews"
+        }
+      ]
+    },
+    {
+      "id": "viewmodel",
+      "title": {
+        "pt": "ViewModel e estado de UI",
+        "en": "ViewModel and UI state"
+      },
+      "goal": {
+        "pt": "O estado da tela mora num ViewModel e não se perde ao girar o celular.",
+        "en": "Screen state lives in a ViewModel and isn't lost when rotating the phone."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Crie um ViewModel que expõe o estado da tela como um `StateFlow` de uma `data class` (lista de hábitos, carregando, erro).\n- A tela coleta esse estado e chama funções do ViewModel para eventos (marcar, criar, apagar).\n- Gire o celular: sem ViewModel, o estado sumiria. Entenda o porquê (a Activity é recriada).\n- Use *coroutines* com o `viewModelScope` para trabalho assíncrono.",
+        "en": "- Create a ViewModel that exposes the screen state as a `StateFlow` of a `data class` (habit list, loading, error).\n- The screen collects that state and calls ViewModel functions for events (check, create, delete).\n- Rotate the phone: without a ViewModel, the state would vanish. Understand why (the Activity is recreated).\n- Use *coroutines* with `viewModelScope` for asynchronous work."
+      },
+      "resources": [
+        "android-compose-basics",
+        "kotlin-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Estado da tela num `StateFlow`",
+          "en": "Screen state in a `StateFlow`"
+        },
+        {
+          "pt": "Eventos tratados pelo ViewModel",
+          "en": "Events handled by the ViewModel"
+        },
+        {
+          "pt": "Estado sobrevive à rotação",
+          "en": "State survives rotation"
+        }
+      ]
+    },
+    {
+      "id": "room",
+      "title": {
+        "pt": "Banco local com Room",
+        "en": "Local database with Room"
+      },
+      "goal": {
+        "pt": "Hábitos e marcações ficam salvos no banco, e a tela atualiza sozinha quando os dados mudam.",
+        "en": "Habits and check-ins are saved in the database, and the screen updates by itself when data changes."
+      },
+      "estimatedMinutes": 150,
+      "instructions": {
+        "pt": "- Crie as entidades: hábito e marcação (hábito + data). Garanta que um hábito só pode ser marcado uma vez por dia.\n- Escreva os DAOs. Consultas que devolvem `Flow` avisam a tela sempre que os dados mudam.\n- Crie um repositório entre o ViewModel e o banco. Ele é o único que sabe de onde os dados vêm.\n- Guarde datas como `LocalDate` com conversores do Room.\n- Para injeção de dependências, comece criando os objetos à mão; depois, se quiser, conheça o Hilt.",
+        "en": "- Create the entities: habit and check-in (habit + date). Make sure a habit can only be checked once per day.\n- Write the DAOs. Queries that return a `Flow` notify the screen whenever data changes.\n- Create a repository between the ViewModel and the database. It's the only one that knows where data comes from.\n- Store dates as `LocalDate` with Room converters.\n- For dependency injection, start by creating objects by hand; later, if you like, learn Hilt."
+      },
+      "resources": [
+        "android-room",
+        "kotlin-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Entidades e DAOs com Flow",
+          "en": "Entities and DAOs with Flow"
+        },
+        {
+          "pt": "Uma marcação por hábito por dia",
+          "en": "One check-in per habit per day"
+        },
+        {
+          "pt": "Repositório entre ViewModel e banco",
+          "en": "Repository between ViewModel and database"
+        },
+        {
+          "pt": "Dados persistem ao fechar o app",
+          "en": "Data persists when closing the app"
+        }
+      ]
+    },
+    {
+      "id": "sequencia",
+      "title": {
+        "pt": "Sequência e histórico",
+        "en": "Streak and history"
+      },
+      "goal": {
+        "pt": "Cada hábito mostra quantos dias seguidos foi cumprido, e uma tela de detalhe mostra o mês num calendário.",
+        "en": "Each habit shows how many consecutive days it was done, and a detail screen shows the month in a calendar."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Calcule a sequência numa função pura em Kotlin, que recebe as datas marcadas e o dia de hoje. Casos de borda: hoje ainda não marcado não zera a sequência; um dia pulado zera.\n- Escreva testes de unidade (JUnit) para essa função antes de ligar na tela.\n- Monte o calendário do mês com uma grade, destacando os dias cumpridos. Pense em como o leitor de tela vai anunciar cada dia.\n- Adicione navegação entre a lista e o detalhe.",
+        "en": "- Compute the streak in a pure Kotlin function that receives the checked dates and today's date. Edge cases: today not yet checked doesn't reset the streak; a skipped day does.\n- Write unit tests (JUnit) for that function before wiring it to the screen.\n- Build the month calendar as a grid, highlighting completed days. Think about how a screen reader will announce each day.\n- Add navigation between the list and the detail."
+      },
+      "resources": [
+        "kotlin-docs",
+        "compose-tutorial"
+      ],
+      "checklist": [
+        {
+          "pt": "Cálculo da sequência em função pura",
+          "en": "Streak calculation in a pure function"
+        },
+        {
+          "pt": "Testes dos casos de borda",
+          "en": "Edge case tests"
+        },
+        {
+          "pt": "Calendário do mês acessível",
+          "en": "Accessible month calendar"
+        },
+        {
+          "pt": "Navegação para o detalhe",
+          "en": "Navigation to the detail"
+        }
+      ]
+    },
+    {
+      "id": "lembrete",
+      "title": {
+        "pt": "Lembrete diário",
+        "en": "Daily reminder"
+      },
+      "goal": {
+        "pt": "O app envia uma notificação no horário escolhido pelo usuário, mesmo com o app fechado.",
+        "en": "The app sends a notification at the time the user picks, even with the app closed."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Peça a permissão de notificações (obrigatória a partir do Android 13) num momento que faça sentido, explicando o motivo.\n- Crie um canal de notificação.\n- Agende o lembrete com WorkManager: ele continua funcionando mesmo depois de reiniciar o celular.\n- Guarde o horário escolhido com DataStore.\n- Teste mudando o horário para daqui a dois minutos.",
+        "en": "- Request the notification permission (required from Android 13 on) at a sensible moment, explaining why.\n- Create a notification channel.\n- Schedule the reminder with WorkManager: it keeps working even after the phone restarts.\n- Store the chosen time with DataStore.\n- Test by setting the time to two minutes from now."
+      },
+      "resources": [
+        "android-datastore",
+        "android-compose-basics"
+      ],
+      "checklist": [
+        {
+          "pt": "Permissão pedida com explicação",
+          "en": "Permission requested with an explanation"
+        },
+        {
+          "pt": "Lembrete agendado com WorkManager",
+          "en": "Reminder scheduled with WorkManager"
+        },
+        {
+          "pt": "Horário salvo com DataStore",
+          "en": "Time saved with DataStore"
+        }
+      ]
+    },
+    {
+      "id": "testes-build",
+      "title": {
+        "pt": "Testes, build publicado e README",
+        "en": "Tests, published build and README"
+      },
+      "goal": {
+        "pt": "Os testes passam, existe um APK assinado para instalar e o README tem prints e um GIF do app.",
+        "en": "Tests pass, there's a signed APK to install and the README has screenshots and a GIF of the app."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Além dos testes de unidade, escreva um teste de interface do Compose: criar um hábito e conferir se ele aparece na lista.\n- Gere um APK (ou AAB) de release assinado. A chave de assinatura nunca vai para o Git.\n- Publique o APK numa *release* do GitHub, para qualquer pessoa baixar e testar.\n- Instale num celular de verdade e use por alguns dias: você vai achar bugs que o emulador esconde.\n- README: arquitetura (tela → ViewModel → repositório → Room), prints e o que mudou em relação ao app em React Native.",
+        "en": "- Besides unit tests, write a Compose UI test: create a habit and check that it shows up in the list.\n- Generate a signed release APK (or AAB). The signing key never goes into Git.\n- Publish the APK in a GitHub *release* so anyone can download and try it.\n- Install it on a real phone and use it for a few days: you'll find bugs the emulator hides.\n- README: architecture (screen → ViewModel → repository → Room), screenshots and what changed compared to the React Native app."
+      },
+      "resources": [
+        "android-studio",
+        "exercism-kotlin"
+      ],
+      "checklist": [
+        {
+          "pt": "Teste de interface do Compose",
+          "en": "Compose UI test"
+        },
+        {
+          "pt": "APK de release assinado",
+          "en": "Signed release APK"
+        },
+        {
+          "pt": "APK publicado numa release do GitHub",
+          "en": "APK published in a GitHub release"
+        },
+        {
+          "pt": "Chave de assinatura fora do Git",
+          "en": "Signing key kept out of Git"
+        },
+        {
+          "pt": "README com arquitetura e prints",
+          "en": "README with architecture and screenshots"
+        }
+      ]
+    }
+  ],
+  "extraChallenges": [
+    {
+      "pt": "Widget na tela inicial do Android",
+      "en": "Android home screen widget"
+    },
+    {
+      "pt": "Backup e restauração dos dados em arquivo",
+      "en": "Data backup and restore to a file"
+    },
+    {
+      "pt": "Estatísticas por semana e por mês",
+      "en": "Weekly and monthly stats"
+    }
+  ],
+  "portfolioTip": {
+    "pt": "Vagas de Android nativo pedem Kotlin, Compose e a arquitetura recomendada pelo Google. Desenhe essa arquitetura no README e mostre os testes da sequência: é a parte com lógica de verdade.",
+    "en": "Native Android jobs ask for Kotlin, Compose and Google's recommended architecture. Draw that architecture in the README and show the streak tests: it's the part with real logic."
+  }
+}

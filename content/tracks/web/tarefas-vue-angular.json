@@ -1,0 +1,266 @@
+{
+  "id": "tarefas-vue-angular",
+  "track": "web",
+  "order": 5,
+  "title": {
+    "pt": "O mesmo app de tarefas em Vue ou Angular",
+    "en": "The same task app in Vue or Angular"
+  },
+  "level": 3,
+  "bonus": true,
+  "stack": [
+    "Vue 3 ou Angular",
+    "TypeScript",
+    "Vitest",
+    "Vercel"
+  ],
+  "whatYouBuild": {
+    "pt": "Você refaz o app de tarefas do projeto de React em Vue ou em Angular, com as mesmas funcionalidades e os mesmos testes, e escreve um comparativo honesto entre as abordagens. Aprender um segundo framework é o melhor jeito de entender o que é do React e o que é da web.",
+    "en": "You rebuild the React task app in Vue or Angular, with the same features and the same tests, and write an honest comparison of the approaches. Learning a second framework is the best way to understand what belongs to React and what belongs to the web."
+  },
+  "whatYouLearn": [
+    {
+      "pt": "Templates e diretivas (Vue) ou componentes e decorators (Angular)",
+      "en": "Templates and directives (Vue) or components and decorators (Angular)"
+    },
+    {
+      "pt": "Reatividade: refs e computed (Vue) ou signals (Angular)",
+      "en": "Reactivity: refs and computed (Vue) or signals (Angular)"
+    },
+    {
+      "pt": "Comunicação entre componentes e estado compartilhado",
+      "en": "Communication between components and shared state"
+    },
+    {
+      "pt": "Testes de componentes no framework escolhido",
+      "en": "Component tests in the chosen framework"
+    },
+    {
+      "pt": "Comparar ferramentas com critérios, não com torcida",
+      "en": "Comparing tools with criteria, not cheering"
+    }
+  ],
+  "prerequisites": [
+    "app-tarefas-react"
+  ],
+  "steps": [
+    {
+      "id": "escolher-setup",
+      "title": {
+        "pt": "Escolha o framework e crie o projeto",
+        "en": "Pick the framework and create the project"
+      },
+      "goal": {
+        "pt": "O projeto novo roda localmente e você sabe explicar onde fica cada coisa na estrutura de pastas.",
+        "en": "The new project runs locally and you can explain where everything lives in the folder structure."
+      },
+      "estimatedMinutes": 45,
+      "instructions": {
+        "pt": "- Escolha um: **Vue** costuma ser mais rápido de aprender; **Angular** é muito pedido em empresas grandes e já vem com tudo (rotas, formulários, HTTP).\n- Faça o tutorial oficial interativo do escolhido antes de começar: ele leva uma ou duas horas e evita muita frustração.\n- Crie o projeto com a ferramenta oficial (`create-vue` ou Angular CLI) com TypeScript e testes.\n- Compare a estrutura com a do projeto React e anote as primeiras impressões: você vai usar isso no comparativo.\n- Crie o repositório no GitHub e faça commits pequenos a cada parte que funcionar: o histórico conta a história do projeto.",
+        "en": "- Pick one: **Vue** is usually faster to learn; **Angular** is in high demand at large companies and comes with everything (routing, forms, HTTP).\n- Do the chosen framework's official interactive tutorial first: it takes an hour or two and saves a lot of frustration.\n- Create the project with the official tool (`create-vue` or Angular CLI) with TypeScript and tests.\n- Compare the structure with the React project and note your first impressions: you'll use them in the comparison.\n- Create the GitHub repository and make small commits each time a part works: the history tells the project's story."
+      },
+      "resources": [
+        "vue-tutorial",
+        "angular-tutorial",
+        "vue-guide",
+        "angular-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Tutorial oficial concluído",
+          "en": "Official tutorial completed"
+        },
+        {
+          "pt": "Projeto criado com TypeScript",
+          "en": "Project created with TypeScript"
+        },
+        {
+          "pt": "Primeiras impressões anotadas",
+          "en": "First impressions noted"
+        },
+        {
+          "pt": "Repositório no GitHub com o primeiro commit",
+          "en": "GitHub repository with the first commit"
+        }
+      ]
+    },
+    {
+      "id": "componentes",
+      "title": {
+        "pt": "Recrie os componentes",
+        "en": "Recreate the components"
+      },
+      "goal": {
+        "pt": "Formulário, lista e item funcionam: dá para adicionar, concluir, editar e remover tarefas.",
+        "en": "Form, list and item work: you can add, complete, edit and delete tasks."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Reaproveite o tipo `Task` e, se possível, o reducer do projeto React: lógica pura não depende de framework. Isso já é uma lição.\n- Aprenda como o framework passa dados para baixo e eventos para cima: `props` e `emit` no Vue, `input` e `output` no Angular.\n- Use as diretivas de lista e condição do template (`v-for`/`v-if` ou `@for`/`@if`) com chaves estáveis.\n- Mantenha os mesmos cuidados de acessibilidade: rótulos, checkbox de verdade e foco.",
+        "en": "- Reuse the `Task` type and, if possible, the reducer from the React project: pure logic doesn't depend on a framework. That alone is a lesson.\n- Learn how the framework passes data down and events up: `props` and `emit` in Vue, `input` and `output` in Angular.\n- Use the template's list and conditional directives (`v-for`/`v-if` or `@for`/`@if`) with stable keys.\n- Keep the same accessibility care: labels, real checkboxes and focus."
+      },
+      "resources": [
+        "vue-guide",
+        "angular-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Lógica pura reaproveitada do projeto React",
+          "en": "Pure logic reused from the React project"
+        },
+        {
+          "pt": "Componentes comunicando por props/eventos",
+          "en": "Components communicating via props/events"
+        },
+        {
+          "pt": "Mesmas funcionalidades do app original",
+          "en": "Same features as the original app"
+        }
+      ]
+    },
+    {
+      "id": "estado",
+      "title": {
+        "pt": "Estado, filtros e persistência",
+        "en": "State, filters and persistence"
+      },
+      "goal": {
+        "pt": "Filtros, contador e persistência no `localStorage` funcionam como no app em React.",
+        "en": "Filters, counter and `localStorage` persistence work as in the React app."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Use a reatividade do framework: `ref` e `computed` no Vue, `signal` e `computed` no Angular. Repare como o estado derivado aparece de novo, com outro nome.\n- Para estado compartilhado, conheça a solução padrão: um *store* com Pinia no Vue ou um *service* injetável no Angular.\n- Persista no `localStorage` com um `watch` (Vue) ou `effect` (Angular), tratando dado inválido.\n- Anote o que foi mais fácil e o que foi mais difícil em comparação ao React.",
+        "en": "- Use the framework's reactivity: `ref` and `computed` in Vue, `signal` and `computed` in Angular. Notice how derived state shows up again under another name.\n- For shared state, learn the standard solution: a Pinia *store* in Vue or an injectable *service* in Angular.\n- Persist to `localStorage` with a `watch` (Vue) or `effect` (Angular), handling invalid data.\n- Note what was easier and what was harder compared to React."
+      },
+      "resources": [
+        "vue-guide",
+        "angular-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Filtros e contador derivados",
+          "en": "Derived filters and counter"
+        },
+        {
+          "pt": "Estado compartilhado no padrão do framework",
+          "en": "Shared state using the framework's pattern"
+        },
+        {
+          "pt": "Persistência com tratamento de erro",
+          "en": "Persistence with error handling"
+        }
+      ]
+    },
+    {
+      "id": "testes",
+      "title": {
+        "pt": "Porte os testes",
+        "en": "Port the tests"
+      },
+      "goal": {
+        "pt": "Os mesmos cenários de teste do projeto React passam no projeto novo.",
+        "en": "The same test scenarios from the React project pass in the new project."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Os testes da lógica pura devem rodar quase sem mudança. Se rodarem, você separou bem as responsabilidades.\n- Para os componentes, use a biblioteca de testes do framework (Vue Test Utils ou os utilitários do Angular) ou a família Testing Library, que tem versão para os dois.\n- Escreva os testes pelo comportamento do usuário, não pela implementação: assim eles se parecem com os do React.",
+        "en": "- Pure logic tests should run almost unchanged. If they do, you separated responsibilities well.\n- For components, use the framework's testing library (Vue Test Utils or Angular's utilities) or the Testing Library family, which has versions for both.\n- Write tests around user behavior, not implementation: that way they look like the React ones."
+      },
+      "resources": [
+        "vitest-guide",
+        "testing-library-react"
+      ],
+      "checklist": [
+        {
+          "pt": "Testes da lógica pura reaproveitados",
+          "en": "Pure logic tests reused"
+        },
+        {
+          "pt": "Testes de componente pelo comportamento",
+          "en": "Component tests based on behavior"
+        },
+        {
+          "pt": "Todos os testes passando",
+          "en": "All tests passing"
+        }
+      ]
+    },
+    {
+      "id": "comparar",
+      "title": {
+        "pt": "Escreva o comparativo",
+        "en": "Write the comparison"
+      },
+      "goal": {
+        "pt": "Um documento compara os dois apps com números e opiniões justificadas.",
+        "en": "A document compares both apps with numbers and justified opinions."
+      },
+      "estimatedMinutes": 60,
+      "instructions": {
+        "pt": "- Compare com critérios: linhas de código, tamanho do bundle de produção (veja a saída do build), tempo até a primeira versão funcionando, clareza dos erros, qualidade da documentação.\n- Diga onde cada um brilha e para que tipo de time ou projeto você escolheria cada um.\n- Evite \"X é melhor\": diga \"X foi melhor para mim neste caso, porque...\".",
+        "en": "- Compare with criteria: lines of code, production bundle size (see the build output), time to the first working version, clarity of errors, documentation quality.\n- Say where each one shines and which kind of team or project you'd pick each one for.\n- Avoid \"X is better\": say \"X worked better for me in this case, because...\"."
+      },
+      "resources": [
+        "roadmap-sh"
+      ],
+      "checklist": [
+        {
+          "pt": "Números de build e código comparados",
+          "en": "Build and code numbers compared"
+        },
+        {
+          "pt": "Pontos fortes de cada framework",
+          "en": "Strengths of each framework"
+        },
+        {
+          "pt": "Recomendação justificada",
+          "en": "Justified recommendation"
+        }
+      ]
+    },
+    {
+      "id": "deploy",
+      "title": {
+        "pt": "README e deploy",
+        "en": "README and deploy"
+      },
+      "goal": {
+        "pt": "O app novo está no ar e o README liga os dois projetos e o comparativo.",
+        "en": "The new app is live and the README links both projects and the comparison."
+      },
+      "estimatedMinutes": 45,
+      "instructions": {
+        "pt": "- Faça o deploy na Vercel (ela reconhece Vue e Angular).\n- No README, ponha os links das duas versões lado a lado e o resumo do comparativo.\n- Publique o comparativo como post no seu blog do projeto anterior.",
+        "en": "- Deploy on Vercel (it recognizes Vue and Angular).\n- In the README, put links to both versions side by side and the comparison summary.\n- Publish the comparison as a post on your blog from the previous project."
+      },
+      "resources": [
+        "vercel-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "App no ar",
+          "en": "App live"
+        },
+        {
+          "pt": "README com as duas versões e o comparativo",
+          "en": "README with both versions and the comparison"
+        }
+      ]
+    }
+  ],
+  "extraChallenges": [
+    {
+      "pt": "Faça a terceira versão no framework que sobrou",
+      "en": "Build a third version in the remaining framework"
+    },
+    {
+      "pt": "Meça a performance com o Lighthouse nas três versões",
+      "en": "Measure performance with Lighthouse on all three versions"
+    }
+  ],
+  "portfolioTip": {
+    "pt": "Um post comparando React com Vue ou Angular, com números do seu próprio código, mostra maturidade técnica. Em entrevistas, saber explicar o que muda entre frameworks impressiona mais do que dominar só um.",
+    "en": "A post comparing React with Vue or Angular, with numbers from your own code, shows technical maturity. In interviews, explaining what changes between frameworks impresses more than knowing just one."
+  }
+}

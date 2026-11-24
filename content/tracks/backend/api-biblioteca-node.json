@@ -1,0 +1,194 @@
+{
+  "id": "api-biblioteca-node",
+  "track": "backend",
+  "order": 1,
+  "title": { "pt": "API REST de biblioteca com Node.js e PostgreSQL", "en": "Library REST API with Node.js and PostgreSQL" },
+  "level": 2,
+  "stack": ["Node.js", "Express", "PostgreSQL", "Zod", "Vitest", "Render"],
+  "whatYouBuild": {
+    "pt": "A API de uma biblioteca: cadastro de livros e autores, empréstimos e devoluções com regras de negócio (um livro emprestado não pode ser emprestado de novo). Ela usa o banco que você modelou nos Fundamentos, valida as entradas, responde com os status HTTP certos, tem testes automatizados e fica no ar com um PostgreSQL gerenciado.",
+    "en": "A library API: managing books and authors, loans and returns with business rules (a borrowed book can't be borrowed again). It uses the database you modeled in Fundamentals, validates input, replies with the right HTTP statuses, has automated tests and runs online with a managed PostgreSQL."
+  },
+  "whatYouLearn": [
+    { "pt": "Desenho de APIs REST: recursos, rotas, métodos e status", "en": "REST API design: resources, routes, methods and statuses" },
+    { "pt": "Express: rotas, middlewares e tratamento de erros", "en": "Express: routes, middleware and error handling" },
+    { "pt": "PostgreSQL no Node: pool de conexões, queries parametrizadas e transações", "en": "PostgreSQL in Node: connection pools, parameterized queries and transactions" },
+    { "pt": "Validação de entrada e segurança básica (SQL injection, segredos em variáveis de ambiente)", "en": "Input validation and basic security (SQL injection, secrets in environment variables)" },
+    { "pt": "Testes de integração de API e deploy de backend", "en": "API integration tests and backend deployment" }
+  ],
+  "prerequisites": ["banco-biblioteca-sql", "cli-api-http"],
+  "steps": [
+    {
+      "id": "planejar-api",
+      "title": { "pt": "Desenhe a API antes de programar", "en": "Design the API before coding" },
+      "goal": {
+        "pt": "Um arquivo `API.md` com todas as rotas: método, caminho, corpo esperado, resposta e status de sucesso e de erro.",
+        "en": "An `API.md` file with every route: method, path, expected body, response and success and error statuses."
+      },
+      "estimatedMinutes": 45,
+      "instructions": {
+        "pt": "Uma API é um **contrato** com quem vai usá-la (front-end, app mobile, outros serviços). Desenhe o contrato primeiro.\n\n- Os **recursos** são substantivos no plural: `/livros`, `/autores`, `/emprestimos`. As **ações** vêm do método HTTP, não do caminho (`POST /livros`, e não `/criarLivro`).\n- Para cada rota, defina o status: `200` (ok), `201` (criado), `204` (sem conteúdo), `400` (dados inválidos), `404` (não encontrado), `409` (conflito, como emprestar um livro já emprestado).\n- Defina o formato padrão de erro, por exemplo `{ \"erro\": \"mensagem\", \"detalhes\": [...] }`, e use em todas as rotas.\n- Listagens precisam de paginação: `GET /livros?pagina=2&limite=20`.",
+        "en": "An API is a **contract** with whoever uses it (front-end, mobile app, other services). Design the contract first.\n\n- **Resources** are plural nouns: `/books`, `/authors`, `/loans`. **Actions** come from the HTTP method, not the path (`POST /books`, not `/createBook`).\n- For each route, define the status: `200` (ok), `201` (created), `204` (no content), `400` (invalid data), `404` (not found), `409` (conflict, like borrowing a book that's already out).\n- Define a standard error format, for example `{ \"error\": \"message\", \"details\": [...] }`, and use it on every route.\n- Lists need pagination: `GET /books?page=2&limit=20`."
+      },
+      "resources": ["mdn-http-methods-pt", "mdn-http-status-pt", "node-best-practices"],
+      "checklist": [
+        { "pt": "`API.md` com todas as rotas de livros, autores e empréstimos", "en": "`API.md` with every route for books, authors and loans" },
+        { "pt": "Caminhos com substantivos; ações pelos métodos HTTP", "en": "Paths use nouns; actions come from HTTP methods" },
+        { "pt": "Status de sucesso e de erro definidos para cada rota", "en": "Success and error statuses defined for each route" },
+        { "pt": "Formato de erro padronizado", "en": "Standardized error format" }
+      ]
+    },
+    {
+      "id": "setup-express",
+      "title": { "pt": "Crie o servidor com Express", "en": "Create the server with Express" },
+      "goal": {
+        "pt": "`GET /health` responde `{ \"status\": \"ok\" }`, e o servidor reinicia sozinho quando você salva um arquivo.",
+        "en": "`GET /health` responds `{ \"status\": \"ok\" }`, and the server restarts on its own when you save a file."
+      },
+      "estimatedMinutes": 60,
+      "instructions": {
+        "pt": "- Crie o projeto Node (`npm init`, `\"type\": \"module\"`) e instale o **Express**. Se quiser, use o **Fastify**: a ideia é a mesma.\n- Crie a rota `GET /health`. Ela parece boba, mas plataformas de deploy usam rotas assim para saber se o app está vivo.\n- Use `node --watch` no script `dev` do `package.json` para reiniciar ao salvar (já vem no Node).\n- A porta deve vir da variável de ambiente `PORT`, com um valor padrão para desenvolvimento.\n- Organize desde já: um arquivo cria o app (rotas, middlewares) e outro só inicia o servidor. Isso vai permitir testar o app sem subir a porta.\n- Teste com `curl` ou com a extensão REST Client do VS Code.",
+        "en": "- Create the Node project (`npm init`, `\"type\": \"module\"`) and install **Express**. You can use **Fastify** instead: the idea is the same.\n- Create the `GET /health` route. It looks silly, but deploy platforms use routes like this to know the app is alive.\n- Use `node --watch` in the `package.json` `dev` script to restart on save (built into Node).\n- The port should come from the `PORT` environment variable, with a default for development.\n- Organize from the start: one file creates the app (routes, middleware) and another only starts the server. This lets you test the app without opening a port.\n- Test with `curl` or VS Code's REST Client extension."
+      },
+      "resources": ["express-docs-pt", "fastify-docs", "nodejs-learn"],
+      "checklist": [
+        { "pt": "`GET /health` responde 200 com JSON", "en": "`GET /health` responds 200 with JSON" },
+        { "pt": "Servidor reinicia ao salvar (`node --watch`)", "en": "Server restarts on save (`node --watch`)" },
+        { "pt": "Porta lida de `PORT`", "en": "Port read from `PORT`" },
+        { "pt": "Criação do app separada da inicialização do servidor", "en": "App creation separated from server startup" }
+      ]
+    },
+    {
+      "id": "conectar-postgres",
+      "title": { "pt": "Conecte ao PostgreSQL", "en": "Connect to PostgreSQL" },
+      "goal": {
+        "pt": "A API conecta a um PostgreSQL local com as tabelas da biblioteca, e a string de conexão fica fora do código.",
+        "en": "The API connects to a local PostgreSQL with the library tables, and the connection string stays out of the code."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Suba um PostgreSQL local. O jeito mais limpo é com Docker (um comando, veja a imagem oficial). Instalar direto no sistema também funciona.\n- Adapte o `schema.sql` e o `seed.sql` do projeto de SQL para o PostgreSQL (tipos como `SERIAL` ou `GENERATED ... AS IDENTITY`, `DATE`, `TIMESTAMPTZ`).\n- Instale o `pg` (node-postgres) e crie **um único pool de conexões** compartilhado pela aplicação.\n- A URL de conexão vai num arquivo `.env` **que nunca entra no Git** (coloque no `.gitignore`). Crie um `.env.example` sem segredos para documentar as variáveis. O Node lê `.env` com a opção `--env-file`.\n- Faça `/health` também testar o banco com um `SELECT 1`.",
+        "en": "- Start a local PostgreSQL. The cleanest way is Docker (one command, see the official image). Installing it on your system also works.\n- Adapt `schema.sql` and `seed.sql` from the SQL project to PostgreSQL (types like `SERIAL` or `GENERATED ... AS IDENTITY`, `DATE`, `TIMESTAMPTZ`).\n- Install `pg` (node-postgres) and create **a single connection pool** shared by the application.\n- The connection URL goes in a `.env` file **that never goes into Git** (add it to `.gitignore`). Create a `.env.example` without secrets to document the variables. Node reads `.env` with the `--env-file` option.\n- Make `/health` also check the database with a `SELECT 1`."
+      },
+      "resources": ["postgres-docker-image", "node-postgres", "postgresql-tutorial", "docker-get-started"],
+      "checklist": [
+        { "pt": "PostgreSQL rodando com as tabelas e dados de exemplo", "en": "PostgreSQL running with the tables and sample data" },
+        { "pt": "Um único pool de conexões compartilhado", "en": "A single shared connection pool" },
+        { "pt": "`.env` no `.gitignore` e `.env.example` versionado", "en": "`.env` in `.gitignore` and `.env.example` committed" },
+        { "pt": "`/health` confere a conexão com o banco", "en": "`/health` checks the database connection" }
+      ]
+    },
+    {
+      "id": "crud-livros",
+      "title": { "pt": "CRUD de livros e autores", "en": "Books and authors CRUD" },
+      "goal": {
+        "pt": "Dá para listar (com paginação), buscar por id, criar, atualizar e apagar livros e autores, com os status do `API.md`.",
+        "en": "You can list (with pagination), get by id, create, update and delete books and authors, with the statuses from `API.md`."
+      },
+      "estimatedMinutes": 180,
+      "instructions": {
+        "pt": "- Implemente as rotas seguindo o contrato. Separe as **rotas** (HTTP) das **funções de acesso ao banco**, para não misturar SQL com `req`/`res`.\n- **Sempre use queries parametrizadas** (`$1`, `$2`...) e nunca monte SQL juntando strings com dados do usuário. Pesquise *SQL injection* para entender o porquê: é uma das falhas de segurança mais comuns do mundo.\n- Livro inexistente → `404`. Criado → `201` com o livro criado no corpo. Apagado → `204` sem corpo.\n- Na listagem, retorne os dados e também informações de paginação (página atual, total).\n- Teste cada rota com `curl` e anote os comandos no README.",
+        "en": "- Implement the routes following the contract. Separate the **routes** (HTTP) from the **database access functions**, so SQL doesn't mix with `req`/`res`.\n- **Always use parameterized queries** (`$1`, `$2`...) and never build SQL by concatenating user data. Look up *SQL injection* to understand why: it's one of the most common security flaws in the world.\n- Unknown book → `404`. Created → `201` with the created book in the body. Deleted → `204` with no body.\n- In the list, return the data plus pagination info (current page, total).\n- Test each route with `curl` and note the commands in the README."
+      },
+      "resources": ["express-docs-pt", "node-postgres", "mdn-http-methods-pt", "mdn-express-tutorial"],
+      "checklist": [
+        { "pt": "CRUD completo de livros e autores", "en": "Full CRUD for books and authors" },
+        { "pt": "Todas as queries são parametrizadas", "en": "Every query is parameterized" },
+        { "pt": "Status 200/201/204/404 corretos", "en": "Correct 200/201/204/404 statuses" },
+        { "pt": "Listagem com paginação", "en": "List with pagination" }
+      ]
+    },
+    {
+      "id": "validacao-erros",
+      "title": { "pt": "Valide entradas e centralize os erros", "en": "Validate input and centralize errors" },
+      "goal": {
+        "pt": "Dados inválidos recebem `400` com a lista do que está errado, e nenhum erro inesperado vaza detalhes internos para o cliente.",
+        "en": "Invalid data gets a `400` with the list of what's wrong, and no unexpected error leaks internal details to the client."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "**Nunca confie no que chega na requisição.**\n\n- Descreva o formato esperado do corpo com o **Zod** (título obrigatório, ano inteiro positivo etc.) e valide antes de tocar no banco.\n- Valide também parâmetros de rota e de query (id numérico, limite máximo de página).\n- Crie um **middleware de erro** central: erros de validação viram `400`, \"não encontrado\" vira `404`, violação de `UNIQUE` no banco vira `409`, e todo o resto vira `500` com uma mensagem genérica. O erro real vai para o log do servidor, não para o cliente.\n- Responda sempre no formato de erro padronizado do `API.md`.",
+        "en": "**Never trust what comes in a request.**\n\n- Describe the expected body shape with **Zod** (required title, positive integer year, etc.) and validate before touching the database.\n- Also validate route and query params (numeric id, maximum page limit).\n- Create a central **error middleware**: validation errors become `400`, \"not found\" becomes `404`, a database `UNIQUE` violation becomes `409`, and everything else becomes `500` with a generic message. The real error goes to the server log, not to the client.\n- Always reply in the standardized error format from `API.md`."
+      },
+      "resources": ["zod-docs", "express-docs-pt", "node-best-practices"],
+      "checklist": [
+        { "pt": "Corpo, parâmetros e query validados", "en": "Body, params and query validated" },
+        { "pt": "Middleware central de erros", "en": "Central error middleware" },
+        { "pt": "Erros 500 não mostram detalhes internos ao cliente", "en": "500 errors don't show internal details to the client" },
+        { "pt": "Formato de erro igual em todas as rotas", "en": "Same error format on every route" }
+      ]
+    },
+    {
+      "id": "emprestimos",
+      "title": { "pt": "Empréstimos com regras de negócio", "en": "Loans with business rules" },
+      "goal": {
+        "pt": "Emprestar e devolver livros funciona, e emprestar um livro que já está emprestado retorna `409`, mesmo com duas requisições ao mesmo tempo.",
+        "en": "Borrowing and returning books works, and borrowing a book that's already out returns `409`, even with two simultaneous requests."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "Aqui a API deixa de ser só um \"CRUD\" e passa a ter **regras**.\n\n- `POST /emprestimos` recebe livro e membro. Regras: o livro existe, o membro existe e o livro **não está emprestado**.\n- `POST /emprestimos/:id/devolucao` registra a data de devolução (não deixe devolver duas vezes).\n- `GET /emprestimos?atrasados=true` lista os atrasados (reaproveite a consulta do projeto de SQL).\n- Pense no caso de duas pessoas pedindo o mesmo livro no mesmo segundo: as duas verificações passam e o livro é emprestado duas vezes. Pesquise **transações** e como o próprio banco pode garantir a regra (por exemplo, um índice único parcial para empréstimos em aberto).",
+        "en": "Here the API stops being just \"CRUD\" and gets **rules**.\n\n- `POST /loans` takes a book and a member. Rules: the book exists, the member exists and the book **isn't already borrowed**.\n- `POST /loans/:id/return` records the return date (don't allow returning twice).\n- `GET /loans?overdue=true` lists overdue loans (reuse the query from the SQL project).\n- Think about two people requesting the same book in the same second: both checks pass and the book is lent twice. Look up **transactions** and how the database itself can enforce the rule (for example, a partial unique index on open loans)."
+      },
+      "resources": ["node-postgres", "postgresql-tutorial", "pgexercises"],
+      "checklist": [
+        { "pt": "Empréstimo e devolução funcionando", "en": "Borrowing and returning work" },
+        { "pt": "Livro já emprestado retorna `409`", "en": "An already borrowed book returns `409`" },
+        { "pt": "Listagem de atrasados", "en": "Overdue list" },
+        { "pt": "A regra é garantida pelo banco ou por transação, não só por um `if`", "en": "The rule is enforced by the database or a transaction, not just an `if`" }
+      ],
+      "hint": {
+        "pt": "No PostgreSQL, um `CREATE UNIQUE INDEX ... WHERE devolvido_em IS NULL` impede dois empréstimos em aberto do mesmo livro. Aí é só transformar o erro de violação em `409`.",
+        "en": "In PostgreSQL, a `CREATE UNIQUE INDEX ... WHERE returned_at IS NULL` prevents two open loans for the same book. Then just turn the violation error into a `409`."
+      }
+    },
+    {
+      "id": "testes",
+      "title": { "pt": "Testes automatizados da API", "en": "Automated API tests" },
+      "goal": {
+        "pt": "`npm test` roda testes que chamam as rotas de verdade num banco de teste e cobrem casos de sucesso e de erro.",
+        "en": "`npm test` runs tests that call the real routes against a test database and cover success and error cases."
+      },
+      "estimatedMinutes": 120,
+      "instructions": {
+        "pt": "- Instale **Vitest** e **Supertest**. O Supertest chama o app Express direto, sem subir porta (por isso você separou a criação do app).\n- Use um **banco separado para testes** (outra variável de ambiente) e limpe ou recrie os dados antes de cada arquivo de teste.\n- Teste o que importa: criar livro (201), dados inválidos (400), livro inexistente (404), emprestar livro já emprestado (409), listar atrasados.\n- Um teste bom descreve um comportamento: \"não deixa emprestar um livro já emprestado\". Use isso como nome.\n- Bônus: rode os testes a cada push com GitHub Actions.",
+        "en": "- Install **Vitest** and **Supertest**. Supertest calls the Express app directly, with no port (that's why you separated app creation).\n- Use a **separate test database** (another environment variable) and clean or recreate data before each test file.\n- Test what matters: create a book (201), invalid data (400), unknown book (404), borrowing an already borrowed book (409), listing overdue loans.\n- A good test describes a behavior: \"doesn't allow borrowing an already borrowed book\". Use that as the name.\n- Bonus: run the tests on every push with GitHub Actions."
+      },
+      "resources": ["vitest-guide", "supertest", "node-best-practices"],
+      "checklist": [
+        { "pt": "`npm test` roda e passa", "en": "`npm test` runs and passes" },
+        { "pt": "Banco de teste separado do de desenvolvimento", "en": "Test database separate from development" },
+        { "pt": "Testes de sucesso e de erro (400, 404, 409)", "en": "Success and error tests (400, 404, 409)" }
+      ]
+    },
+    {
+      "id": "readme-deploy",
+      "title": { "pt": "README e deploy com banco gerenciado", "en": "README and deploy with a managed database" },
+      "goal": {
+        "pt": "A API está no ar com um PostgreSQL na nuvem, e o README ensina a usar e a rodar localmente.",
+        "en": "The API is live with a cloud PostgreSQL, and the README explains how to use it and run it locally."
+      },
+      "estimatedMinutes": 90,
+      "instructions": {
+        "pt": "- Crie um PostgreSQL gerenciado e um serviço web no **Render** (ou outra plataforma com plano gratuito) ligado ao seu repositório.\n- Configure as variáveis de ambiente no painel da plataforma, **nunca no código**.\n- Rode o `schema.sql` no banco de produção.\n- Aponte o *health check* da plataforma para `/health`.\n- README com: o que a API faz, link base, tabela de rotas (ou link para o `API.md`), exemplos com `curl`, como rodar localmente (Docker + `.env.example`) e como rodar os testes.\n\nAtenção: planos gratuitos costumam \"dormir\" sem uso, então a primeira requisição pode demorar. Avise no README.",
+        "en": "- Create a managed PostgreSQL and a web service on **Render** (or another platform with a free plan) linked to your repository.\n- Set environment variables in the platform dashboard, **never in the code**.\n- Run `schema.sql` on the production database.\n- Point the platform's *health check* to `/health`.\n- README with: what the API does, base URL, route table (or link to `API.md`), `curl` examples, how to run locally (Docker + `.env.example`) and how to run tests.\n\nNote: free plans usually \"sleep\" when idle, so the first request may be slow. Mention it in the README."
+      },
+      "resources": ["render-docs", "github-docs-start-pt"],
+      "checklist": [
+        { "pt": "API no ar com banco na nuvem", "en": "API live with a cloud database" },
+        { "pt": "Segredos só nas variáveis de ambiente da plataforma", "en": "Secrets only in the platform's environment variables" },
+        { "pt": "Health check configurado", "en": "Health check configured" },
+        { "pt": "README com exemplos de `curl` e instruções locais", "en": "README with `curl` examples and local instructions" }
+      ]
+    }
+  ],
+  "extraChallenges": [
+    { "pt": "Documentação interativa com OpenAPI/Swagger", "en": "Interactive documentation with OpenAPI/Swagger" },
+    { "pt": "Autenticação com JWT para rotas de escrita", "en": "JWT authentication for write routes" },
+    { "pt": "Refaça a API com Fastify ou com um ORM (Prisma/Drizzle) e compare", "en": "Rebuild the API with Fastify or an ORM (Prisma/Drizzle) and compare" }
+  ],
+  "portfolioTip": {
+    "pt": "No README, destaque as decisões: queries parametrizadas, regra de empréstimo garantida pelo banco e testes de erro. Em entrevista de backend, explicar o porquê vale mais que a quantidade de rotas.",
+    "en": "In the README, highlight the decisions: parameterized queries, the loan rule enforced by the database, and error tests. In a backend interview, explaining the why matters more than the number of routes."
+  }
+}
