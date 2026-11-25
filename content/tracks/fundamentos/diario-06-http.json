@@ -1,0 +1,444 @@
+{
+  "id": "diario-06-http",
+  "track": "fundamentos",
+  "order": 6,
+  "title": {
+    "pt": "Parte 6: o Diário conversa com a internet (HTTP e APIs)"
+  },
+  "feature": {
+    "pt": "Os próximos feriados nacionais, buscados de uma API pública, com tratamento de carregamento e de erro"
+  },
+  "level": 2,
+  "stack": [
+    "HTTP",
+    "APIs",
+    "JavaScript",
+    "fetch",
+    "DevTools"
+  ],
+  "whatYouBuild": {
+    "pt": "O Diário de Estudos passa a buscar dados na internet: mostra os próximos feriados nacionais vindos da BrasilAPI, avisa quando está carregando e lida com falta de internet ou erro do servidor sem quebrar o resto do app. No caminho, você entende como a web funciona por dentro."
+  },
+  "whatYouLearn": [
+    {
+      "pt": "Como uma página chega ao navegador: cliente, servidor, DNS e pacotes"
+    },
+    {
+      "pt": "Investigar pedidos na aba Network do DevTools"
+    },
+    {
+      "pt": "HTTP por dentro: métodos, códigos de status, cabeçalhos e JSON"
+    },
+    {
+      "pt": "Fazer pedidos pelo terminal com curl"
+    },
+    {
+      "pt": "Buscar dados com fetch, async e await"
+    },
+    {
+      "pt": "Tratar carregamento e erros com try/catch e response.ok"
+    }
+  ],
+  "prerequisites": [
+    "diario-05-sql"
+  ],
+  "steps": [
+    {
+      "id": "como-a-internet-funciona",
+      "title": {
+        "pt": "Como a internet entrega uma página"
+      },
+      "goal": {
+        "pt": "Você explica com suas palavras o caminho de uma página (URL, DNS, servidor, resposta) e identificou na aba Network as requisições que o Diário faz ao abrir."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "Cliente e servidor"
+          },
+          "explanation": {
+            "pt": "O **cliente** pede (o seu navegador) e o **servidor** responde (um computador ligado o tempo todo que guarda o site). Toda a web funciona nesse vai e vem de pedidos e respostas."
+          }
+        },
+        {
+          "term": {
+            "pt": "URL"
+          },
+          "explanation": {
+            "pt": "O endereço completo de algo na web. Em `https://brasilapi.com.br/api/feriados/v1/2026` temos o **protocolo** (`https`), o **domínio** (`brasilapi.com.br`) e o **caminho** (`/api/feriados/v1/2026`)."
+          }
+        },
+        {
+          "term": {
+            "pt": "DNS"
+          },
+          "explanation": {
+            "pt": "O \"catálogo telefônico\" da internet. Computadores se encontram por números (endereços **IP**, como `104.21.32.1`); o DNS traduz o nome que você digita para esse número."
+          }
+        },
+        {
+          "term": {
+            "pt": "Protocolo"
+          },
+          "explanation": {
+            "pt": "Um conjunto de regras combinadas para dois lados conversarem. O **HTTP** é o protocolo da web: define como o pedido e a resposta são escritos."
+          }
+        },
+        {
+          "term": {
+            "pt": "HTTPS"
+          },
+          "explanation": {
+            "pt": "O HTTP com uma camada de **criptografia**: ninguém no meio do caminho (no Wi-Fi da escola, por exemplo) consegue ler ou alterar o que vai e volta. É o cadeado na barra de endereço."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Até aqui, o Diário rodou só no seu computador. Nesta parte final dos Fundamentos, ele vai **buscar informações na internet**. Para isso, você precisa entender o que acontece entre digitar um endereço e a página aparecer.\n\n### Passo 1 — A viagem de uma página, em 5 paradas\n\nQuando você digita `https://developer.mozilla.org` e aperta Enter:\n\n1. **DNS:** o navegador pergunta \"qual é o IP de `developer.mozilla.org`?\" e recebe um número.\n2. **Conexão:** o navegador se conecta ao servidor nesse IP. Como é `https`, os dois combinam uma criptografia antes de qualquer coisa.\n3. **Pedido (requisição):** o navegador envia um texto como \"GET / HTTP/1.1, quero a página inicial\".\n4. **Resposta:** o servidor responde com um **código de status** (200 quer dizer \"tudo certo\") e o conteúdo, o HTML.\n5. **Mais pedidos:** o navegador lê o HTML, encontra o CSS, o JavaScript e as imagens, e faz **um novo pedido para cada um**.\n\nOs dados viajam picados em **pacotes**, que podem até seguir caminhos diferentes e são remontados na chegada. Assista ao vídeo do NIC.br recomendado: ele mostra isso de um jeito muito visual.\n\n### Passo 2 — Veja os pedidos do seu próprio Diário\n\nAbra o Diário (Live Server), aperte `F12` e vá na aba **Network** (Rede). Recarregue a página com `F5`. Aparece uma lista: cada linha é um pedido que o navegador fez. Você deve ver o `index.html`, o `style.css`, o `app.js` e a imagem do logotipo.\n\nPara cada linha, observe:\n\n- **Status:** o código da resposta (200 para sucesso).\n- **Type:** o tipo do arquivo (document, stylesheet, script, png).\n- **Size** e **Time:** tamanho e quanto demorou.\n\nClique no `style.css` e veja a aba **Headers** (Cabeçalhos): lá está a URL pedida, o método (`GET`) e o status.\n\n### Passo 3 — Provoque um erro 404\n\nNo `index.html`, troque temporariamente o `src` da imagem para `imagens/nao-existe.png`, salve e olhe a aba Network: a linha aparece **em vermelho** com status **404** (não encontrado). Agora você sabe investigar quando um arquivo não carrega. Desfaça a mudança.\n\n### Passo 4 — Explique para alguém\n\nEscreva num arquivo `anotacoes-http.md`, com suas palavras, o que acontece quando você abre o Diário no navegador, usando as palavras cliente, servidor, DNS e pedido. Se conseguir explicar para alguém da sua família, você entendeu de verdade."
+      },
+      "estimatedMinutes": 45,
+      "resources": [
+        "mdn-como-a-web-funciona-pt",
+        "mdn-http-overview-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Sei explicar as 5 paradas da viagem de uma página com minhas palavras"
+        },
+        {
+          "pt": "Encontrei na aba Network os pedidos do HTML, do CSS, do JavaScript e da imagem do Diário"
+        },
+        {
+          "pt": "Provoquei e reconheci um erro 404 na aba Network"
+        },
+        {
+          "pt": "Escrevi o `anotacoes-http.md` explicando o caminho de uma página"
+        }
+      ],
+      "videos": [
+        "nicbr-como-funciona-internet"
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "A aba Network está vazia"
+          },
+          "solution": {
+            "pt": "Ela só registra pedidos feitos **com ela aberta**. Deixe o DevTools aberto na aba Network e recarregue a página."
+          }
+        },
+        {
+          "problem": {
+            "pt": "Aparece status 304 em vez de 200"
+          },
+          "solution": {
+            "pt": "304 significa \"não mudou desde a última vez\": o navegador usou a cópia que já tinha guardada (o **cache**). Para ver tudo vindo do servidor, marque a opção **Disable cache** no topo da aba Network e recarregue."
+          }
+        }
+      ]
+    },
+    {
+      "id": "http-por-dentro",
+      "title": {
+        "pt": "HTTP por dentro: métodos, status e JSON"
+      },
+      "goal": {
+        "pt": "Você fez pedidos a uma API pelo terminal com `curl.exe`, sabe o que significam os métodos GET e POST e os códigos 200, 404 e 500, e consegue ler uma resposta em JSON."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "Requisição e resposta"
+          },
+          "explanation": {
+            "pt": "A requisição tem **método**, **URL**, **cabeçalhos** e às vezes um **corpo**. A resposta tem **código de status**, **cabeçalhos** e um **corpo** (o conteúdo)."
+          }
+        },
+        {
+          "term": {
+            "pt": "Métodos HTTP"
+          },
+          "explanation": {
+            "pt": "O verbo do pedido: `GET` (buscar), `POST` (criar), `PUT`/`PATCH` (alterar) e `DELETE` (apagar). Repare como lembram o `SELECT`, `INSERT`, `UPDATE` e `DELETE` do SQL."
+          }
+        },
+        {
+          "term": {
+            "pt": "Códigos de status"
+          },
+          "explanation": {
+            "pt": "Números que resumem a resposta. Família **2xx**: deu certo (200 OK, 201 criado). **4xx**: erro de quem pediu (400 pedido inválido, 404 não encontrado). **5xx**: erro do servidor (500 erro interno)."
+          }
+        },
+        {
+          "term": {
+            "pt": "API"
+          },
+          "explanation": {
+            "pt": "*Application Programming Interface*: uma porta que um sistema oferece para **outros programas** conversarem com ele. Em vez de uma página para pessoas, a API devolve dados para código."
+          }
+        },
+        {
+          "term": {
+            "pt": "JSON numa API"
+          },
+          "explanation": {
+            "pt": "O mesmo JSON da Parte 4, agora viajando pela internet. É o formato mais usado pelas APIs para enviar dados."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Na etapa anterior você viu o navegador pedir arquivos. Agora vamos pedir **dados** a uma API, sem navegador, para enxergar o HTTP \"cru\".\n\n### Passo 1 — Conheça a API que vamos usar\n\nA **BrasilAPI** é uma API pública e gratuita, mantida pela comunidade, com dados do Brasil. Não precisa de cadastro nem de chave. Vamos usar a lista de **feriados nacionais**, que vai ajudar o Diário a planejar os estudos. O endereço é:\n\n```text\nhttps://brasilapi.com.br/api/feriados/v1/2026\n```\n\nAbra esse endereço no navegador: em vez de uma página bonita, aparece texto em JSON. Isso é uma API: dados puros, feitos para programas lerem. (Se o navegador mostrar o JSON todo numa linha, procure a opção \"Estilo de formatação\" ou \"Pretty print\".)\n\n### Passo 2 — Leia o JSON\n\nA resposta é uma **lista** (`[ ]`) de **objetos** (`{ }`), cada um com `date` (data), `name` (nome) e `type` (tipo). Exatamente as estruturas que você usou desde a Parte 1. Encontre o feriado de Tiradentes e anote a data.\n\n### Passo 3 — Faça o pedido pelo terminal\n\nO `curl` é um programa que faz pedidos HTTP pelo terminal. No PowerShell, digite **`curl.exe`** (com o `.exe`; sem ele, o PowerShell usa outro comando com o mesmo apelido):\n\n```powershell\ncurl.exe https://brasilapi.com.br/api/feriados/v1/2026\n```\n\nO JSON aparece no terminal. Agora acrescente `-i` para ver também os **cabeçalhos da resposta**:\n\n```powershell\ncurl.exe -i https://brasilapi.com.br/api/feriados/v1/2026\n```\n\nA primeira linha mostra algo como `HTTP/2 200`: o protocolo e o **status**. Depois vêm os cabeçalhos; procure `content-type: application/json`, que avisa que o corpo é JSON.\n\n### Passo 4 — Provoque erros e leia os status\n\n```powershell\ncurl.exe -i https://brasilapi.com.br/api/feriados/v1/abc\ncurl.exe -i https://brasilapi.com.br/api/nao-existe\n```\n\nObserve o status de cada resposta (um deles deve ser um erro **4xx**, de quem pediu) e leia a mensagem que a API devolve no corpo. Boas APIs explicam o erro em vez de só devolver um número.\n\n### Passo 5 — Os métodos\n\nTodos os pedidos que fizemos foram `GET` (buscar), o método padrão. A BrasilAPI só oferece leitura, mas guarde a correspondência que você vai usar muito no distrito Backend:\n\n```text\nGET    /sessoes      buscar a lista de sessões      (como SELECT)\nPOST   /sessoes      criar uma sessão nova          (como INSERT)\nPUT    /sessoes/3    alterar a sessão de id 3       (como UPDATE)\nDELETE /sessoes/3    apagar a sessão de id 3        (como DELETE)\n```\n\nNo distrito Backend, **você** vai construir uma API assim para o Diário."
+      },
+      "estimatedMinutes": 60,
+      "resources": [
+        "brasilapi",
+        "mdn-http-methods-pt",
+        "mdn-http-status-pt",
+        "everything-curl"
+      ],
+      "checklist": [
+        {
+          "pt": "Abri a API de feriados no navegador e encontrei a data de Tiradentes no JSON"
+        },
+        {
+          "pt": "Fiz o pedido com `curl.exe -i` e encontrei o status e o `content-type` na resposta"
+        },
+        {
+          "pt": "Provoquei pedidos com erro e identifiquei os códigos de status"
+        },
+        {
+          "pt": "Sei a diferença entre GET, POST, PUT e DELETE e a relação com os comandos SQL"
+        }
+      ],
+      "videos": [
+        "nicbr-como-funciona-internet"
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "O PowerShell mostra uma tabela estranha com `StatusCode` e `Content` em vez do JSON"
+          },
+          "solution": {
+            "pt": "Você digitou `curl` sem o `.exe`. No PowerShell, `curl` é um apelido de outro comando (`Invoke-WebRequest`). Use `curl.exe`."
+          }
+        },
+        {
+          "problem": {
+            "pt": "`curl.exe` não é reconhecido"
+          },
+          "solution": {
+            "pt": "O `curl` vem no Windows 10 e 11 atualizados. Se não existir no seu, use o Git Bash (vem com o Git, que você vai instalar no distrito Git e GitHub) ou faça os pedidos pelo navegador e pela aba Network."
+          }
+        }
+      ]
+    },
+    {
+      "id": "fetch-feriados",
+      "title": {
+        "pt": "Buscando dados com fetch: os próximos feriados no Diário"
+      },
+      "goal": {
+        "pt": "O Diário mostra os próximos três feriados nacionais, buscados da BrasilAPI com `fetch` e `async/await`, sem recarregar a página."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "`fetch`"
+          },
+          "explanation": {
+            "pt": "A função do JavaScript para fazer pedidos HTTP pelo código. `fetch(url)` faz um `GET` naquele endereço."
+          }
+        },
+        {
+          "term": {
+            "pt": "Código assíncrono"
+          },
+          "explanation": {
+            "pt": "Código que **não trava a página enquanto espera**. Um pedido pela internet pode demorar; enquanto isso, a página continua respondendo a cliques e rolagem."
+          }
+        },
+        {
+          "term": {
+            "pt": "Promise (promessa)"
+          },
+          "explanation": {
+            "pt": "Um objeto que representa um resultado **que ainda vai chegar**. O `fetch` devolve uma promessa da resposta, não a resposta em si."
+          }
+        },
+        {
+          "term": {
+            "pt": "`async` e `await`"
+          },
+          "explanation": {
+            "pt": "Palavras que deixam o código assíncrono parecido com o normal. Dentro de uma função `async`, `await` significa \"espere esta promessa terminar e me dê o resultado\"."
+          }
+        },
+        {
+          "term": {
+            "pt": "`response.json()`"
+          },
+          "explanation": {
+            "pt": "Lê o corpo da resposta e converte de JSON para objetos e listas de JavaScript (o `JSON.parse` da Parte 4, feito por você). Também é assíncrono, por isso leva `await`."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Agora o Diário vai fazer sozinho o que você fez com o `curl`: buscar os feriados e mostrar os próximos na tela. Assim você pode planejar sessões de estudo extras nos dias de folga.\n\n### Passo 1 — O lugar na página\n\nNo `index.html`, crie uma nova seção no `<main>`:\n\n```html\n<section class=\"cartao\">\n  <h2>Próximos feriados</h2>\n  <p>Aproveite para adiantar os estudos!</p>\n  <ul id=\"lista-feriados\"></ul>\n</section>\n```\n\n### Passo 2 — Seu primeiro fetch, no console\n\nAntes de mexer no `app.js`, teste no Console do navegador:\n\n```js\nconst resposta = await fetch(\"https://brasilapi.com.br/api/feriados/v1/2026\");\nresposta.status\nconst feriados = await resposta.json();\nferiados.length\nferiados[0]\n```\n\nO console aceita `await` direto. Veja: `resposta.status` é 200, e `feriados` é uma lista de objetos, igual à que você viu no navegador.\n\n### Passo 3 — A função que busca\n\nNo `app.js`:\n\n```js\nconst listaFeriados = document.querySelector(\"#lista-feriados\");\n\nasync function carregarFeriados() {\n  const ano = new Date().getFullYear();\n  const resposta = await fetch(`https://brasilapi.com.br/api/feriados/v1/${ano}`);\n  const feriados = await resposta.json();\n  mostrarFeriados(feriados);\n}\n```\n\nA palavra `async` antes de `function` permite usar `await` dentro dela. Usamos o ano atual com `new Date().getFullYear()`, assim o Diário continua funcionando no ano que vem.\n\n### Passo 4 — Filtrar os próximos e mostrar\n\n```js\nfunction mostrarFeriados(feriados) {\n  const hoje = new Date().toISOString().slice(0, 10);\n  const proximos = feriados.filter(function (feriado) {\n    return feriado.date >= hoje;\n  });\n\n  listaFeriados.innerHTML = \"\";\n  for (const feriado of proximos.slice(0, 3)) {\n    const item = document.createElement(\"li\");\n    item.textContent = `${feriado.date}: ${feriado.name}`;\n    listaFeriados.append(item);\n  }\n}\n```\n\nOlha quanta coisa que você já conhece: o `filter` (da Parte 4) mantém só os feriados de hoje em diante (as datas em `AAAA-MM-DD` podem ser comparadas como texto); o `slice(0, 3)` pega só os três primeiros; o laço cria um `<li>` para cada um com `textContent`. No final do arquivo, chame `carregarFeriados();`.\n\n### Passo 5 — Datas no formato brasileiro\n\n`2026-04-21` não é como a gente lê datas. Crie uma função que receba `\"2026-04-21\"` e devolva `\"21/04/2026\"`. Dica: `data.split(\"-\")` separa o texto nos hífens e devolve `[\"2026\", \"04\", \"21\"]`; depois, monte o texto na ordem que quiser.\n\n### Passo 6 — Observe na aba Network\n\nRecarregue o Diário com a aba Network aberta e procure o pedido para `brasilapi.com.br`. Clique nele e veja a aba **Response** (Resposta): é o mesmo JSON. O seu código fez um pedido HTTP de verdade!\n\n> Se aparecer no Console um erro com a palavra **CORS**, é porque o servidor não autorizou o seu site a pedir dados para ele. A BrasilAPI autoriza, mas muitas APIs não. Esse é um assunto que você vai entender bem no distrito Backend."
+      },
+      "estimatedMinutes": 75,
+      "resources": [
+        "mdn-fetch-pt",
+        "brasilapi",
+        "javascript-info-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Fiz um `fetch` no console e vi o status 200 e a lista de feriados"
+        },
+        {
+          "pt": "O Diário mostra os três próximos feriados, buscados com `async/await`"
+        },
+        {
+          "pt": "A busca usa o ano atual, não um ano escrito à mão"
+        },
+        {
+          "pt": "As datas aparecem no formato dia/mês/ano"
+        },
+        {
+          "pt": "Encontrei o pedido à BrasilAPI na aba Network"
+        }
+      ],
+      "videos": [
+        "cev-javascript"
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "`await is only valid in async functions`"
+          },
+          "solution": {
+            "pt": "Você usou `await` dentro de uma função sem `async`. Coloque `async` antes de `function`. (No Console funciona sem, mas no arquivo, não.)"
+          }
+        },
+        {
+          "problem": {
+            "pt": "A lista de feriados fica vazia"
+          },
+          "solution": {
+            "pt": "Confira o filtro: se a comparação estiver invertida (`<=`), sobram só os feriados que já passaram. Use `console.log(feriados)` e `console.log(proximos)` para ver em qual passo a lista esvaziou. Perto do fim do ano, pode não sobrar nenhum feriado: aí busque também o ano seguinte."
+          }
+        }
+      ]
+    },
+    {
+      "id": "erros-e-carregando",
+      "title": {
+        "pt": "Carregando e erros: quando a internet falha"
+      },
+      "goal": {
+        "pt": "O Diário mostra \"Carregando...\" enquanto busca os feriados e uma mensagem amigável quando a internet ou a API falham, sem quebrar o resto da página."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "Estados de uma requisição"
+          },
+          "explanation": {
+            "pt": "Todo pedido passa por estados: **carregando** (esperando a resposta), **sucesso** (os dados chegaram) ou **erro** (algo falhou). Uma boa interface mostra os três."
+          }
+        },
+        {
+          "term": {
+            "pt": "`try/catch`"
+          },
+          "explanation": {
+            "pt": "Uma rede de proteção: o código dentro do `try` é executado; se der erro, em vez de quebrar tudo, o JavaScript pula para o `catch`, onde você trata o problema."
+          }
+        },
+        {
+          "term": {
+            "pt": "`response.ok`"
+          },
+          "explanation": {
+            "pt": "Vale `true` quando o status é da família 2xx. Detalhe importante: o `fetch` **não** considera 404 ou 500 como erro; você precisa conferir o `ok` por conta própria."
+          }
+        },
+        {
+          "term": {
+            "pt": "`throw`"
+          },
+          "explanation": {
+            "pt": "Lança um erro de propósito. Usado quando você descobre um problema (como um status 500) e quer que o `catch` cuide dele."
+          }
+        },
+        {
+          "term": {
+            "pt": "Degradação elegante"
+          },
+          "explanation": {
+            "pt": "Quando uma parte falha, o resto do app continua funcionando. Se os feriados não carregarem, o registro de sessões não pode parar."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Internet cai, servidores saem do ar, o Wi-Fi da escola trava. Um app profissional **espera pelo pior** e trata cada situação com calma. É isso que separa um projeto de curso de um projeto de verdade.\n\n### Passo 1 — Simule a internet lenta e a sem internet\n\nNa aba Network, encontre o menu que diz **No throttling** (Sem limitação) e escolha **Slow 3G** (ou \"3G lento\"). Recarregue: a lista de feriados demora a aparecer e, nesse tempo, a seção fica vazia, sem explicação. Agora escolha **Offline** e recarregue: a seção fica vazia para sempre e o Console mostra um erro vermelho. Volte para **No throttling** quando terminar.\n\n### Passo 2 — Mostre que está carregando\n\nNo começo da função `carregarFeriados`:\n\n```js\nlistaFeriados.innerHTML = \"<li>Carregando feriados...</li>\";\n```\n\n(Aqui o `innerHTML` é seguro porque o texto é nosso, não veio de quem usa o app.) Teste de novo com Slow 3G: agora a pessoa sabe que algo está acontecendo.\n\n### Passo 3 — Trate os erros com try/catch\n\nReescreva a função:\n\n```js\nasync function carregarFeriados() {\n  listaFeriados.innerHTML = \"<li>Carregando feriados...</li>\";\n  try {\n    const ano = new Date().getFullYear();\n    const resposta = await fetch(`https://brasilapi.com.br/api/feriados/v1/${ano}`);\n    if (!resposta.ok) {\n      throw new Error(`A API respondeu com status ${resposta.status}`);\n    }\n    const feriados = await resposta.json();\n    mostrarFeriados(feriados);\n  } catch (erro) {\n    console.error(erro);\n    listaFeriados.innerHTML = \"\";\n    const item = document.createElement(\"li\");\n    item.textContent = \"Não foi possível carregar os feriados agora. Confira sua conexão.\";\n    listaFeriados.append(item);\n  }\n}\n```\n\nLeia com calma: tudo o que pode falhar fica dentro do `try`. Se o `fetch` falhar (sem internet), o JavaScript pula direto para o `catch`. Se a API responder com erro (como 500), o `fetch` **não** falha sozinho; por isso conferimos `resposta.ok` e lançamos o erro com `throw`, mandando também para o `catch`. Lá, mostramos uma mensagem humana na tela e registramos o erro técnico no console com `console.error`, para quem for investigar.\n\n### Passo 4 — Teste os três estados\n\nCom **Slow 3G**, você deve ver \"Carregando...\". Com **Offline**, a mensagem de erro. Com **No throttling**, os feriados. Para testar o erro de status, troque temporariamente a URL por uma que não existe (por exemplo `/api/feriados/v1/abc`) e veja a mensagem aparecer. Desfaça depois.\n\n### Passo 5 — Confira a degradação elegante\n\nCom a rede em **Offline**, recarregue e registre uma sessão de estudo. O registro deve funcionar normalmente, porque ele não depende da internet: os feriados falharam, mas o resto do Diário continua de pé.\n\n### Passo 6 — Comemore e olhe para trás\n\nVocê terminou o distrito Fundamentos! Pense no caminho: um programa no terminal virou uma página com estrutura, visual, interatividade, dados guardados, um banco desenhado e comunicação com a internet. Releia o pseudocódigo da Parte 1 e perceba quanto você evoluiu.\n\n**Próximo destino: o distrito Git e GitHub.** Lá você vai guardar todas as versões do Diário, colocá-lo na nuvem e publicá-lo na internet para qualquer pessoa acessar."
+      },
+      "estimatedMinutes": 60,
+      "resources": [
+        "mdn-fetch-pt",
+        "mdn-http-status-pt",
+        "javascript-info-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Simulei internet lenta e offline pela aba Network"
+        },
+        {
+          "pt": "Aparece \"Carregando feriados...\" enquanto a resposta não chega"
+        },
+        {
+          "pt": "Sem internet ou com erro da API, aparece uma mensagem amigável na tela e o erro técnico no console"
+        },
+        {
+          "pt": "O código confere `resposta.ok` e trata erros de status com `throw`"
+        },
+        {
+          "pt": "Mesmo offline, registrar sessões continua funcionando"
+        }
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "A mensagem de erro não aparece quando a API devolve 404"
+          },
+          "solution": {
+            "pt": "Faltou conferir `resposta.ok`. O `fetch` só cai no `catch` quando a conexão falha; um status de erro chega como uma resposta \"normal\"."
+          }
+        },
+        {
+          "problem": {
+            "pt": "Um erro nos feriados quebrou o resto do app"
+          },
+          "solution": {
+            "pt": "Algum código fora do `try` está usando os feriados, ou o erro aconteceu antes de o formulário ser configurado. Garanta que todo o trabalho com a API esteja dentro do `try` e que `carregarFeriados()` seja chamada no final do arquivo."
+          }
+        }
+      ]
+    }
+  ],
+  "extraChallenges": [
+    {
+      "pt": "Mostre também quantos dias faltam para cada feriado"
+    },
+    {
+      "pt": "Guarde os feriados no localStorage e mostre a versão guardada quando estiver sem internet"
+    },
+    {
+      "pt": "Use a API ViaCEP (nos recursos) para a pessoa informar o CEP e o Diário mostrar a cidade no rodapé"
+    }
+  ],
+  "portfolioTip": {
+    "pt": "No README do projeto (você vai criar um no distrito Git), explique como o app trata a falta de internet. Mostrar que você pensou nos casos de erro é um sinal de maturidade que entrevistadores procuram."
+  }
+}

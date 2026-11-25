@@ -1,0 +1,665 @@
+{
+  "id": "diario-01-terminal",
+  "track": "fundamentos",
+  "order": 1,
+  "title": {
+    "pt": "Parte 1: primeiros passos, terminal e lógica"
+  },
+  "feature": {
+    "pt": "Um programa no terminal que soma suas horas de estudo da semana"
+  },
+  "level": 1,
+  "stack": [
+    "JavaScript",
+    "Node.js",
+    "Terminal",
+    "VS Code"
+  ],
+  "whatYouBuild": {
+    "pt": "O começo do Diário de Estudos: um programa em JavaScript, rodando no terminal com o Node.js, que guarda suas sessões de estudo, soma as horas da semana, diz se você bateu a meta e mostra um relatório por matéria. No caminho, você monta seu computador de programador e perde o medo do terminal."
+  },
+  "whatYouLearn": [
+    {
+      "pt": "O que é um programa, um algoritmo e como quebrar um problema em partes"
+    },
+    {
+      "pt": "Instalar e usar o VS Code e o Node.js"
+    },
+    {
+      "pt": "Comandos básicos do terminal: pwd, ls, cd, mkdir"
+    },
+    {
+      "pt": "Variáveis, tipos de dados e operadores em JavaScript"
+    },
+    {
+      "pt": "Listas, repetições (for...of) e decisões (if/else)"
+    },
+    {
+      "pt": "Objetos e funções para organizar o código"
+    }
+  ],
+  "prerequisites": [],
+  "steps": [
+    {
+      "id": "o-que-e-programar",
+      "title": {
+        "pt": "O que é programar (e o que é um algoritmo)"
+      },
+      "goal": {
+        "pt": "Você consegue explicar com suas palavras o que é um programa e escreveu, no papel ou num arquivo de texto, o algoritmo do Diário de Estudos."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "Programa"
+          },
+          "explanation": {
+            "pt": "Uma lista de instruções que o computador segue, uma por uma, exatamente na ordem em que foram escritas. O computador não adivinha nada: ele faz só o que está escrito."
+          }
+        },
+        {
+          "term": {
+            "pt": "Algoritmo"
+          },
+          "explanation": {
+            "pt": "A sequência de passos para resolver um problema, escrita de um jeito que não deixe dúvida. Uma receita de bolo é um algoritmo: ingredientes (entrada), modo de preparo (processamento) e o bolo pronto (saída)."
+          }
+        },
+        {
+          "term": {
+            "pt": "Linguagem de programação"
+          },
+          "explanation": {
+            "pt": "Um idioma com regras rígidas que tanto pessoas quanto computadores conseguem ler. Neste distrito você vai usar **JavaScript**, uma das linguagens mais usadas do mundo."
+          }
+        },
+        {
+          "term": {
+            "pt": "Código-fonte"
+          },
+          "explanation": {
+            "pt": "O texto que você escreve na linguagem de programação. Fica salvo em arquivos comuns, como `diario.js`."
+          }
+        },
+        {
+          "term": {
+            "pt": "Entrada, processamento e saída"
+          },
+          "explanation": {
+            "pt": "Quase todo programa recebe dados (entrada), faz contas ou decisões com eles (processamento) e mostra um resultado (saída). Guarde esse trio: ele aparece em tudo."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Antes de abrir qualquer programa, vamos entender a ideia principal. Programar é **ensinar o computador a fazer uma tarefa**, passo a passo. O detalhe importante é que o computador é extremamente rápido, mas não tem bom senso: se você esquecer um passo, ele não vai \"completar\" sozinho.\n\n### Passo 1 — Entenda o projeto que você vai construir\n\nDurante todo o distrito Fundamentos você vai construir **um único projeto**: o **Diário de Estudos**. Ele serve para registrar suas sessões de estudo (qual matéria, quantos minutos, em que dia) e mostrar quanto você já estudou na semana. Cada prédio do distrito acrescenta uma parte:\n\n1. Agora: um programa que roda no terminal e soma suas horas.\n2. Depois: a página do Diário em HTML.\n3. Em seguida: o visual com CSS.\n4. Depois: a página fica interativa com JavaScript e lembra dos dados.\n5. Depois: os dados vão para um banco de dados com SQL.\n6. Por fim: o Diário conversa com a internet (HTTP e APIs).\n\n### Passo 2 — Pense como um programador: decomponha o problema\n\nProblemas grandes assustam. O truque é **quebrar em pedaços pequenos**. Pergunte: \"o que o Diário precisa fazer?\". Uma resposta possível:\n\n- guardar cada sessão de estudo (matéria e minutos);\n- somar os minutos de todas as sessões;\n- converter minutos em horas;\n- dizer se a meta da semana foi atingida.\n\n### Passo 3 — Escreva o algoritmo em português (pseudocódigo)\n\nAbra o Bloco de Notas (ou um caderno) e escreva os passos como se fosse explicar para alguém muito literal. Exemplo:\n\n```text\n1. Comece com o total de minutos igual a zero.\n2. Para cada sessão de estudo da semana:\n     some os minutos da sessão ao total.\n3. Divida o total por 60 para ter as horas.\n4. Se as horas forem maiores ou iguais à meta:\n     mostre \"Meta atingida!\"\n   Senão:\n     mostre quantas horas faltam.\n```\n\nIsso se chama **pseudocódigo**: parece código, mas está em português. Repare em três ideias que vão aparecer em todas as linguagens:\n\n- **guardar valores** (o \"total de minutos\" é uma *variável*);\n- **repetir** uma ação (\"para cada sessão\" é uma *repetição*);\n- **decidir** (\"se... senão\" é uma *condição*).\n\n### Passo 4 — Teste o algoritmo \"na mão\"\n\nProgramadores testam a lógica antes de digitar código. Faça uma tabela no papel com três sessões, por exemplo 50, 30 e 40 minutos, e uma meta de 2 horas. Siga cada passo do seu algoritmo e anote o valor do total a cada linha. O resultado deve ser 120 minutos, ou seja, 2 horas, e a mensagem \"Meta atingida!\". Se algo não bater, corrija o algoritmo agora: é muito mais barato errar no papel.\n\n> **Dica de professor:** se você assistir aos vídeos recomendados, pare o vídeo a cada exemplo e tente resolver antes de ver a resposta. Aprender programação é como aprender a andar de bicicleta: só assistir não basta."
+      },
+      "estimatedMinutes": 30,
+      "resources": [
+        "roadmap-sh",
+        "cs50x"
+      ],
+      "checklist": [
+        {
+          "pt": "Expliquei com minhas palavras o que é um programa e o que é um algoritmo"
+        },
+        {
+          "pt": "Escrevi o pseudocódigo do Diário com uma variável, uma repetição e uma condição"
+        },
+        {
+          "pt": "Testei o algoritmo no papel com três sessões e o resultado bateu"
+        }
+      ],
+      "videos": [
+        "cev-algoritmos"
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "Não sei por onde começar o algoritmo"
+          },
+          "solution": {
+            "pt": "Comece pelo resultado que você quer (a saída) e volte de trás para frente: para dizer se bateu a meta, eu preciso do total de horas; para ter o total, preciso somar as sessões; para somar, preciso das sessões. Pronto, achou os passos."
+          }
+        },
+        {
+          "problem": {
+            "pt": "Meu algoritmo ficou com passos vagos, tipo \"calcular tudo\""
+          },
+          "solution": {
+            "pt": "Troque cada passo vago por passos menores até que cada um seja uma ação só: somar, dividir, comparar ou mostrar. Se você precisar pensar para executar um passo, ele ainda está grande demais."
+          }
+        }
+      ]
+    },
+    {
+      "id": "preparar-computador",
+      "title": {
+        "pt": "Preparando o computador: VS Code e Node.js"
+      },
+      "goal": {
+        "pt": "O VS Code está instalado, o Node.js responde no terminal com `node -v` e existe uma pasta `diario-de-estudos` aberta no VS Code."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "Editor de código"
+          },
+          "explanation": {
+            "pt": "Um programa feito para escrever código. Ele colore as palavras da linguagem, avisa erros e completa nomes para você. Vamos usar o **Visual Studio Code (VS Code)**, gratuito e muito usado no mercado."
+          }
+        },
+        {
+          "term": {
+            "pt": "Extensão"
+          },
+          "explanation": {
+            "pt": "Um complemento que você instala no VS Code para ganhar funções novas, como suporte a uma linguagem ou um servidor que atualiza a página sozinho."
+          }
+        },
+        {
+          "term": {
+            "pt": "Node.js"
+          },
+          "explanation": {
+            "pt": "Um programa que **executa JavaScript fora do navegador**. Sem ele, o JavaScript só roda dentro de páginas web. Com ele, você roda seus arquivos `.js` direto no terminal."
+          }
+        },
+        {
+          "term": {
+            "pt": "Versão LTS"
+          },
+          "explanation": {
+            "pt": "Sigla para *Long Term Support* (suporte de longo prazo). É a versão mais estável, recomendada para quem está aprendendo e para empresas."
+          }
+        },
+        {
+          "term": {
+            "pt": "npm"
+          },
+          "explanation": {
+            "pt": "O gerenciador de pacotes que vem junto com o Node.js. Serve para baixar bibliotecas feitas por outras pessoas. Você vai usar bastante nos próximos distritos."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Todo profissional tem suas ferramentas. Um marceneiro tem serrote e martelo; um programador tem um **editor de código** e o **programa que executa a linguagem**. Nesta etapa você monta a sua bancada de trabalho.\n\n### Passo 1 — Instale o VS Code\n\n1. Acesse o site oficial `code.visualstudio.com` e clique no botão de download para Windows.\n2. Rode o instalador. Na tela de opções, **deixe marcadas** as caixas \"Adicionar ao PATH\" e \"Adicionar a ação Abrir com Code\". Elas permitem abrir o VS Code pelo terminal e pelo botão direito do mouse.\n3. Abra o VS Code. Se quiser o menu em português, clique no ícone de quadradinhos na barra lateral (Extensões), pesquise `Portuguese (Brazil) Language Pack` e instale.\n\n> Por que \"Adicionar ao PATH\"? O **PATH** é uma lista de pastas onde o Windows procura programas quando você digita um comando. Se o VS Code está no PATH, o comando `code` funciona em qualquer terminal.\n\n### Passo 2 — Instale o Node.js\n\n1. Acesse `nodejs.org` e baixe a versão marcada como **LTS**.\n2. Rode o instalador e aceite as opções padrão (ele também se adiciona ao PATH).\n3. **Feche e abra de novo** qualquer terminal que estiver aberto. Terminais só enxergam programas instalados depois que são reabertos.\n\n### Passo 3 — Confirme que deu certo\n\nNo VS Code, abra o terminal integrado pelo menu **Terminal → Novo Terminal** (ou o atalho `Ctrl` + `'`). Digite os comandos abaixo, um de cada vez, apertando Enter:\n\n```powershell\nnode -v\nnpm -v\n```\n\nCada comando deve responder com um número de versão, algo como `v24.11.0` e `11.6.0`. Os números podem ser diferentes no seu computador, e tudo bem: o importante é aparecer uma versão e não uma mensagem de erro.\n\n### Passo 4 — Crie a pasta do projeto\n\n1. No Explorador de Arquivos, entre em **Documentos** e crie uma pasta chamada `diario-de-estudos` (sem acentos e sem espaços, assim você evita dor de cabeça no terminal).\n2. No VS Code, use **Arquivo → Abrir Pasta...** e escolha essa pasta. Se aparecer a pergunta \"Você confia nos autores dos arquivos?\", responda que sim: a pasta é sua.\n\nA partir de agora, **todo o Diário de Estudos vai morar nessa pasta**."
+      },
+      "estimatedMinutes": 45,
+      "resources": [
+        "nodejs-learn",
+        "missing-semester"
+      ],
+      "checklist": [
+        {
+          "pt": "O VS Code abre normalmente e (se eu quis) está em português"
+        },
+        {
+          "pt": "`node -v` e `npm -v` mostram números de versão no terminal do VS Code"
+        },
+        {
+          "pt": "Criei a pasta `diario-de-estudos` em Documentos e abri ela no VS Code"
+        }
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "Apareceu \"'node' não é reconhecido como um comando interno ou externo\""
+          },
+          "solution": {
+            "pt": "O terminal não está encontrando o Node. Feche **todas** as janelas do VS Code e abra de novo. Se continuar, reinicie o computador. Se ainda assim não funcionar, reinstale o Node.js e confira se a opção que adiciona ao PATH ficou marcada."
+          }
+        },
+        {
+          "problem": {
+            "pt": "O PowerShell diz que a execução de scripts está desabilitada ao rodar `npm`"
+          },
+          "solution": {
+            "pt": "É uma proteção do Windows. Abra o PowerShell **como administrador** e rode `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`, confirme com `S` e abra o terminal de novo. Esse ajuste vale só para o seu usuário."
+          }
+        }
+      ]
+    },
+    {
+      "id": "terminal-sem-medo",
+      "title": {
+        "pt": "O terminal sem medo"
+      },
+      "goal": {
+        "pt": "Você navega entre pastas, cria pastas e arquivos e abre o projeto no VS Code usando apenas comandos."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "Terminal"
+          },
+          "explanation": {
+            "pt": "Uma janela onde você conversa com o computador por texto: você digita um comando, aperta Enter e ele responde. No Windows, o terminal mais comum é o **PowerShell**."
+          }
+        },
+        {
+          "term": {
+            "pt": "Comando"
+          },
+          "explanation": {
+            "pt": "Uma palavra (às vezes seguida de opções) que pede uma ação ao computador. Exemplo: `mkdir aulas` pede para criar a pasta `aulas`."
+          }
+        },
+        {
+          "term": {
+            "pt": "Diretório"
+          },
+          "explanation": {
+            "pt": "Outro nome para **pasta**. O terminal está sempre \"dentro\" de uma pasta, chamada de diretório atual."
+          }
+        },
+        {
+          "term": {
+            "pt": "Caminho"
+          },
+          "explanation": {
+            "pt": "O endereço de um arquivo ou pasta. **Absoluto** começa do disco (`C:\\Users\\voce\\Documents`); **relativo** parte da pasta atual (`.\\aulas` ou `..` para subir um nível)."
+          }
+        },
+        {
+          "term": {
+            "pt": "Argumento"
+          },
+          "explanation": {
+            "pt": "A informação que vem depois do comando. Em `cd Documents`, o comando é `cd` e o argumento é `Documents`."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Muita gente trava ao ver a \"tela preta\". Mas pense no terminal como um **Explorador de Arquivos em forma de texto**: tudo o que você faz clicando, dá para fazer digitando. E vale a pena aprender, porque Git, Node, bancos de dados e servidores são usados principalmente pelo terminal.\n\nUse o terminal integrado do VS Code (`Ctrl` + `'`). Ele abre já dentro da pasta do projeto.\n\n### Passo 1 — Onde estou?\n\n```powershell\npwd\n```\n\n`pwd` significa *print working directory* (mostre o diretório de trabalho). A resposta é o caminho da pasta onde o terminal está, algo como `C:\\Users\\voce\\Documents\\diario-de-estudos`.\n\n### Passo 2 — O que tem aqui?\n\n```powershell\nls\n```\n\n`ls` lista o conteúdo da pasta atual. Como a pasta é nova, a lista vem vazia. (No PowerShell, `dir` faz a mesma coisa.)\n\n### Passo 3 — Crie pastas e entre nelas\n\n```powershell\nmkdir rascunhos\ncd rascunhos\npwd\ncd ..\npwd\n```\n\nLeia linha por linha: `mkdir` (*make directory*) cria a pasta `rascunhos`; `cd` (*change directory*) entra nela; `pwd` confirma onde você está; `cd ..` **volta uma pasta** (os dois pontos significam \"a pasta de cima\"); o último `pwd` mostra que você voltou.\n\n### Passo 4 — Crie um arquivo e abra no editor\n\n```powershell\nni anotacoes.txt\ncode anotacoes.txt\n```\n\n`ni` é o atalho do PowerShell para *New-Item*: cria um arquivo vazio. `code` abre o arquivo no VS Code. Escreva qualquer frase, salve com `Ctrl` + `S` e confira com `ls` que o arquivo existe.\n\n### Passo 5 — Três truques que economizam horas\n\n- **Tab completa nomes:** digite `cd ras` e aperte `Tab`. O terminal completa para `rascunhos`.\n- **Setas para cima e para baixo** mostram os comandos que você já digitou. Não precisa redigitar.\n- **`cls`** limpa a tela quando ela ficar poluída.\n\n### Passo 6 — Arrume a casa\n\nA pasta `rascunhos` e o `anotacoes.txt` foram só treino. Apague pelo Explorador de Arquivos do VS Code (botão direito → Excluir). No terminal existe o comando `rm`, mas ele apaga **sem mandar para a lixeira**, então use com atenção quando for usar.\n\n> **Para lembrar:** o terminal não dá \"parabéns\". Quando um comando dá certo, muitas vezes ele simplesmente não mostra nada. Silêncio no terminal costuma ser sinal de sucesso."
+      },
+      "estimatedMinutes": 45,
+      "resources": [
+        "google-linha-de-comando-pt",
+        "tlcl",
+        "missing-semester"
+      ],
+      "checklist": [
+        {
+          "pt": "Usei `pwd`, `ls`, `mkdir` e `cd` e entendi o que cada um faz"
+        },
+        {
+          "pt": "Voltei uma pasta com `cd ..` e confirmei com `pwd`"
+        },
+        {
+          "pt": "Criei um arquivo com `ni` e abri no VS Code com `code`"
+        },
+        {
+          "pt": "Usei Tab para completar um nome e as setas para repetir um comando"
+        }
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "\"Não é possível localizar o caminho\" ao usar `cd`"
+          },
+          "solution": {
+            "pt": "O nome está errado ou você está na pasta errada. Rode `ls` para ver o que existe na pasta atual e use `Tab` para completar o nome; assim o terminal escreve o nome exato para você."
+          }
+        },
+        {
+          "problem": {
+            "pt": "A pasta tem espaço no nome e o `cd` falha"
+          },
+          "solution": {
+            "pt": "Coloque o caminho entre aspas: `cd \"Meus Projetos\"`. Por isso recomendamos nomes sem espaços e sem acentos, como `diario-de-estudos`."
+          }
+        },
+        {
+          "problem": {
+            "pt": "O comando `code` não funciona"
+          },
+          "solution": {
+            "pt": "O VS Code não foi adicionado ao PATH na instalação. Abra o VS Code, aperte `Ctrl` + `Shift` + `P`, pesquise `Shell Command: Install 'code' command in PATH` (se existir) ou reinstale marcando \"Adicionar ao PATH\". Depois feche e abra o terminal."
+          }
+        }
+      ]
+    },
+    {
+      "id": "primeiro-programa",
+      "title": {
+        "pt": "Seu primeiro programa: variáveis e tipos de dados"
+      },
+      "goal": {
+        "pt": "O arquivo `diario.js` guarda dados de uma sessão de estudo em variáveis e mostra uma frase completa no terminal com `node diario.js`."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "Variável"
+          },
+          "explanation": {
+            "pt": "Uma **caixinha com etiqueta** que guarda um valor. A etiqueta é o nome (`minutos`) e o conteúdo é o valor (`50`). Você usa o nome para buscar o valor depois."
+          }
+        },
+        {
+          "term": {
+            "pt": "`const` e `let`"
+          },
+          "explanation": {
+            "pt": "As duas palavras criam variáveis. `const` é para valores que **não vão mudar** depois de criados; `let` é para valores que **vão mudar**. Na dúvida, comece com `const`."
+          }
+        },
+        {
+          "term": {
+            "pt": "Tipos de dados"
+          },
+          "explanation": {
+            "pt": "O \"tipo\" do valor guardado: **number** (números, como `50` ou `1.5`), **string** (textos, sempre entre aspas: `\"Matemática\"`) e **boolean** (só `true` ou `false`, verdadeiro ou falso)."
+          }
+        },
+        {
+          "term": {
+            "pt": "Operadores"
+          },
+          "explanation": {
+            "pt": "Símbolos que fazem contas e comparações: `+` soma, `-` subtrai, `*` multiplica, `/` divide. O `+` com textos **junta** os textos (concatenação)."
+          }
+        },
+        {
+          "term": {
+            "pt": "`console.log`"
+          },
+          "explanation": {
+            "pt": "O comando que **mostra algo no terminal**. É a principal forma de ver o que o seu programa está fazendo."
+          }
+        },
+        {
+          "term": {
+            "pt": "Comentário"
+          },
+          "explanation": {
+            "pt": "Texto que o computador ignora, usado para explicar o código para pessoas. Em JavaScript, tudo depois de `//` na mesma linha é comentário."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Chegou a hora de transformar o pseudocódigo em código de verdade. Vamos devagar, uma ideia por vez.\n\n### Passo 1 — Crie o arquivo\n\nNa pasta `diario-de-estudos`, crie o arquivo `diario.js` (no VS Code: botão \"Novo Arquivo\" na barra lateral). O `.js` no final avisa a todo mundo, inclusive ao VS Code, que é um arquivo JavaScript.\n\n### Passo 2 — O clássico \"olá\"\n\nDigite (não copie e cole; digitar ajuda a memorizar):\n\n```js\n// Meu primeiro programa: o começo do Diário de Estudos\nconsole.log(\"Olá! Este é o meu Diário de Estudos.\");\n```\n\nSalve e rode no terminal:\n\n```powershell\nnode diario.js\n```\n\nSe a frase apareceu, parabéns: você acabou de escrever e executar um programa. A primeira linha é um comentário (o Node ignora); a segunda manda o texto entre aspas para o terminal.\n\n### Passo 3 — Guarde dados em variáveis\n\nApague o `console.log` e escreva:\n\n```js\nconst materia = \"Matemática\";\nconst minutos = 50;\nconst fizExercicios = true;\n\nconsole.log(materia);\nconsole.log(minutos);\nconsole.log(fizExercicios);\n```\n\nRode de novo com `node diario.js`. Repare nos três tipos: o texto está entre aspas (string), o número não (number) e `true` também não (boolean). **Se você colocar aspas em `50`, ele vira texto**, e isso muda as contas, como você vai ver já já.\n\n### Passo 4 — Faça contas\n\n```js\nconst horas = minutos / 60;\nconsole.log(horas);\n```\n\nO resultado é `0.8333333333333334`. Em programação, o separador decimal é **ponto**, não vírgula. Para arredondar com uma casa decimal, use `horas.toFixed(1)`, que devolve `\"0.8\"`.\n\n### Passo 5 — Monte uma frase com template string\n\nJuntar textos com `+` funciona (`\"Estudei \" + materia`), mas fica confuso. Use a **template string**, escrita com crase (\\`), que deixa colocar variáveis dentro do texto com `${}`:\n\n```js\nconsole.log(`Hoje estudei ${materia} por ${minutos} minutos (${horas.toFixed(1)} h).`);\n```\n\n### Passo 6 — Faça um experimento (é assim que se aprende)\n\nTroque `const minutos = 50;` por `const minutos = \"50\";` (com aspas) e adicione `console.log(minutos + 10);`. O resultado é `5010`, e não `60`! O `+` com um texto **junta** em vez de somar. Esse é um dos erros mais comuns de quem começa. Volte para o número sem aspas.\n\nPor último, tente mudar uma `const` depois de criada (`minutos = 30;`) e rode: o Node mostra um erro `TypeError: Assignment to constant variable.` Leia a mensagem com calma. **Mensagens de erro são pistas**, não broncas. Troque para `let minutos = 50;` e veja que agora pode mudar."
+      },
+      "estimatedMinutes": 60,
+      "resources": [
+        "javascript-info-pt",
+        "mdn-js-guide-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Rodei `node diario.js` e vi minha frase no terminal"
+        },
+        {
+          "pt": "Criei variáveis dos três tipos: string, number e boolean"
+        },
+        {
+          "pt": "Calculei as horas a partir dos minutos e arredondei com `toFixed`"
+        },
+        {
+          "pt": "Montei uma frase com template string (crase e `${}`)"
+        },
+        {
+          "pt": "Entendi por que `\"50\" + 10` dá `5010` e por que `const` não pode mudar"
+        }
+      ],
+      "videos": [
+        "cev-javascript"
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "`SyntaxError: Invalid or unexpected token`"
+          },
+          "solution": {
+            "pt": "Quase sempre é aspas ou crase que abriu e não fechou, ou aspas \"curvas\" coladas de outro lugar (“assim”). Digite as aspas no próprio VS Code e confira se cada uma tem par."
+          }
+        },
+        {
+          "problem": {
+            "pt": "`ReferenceError: materia is not defined`"
+          },
+          "solution": {
+            "pt": "Você usou um nome que não existe naquele ponto. Confira a grafia (JavaScript diferencia maiúsculas de minúsculas: `Materia` é diferente de `materia`) e se a variável foi criada **antes** da linha que a usa."
+          }
+        },
+        {
+          "problem": {
+            "pt": "O terminal diz que não encontrou o arquivo `diario.js`"
+          },
+          "solution": {
+            "pt": "O terminal está em outra pasta. Rode `pwd` e `ls`: se o `diario.js` não aparecer na lista, use `cd` para entrar na pasta `diario-de-estudos`."
+          }
+        }
+      ]
+    },
+    {
+      "id": "decisoes-e-repeticoes",
+      "title": {
+        "pt": "Decisões e repetições: somando a semana"
+      },
+      "goal": {
+        "pt": "O `diario.js` soma os minutos de todas as sessões da semana com uma repetição e diz se a meta foi atingida com uma condição."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "Array (lista)"
+          },
+          "explanation": {
+            "pt": "Uma variável que guarda **vários valores em ordem**, entre colchetes: `[50, 30, 40]`. Cada valor tem uma posição, chamada **índice**, que começa em **0**."
+          }
+        },
+        {
+          "term": {
+            "pt": "Repetição (laço)"
+          },
+          "explanation": {
+            "pt": "Um trecho de código que roda várias vezes. O `for...of` percorre uma lista item por item: \"para cada sessão da lista, faça isto\"."
+          }
+        },
+        {
+          "term": {
+            "pt": "Acumulador"
+          },
+          "explanation": {
+            "pt": "Uma variável que começa em zero e vai **somando** um valor a cada repetição. É assim que se calcula um total."
+          }
+        },
+        {
+          "term": {
+            "pt": "Condição (`if`/`else`)"
+          },
+          "explanation": {
+            "pt": "Uma decisão: **se** a condição for verdadeira, roda um bloco; **senão**, roda outro. A condição é sempre algo que resulta em `true` ou `false`."
+          }
+        },
+        {
+          "term": {
+            "pt": "Operadores de comparação"
+          },
+          "explanation": {
+            "pt": "`>` maior, `<` menor, `>=` maior ou igual, `<=` menor ou igual, `===` igual e `!==` diferente. Use sempre `===` (três iguais) para comparar."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Lembra do pseudocódigo da primeira etapa? Ele tinha uma **repetição** (\"para cada sessão\") e uma **decisão** (\"se atingiu a meta\"). Agora vamos escrever exatamente aquilo em JavaScript.\n\n### Passo 1 — Guarde a semana numa lista\n\nApague o conteúdo do `diario.js` (ou comente com `//`) e comece assim:\n\n```js\nconst minutosDaSemana = [50, 30, 0, 45, 60, 20, 0];\nconst metaEmHoras = 4;\n\nconsole.log(minutosDaSemana[0]); // primeiro dia: 50\nconsole.log(minutosDaSemana.length); // quantos dias: 7\n```\n\nOs colchetes criam a lista. `minutosDaSemana[0]` pega o **primeiro** item (lembre: a contagem começa no zero). `.length` diz quantos itens a lista tem.\n\n### Passo 2 — Some tudo com uma repetição\n\n```js\nlet total = 0;\n\nfor (const minutos of minutosDaSemana) {\n  total = total + minutos;\n  console.log(`Somei ${minutos}, total agora: ${total}`);\n}\n```\n\nLeia como uma frase: \"**para cada** `minutos` **da** lista `minutosDaSemana`, some ao total\". As chaves `{ }` marcam o bloco que se repete. Usamos `let` em `total` porque ele muda a cada volta. O `console.log` dentro do laço é proposital: ele mostra o acumulador crescendo, como no teste de mesa que você fez no papel. Depois que entender, pode apagar essa linha.\n\n> `total = total + minutos` pode ser escrito como `total += minutos`. É a mesma coisa, só mais curto.\n\n### Passo 3 — Converta e decida\n\n```js\nconst horas = total / 60;\nconsole.log(`Total da semana: ${horas.toFixed(1)} h`);\n\nif (horas >= metaEmHoras) {\n  console.log(\"Meta atingida! Parabéns!\");\n} else {\n  const faltam = metaEmHoras - horas;\n  console.log(`Faltam ${faltam.toFixed(1)} h para a meta.`);\n}\n```\n\nO `if` testa `horas >= metaEmHoras`. Se for `true`, roda o primeiro bloco; se for `false`, roda o bloco do `else`.\n\n### Passo 4 — Conte os dias sem estudo\n\nAgora é com você, usando as mesmas ferramentas. Crie uma variável `diasSemEstudo` começando em `0` e, **dentro do mesmo laço**, use um `if` para somar `1` quando `minutos === 0`. No final, mostre a frase \"Você ficou X dias sem estudar\".\n\n### Passo 5 — Teste os dois caminhos\n\nUm programa com `if` tem dois caminhos, e os dois precisam ser testados. Mude `metaEmHoras` para `2` e rode (deve aparecer \"Meta atingida!\"); depois mude para `10` e rode (deve aparecer quanto falta). Testar todos os caminhos é um hábito de programador profissional."
+      },
+      "estimatedMinutes": 60,
+      "resources": [
+        "javascript-info-pt",
+        "exercism-javascript"
+      ],
+      "checklist": [
+        {
+          "pt": "Criei a lista de minutos da semana e acessei itens pelo índice"
+        },
+        {
+          "pt": "Somei a semana com `for...of` e um acumulador"
+        },
+        {
+          "pt": "O programa diz \"Meta atingida!\" ou quanto falta, conforme a meta"
+        },
+        {
+          "pt": "Contei os dias sem estudo com um `if` dentro do laço"
+        },
+        {
+          "pt": "Testei os dois caminhos do `if` mudando a meta"
+        }
+      ],
+      "videos": [
+        "cev-javascript",
+        "cev-algoritmos"
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "O total deu algo estranho como `05030045`"
+          },
+          "solution": {
+            "pt": "Algum valor da lista está entre aspas e virou texto, então o `+` está juntando em vez de somar. Na lista, os números devem estar **sem aspas**: `[50, 30, 0]`."
+          }
+        },
+        {
+          "problem": {
+            "pt": "`TypeError: Assignment to constant variable.` no laço"
+          },
+          "solution": {
+            "pt": "Você criou o total com `const`. Como ele muda a cada volta, precisa ser `let total = 0;`."
+          }
+        },
+        {
+          "problem": {
+            "pt": "O `else` dá erro de sintaxe"
+          },
+          "solution": {
+            "pt": "Confira as chaves: o `else` vem logo depois da chave que fecha o bloco do `if` (`} else {`). Use `Shift` + `Alt` + `F` no VS Code para formatar o código e enxergar melhor os blocos."
+          }
+        }
+      ],
+      "hint": {
+        "pt": "Para contar os dias sem estudo, o código dentro do laço fica parecido com: `if (minutos === 0) { diasSemEstudo += 1; }`. Lembre de criar `let diasSemEstudo = 0;` **antes** do laço."
+      }
+    },
+    {
+      "id": "funcoes-e-objetos",
+      "title": {
+        "pt": "Organizando com funções e objetos"
+      },
+      "goal": {
+        "pt": "O `diario.js` guarda cada sessão como um objeto (matéria e minutos), usa funções para calcular o total e mostra um relatório por matéria."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "Objeto"
+          },
+          "explanation": {
+            "pt": "Um jeito de guardar **várias informações sobre uma mesma coisa**, cada uma com um nome. Uma sessão de estudo vira `{ materia: \"História\", minutos: 40 }`. Cada par nome/valor é uma **propriedade**."
+          }
+        },
+        {
+          "term": {
+            "pt": "Função"
+          },
+          "explanation": {
+            "pt": "Um bloco de código com nome, que você escreve uma vez e **usa quantas vezes quiser**. É como uma receita guardada: quando precisa, você chama pelo nome."
+          }
+        },
+        {
+          "term": {
+            "pt": "Parâmetro"
+          },
+          "explanation": {
+            "pt": "A informação que a função recebe para trabalhar, escrita entre os parênteses. Em `function somar(lista)`, `lista` é o parâmetro."
+          }
+        },
+        {
+          "term": {
+            "pt": "Retorno (`return`)"
+          },
+          "explanation": {
+            "pt": "O resultado que a função devolve para quem a chamou. Depois do `return`, a função termina."
+          }
+        },
+        {
+          "term": {
+            "pt": "Reaproveitamento"
+          },
+          "explanation": {
+            "pt": "Se você está copiando e colando o mesmo trecho de código, é hora de criar uma função. Código repetido é código que vai dar erro em dobro."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Até agora, cada sessão era só um número. Mas uma sessão de verdade tem **matéria**, **minutos** e, mais tarde, **data**. Para guardar várias informações juntas, usamos **objetos**. E para não repetir código, usamos **funções**.\n\n### Passo 1 — Uma lista de objetos\n\nReescreva o começo do `diario.js`:\n\n```js\nconst sessoes = [\n  { materia: \"Matemática\", minutos: 50 },\n  { materia: \"História\", minutos: 30 },\n  { materia: \"Matemática\", minutos: 40 },\n  { materia: \"Inglês\", minutos: 25 },\n];\n\nconsole.log(sessoes[0].materia); // \"Matemática\"\nconsole.log(sessoes[1].minutos); // 30\n```\n\nCada item entre `{ }` é um objeto. Para ler uma propriedade, use o **ponto**: `sessoes[1].minutos` significa \"o item de índice 1, propriedade `minutos`\".\n\n### Passo 2 — Sua primeira função\n\n```js\nfunction totalDeMinutos(lista) {\n  let total = 0;\n  for (const sessao of lista) {\n    total += sessao.minutos;\n  }\n  return total;\n}\n\nconsole.log(totalDeMinutos(sessoes)); // 145\n```\n\nVamos por partes: `function` avisa que uma função vai começar; `totalDeMinutos` é o nome; `lista` é o parâmetro (o que ela recebe); o `return total` devolve o resultado. Na última linha, **chamamos** a função passando `sessoes`. Repare que dentro da função usamos o nome `lista`, e não `sessoes`: a função funciona com **qualquer** lista que você passar.\n\n### Passo 3 — Uma função que formata\n\n```js\nfunction emHoras(minutos) {\n  return (minutos / 60).toFixed(1) + \" h\";\n}\n\nconsole.log(emHoras(145)); // \"2.4 h\"\n```\n\nAgora você pode escrever `emHoras(totalDeMinutos(sessoes))`: o resultado de uma função vira a entrada da outra.\n\n### Passo 4 — Total de uma matéria\n\nCrie a função `minutosDaMateria(lista, materia)` que recebe a lista **e** o nome de uma matéria e devolve só os minutos daquela matéria. Ela é parecida com `totalDeMinutos`, mas com um `if` dentro do laço: só soma quando `sessao.materia === materia`. Teste com `minutosDaMateria(sessoes, \"Matemática\")`, que deve devolver `90`.\n\n### Passo 5 — O relatório final\n\nUse as funções para imprimir um relatório como este:\n\n```text\n=== Diário de Estudos ===\nMatemática: 1.5 h\nHistória: 0.5 h\nInglês: 0.4 h\nTotal da semana: 2.4 h\n```\n\nUma forma simples: crie uma lista com os nomes das matérias (`const materias = [\"Matemática\", \"História\", \"Inglês\"];`), percorra com `for...of` e, para cada nome, chame `minutosDaMateria` e `emHoras`.\n\n### Passo 6 — Uma pausa para guardar o que você fez\n\nVocê terminou a primeira parte do Diário. Faça uma cópia da pasta `diario-de-estudos` com o nome `diario-parte-1` como \"backup\". Parece estranho? É mesmo, e é exatamente o problema que o **Git** resolve. No distrito **Git e GitHub** você vai aprender a guardar versões do projeto do jeito profissional."
+      },
+      "estimatedMinutes": 75,
+      "resources": [
+        "javascript-info-pt",
+        "eloquent-javascript",
+        "exercism-javascript"
+      ],
+      "checklist": [
+        {
+          "pt": "Guardei as sessões como uma lista de objetos com `materia` e `minutos`"
+        },
+        {
+          "pt": "Criei `totalDeMinutos` e `emHoras` e usei o resultado de uma na outra"
+        },
+        {
+          "pt": "Criei `minutosDaMateria` e ela devolve 90 para Matemática no exemplo"
+        },
+        {
+          "pt": "O programa imprime o relatório por matéria e o total da semana"
+        }
+      ],
+      "videos": [
+        "cev-javascript"
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "A função mostra `undefined`"
+          },
+          "solution": {
+            "pt": "Faltou o `return`, ou ele está fora da função. Sem `return`, a função devolve `undefined` (\"indefinido\"). Confira se o `return` está **antes** da chave que fecha a função."
+          }
+        },
+        {
+          "problem": {
+            "pt": "`TypeError: Cannot read properties of undefined (reading 'minutos')`"
+          },
+          "solution": {
+            "pt": "Você tentou ler `.minutos` de algo que não existe, como `sessoes[10]` numa lista de 4 itens. Confira o índice ou use `console.log` para ver o que a variável contém antes da linha do erro."
+          }
+        },
+        {
+          "problem": {
+            "pt": "A matéria não é encontrada no total"
+          },
+          "solution": {
+            "pt": "A comparação com `===` é exata: `\"matemática\"` (minúsculo) é diferente de `\"Matemática\"`, e acentos também contam. Escreva os nomes sempre do mesmo jeito."
+          }
+        }
+      ],
+      "hint": {
+        "pt": "Esqueleto da função do Passo 4: `function minutosDaMateria(lista, materia) { let total = 0; for (const sessao of lista) { if (sessao.materia === materia) { total += sessao.minutos; } } return total; }`. Tente escrever sozinho antes de olhar!"
+      }
+    }
+  ],
+  "extraChallenges": [
+    {
+      "pt": "Peça ao usuário a matéria e os minutos pelo terminal (pesquise `readline` do Node.js)"
+    },
+    {
+      "pt": "Mostre qual foi a matéria mais estudada da semana"
+    },
+    {
+      "pt": "Calcule a média de minutos por dia, ignorando os dias sem estudo"
+    }
+  ],
+  "portfolioTip": {
+    "pt": "Guarde o pseudocódigo do Passo 3 da primeira etapa junto com o código. Em entrevistas de estágio, explicar como você pensou antes de programar impressiona mais do que o código em si."
+  }
+}

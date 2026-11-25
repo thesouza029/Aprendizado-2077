@@ -42,7 +42,7 @@
   ],
   "prerequisites": [
     "chatbot-streaming",
-    "banco-biblioteca-sql"
+    "diario-05-sql"
   ],
   "steps": [
     {

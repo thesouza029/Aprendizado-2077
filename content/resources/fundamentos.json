@@ -685,5 +685,237 @@
       "en": "Free weather forecast API with no key for non-commercial use."
     },
     "verified": true
+  },
+  {
+    "id": "cev-algoritmos",
+    "title": "Curso de Algoritmos (lógica de programação)",
+    "type": "video",
+    "url": "https://www.youtube.com/playlist?list=PLHz_AreHm4dmSj0MHol_aoNYCSGFqvfXV",
+    "author": "Gustavo Guanabara (Curso em Vídeo)",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "logica"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Aulas em vídeo que ensinam o que é um algoritmo, variáveis, operadores, decisões e repetições, com exemplos do dia a dia."
+    },
+    "verified": true
+  },
+  {
+    "id": "cev-javascript",
+    "title": "Curso de JavaScript",
+    "type": "video",
+    "url": "https://www.youtube.com/playlist?list=PLHz_AreHm4dlsK3Nr9GVvXCbpQyHQl1o1",
+    "author": "Gustavo Guanabara (Curso em Vídeo)",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "javascript"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Curso em vídeo de JavaScript do zero: variáveis, tipos, condições, repetições, funções e manipulação da página (DOM)."
+    },
+    "verified": true
+  },
+  {
+    "id": "cev-mysql",
+    "title": "Curso de Banco de Dados MySQL",
+    "type": "video",
+    "url": "https://www.youtube.com/playlist?list=PLHz_AreHm4dkBs-795Dsgvau_ekxg8g1r",
+    "author": "Gustavo Guanabara (Curso em Vídeo)",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "sql",
+      "mysql",
+      "modelagem"
+    ],
+    "free": true,
+    "description": {
+      "pt": "O que é um banco de dados, como criar tabelas, inserir, consultar e relacionar dados com SQL. Os comandos valem também para o SQLite."
+    },
+    "verified": true
+  },
+  {
+    "id": "cev-git-github",
+    "title": "Curso de Git e GitHub",
+    "type": "video",
+    "url": "https://www.youtube.com/playlist?list=PLHz_AreHm4dm7ZULPAmadvNhH6vk9oNZA",
+    "author": "Gustavo Guanabara (Curso em Vídeo)",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "git",
+      "github"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Curso em vídeo que explica versionamento, repositórios, commits, GitHub e GitHub Pages, com muita calma e exemplos."
+    },
+    "verified": true
+  },
+  {
+    "id": "nicbr-como-funciona-internet",
+    "title": "Como funciona a Internet? Parte 1: o protocolo IP",
+    "type": "video",
+    "url": "https://www.youtube.com/watch?v=HNQD0qJ0TC4",
+    "author": "NIC.br",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "http",
+      "dns"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Animação curta do NIC.br que mostra como os dados viajam em pacotes pela internet até chegar ao seu computador."
+    },
+    "verified": true
+  },
+  {
+    "id": "freecodecamp-git-github-crash",
+    "title": "Git and GitHub for Beginners: Crash Course",
+    "type": "video",
+    "url": "https://www.freecodecamp.org/news/git-and-github-crash-course/",
+    "author": "Gwen Faraday (freeCodeCamp)",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "git",
+      "github"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Vídeo em inglês que mostra, na prática, commits, branches, merge, desfazer mudanças e o fluxo com o GitHub."
+    },
+    "verified": true
+  },
+  {
+    "id": "fcc-curso-sql-video",
+    "title": "SQL e bancos de dados: curso completo para iniciantes (vídeo em inglês)",
+    "type": "video",
+    "url": "https://www.freecodecamp.org/portuguese/news/sql-e-bancos-de-dados-um-curso-completo-para-iniciantes/",
+    "author": "freeCodeCamp",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "sql",
+      "modelagem"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Curso em vídeo de cerca de 4 horas: o que é um banco, tabelas, chaves e comandos SQL. A página está em português e o vídeo, em inglês."
+    },
+    "verified": true
+  },
+  {
+    "id": "google-linha-de-comando-pt",
+    "title": "Material para estudantes sobre linha de comando",
+    "type": "interactive",
+    "url": "https://developers.google.com/codelabs/cssi-command-line?hl=pt-br",
+    "author": "Google",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "terminal"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Atividade guiada para se movimentar pelo computador com comandos: listar, entrar em pastas, criar, mover e apagar arquivos."
+    },
+    "verified": true
+  },
+  {
+    "id": "mdn-como-a-web-funciona-pt",
+    "title": "MDN: Como a Web funciona",
+    "type": "docs",
+    "url": "https://developer.mozilla.org/pt-BR/docs/Learn_web_development/Getting_started/Web_standards/How_the_web_works",
+    "author": "MDN Web Docs",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "http",
+      "dns"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Explicação simples do caminho de uma página: cliente, servidor, DNS, TCP/IP e HTTP, com a analogia da rua e da loja."
+    },
+    "verified": true
+  },
+  {
+    "id": "brasilapi",
+    "title": "BrasilAPI",
+    "type": "docs",
+    "url": "https://brasilapi.com.br",
+    "author": "BrasilAPI (comunidade)",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "api",
+      "http"
+    ],
+    "free": true,
+    "description": {
+      "pt": "API pública e gratuita com dados do Brasil (CEP, feriados, bancos e mais). Não precisa de cadastro nem de chave."
+    },
+    "verified": true
+  },
+  {
+    "id": "github-hello-world-pt",
+    "title": "GitHub Docs: Olá, Mundo",
+    "type": "docs",
+    "url": "https://docs.github.com/pt/get-started/quickstart/hello-world",
+    "author": "GitHub",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "github",
+      "git"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Guia oficial de início rápido: criar um repositório, uma branch, fazer alterações e abrir o primeiro pull request."
+    },
+    "verified": true
+  },
+  {
+    "id": "fcc-primeiro-pull-request-pt",
+    "title": "Como fazer o seu primeiro pull request no GitHub",
+    "type": "article",
+    "url": "https://www.freecodecamp.org/portuguese/news/como-fazer-o-seu-primeiro-pull-request-no-github/",
+    "author": "freeCodeCamp",
+    "language": "pt-BR",
+    "level": "iniciante",
+    "technologies": [
+      "github",
+      "git"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Passo a passo de fork, clone, branch, commit, push e pull request, explicado para quem nunca contribuiu."
+    },
+    "verified": true
+  },
+  {
+    "id": "first-contributions",
+    "title": "First Contributions",
+    "type": "interactive",
+    "url": "https://github.com/firstcontributions/first-contributions",
+    "author": "Comunidade First Contributions",
+    "language": "en",
+    "level": "iniciante",
+    "technologies": [
+      "github",
+      "git"
+    ],
+    "free": true,
+    "description": {
+      "pt": "Repositório feito para treinar a primeira contribuição: você faz um fork, adiciona seu nome e abre um pull request de verdade. Tem tradução para o português."
+    },
+    "verified": true
   }
 ]

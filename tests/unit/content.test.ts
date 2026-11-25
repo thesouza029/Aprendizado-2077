@@ -65,7 +65,7 @@ describe("metas de conteúdo", () => {
   });
 
   it("cobre todos os projetos da seção 6.2 (bônus incluídos)", () => {
-    const expected = { fundamentos: 4, web: 5, backend: 7, mobile: 4, devops: 6, ia: 4 };
+    const expected = { fundamentos: 6, git: 6, web: 5, backend: 7, mobile: 4, devops: 6, ia: 4 };
     for (const t of getTracks()) expect(getProjects(t.id).length).toBe(expected[t.id]);
   });
 
@@ -81,8 +81,9 @@ describe("metas de conteúdo", () => {
     for (const p of getProjects()) for (const s of p.steps) expect(s.resources.length).toBeGreaterThan(0);
   });
 
-  it("todo projeto tem etapas de Git/README e de publicação", () => {
-    for (const p of getProjects()) {
+  it("todo projeto do formato antigo tem etapas de Git/README e de publicação", () => {
+    // no formato didático (com `feature`), Git e README têm um distrito próprio
+    for (const p of getProjects().filter((p) => !p.feature)) {
       const text = JSON.stringify(p.steps).toLowerCase();
       expect(text.includes("readme")).toBe(true);
       expect(text.includes("commit") || text.includes("push")).toBe(true);
@@ -93,6 +94,40 @@ describe("metas de conteúdo", () => {
     for (const t of getTracks()) {
       const orders = getProjects(t.id).map((p) => p.order);
       expect(new Set(orders).size).toBe(orders.length);
+    }
+  });
+});
+
+describe("formato didático (distritos com projeto único)", () => {
+  const didactic = getTracks().filter((t) => t.project);
+
+  it("Fundamentos e Git e GitHub já estão no formato novo", () => {
+    expect(didactic.map((t) => t.id)).toEqual(expect.arrayContaining(["fundamentos", "git"]));
+  });
+
+  it.each(didactic.map((t) => t.id))("%s: cada parte depende da anterior", (track) => {
+    const parts = getProjects(track as never);
+    parts.forEach((p, i) => {
+      expect(p.feature).toBeDefined();
+      if (i > 0) expect(p.prerequisites).toContain(parts[i - 1]!.id);
+    });
+  });
+
+  it.each(didactic.map((t) => t.id))("%s: toda etapa explica conceitos e tem passo a passo", (track) => {
+    for (const p of getProjects(track as never)) {
+      for (const s of p.steps) {
+        expect((s.concepts ?? []).length).toBeGreaterThanOrEqual(3);
+        expect(s.instructions.pt.includes("### Passo 1")).toBe(true);
+        expect(s.checklist.length).toBeGreaterThanOrEqual(3);
+      }
+    }
+  });
+
+  it.each(didactic.map((t) => t.id))("%s: toda parte indica pelo menos um vídeo", (track) => {
+    for (const p of getProjects(track as never)) {
+      const videos = p.steps.flatMap((s) => s.videos ?? []);
+      expect(videos.length).toBeGreaterThan(0);
+      for (const id of videos) expect(getResources().find((r) => r.id === id)?.type).toBe("video");
     }
   });
 });

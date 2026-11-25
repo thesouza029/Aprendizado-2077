@@ -1,0 +1,382 @@
+{
+  "id": "git-02-commits",
+  "track": "git",
+  "order": 2,
+  "title": {
+    "pt": "Parte 2: seus primeiros commits"
+  },
+  "feature": {
+    "pt": "Cada avanço do Diário salvo como um commit, com mensagens que contam a história do projeto"
+  },
+  "level": 1,
+  "stack": [
+    "Git",
+    "VS Code"
+  ],
+  "whatYouBuild": {
+    "pt": "O Diário de Estudos vira um repositório Git: você aprende o ciclo editar, preparar e salvar, revisa as diferenças antes de cada commit, escreve mensagens que explicam as mudanças e protege o repositório com um .gitignore."
+  },
+  "whatYouLearn": [
+    {
+      "pt": "Criar um repositório com git init"
+    },
+    {
+      "pt": "Ler o git status"
+    },
+    {
+      "pt": "As três áreas do Git: pasta de trabalho, staging e histórico"
+    },
+    {
+      "pt": "git add, git commit e git log"
+    },
+    {
+      "pt": "Revisar mudanças com git diff"
+    },
+    {
+      "pt": "Escrever boas mensagens de commit"
+    },
+    {
+      "pt": "Ignorar arquivos com .gitignore e proteger segredos"
+    }
+  ],
+  "prerequisites": [
+    "git-01-instalar"
+  ],
+  "steps": [
+    {
+      "id": "git-init-status",
+      "title": {
+        "pt": "Transformando o Diário num repositório"
+      },
+      "goal": {
+        "pt": "A pasta `diario-de-estudos` é um repositório Git e você sabe ler a saída do `git status`."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "`git init`"
+          },
+          "explanation": {
+            "pt": "Transforma uma pasta comum num repositório: cria dentro dela uma pasta oculta chamada **`.git`**, onde fica guardado todo o histórico."
+          }
+        },
+        {
+          "term": {
+            "pt": "`git status`"
+          },
+          "explanation": {
+            "pt": "O comando que você mais vai usar. Mostra em que branch você está e a situação de cada arquivo: novo, modificado ou pronto para o commit."
+          }
+        },
+        {
+          "term": {
+            "pt": "Arquivo não rastreado (*untracked*)"
+          },
+          "explanation": {
+            "pt": "Um arquivo que existe na pasta, mas que o Git ainda **não está acompanhando**. O Git só guarda versões dos arquivos que você mandar."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "### Passo 1 — Entre na pasta do projeto\n\nAbra a pasta `diario-de-estudos` no VS Code e abra o terminal integrado. Confira com `pwd` que você está nela.\n\n### Passo 2 — Crie o repositório\n\n```powershell\ngit init\n```\n\nA resposta é algo como `Initialized empty Git repository in C:/Users/voce/Documents/diario-de-estudos/.git/`. Pronto, a pasta virou um repositório.\n\n### Passo 3 — Veja a pasta oculta\n\n```powershell\nls -Force\n```\n\nO `-Force` mostra arquivos ocultos no PowerShell (no Git Bash seria `ls -a`). Lá está a pasta `.git`. **Nunca apague nem mexa nela à mão**: é ali que mora todo o histórico. Apagar a `.git` é apagar a máquina do tempo (seus arquivos continuam, mas o histórico some).\n\n### Passo 4 — Leia o status\n\n```powershell\ngit status\n```\n\nA resposta vai ser parecida com:\n\n```text\nOn branch main\n\nNo commits yet\n\nUntracked files:\n  (use \"git add <file>...\" to include in what will be committed)\n        app.js\n        diario.js\n        imagens/\n        index.html\n        sobre.html\n        style.css\n```\n\nTraduzindo: você está na branch `main`, ainda não tem nenhum commit e existem arquivos **não rastreados** (*untracked*). O próprio Git dá a dica do próximo passo: usar `git add`.\n\n### Passo 5 — Repare no VS Code\n\nOlhe a barra lateral do VS Code: os arquivos ficaram **verdes** com a letra **U** (*untracked*). E o ícone de \"ramificação\" (Controle do Código-Fonte) mostra um número: quantos arquivos têm mudanças. O VS Code tem uma interface gráfica para o Git, mas **aprenda primeiro pelo terminal**: entendendo os comandos, você entende o que os botões fazem."
+      },
+      "estimatedMinutes": 30,
+      "resources": [
+        "pro-git-pt",
+        "atlassian-git-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Rodei `git init` dentro da pasta `diario-de-estudos`"
+        },
+        {
+          "pt": "Vi a pasta oculta `.git` e sei que não devo mexer nela"
+        },
+        {
+          "pt": "Li o `git status` e sei o que significa *untracked*"
+        }
+      ],
+      "videos": [
+        "cev-git-github"
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "Rodei `git init` na pasta errada (por exemplo, em Documentos inteira)"
+          },
+          "solution": {
+            "pt": "Essa pasta virou um repositório sem querer. Para desfazer, apague a pasta `.git` **dessa pasta errada** (mostre os arquivos ocultos no Explorador do Windows: Exibir → Itens ocultos). Seus arquivos não são afetados. Depois, rode o `git init` na pasta certa."
+          }
+        },
+        {
+          "problem": {
+            "pt": "`fatal: not a git repository`"
+          },
+          "solution": {
+            "pt": "Você está numa pasta que não é um repositório. Confira com `pwd` e use `cd` para entrar na pasta do projeto."
+          }
+        }
+      ]
+    },
+    {
+      "id": "add-e-commit",
+      "title": {
+        "pt": "Staging e commit: seu primeiro ponto salvo"
+      },
+      "goal": {
+        "pt": "O repositório tem pelo menos dois commits com mensagens claras e você entende as três áreas do Git: pasta de trabalho, staging e histórico."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "Pasta de trabalho"
+          },
+          "explanation": {
+            "pt": "Os arquivos como estão agora no seu computador, com as mudanças que você está fazendo."
+          }
+        },
+        {
+          "term": {
+            "pt": "Staging (área de preparação)"
+          },
+          "explanation": {
+            "pt": "Uma \"sala de espera\" onde você coloca as mudanças que **vão entrar no próximo commit**. Permite escolher exatamente o que salvar."
+          }
+        },
+        {
+          "term": {
+            "pt": "`git add`"
+          },
+          "explanation": {
+            "pt": "Leva mudanças da pasta de trabalho para o staging. `git add index.html` leva um arquivo; `git add .` leva todos da pasta atual."
+          }
+        },
+        {
+          "term": {
+            "pt": "`git commit`"
+          },
+          "explanation": {
+            "pt": "Pega tudo o que está no staging e grava um ponto salvo no histórico, com uma mensagem (`-m \"mensagem\"`)."
+          }
+        },
+        {
+          "term": {
+            "pt": "Hash do commit"
+          },
+          "explanation": {
+            "pt": "Um código único que identifica cada commit, como `3f2a9c1`. É o \"nome\" daquele ponto na história."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "O Git trabalha com **três áreas**. Entenda com a analogia de uma foto de turma:\n\n1. **Pasta de trabalho:** os alunos andando pelo pátio (os arquivos sendo editados).\n2. **Staging:** os alunos que você chamou para posar na foto (`git add`).\n3. **Histórico:** a foto tirada e guardada no álbum (`git commit`).\n\nVocê escolhe quem entra na foto antes de bater. Por isso existe o staging: para montar commits organizados, com mudanças que fazem sentido juntas.\n\n### Passo 1 — Prepare os arquivos\n\n```powershell\ngit add .\ngit status\n```\n\nO `.` significa \"tudo nesta pasta\". O status agora mostra os arquivos em verde, na seção **Changes to be committed** (mudanças prontas para o commit).\n\n### Passo 2 — Faça o primeiro commit\n\n```powershell\ngit commit -m \"Primeira versão do Diário de Estudos\"\n```\n\nO `-m` vem de *message*. A resposta mostra a branch, o começo do **hash** do commit e quantos arquivos entraram. Rode `git status` de novo: `nothing to commit, working tree clean`. Tudo salvo.\n\n### Passo 3 — Mude algo e veja o ciclo\n\nAbra o `index.html` e mude a frase do cabeçalho. Salve e rode:\n\n```powershell\ngit status\n```\n\nAgora o arquivo aparece como **modified** (modificado), em vermelho: a mudança está na pasta de trabalho, mas não no staging. Faça o ciclo completo:\n\n```powershell\ngit add index.html\ngit commit -m \"Melhora a frase de apresentação do cabeçalho\"\n```\n\nEsse é o ciclo que você vai repetir milhares de vezes na carreira: **editar → `git add` → `git commit`**.\n\n### Passo 4 — Veja o histórico\n\n```powershell\ngit log\ngit log --oneline\n```\n\nO `git log` mostra cada commit com hash completo, autor, data e mensagem (aperte `q` para sair). O `--oneline` mostra um commit por linha, bem mais fácil de ler:\n\n```text\na1b2c3d (HEAD -> main) Melhora a frase de apresentação do cabeçalho\n9f8e7d6 Primeira versão do Diário de Estudos\n```\n\nO `HEAD -> main` indica onde você está: no último commit da branch `main`.\n\n### Passo 5 — Commits pequenos e frequentes\n\nUm bom commit tem **uma ideia só**. \"Adiciona o formulário\" é ótimo; \"Muda tudo\" não ajuda ninguém. Faça mais dois commits: mude uma cor no `style.css` (um commit) e acrescente uma matéria nova no formulário (outro commit)."
+      },
+      "estimatedMinutes": 45,
+      "resources": [
+        "pro-git-pt",
+        "atlassian-git-pt",
+        "learn-git-branching"
+      ],
+      "checklist": [
+        {
+          "pt": "Fiz o primeiro commit com todos os arquivos do Diário"
+        },
+        {
+          "pt": "Fiz pelo menos três commits seguindo o ciclo editar, `add`, `commit`"
+        },
+        {
+          "pt": "Vi o histórico com `git log --oneline`"
+        },
+        {
+          "pt": "Sei explicar pasta de trabalho, staging e histórico com a analogia da foto"
+        }
+      ],
+      "videos": [
+        "cev-git-github",
+        "freecodecamp-git-github-crash"
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "Rodei `git commit` sem `-m` e abriu um arquivo no VS Code"
+          },
+          "solution": {
+            "pt": "O Git está pedindo a mensagem. Escreva a mensagem na primeira linha do arquivo que abriu, salve e **feche a aba**. O commit é feito quando a aba fecha. (Se tivesse aberto o Vim, a saída seria apertar `Esc`, digitar `:wq` e Enter.)"
+          }
+        },
+        {
+          "problem": {
+            "pt": "`nothing added to commit but untracked files present`"
+          },
+          "solution": {
+            "pt": "Você esqueceu o `git add`. O commit só leva o que está no staging."
+          }
+        },
+        {
+          "problem": {
+            "pt": "`Author identity unknown`"
+          },
+          "solution": {
+            "pt": "Faltou configurar nome e e-mail. Volte à etapa \"Configurando sua identidade\" da Parte 1."
+          }
+        }
+      ]
+    },
+    {
+      "id": "diff-e-mensagens",
+      "title": {
+        "pt": "Vendo diferenças e escrevendo boas mensagens"
+      },
+      "goal": {
+        "pt": "Você usa `git diff` antes de cada commit para revisar o que mudou e escreve mensagens que explicam a mudança."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "`git diff`"
+          },
+          "explanation": {
+            "pt": "Mostra **linha por linha** o que mudou nos arquivos e ainda não foi para o staging. Linhas com `+` (verdes) foram acrescentadas; com `-` (vermelhas), removidas."
+          }
+        },
+        {
+          "term": {
+            "pt": "`git diff --staged`"
+          },
+          "explanation": {
+            "pt": "Mostra o que já está no staging, ou seja, o que vai entrar no próximo commit."
+          }
+        },
+        {
+          "term": {
+            "pt": "Mensagem de commit"
+          },
+          "explanation": {
+            "pt": "O registro do **porquê** da mudança. Ela é lida por você daqui a seis meses e por colegas de equipe. Uma boa mensagem economiza horas de investigação."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "### Passo 1 — Veja o que mudou antes de commitar\n\nMude duas coisas no `style.css` (uma cor e um tamanho de fonte) e rode:\n\n```powershell\ngit diff\n```\n\nVocê vê algo parecido com:\n\n```text\n-  --cor-principal: #2563eb;\n+  --cor-principal: #7c3aed;\n```\n\nA linha com `-` era assim; a linha com `+` ficou assim. Se a saída for longa, use as setas para rolar e `q` para sair.\n\n### Passo 2 — Diff do que está no staging\n\n```powershell\ngit add style.css\ngit diff\ngit diff --staged\n```\n\nDepois do `add`, o `git diff` simples não mostra mais nada (a mudança saiu da pasta de trabalho e foi para o staging). O `git diff --staged` mostra o que vai entrar no commit. **Revisar o diff antes de commitar** é um hábito que evita mandar código de teste ou senhas sem querer.\n\n### Passo 3 — Escreva mensagens que contam a história\n\nRegras simples que o mercado usa:\n\n- escreva no **imperativo ou presente**, completando a frase \"este commit...\": \"Adiciona barra de progresso da meta\", \"Corrige total de horas com lista vazia\";\n- seja **específico**: em vez de \"ajustes\", diga o que foi ajustado;\n- primeira linha curta (até uns 50 caracteres);\n- se precisar explicar mais, rode `git commit` sem `-m`: o VS Code abre, você escreve a primeira linha, deixa uma linha em branco e explica o porquê nas linhas seguintes.\n\nCompare um histórico ruim:\n\n```text\ne4f5a6b mudanças\nc3d2e1f arrumei\nb1a2c3d aaaa\n```\n\nCom um histórico bom:\n\n```text\ne4f5a6b Mostra os próximos feriados vindos da BrasilAPI\nc3d2e1f Corrige total de horas quando a lista está vazia\nb1a2c3d Adiciona botão de remover sessão\n```\n\nQual dos dois você gostaria de ler?\n\n### Passo 4 — Use o VS Code para ver diferenças\n\nNa barra lateral, clique no ícone de **Controle do Código-Fonte**. Clique num arquivo modificado: o VS Code abre a versão antiga e a nova **lado a lado**, com as mudanças destacadas. É o mesmo `git diff`, em versão visual.\n\nFaça o commit das mudanças de cor com uma boa mensagem."
+      },
+      "estimatedMinutes": 30,
+      "resources": [
+        "pro-git-pt",
+        "atlassian-git-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Usei `git diff` e `git diff --staged` e sei a diferença entre os dois"
+        },
+        {
+          "pt": "Revisei o diff antes de fazer um commit"
+        },
+        {
+          "pt": "Meus últimos commits têm mensagens específicas que explicam a mudança"
+        },
+        {
+          "pt": "Vi as diferenças lado a lado no VS Code"
+        }
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "O `git diff` não mostra nada, mas eu mudei o arquivo"
+          },
+          "solution": {
+            "pt": "Ou você não salvou o arquivo no editor (repare na bolinha na aba do VS Code), ou a mudança já está no staging. Tente `git diff --staged`."
+          }
+        }
+      ]
+    },
+    {
+      "id": "gitignore",
+      "title": {
+        "pt": "O que não deve ir para o repositório: o .gitignore"
+      },
+      "goal": {
+        "pt": "O repositório tem um `.gitignore` que impede o Git de rastrear arquivos que não devem ser versionados, como o backup do banco e arquivos do sistema."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "`.gitignore`"
+          },
+          "explanation": {
+            "pt": "Um arquivo de texto com uma lista de nomes e padrões que o Git deve **ignorar**: ele não mostra no status e não deixa entrar nos commits."
+          }
+        },
+        {
+          "term": {
+            "pt": "Padrões"
+          },
+          "explanation": {
+            "pt": "Formas de descrever vários arquivos de uma vez: `*.log` (todos os arquivos que terminam em `.log`), `pasta/` (uma pasta inteira)."
+          }
+        },
+        {
+          "term": {
+            "pt": "Segredos"
+          },
+          "explanation": {
+            "pt": "Senhas, chaves de API e tokens. **Nunca** devem ir para um repositório, principalmente público: robôs varrem o GitHub procurando chaves vazadas."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Nem tudo que está na pasta do projeto deve entrar no histórico. Exemplos comuns:\n\n- **arquivos gerados automaticamente**, que podem ser recriados (como a pasta `node_modules`, que você vai conhecer nos próximos distritos);\n- **arquivos pessoais ou do sistema** (como `Thumbs.db` do Windows e `.DS_Store` do Mac);\n- **segredos** (arquivos `.env` com senhas e chaves);\n- **backups e arquivos grandes** que não fazem parte do código.\n\n### Passo 1 — Crie o .gitignore\n\nNa raiz do projeto, crie um arquivo chamado exatamente `.gitignore` (com o ponto no começo e sem extensão) com este conteúdo:\n\n```text\n# Backups do banco\ndiario-backup.db\n\n# Arquivos do sistema operacional\nThumbs.db\n.DS_Store\n\n# Dependências e segredos (para os próximos distritos)\nnode_modules/\n.env\n```\n\nAs linhas com `#` são comentários.\n\n### Passo 2 — Veja o efeito\n\nSe você seguiu a Parte 5 dos Fundamentos, existe um `diario-backup.db` na pasta. Rode `git status`: ele **não aparece mais** na lista. Para testar com um arquivo novo, crie um `teste.env` e acrescente a linha `*.env` ao `.gitignore`: o arquivo some do status.\n\n> E o `diario.db`? Para este projeto de estudo, versionar o banco de exemplo não tem problema. Em projetos reais, bancos com dados de usuários **nunca** vão para o repositório: versiona-se só o `schema.sql`, que descreve a estrutura.\n\n### Passo 3 — Commite o .gitignore\n\n```powershell\ngit add .gitignore\ngit commit -m \"Adiciona .gitignore\"\n```\n\nO próprio `.gitignore` deve ser versionado, para valer para todo mundo que trabalhar no projeto.\n\n### Passo 4 — Quando o arquivo já foi commitado\n\nO `.gitignore` só vale para arquivos **ainda não rastreados**. Se um arquivo já entrou num commit, colocar o nome dele no `.gitignore` não basta. Você precisa tirá-lo do rastreamento (sem apagar do disco):\n\n```powershell\ngit rm --cached diario-backup.db\ngit commit -m \"Para de versionar o backup do banco\"\n```\n\n> Se um dia você commitar uma senha por engano num repositório que foi para o GitHub, considere a senha **vazada**: troque-a imediatamente. Apagar o arquivo num commit novo não adianta, porque ela continua no histórico."
+      },
+      "estimatedMinutes": 30,
+      "resources": [
+        "pro-git-pt",
+        "github-docs-start-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Criei o `.gitignore` na raiz do projeto e ele foi commitado"
+        },
+        {
+          "pt": "Arquivos listados no `.gitignore` não aparecem mais no `git status`"
+        },
+        {
+          "pt": "Sei por que segredos nunca devem ir para o repositório"
+        },
+        {
+          "pt": "Sei tirar do rastreamento um arquivo que já foi commitado, com `git rm --cached`"
+        }
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "O Windows não deixa criar um arquivo que começa com ponto"
+          },
+          "solution": {
+            "pt": "Crie pelo VS Code (botão de novo arquivo na barra lateral), que aceita o nome `.gitignore` sem problemas. Ou, no terminal: `ni .gitignore`."
+          }
+        },
+        {
+          "problem": {
+            "pt": "Coloquei o arquivo no `.gitignore` e ele continua aparecendo"
+          },
+          "solution": {
+            "pt": "Ele já tinha sido commitado antes. Use `git rm --cached nome-do-arquivo` e faça um commit."
+          }
+        }
+      ]
+    }
+  ],
+  "extraChallenges": [
+    {
+      "pt": "Use `git add -p` para escolher só alguns trechos de um arquivo para o commit"
+    },
+    {
+      "pt": "Faça os próximos commits pelo painel de Controle do Código-Fonte do VS Code e compare com o terminal"
+    },
+    {
+      "pt": "Leia sobre o padrão Conventional Commits (`feat:`, `fix:`) e use nos próximos commits"
+    }
+  ],
+  "portfolioTip": {
+    "pt": "Um histórico de commits limpo é um portfólio em si. Recrutadores que olham seu GitHub percebem quando os commits contam uma história com mensagens claras."
+  }
+}

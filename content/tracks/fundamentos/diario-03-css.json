@@ -1,0 +1,509 @@
+{
+  "id": "diario-03-css",
+  "track": "fundamentos",
+  "order": 3,
+  "title": {
+    "pt": "Parte 3: deixando o Diário bonito com CSS"
+  },
+  "feature": {
+    "pt": "Visual próprio, layout com Flexbox e Grid, e uma página que se adapta ao celular"
+  },
+  "level": 1,
+  "stack": [
+    "CSS",
+    "Flexbox",
+    "Grid",
+    "DevTools"
+  ],
+  "whatYouBuild": {
+    "pt": "O Diário de Estudos ganha identidade visual: cores e fontes próprias, seções em forma de cartões, cabeçalho e lista de sessões com Flexbox, duas colunas com Grid em telas grandes, estados de mouse e teclado e contraste acessível."
+  },
+  "whatYouLearn": [
+    {
+      "pt": "Ligar um arquivo CSS e escrever regras com seletores"
+    },
+    {
+      "pt": "Cascata e especificidade (quem ganha quando duas regras brigam)"
+    },
+    {
+      "pt": "Modelo de caixa: margin, border e padding"
+    },
+    {
+      "pt": "Layout com Flexbox e uma introdução ao Grid"
+    },
+    {
+      "pt": "Design responsivo com media queries e mobile-first"
+    },
+    {
+      "pt": "Variáveis CSS, estados de interação e contraste"
+    }
+  ],
+  "prerequisites": [
+    "diario-02-html"
+  ],
+  "steps": [
+    {
+      "id": "primeiro-css",
+      "title": {
+        "pt": "Ligando o CSS e entendendo seletores"
+      },
+      "goal": {
+        "pt": "O arquivo `style.css` está ligado às duas páginas e muda fonte, cores e o fundo usando seletores de tag, de classe e de id."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "CSS"
+          },
+          "explanation": {
+            "pt": "Sigla de *Cascading Style Sheets* (folhas de estilo em cascata). É a linguagem que diz **como** o HTML aparece: cores, tamanhos, espaçamentos e posições."
+          }
+        },
+        {
+          "term": {
+            "pt": "Regra"
+          },
+          "explanation": {
+            "pt": "Um bloco de CSS no formato `seletor { propriedade: valor; }`. Exemplo: `h1 { color: navy; }` pinta todos os `<h1>` de azul-marinho."
+          }
+        },
+        {
+          "term": {
+            "pt": "Seletor"
+          },
+          "explanation": {
+            "pt": "A parte da regra que escolhe **quais elementos** recebem o estilo. Pode ser uma tag (`p`), uma classe (`.cartao`) ou um id (`#form-sessao`)."
+          }
+        },
+        {
+          "term": {
+            "pt": "Classe"
+          },
+          "explanation": {
+            "pt": "Um \"apelido\" que você dá a elementos com o atributo `class` para estilizá-los juntos. Vários elementos podem ter a mesma classe. No CSS, a classe começa com ponto: `.destaque`."
+          }
+        },
+        {
+          "term": {
+            "pt": "Cascata"
+          },
+          "explanation": {
+            "pt": "Quando duas regras brigam pelo mesmo elemento, vence a **mais específica** (id ganha de classe, que ganha de tag); se empatarem, vence a que vem **por último** no arquivo."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Seu HTML está organizado, mas com a cara padrão do navegador: fundo branco, letra com serifa, tudo grudado. Agora o Diário ganha **identidade visual**.\n\n### Passo 1 — Crie o arquivo e ligue nas páginas\n\nCrie `style.css` na pasta do projeto. Depois, no `<head>` do `index.html` **e** do `sobre.html`, acrescente:\n\n```html\n<link rel=\"stylesheet\" href=\"style.css\" />\n```\n\n`rel=\"stylesheet\"` diz que o arquivo é uma folha de estilos e `href` diz onde ele está. Um único arquivo CSS para o site todo: mudou ali, muda em todas as páginas.\n\n### Passo 2 — Sua primeira regra\n\nNo `style.css`:\n\n```css\nbody {\n  font-family: system-ui, sans-serif;\n  background-color: #f4f1ea;\n  color: #1f2937;\n  line-height: 1.6;\n}\n```\n\nLeia cada linha: `font-family` escolhe a fonte (`system-ui` usa a fonte do sistema; se não existir, usa qualquer `sans-serif`, sem serifa). `background-color` é a cor de fundo. `color` é a cor do texto. `line-height` aumenta o espaço entre linhas, o que deixa o texto bem mais fácil de ler.\n\nAs cores com `#` estão em **hexadecimal**: `#RRGGBB`, com a quantidade de vermelho, verde e azul de `00` (nada) a `ff` (máximo). `#000000` é preto e `#ffffff` é branco. Não precisa decorar: use o seletor de cor do VS Code, que aparece quando você passa o mouse sobre uma cor.\n\n### Passo 3 — Seletores de classe e de id\n\nNo HTML, dê uma classe a cada `<section>` do `<main>`:\n\n```html\n<section class=\"cartao\">\n```\n\nNo CSS:\n\n```css\n.cartao {\n  background-color: #ffffff;\n}\n\n#form-sessao label {\n  font-weight: 600;\n}\n```\n\nA primeira regra pega **todos** os elementos com a classe `cartao`. A segunda usa um **seletor composto**: \"os `label` que estão **dentro** do elemento de id `form-sessao`\". O espaço entre os dois significa \"dentro de\".\n\n> **Boa prática:** prefira classes para estilizar. Ids são únicos na página e muito \"fortes\" na cascata, o que deixa difícil sobrescrever depois. Use ids para ligar label e campo e, na Parte 4, para o JavaScript achar elementos.\n\n### Passo 4 — Brinque com o DevTools\n\nAperte `F12`, clique na setinha de seleção (canto superior esquerdo do DevTools) e clique num título da página. À direita aparecem as regras que se aplicam a ele. Você pode mudar valores ali e ver o efeito na hora. Nada é salvo no arquivo, então pode experimentar à vontade. Quando gostar de algo, copie para o `style.css`."
+      },
+      "estimatedMinutes": 45,
+      "resources": [
+        "mdn-css-pt",
+        "web-dev-learn-css"
+      ],
+      "checklist": [
+        {
+          "pt": "O `style.css` está ligado no `<head>` das duas páginas"
+        },
+        {
+          "pt": "Mudei fonte, cor de fundo, cor do texto e espaçamento entre linhas"
+        },
+        {
+          "pt": "Usei pelo menos um seletor de tag, um de classe e um composto"
+        },
+        {
+          "pt": "Testei mudanças de CSS ao vivo pelo DevTools"
+        }
+      ],
+      "videos": [
+        "curso-em-video-html-css"
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "Nada muda quando salvo o CSS"
+          },
+          "solution": {
+            "pt": "Confira o `<link>`: o `href` precisa ter o nome exato do arquivo e ele deve estar no `<head>`. No DevTools, aba **Network** (Rede), recarregue a página: se o `style.css` aparecer em vermelho com 404, o caminho está errado."
+          }
+        },
+        {
+          "problem": {
+            "pt": "Uma regra não funciona e outra parecida funciona"
+          },
+          "solution": {
+            "pt": "Pode ser um erro de digitação (faltou `;` na linha anterior ou o `:` entre propriedade e valor) ou a cascata: no DevTools, regras vencidas aparecem **riscadas**, mostrando qual regra ganhou."
+          }
+        }
+      ]
+    },
+    {
+      "id": "modelo-de-caixa",
+      "title": {
+        "pt": "O modelo de caixa: margin, border e padding"
+      },
+      "goal": {
+        "pt": "As seções do Diário viraram cartões com espaço interno, borda arredondada e distância entre si, e o conteúdo da página tem largura máxima centralizada."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "Modelo de caixa"
+          },
+          "explanation": {
+            "pt": "Para o CSS, **todo elemento é uma caixa** com quatro camadas, de dentro para fora: o **conteúdo**, o **padding** (espaço interno), a **border** (borda) e a **margin** (espaço externo, que afasta os vizinhos)."
+          }
+        },
+        {
+          "term": {
+            "pt": "`box-sizing: border-box`"
+          },
+          "explanation": {
+            "pt": "Faz a largura que você define incluir padding e borda. Sem isso, uma caixa de `300px` com `20px` de padding ocupa `340px`, o que confunde todo mundo."
+          }
+        },
+        {
+          "term": {
+            "pt": "Unidades `px` e `rem`"
+          },
+          "explanation": {
+            "pt": "`px` é uma medida fixa. `rem` é relativa ao tamanho da fonte da página (normalmente 16 px): `1rem` = 16 px, `1.5rem` = 24 px. Com `rem`, se a pessoa aumentar a fonte do navegador, o layout acompanha."
+          }
+        },
+        {
+          "term": {
+            "pt": "Bloco e em linha"
+          },
+          "explanation": {
+            "pt": "Elementos de **bloco** (`div`, `p`, `section`) ocupam a linha toda e empilham um embaixo do outro. Elementos **em linha** (`a`, `strong`, `span`) ficam no meio do texto e ignoram largura e altura."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Se você abrir o DevTools e passar o mouse sobre qualquer elemento, vai ver retângulos coloridos ao redor dele. Isso é o **modelo de caixa**, a ideia mais importante do CSS. Entendendo isso, metade dos problemas de layout some.\n\n### Passo 1 — A regra que todo projeto usa\n\nColoque no **topo** do `style.css`:\n\n```css\n*,\n*::before,\n*::after {\n  box-sizing: border-box;\n}\n\nbody {\n  margin: 0;\n}\n```\n\nO `*` é o **seletor universal**: pega todos os elementos. O `margin: 0` no `body` tira a margem que o navegador coloca por padrão em volta da página.\n\n### Passo 2 — Transforme as seções em cartões\n\n```css\n.cartao {\n  background-color: #ffffff;\n  padding: 1.5rem;\n  border: 1px solid #e5e0d5;\n  border-radius: 12px;\n  margin-bottom: 1.5rem;\n}\n```\n\n- `padding: 1.5rem` afasta o conteúdo da borda por **dentro** (24 px em cada lado).\n- `border: 1px solid #e5e0d5` cria a borda: espessura, estilo (`solid` é linha contínua) e cor.\n- `border-radius` arredonda os cantos.\n- `margin-bottom` afasta um cartão do próximo por **fora**.\n\nAbra o DevTools, selecione um cartão e olhe o diagrama de caixa na aba **Computed** (Calculado): ele mostra os valores de margin, border, padding e conteúdo.\n\n### Passo 3 — Centralize e limite a largura\n\nLinhas de texto muito compridas cansam a leitura. Limite a largura do conteúdo e centralize:\n\n```css\nheader,\nmain,\nfooter {\n  max-width: 720px;\n  margin: 0 auto;\n  padding: 0 1rem;\n}\n```\n\n`max-width` diz \"no máximo 720 px\". `margin: 0 auto` significa 0 em cima e embaixo, e **automático** dos lados: o navegador divide o espaço que sobra igualmente, centralizando a caixa. O `padding` lateral evita que o texto encoste na borda da tela no celular.\n\n### Passo 4 — Os campos do formulário\n\nFaça cada campo ocupar a largura toda e ter espaço confortável:\n\n```css\n#form-sessao label {\n  display: block;\n  margin-top: 1rem;\n}\n\n#form-sessao input,\n#form-sessao select,\n#form-sessao textarea {\n  width: 100%;\n  padding: 0.6rem;\n  font: inherit;\n  border: 1px solid #c9c2b4;\n  border-radius: 8px;\n}\n```\n\n`display: block` transforma o label (que é em linha) em bloco, para ele ficar **acima** do campo. `font: inherit` faz os campos usarem a mesma fonte da página (por padrão eles usam outra).\n\n### Passo 5 — O botão\n\nEstilize o botão \"Registrar sessão\" com cor de fundo, cor do texto, `padding`, `border: none`, `border-radius` e `cursor: pointer` (a mãozinha ao passar o mouse). Escolha as cores do seu Diário."
+      },
+      "estimatedMinutes": 60,
+      "resources": [
+        "mdn-css-pt",
+        "web-dev-learn-css"
+      ],
+      "checklist": [
+        {
+          "pt": "Usei `box-sizing: border-box` para todos os elementos"
+        },
+        {
+          "pt": "As seções viraram cartões com padding, borda, cantos arredondados e margem entre eles"
+        },
+        {
+          "pt": "O conteúdo tem largura máxima e fica centralizado na tela"
+        },
+        {
+          "pt": "Os campos do formulário ocupam a largura toda e o botão tem estilo próprio"
+        },
+        {
+          "pt": "Sei dizer a diferença entre margin e padding olhando o diagrama do DevTools"
+        }
+      ],
+      "videos": [
+        "curso-em-video-html-css"
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "O `margin: 0 auto` não centraliza"
+          },
+          "solution": {
+            "pt": "Centralizar com `auto` só funciona se o elemento for de bloco **e** tiver uma largura menor que a tela (`width` ou `max-width`). Sem largura definida, ele já ocupa tudo e não sobra espaço para dividir."
+          }
+        },
+        {
+          "problem": {
+            "pt": "A margem entre dois elementos ficou menor do que a soma das duas"
+          },
+          "solution": {
+            "pt": "Margens verticais de blocos vizinhos **se fundem**: a maior ganha. Isso se chama *margin collapse*. Use margem só de um lado (por exemplo, só `margin-bottom`) para ficar previsível."
+          }
+        }
+      ]
+    },
+    {
+      "id": "flexbox-layout",
+      "title": {
+        "pt": "Layout com Flexbox"
+      },
+      "goal": {
+        "pt": "O cabeçalho mostra logotipo, título e menu lado a lado, e a lista de sessões aparece como cartões alinhados com Flexbox."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "Flexbox"
+          },
+          "explanation": {
+            "pt": "Um modo de layout para organizar elementos **em uma direção**, linha ou coluna. Você aplica `display: flex` no elemento pai (o **contêiner**) e os filhos (os **itens**) se alinham."
+          }
+        },
+        {
+          "term": {
+            "pt": "Eixo principal e eixo cruzado"
+          },
+          "explanation": {
+            "pt": "No Flexbox em linha, o eixo principal é o horizontal e o cruzado, o vertical. `justify-content` alinha no eixo principal e `align-items`, no cruzado."
+          }
+        },
+        {
+          "term": {
+            "pt": "`gap`"
+          },
+          "explanation": {
+            "pt": "O espaço entre os itens. Muito mais simples do que colocar margem em cada um."
+          }
+        },
+        {
+          "term": {
+            "pt": "`flex-wrap`"
+          },
+          "explanation": {
+            "pt": "Permite que os itens **quebrem para a linha de baixo** quando não cabem. Sem ele, o Flexbox espreme todos numa linha só."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Até aqui, tudo empilhou um embaixo do outro, que é o comportamento normal dos blocos. Para colocar coisas **lado a lado**, a ferramenta moderna é o **Flexbox**.\n\n### Passo 1 — Aqueça com um jogo\n\nAntes de mexer no Diário, jogue as primeiras 10 fases do **Flexbox Froggy** (está nos recursos). Você vai usar `justify-content` e `align-items` para levar sapos às vitórias-régias. Em 15 minutos, você entende mais do que lendo uma hora de teoria.\n\n### Passo 2 — O cabeçalho em linha\n\nOrganize o `<header>` do `index.html` para ter o logotipo e o título juntos e o menu do lado:\n\n```html\n<header class=\"topo\">\n  <div class=\"marca\">\n    <img src=\"imagens/logo.png\" alt=\"Logotipo do Diário de Estudos: um caderno aberto\" width=\"48\" height=\"48\" />\n    <h1>Diário de Estudos</h1>\n  </div>\n  <nav class=\"menu\">\n    <a href=\"index.html\">Diário</a>\n    <a href=\"sobre.html\">Sobre</a>\n  </nav>\n</header>\n```\n\nNo CSS:\n\n```css\n.topo {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  flex-wrap: wrap;\n  gap: 1rem;\n  padding-top: 1rem;\n  padding-bottom: 1rem;\n}\n\n.marca,\n.menu {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n}\n```\n\nEntenda: o `.topo` é o contêiner flex, e seus dois filhos (`.marca` e `.menu`) se colocam lado a lado. `justify-content: space-between` empurra um para cada ponta. `align-items: center` centraliza verticalmente. Dentro da `.marca`, outro flex deixa imagem e título juntos. Flex dentro de flex é muito comum.\n\nFaça o mesmo cabeçalho no `sobre.html` (copie a estrutura).\n\n### Passo 3 — As sessões como cartõezinhos\n\nDê a classe `lista-sessoes` ao `<ul>` das sessões e estilize:\n\n```css\n.lista-sessoes {\n  list-style: none;\n  padding: 0;\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.75rem;\n}\n\n.lista-sessoes li {\n  flex: 1 1 200px;\n  background-color: #f4f1ea;\n  border-radius: 8px;\n  padding: 0.75rem 1rem;\n}\n```\n\n`list-style: none` tira as bolinhas. O `flex: 1 1 200px` diz a cada item: \"comece com 200 px, pode **crescer** para ocupar espaço sobrando e pode **encolher** se precisar\". Com o `flex-wrap`, os itens quebram de linha quando a tela fica estreita.\n\n### Passo 4 — Teste encolhendo a janela\n\nDiminua a largura da janela do navegador devagar. Os cartões devem passar de três por linha para dois, depois um. O cabeçalho deve quebrar o menu para baixo do título quando não couber. Se algo vazar para fora da tela, revise o `flex-wrap`."
+      },
+      "estimatedMinutes": 60,
+      "resources": [
+        "flexbox-froggy",
+        "mdn-css-pt",
+        "web-dev-learn-css"
+      ],
+      "checklist": [
+        {
+          "pt": "Joguei pelo menos 10 fases do Flexbox Froggy"
+        },
+        {
+          "pt": "O cabeçalho tem logotipo e título à esquerda e o menu à direita, alinhados ao centro"
+        },
+        {
+          "pt": "As sessões aparecem como cartões lado a lado que quebram de linha"
+        },
+        {
+          "pt": "Encolhendo a janela, nada vaza para fora da tela"
+        }
+      ],
+      "videos": [
+        "curso-em-video-html-css"
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "O `display: flex` não fez nada"
+          },
+          "solution": {
+            "pt": "Ele precisa ir no **pai** dos elementos que você quer alinhar, não nos filhos. Para alinhar os `<li>`, o flex vai no `<ul>`."
+          }
+        },
+        {
+          "problem": {
+            "pt": "Os itens ficaram espremidos numa linha só"
+          },
+          "solution": {
+            "pt": "Faltou `flex-wrap: wrap` no contêiner."
+          }
+        }
+      ]
+    },
+    {
+      "id": "responsivo",
+      "title": {
+        "pt": "Responsivo: do celular ao computador"
+      },
+      "goal": {
+        "pt": "O Diário fica confortável em uma tela de celular (360 px) e aproveita o espaço numa tela grande, usando media queries com a abordagem mobile-first."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "Design responsivo"
+          },
+          "explanation": {
+            "pt": "Uma página que se **adapta** ao tamanho da tela, em vez de ter uma versão separada para celular. Hoje, a maior parte dos acessos à web vem de celulares."
+          }
+        },
+        {
+          "term": {
+            "pt": "Media query"
+          },
+          "explanation": {
+            "pt": "Uma condição no CSS: \"aplique estas regras **só se** a tela tiver pelo menos tantos pixels\". Escrita como `@media (min-width: 768px) { ... }`."
+          }
+        },
+        {
+          "term": {
+            "pt": "Mobile-first"
+          },
+          "explanation": {
+            "pt": "Escrever primeiro o CSS para a tela pequena e depois acrescentar media queries para telas maiores. Costuma dar menos trabalho do que espremer um layout de computador."
+          }
+        },
+        {
+          "term": {
+            "pt": "Breakpoint"
+          },
+          "explanation": {
+            "pt": "A largura em que o layout muda. Escolha pelo **conteúdo** (\"aqui os cartões cabem lado a lado\"), não por modelos de aparelho."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Lembra da linha `<meta name=\"viewport\" ...>` da Parte 2? Ela diz ao celular para usar a largura real da tela. Sem ela, o celular finge ter uma tela de computador e mostra tudo minúsculo. Agora vamos usar isso a nosso favor.\n\n### Passo 1 — Veja o Diário como um celular vê\n\nNo DevTools (`F12`), clique no ícone de celular e tablet (*Toggle device toolbar*, atalho `Ctrl` + `Shift` + `M`). Escolha uma largura de **360 px** no topo. Navegue pela página e anote o que está ruim: textos grandes demais? Campos pequenos para o dedo? Algo vazando?\n\n### Passo 2 — Ajustes para telas pequenas (a base)\n\nNo modelo mobile-first, o CSS \"normal\" já é o do celular. Confira:\n\n- os botões e links devem ser fáceis de tocar: pelo menos `44px` de altura (`min-height: 44px` no botão);\n- os campos devem ter fonte de pelo menos `16px`, senão o iPhone dá zoom automático ao tocar;\n- o título `<h1>` pode ser menor no celular: `font-size: 1.6rem;`.\n\n### Passo 3 — Melhore para telas maiores\n\nNo final do `style.css`:\n\n```css\n@media (min-width: 768px) {\n  h1 {\n    font-size: 2.2rem;\n  }\n\n  main {\n    max-width: 960px;\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n    gap: 1.5rem;\n  }\n\n  main .cartao:first-child {\n    grid-row: span 2;\n  }\n}\n```\n\nTudo que está dentro do `@media` só vale quando a tela tem **768 px ou mais**. Aqui aparece um intruso, o **Grid**: enquanto o Flexbox organiza em uma direção, o Grid organiza em **linhas e colunas** ao mesmo tempo. `grid-template-columns: 1fr 1fr` cria duas colunas iguais (`fr` significa \"fração do espaço\"). A regra seguinte faz o primeiro cartão (o formulário) ocupar duas linhas, ficando ao lado dos outros dois. Se quiser praticar Grid, jogue o **Grid Garden** dos recursos.\n\n### Passo 4 — Teste em três tamanhos\n\nNo modo de dispositivo do DevTools, teste em **360 px**, **768 px** e **1280 px**. Em cada um, preencha o formulário e role a página. Se tiver um celular por perto, abra a página nele também: com o Live Server rodando e o celular no mesmo Wi-Fi, use o endereço `http://IP-DO-SEU-PC:5500` (descubra o IP rodando `ipconfig` no terminal e procurando \"Endereço IPv4\")."
+      },
+      "estimatedMinutes": 60,
+      "resources": [
+        "web-dev-learn-design",
+        "css-grid-garden",
+        "mdn-css-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Testei o Diário no modo de dispositivo do DevTools em 360 px"
+        },
+        {
+          "pt": "Botões têm pelo menos 44 px de altura e campos usam fonte de 16 px ou mais"
+        },
+        {
+          "pt": "Criei uma media query com `min-width` que organiza o conteúdo em duas colunas no computador"
+        },
+        {
+          "pt": "A página funciona bem em 360 px, 768 px e 1280 px"
+        }
+      ],
+      "videos": [
+        "curso-em-video-html-css"
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "No celular de verdade a página aparece minúscula"
+          },
+          "solution": {
+            "pt": "Falta a meta tag de viewport no `<head>`: `<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />`."
+          }
+        },
+        {
+          "problem": {
+            "pt": "A media query não funciona"
+          },
+          "solution": {
+            "pt": "Confira a sintaxe: precisa de parênteses e dos dois pontos, `@media (min-width: 768px) {`, e de uma chave a mais fechando o bloco no final. Um esquecimento de `}` quebra todo o CSS que vem depois."
+          }
+        },
+        {
+          "problem": {
+            "pt": "Aparece uma barra de rolagem horizontal"
+          },
+          "solution": {
+            "pt": "Algum elemento está mais largo que a tela. No DevTools, procure elementos com `width` fixo grande ou imagens sem `max-width: 100%`. Uma regra que ajuda: `img { max-width: 100%; height: auto; }`."
+          }
+        }
+      ]
+    },
+    {
+      "id": "variaveis-e-acabamento",
+      "title": {
+        "pt": "Variáveis CSS, estados e acabamento"
+      },
+      "goal": {
+        "pt": "As cores do Diário estão em variáveis CSS, links e botões mudam ao passar o mouse e ao receber foco do teclado, e o texto passa no teste de contraste."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "Variável CSS (propriedade personalizada)"
+          },
+          "explanation": {
+            "pt": "Um valor com nome que você define uma vez e reaproveita: `--cor-principal: #2563eb;` e depois `color: var(--cor-principal);`. Trocou a variável, mudou o site inteiro."
+          }
+        },
+        {
+          "term": {
+            "pt": "Pseudo-classe"
+          },
+          "explanation": {
+            "pt": "Um estado do elemento, escrito com dois pontos: `:hover` (mouse em cima), `:focus-visible` (foco pelo teclado), `:invalid` (campo com valor inválido)."
+          }
+        },
+        {
+          "term": {
+            "pt": "Contraste"
+          },
+          "explanation": {
+            "pt": "A diferença de brilho entre o texto e o fundo. As regras de acessibilidade pedem uma razão de pelo menos **4,5 para 1** em texto normal, para que pessoas com baixa visão consigam ler."
+          }
+        },
+        {
+          "term": {
+            "pt": "`transition`"
+          },
+          "explanation": {
+            "pt": "Faz a mudança de um estilo acontecer suavemente, em vez de num estalo. Use com moderação e em durações curtas."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Falta o acabamento que separa um projeto amador de um projeto caprichado: **consistência** (as mesmas cores em todo lugar), **resposta visual** (os elementos reagem quando você interage) e **acessibilidade** (todo mundo consegue ler).\n\n### Passo 1 — Centralize as cores em variáveis\n\nNo começo do `style.css`, depois do `box-sizing`:\n\n```css\n:root {\n  --cor-fundo: #f4f1ea;\n  --cor-cartao: #ffffff;\n  --cor-texto: #1f2937;\n  --cor-principal: #2563eb;\n  --cor-borda: #e5e0d5;\n  --raio: 12px;\n}\n```\n\nO `:root` representa a página inteira, então as variáveis valem em todo lugar. Agora troque as cores escritas à mão pelo `var()`. Por exemplo: `background-color: var(--cor-cartao);`. Teste a mágica: mude `--cor-principal` para outra cor e veja botão, links e destaques mudarem juntos.\n\n### Passo 2 — Estados de mouse e de teclado\n\n```css\na {\n  color: var(--cor-principal);\n}\n\na:hover {\n  text-decoration: none;\n}\n\nbutton {\n  background-color: var(--cor-principal);\n  color: #ffffff;\n  transition: filter 0.15s;\n}\n\nbutton:hover {\n  filter: brightness(1.1);\n}\n\na:focus-visible,\nbutton:focus-visible,\ninput:focus-visible,\nselect:focus-visible,\ntextarea:focus-visible {\n  outline: 3px solid var(--cor-principal);\n  outline-offset: 2px;\n}\n```\n\nO `:focus-visible` desenha um contorno bem visível quando o elemento recebe foco **pelo teclado**. **Nunca** apague o contorno de foco (`outline: none`) sem colocar outro no lugar: quem navega pelo teclado fica perdido.\n\n### Passo 3 — Feedback do formulário\n\n```css\ninput:user-invalid {\n  border-color: #dc2626;\n}\n```\n\n`:user-invalid` deixa a borda vermelha quando a pessoa já mexeu no campo e o valor não é válido (por exemplo, minutos acima de 600).\n\n### Passo 4 — Confira o contraste\n\nAbra o **WebAIM Contrast Checker** (nos recursos), coloque a cor do texto e a cor do fundo e veja se o resultado em *Normal Text* está como **Pass** (passou) para o nível AA. Teste também o texto do botão contra a cor do botão. Ajuste o que reprovar.\n\n### Passo 5 — Revisão final\n\nAbra as duas páginas e faça uma lista do que ainda incomoda (um espaço estranho, uma cor que não combina). Corrija pelo menos três coisas. Acabamento é isso: atenção aos detalhes."
+      },
+      "estimatedMinutes": 45,
+      "resources": [
+        "webaim-contrast",
+        "web-dev-learn-a11y",
+        "mdn-css-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "As cores do site estão em variáveis no `:root` e trocar `--cor-principal` muda o site todo"
+        },
+        {
+          "pt": "Links e botões têm estado de `:hover` e um contorno de foco bem visível com `:focus-visible`"
+        },
+        {
+          "pt": "Campos inválidos mostram borda vermelha depois que a pessoa mexe neles"
+        },
+        {
+          "pt": "Texto e botão passam no teste de contraste AA do WebAIM"
+        }
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "O `var(--cor-principal)` não funciona"
+          },
+          "solution": {
+            "pt": "Confira os dois hífens no começo do nome (`--cor-principal`) e se a variável foi definida dentro de `:root { }`. O nome precisa ser idêntico nos dois lugares."
+          }
+        },
+        {
+          "problem": {
+            "pt": "O contorno de foco aparece também quando clico com o mouse"
+          },
+          "solution": {
+            "pt": "Use `:focus-visible` em vez de `:focus`. O navegador só mostra o `:focus-visible` quando percebe que a pessoa está usando o teclado."
+          }
+        }
+      ]
+    }
+  ],
+  "extraChallenges": [
+    {
+      "pt": "Crie um tema escuro usando `@media (prefers-color-scheme: dark)` e trocando só as variáveis"
+    },
+    {
+      "pt": "Use uma fonte do Google Fonts no título"
+    },
+    {
+      "pt": "Faça uma barra de progresso da meta semanal só com CSS (uma caixa dentro da outra, com largura em %)"
+    }
+  ],
+  "portfolioTip": {
+    "pt": "Tire prints do Diário no celular e no computador lado a lado. Mostrar que você pensou nos dois tamanhos de tela é um diferencial em vagas de front-end."
+  }
+}

@@ -5,10 +5,11 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { LangBadge } from "@/components/ui/Badges";
 import { InlineMarkdown, Markdown } from "@/components/ui/Markdown";
+import { CriteriaChecklist } from "@/components/ui/CriteriaChecklist";
 import { ProjectStatus } from "@/components/ui/ProjectStatus";
 import { StepShell } from "@/components/ui/StepShell";
 import { getProject, getProjects, getResourcesByIds, getTrack } from "@/lib/content";
-import { tr } from "@/lib/schemas";
+import { isTranslated, tr } from "@/lib/schemas";
 
 type Props = { params: Promise<{ locale: string; track: string; project: string }> };
 
@@ -71,6 +72,17 @@ export default async function ProjectPage({ params }: Props) {
           <span className="text-zinc-400">{tt("steps", { count: project.steps.length })}</span>
         </div>
         <h1 className="font-display neon-text text-4xl font-bold text-white sm:text-5xl">{title}</h1>
+        {project.feature && (
+          <p className="text-lg text-zinc-200">
+            <span className="accent-text font-semibold">{t("featureLabel")}: </span>
+            {tr(project.feature, locale)}
+          </p>
+        )}
+        {!isTranslated(project.whatYouBuild, locale) && (
+          <p role="note" className="rounded-lg border border-white/15 bg-white/5 p-3 text-sm text-zinc-200">
+            {t("notTranslated")}
+          </p>
+        )}
         <ProjectStatus project={summary} title={title} completeMessage={t("projectComplete")} />
       </header>
 
@@ -120,7 +132,10 @@ export default async function ProjectPage({ params }: Props) {
         </h2>
         <ol className="mt-6 space-y-5">
           {project.steps.map((step, i) => {
-            const resources = getResourcesByIds(step.resources);
+            const videos = getResourcesByIds(step.videos ?? []);
+            const resources = getResourcesByIds(step.resources).filter(
+              (r) => !(step.videos ?? []).includes(r.id),
+            );
             return (
               <StepShell
                 key={step.id}
@@ -132,15 +147,53 @@ export default async function ProjectPage({ params }: Props) {
               >
                 <div className="accent-soft rounded-lg p-3">
                   <p className="accent-text text-xs font-semibold uppercase tracking-wider">{t("goal")}</p>
-                  <p className="mt-1 text-zinc-100">{tr(step.goal, locale)}</p>
+                  <div className="mt-1 text-zinc-100">
+                    <InlineMarkdown>{tr(step.goal, locale)}</InlineMarkdown>
+                  </div>
                 </div>
 
-                <div className="mt-5">
+                {step.concepts && step.concepts.length > 0 && (
+                  <section className="mt-5" aria-label={t("concepts")}>
+                    <h4 className="font-display text-base font-semibold text-white">{t("concepts")}</h4>
+                    <dl className="mt-3 grid gap-3 sm:grid-cols-2">
+                      {step.concepts.map((c) => (
+                        <div key={c.term.pt} className="rounded-lg border border-white/10 bg-white/[0.03] p-3">
+                          <dt className="accent-text font-semibold">{tr(c.term, locale)}</dt>
+                          <dd className="mt-1 text-sm leading-relaxed text-zinc-300">
+                            <InlineMarkdown>{tr(c.explanation, locale)}</InlineMarkdown>
+                          </dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </section>
+                )}
+
+                <div className="mt-6">
                   <Markdown>{tr(step.instructions, locale)}</Markdown>
                 </div>
 
-                {step.hint && (
+                {step.commonErrors && step.commonErrors.length > 0 && (
                   <details className="mt-5 rounded-lg border border-white/10 p-3">
+                    <summary className="cursor-pointer text-sm font-semibold text-zinc-100">
+                      {t("commonErrors")}
+                    </summary>
+                    <ul className="mt-3 space-y-3 text-sm">
+                      {step.commonErrors.map((e) => (
+                        <li key={e.problem.pt}>
+                          <p className="font-semibold text-zinc-100">
+                            <InlineMarkdown>{tr(e.problem, locale)}</InlineMarkdown>
+                          </p>
+                          <div className="mt-1 text-zinc-300">
+                            <Markdown>{tr(e.solution, locale)}</Markdown>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </details>
+                )}
+
+                {step.hint && (
+                  <details className="mt-3 rounded-lg border border-white/10 p-3">
                     <summary className="cursor-pointer text-sm font-semibold text-zinc-100">
                       {t("showHint")}
                     </summary>
@@ -150,41 +203,67 @@ export default async function ProjectPage({ params }: Props) {
                   </details>
                 )}
 
-                <div className="mt-5 grid gap-5 sm:grid-cols-2">
-                  <div>
-                    <h4 className="text-sm font-semibold text-zinc-100">{t("checklist")}</h4>
-                    <ul className="mt-2 space-y-1.5 text-sm">
-                      {step.checklist.map((c) => (
-                        <li key={c.pt} className="flex gap-2 text-zinc-300">
-                          <span aria-hidden className="accent-text">▢</span>
-                          <InlineMarkdown>{tr(c, locale)}</InlineMarkdown>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  {resources.length > 0 && (
-                    <div>
-                      <h4 className="text-sm font-semibold text-zinc-100">{t("resources")}</h4>
-                      <ul className="mt-2 space-y-2 text-sm">
-                        {resources.map((r) => (
-                          <li key={r.id} className="flex flex-wrap items-center gap-2">
-                            <LangBadge
-                              language={r.language}
-                              label={tLang(r.language === "pt-BR" ? "pt" : "en")}
-                            />
-                            <a
-                              href={r.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-zinc-100 underline underline-offset-2 hover:text-white"
-                            >
-                              {r.title}
-                              <span className="sr-only"> {tc("opensInNewTab")}</span>
-                            </a>
-                            <span className="text-xs text-zinc-400">{tTypes(r.type)}</span>
-                          </li>
-                        ))}
-                      </ul>
+                <div className="mt-6 grid gap-6 sm:grid-cols-2">
+                  <CriteriaChecklist
+                    projectId={project.id}
+                    stepId={step.id}
+                    items={step.checklist.map((c) => (
+                      <InlineMarkdown key={c.pt}>{tr(c, locale)}</InlineMarkdown>
+                    ))}
+                  />
+                  {(videos.length > 0 || resources.length > 0) && (
+                    <div className="space-y-5">
+                      {videos.length > 0 && (
+                        <div>
+                          <h4 className="text-sm font-semibold text-zinc-100">{t("videos")}</h4>
+                          <ul className="mt-2 space-y-2 text-sm">
+                            {videos.map((r) => (
+                              <li key={r.id} className="flex flex-wrap items-center gap-2">
+                                <span aria-hidden className="accent-text">▶</span>
+                                <a
+                                  href={r.url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-zinc-100 underline underline-offset-2 hover:text-white"
+                                >
+                                  {r.title}
+                                  <span className="sr-only"> {tc("opensInNewTab")}</span>
+                                </a>
+                                <span className="text-xs text-zinc-400">{r.author}</span>
+                                <LangBadge
+                                  language={r.language}
+                                  label={tLang(r.language === "pt-BR" ? "pt" : "en")}
+                                />
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                      {resources.length > 0 && (
+                        <div>
+                          <h4 className="text-sm font-semibold text-zinc-100">{t("resources")}</h4>
+                          <ul className="mt-2 space-y-2 text-sm">
+                            {resources.map((r) => (
+                              <li key={r.id} className="flex flex-wrap items-center gap-2">
+                                <LangBadge
+                                  language={r.language}
+                                  label={tLang(r.language === "pt-BR" ? "pt" : "en")}
+                                />
+                                <a
+                                  href={r.url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-zinc-100 underline underline-offset-2 hover:text-white"
+                                >
+                                  {r.title}
+                                  <span className="sr-only"> {tc("opensInNewTab")}</span>
+                                </a>
+                                <span className="text-xs text-zinc-400">{tTypes(r.type)}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>

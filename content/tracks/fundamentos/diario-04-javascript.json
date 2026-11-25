@@ -1,0 +1,542 @@
+{
+  "id": "diario-04-javascript",
+  "track": "fundamentos",
+  "order": 4,
+  "title": {
+    "pt": "Parte 4: dando vida ao Diário com JavaScript"
+  },
+  "feature": {
+    "pt": "Registrar sessões de verdade, somar o total, remover, mostrar a meta e lembrar de tudo ao recarregar"
+  },
+  "level": 2,
+  "stack": [
+    "JavaScript",
+    "DOM",
+    "localStorage",
+    "JSON"
+  ],
+  "whatYouBuild": {
+    "pt": "O Diário de Estudos passa a funcionar de verdade: o formulário registra sessões sem recarregar a página, a lista e o total são desenhados pelo JavaScript, cada sessão pode ser removida, uma barra mostra o progresso da meta e tudo fica salvo no navegador."
+  },
+  "whatYouLearn": [
+    {
+      "pt": "Ligar o JavaScript à página e usar o console do navegador"
+    },
+    {
+      "pt": "O DOM: encontrar, criar e mudar elementos"
+    },
+    {
+      "pt": "Eventos e o envio de formulários sem recarregar"
+    },
+    {
+      "pt": "Estado e função de renderização (a ideia por trás do React)"
+    },
+    {
+      "pt": "localStorage e JSON para guardar dados"
+    },
+    {
+      "pt": "Validação, ids únicos, filter e acessibilidade com aria-live"
+    }
+  ],
+  "prerequisites": [
+    "diario-03-css"
+  ],
+  "steps": [
+    {
+      "id": "js-na-pagina",
+      "title": {
+        "pt": "Ligando o JavaScript na página e conhecendo o DOM"
+      },
+      "goal": {
+        "pt": "O arquivo `app.js` está ligado ao `index.html`, você usa o console do navegador e consegue encontrar e alterar um elemento da página pelo código."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "JavaScript no navegador"
+          },
+          "explanation": {
+            "pt": "O mesmo JavaScript da Parte 1, mas agora rodando **dentro da página**. Lá ele escrevia no terminal; aqui ele lê e muda o que aparece na tela e reage ao que a pessoa faz."
+          }
+        },
+        {
+          "term": {
+            "pt": "DOM"
+          },
+          "explanation": {
+            "pt": "Sigla de *Document Object Model*. É a página transformada numa **árvore de objetos** que o JavaScript consegue ler e mudar. Cada tag do HTML vira um objeto (um \"nó\") dessa árvore."
+          }
+        },
+        {
+          "term": {
+            "pt": "`document.querySelector`"
+          },
+          "explanation": {
+            "pt": "Procura na página o **primeiro** elemento que combina com um seletor CSS e o devolve. É a ponte entre o HTML e o JavaScript: `document.querySelector(\"#form-sessao\")`."
+          }
+        },
+        {
+          "term": {
+            "pt": "Console do navegador"
+          },
+          "explanation": {
+            "pt": "A aba **Console** do DevTools. Mostra os `console.log` da página e os erros, e também deixa você digitar JavaScript e ver o resultado na hora."
+          }
+        },
+        {
+          "term": {
+            "pt": "`defer`"
+          },
+          "explanation": {
+            "pt": "Atributo da tag `<script>` que manda o navegador **esperar o HTML terminar de carregar** antes de rodar o JavaScript. Sem ele, o código pode procurar elementos que ainda não existem."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Seu Diário tem esqueleto (HTML) e roupa (CSS). Agora vêm os **músculos**: o JavaScript que faz o formulário funcionar de verdade. Ao fim desta parte, registrar uma sessão vai mostrá-la na lista, atualizar o total e guardar tudo mesmo se você fechar o navegador.\n\n### Passo 1 — Crie e ligue o arquivo\n\nCrie `app.js` na pasta do projeto. No `<head>` do `index.html`, depois do `<link>` do CSS:\n\n```html\n<script src=\"app.js\" defer></script>\n```\n\nNo `app.js`, escreva:\n\n```js\nconsole.log(\"O app.js foi carregado!\");\n```\n\nAbra a página (Live Server), aperte `F12` e vá na aba **Console**. A mensagem tem que estar lá. Agora você sabe onde ver o que o seu JavaScript está fazendo.\n\n### Passo 2 — Experimente no console\n\nO console aceita JavaScript direto. Digite cada linha e aperte Enter:\n\n```js\ndocument.title\ndocument.querySelector(\"h1\")\ndocument.querySelector(\"h1\").textContent = \"Meu Diário!\"\n```\n\nA primeira mostra o título da aba. A segunda devolve o elemento `<h1>` (passe o mouse sobre o resultado e ele se acende na página). A terceira **muda o texto do título**. Recarregue a página e o texto volta ao original: a mudança aconteceu só na memória do navegador, não no arquivo.\n\n### Passo 3 — Encontre os elementos do Diário pelo código\n\nNo `app.js`, guarde em variáveis os elementos que vamos usar. Para isso, garanta que eles tenham `id` no HTML:\n\n- o formulário já tem `id=\"form-sessao\"`;\n- dê `id=\"lista-sessoes\"` ao `<ul>` das sessões (ele pode ter `id` **e** `class` ao mesmo tempo);\n- no resumo, envolva o total num `<span id=\"total-horas\">1,3 h</span>`.\n\n```js\nconst formulario = document.querySelector(\"#form-sessao\");\nconst lista = document.querySelector(\"#lista-sessoes\");\nconst totalHoras = document.querySelector(\"#total-horas\");\n\nconsole.log(formulario, lista, totalHoras);\n```\n\nOs três precisam aparecer no console. Se algum aparecer como `null` (nulo), o seletor não encontrou nada: confira o `id` no HTML.\n\n### Passo 4 — Mude a página pelo código\n\nAinda no `app.js`:\n\n```js\ntotalHoras.textContent = \"0 h\";\n```\n\nSalve: o resumo agora mostra \"0 h\". É assim que o JavaScript vai atualizar o total sempre que uma sessão for registrada."
+      },
+      "estimatedMinutes": 45,
+      "resources": [
+        "mdn-dom-pt",
+        "javascript-info-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "O `app.js` está ligado com `defer` e a mensagem aparece no Console"
+        },
+        {
+          "pt": "Mudei o texto do título pelo console e entendi por que voltou ao recarregar"
+        },
+        {
+          "pt": "Guardei o formulário, a lista e o total em variáveis com `querySelector` e nenhum veio `null`"
+        },
+        {
+          "pt": "O JavaScript muda o texto do total na página"
+        }
+      ],
+      "videos": [
+        "cev-javascript"
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "O `querySelector` devolve `null`"
+          },
+          "solution": {
+            "pt": "Ou o seletor está errado (lembre do `#` para id e do `.` para classe), ou o script rodou antes do HTML carregar. Confira se a tag `<script>` tem o atributo `defer`."
+          }
+        },
+        {
+          "problem": {
+            "pt": "`Uncaught TypeError: Cannot set properties of null`"
+          },
+          "solution": {
+            "pt": "É consequência do erro acima: você tentou mudar um elemento que não foi encontrado. Ache o `null` primeiro com `console.log`."
+          }
+        }
+      ]
+    },
+    {
+      "id": "eventos-formulario",
+      "title": {
+        "pt": "Ouvindo o formulário: eventos"
+      },
+      "goal": {
+        "pt": "Ao clicar em \"Registrar sessão\", a página não recarrega e o JavaScript monta um objeto com matéria, minutos, data e anotações e o mostra no console."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "Evento"
+          },
+          "explanation": {
+            "pt": "Algo que acontece na página: um clique, uma tecla, o envio de um formulário. O JavaScript pode **ouvir** um evento e rodar uma função quando ele acontece."
+          }
+        },
+        {
+          "term": {
+            "pt": "`addEventListener`"
+          },
+          "explanation": {
+            "pt": "Prende um \"ouvinte\" a um elemento: `formulario.addEventListener(\"submit\", funcao)` significa \"quando este formulário for enviado, rode esta função\"."
+          }
+        },
+        {
+          "term": {
+            "pt": "`preventDefault`"
+          },
+          "explanation": {
+            "pt": "Cancela o comportamento padrão do navegador. No envio de formulário, o padrão é recarregar a página; nós queremos tratar os dados sem recarregar."
+          }
+        },
+        {
+          "term": {
+            "pt": "`.value`"
+          },
+          "explanation": {
+            "pt": "A propriedade que guarda **o que a pessoa digitou** num campo. Sempre vem como texto (string), mesmo em campos de número."
+          }
+        },
+        {
+          "term": {
+            "pt": "Conversão de tipo"
+          },
+          "explanation": {
+            "pt": "Transformar um valor de um tipo em outro. `Number(\"50\")` vira o número `50`. Lembra do `\"50\" + 10 = \"5010\"` da Parte 1? É por isso que precisamos converter."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Quando você envia o formulário hoje, a página recarrega e os dados somem. Nesta etapa, o JavaScript vai **assumir** esse envio.\n\n### Passo 1 — Ouça o envio do formulário\n\nNo `app.js`, depois das variáveis:\n\n```js\nformulario.addEventListener(\"submit\", function (evento) {\n  evento.preventDefault();\n  console.log(\"O formulário foi enviado!\");\n});\n```\n\nEntenda: quando o formulário for enviado (evento `submit`), o navegador chama a função e entrega a ela um objeto com informações sobre o evento (que chamamos de `evento`). `evento.preventDefault()` impede o recarregamento. Teste: preencha, clique no botão e veja a mensagem no Console, sem a página piscar.\n\n> Por que ouvir `submit` e não o clique no botão? Porque `submit` também dispara quando a pessoa aperta **Enter** num campo, e só depois que a validação do HTML (o `required`, o `min`) passou. Você ganha tudo isso de graça.\n\n### Passo 2 — Leia os valores dos campos\n\nGuarde os campos em variáveis, no topo do arquivo:\n\n```js\nconst campoMateria = document.querySelector(\"#materia\");\nconst campoMinutos = document.querySelector(\"#minutos\");\nconst campoData = document.querySelector(\"#data\");\nconst campoAnotacoes = document.querySelector(\"#anotacoes\");\n```\n\nDentro da função do `submit`, monte um objeto com os valores:\n\n```js\nconst sessao = {\n  materia: campoMateria.value,\n  minutos: Number(campoMinutos.value),\n  data: campoData.value,\n  anotacoes: campoAnotacoes.value.trim(),\n};\n\nconsole.log(sessao);\n```\n\nRepare: `Number(...)` converte os minutos de texto para número. `.trim()` remove espaços sobrando no começo e no fim do texto. É o mesmo formato de objeto da Parte 1, agora com `data` e `anotacoes`.\n\n### Passo 3 — Limpe o formulário depois do envio\n\nAinda dentro da função, depois do `console.log`:\n\n```js\nformulario.reset();\ncampoMateria.focus();\n```\n\n`reset()` limpa todos os campos e `focus()` coloca o cursor de volta na matéria, pronto para o próximo registro. Pequenos detalhes assim deixam o app agradável.\n\n### Passo 4 — Teste e observe os tipos\n\nRegistre duas sessões e olhe o Console. Clique no objeto para expandir: `minutos` deve aparecer **sem aspas e em azul** (número) e `materia` **com aspas** (texto). Se os minutos estiverem com aspas, faltou o `Number`."
+      },
+      "estimatedMinutes": 60,
+      "resources": [
+        "mdn-dom-pt",
+        "javascript-info-pt",
+        "mdn-js-guide-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "O envio do formulário não recarrega mais a página"
+        },
+        {
+          "pt": "Um objeto com matéria, minutos, data e anotações aparece no Console a cada envio"
+        },
+        {
+          "pt": "Os minutos chegam como número (sem aspas no Console)"
+        },
+        {
+          "pt": "Depois de registrar, o formulário é limpo e o foco volta para a matéria"
+        }
+      ],
+      "videos": [
+        "cev-javascript"
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "A página ainda recarrega"
+          },
+          "solution": {
+            "pt": "O `evento.preventDefault()` não está rodando. Confira se a função recebe o parâmetro (`function (evento)`) e se o nome é o mesmo nas duas partes. Veja também se há algum erro vermelho no Console: um erro **antes** dessa linha interrompe o código."
+          }
+        },
+        {
+          "problem": {
+            "pt": "O valor da data vem vazio"
+          },
+          "solution": {
+            "pt": "Campos `type=\"date\"` só têm valor quando a data está completa. Confira se o campo tem `required` para não deixar enviar sem data."
+          }
+        }
+      ]
+    },
+    {
+      "id": "mostrando-na-tela",
+      "title": {
+        "pt": "Mostrando as sessões e o total na tela"
+      },
+      "goal": {
+        "pt": "Cada sessão registrada aparece na lista da página e o total de horas é recalculado na hora, usando uma função que desenha a lista a partir dos dados."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "Estado"
+          },
+          "explanation": {
+            "pt": "Os **dados** que o app guarda num momento: aqui, a lista de sessões. A regra de ouro: a tela é um **reflexo do estado**. Mudou o estado, redesenhe a tela."
+          }
+        },
+        {
+          "term": {
+            "pt": "`createElement`"
+          },
+          "explanation": {
+            "pt": "Cria um elemento novo pelo JavaScript, ainda solto, fora da página: `document.createElement(\"li\")`."
+          }
+        },
+        {
+          "term": {
+            "pt": "`textContent`"
+          },
+          "explanation": {
+            "pt": "O texto de dentro de um elemento. Usar `textContent` (e não `innerHTML`) com o que a pessoa digitou evita que alguém injete código na página."
+          }
+        },
+        {
+          "term": {
+            "pt": "`append`"
+          },
+          "explanation": {
+            "pt": "Coloca um elemento dentro de outro, no final: `lista.append(item)`. É assim que o elemento criado aparece na página."
+          }
+        },
+        {
+          "term": {
+            "pt": "Função de renderização"
+          },
+          "explanation": {
+            "pt": "Uma função que **desenha** a tela inteira a partir do estado. Toda vez que os dados mudam, você chama essa função."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Agora vamos fazer as sessões aparecerem na página. Existem dois jeitos: (1) ir acrescentando cada item novo na lista conforme chega, ou (2) guardar os dados num array e ter uma função que **redesenha** a lista inteira a partir dele. O segundo jeito parece trabalhoso, mas evita muitos bugs (é a ideia por trás de bibliotecas como o React, que você vai ver no distrito Web).\n\n### Passo 1 — O estado do app\n\nNo topo do `app.js`, crie a lista de sessões:\n\n```js\nlet sessoes = [];\n```\n\nE apague do HTML os `<li>` escritos à mão: a partir de agora, quem cria os itens é o JavaScript.\n\n### Passo 2 — Traga suas funções da Parte 1\n\nAs funções `totalDeMinutos` e `emHoras` da Parte 1 servem aqui sem mudar nada. Copie-as para o `app.js`. Esse é o poder de escrever funções: elas funcionam em qualquer lugar onde houver JavaScript.\n\n### Passo 3 — A função que desenha a tela\n\n```js\nfunction renderizar() {\n  totalHoras.textContent = emHoras(totalDeMinutos(sessoes));\n  lista.innerHTML = \"\";\n\n  for (const sessao of sessoes) {\n    const item = document.createElement(\"li\");\n    item.textContent = `${sessao.materia}: ${sessao.minutos} min (${sessao.data})`;\n    lista.append(item);\n  }\n}\n```\n\nLinha por linha: primeiro atualizamos o total com as funções da Parte 1. Depois, `lista.innerHTML = \"\"` **esvazia** a lista (senão os itens se repetiriam a cada redesenho). Por fim, para cada sessão do estado, criamos um `<li>`, colocamos o texto e o acrescentamos à lista.\n\n> Aqui usamos `innerHTML = \"\"` só para apagar. Para escrever textos vindos do usuário, use sempre `textContent`: se alguém digitar `<script>` nas anotações, com `textContent` isso aparece como texto inofensivo; com `innerHTML`, seria executado como código.\n\n### Passo 4 — Ligue o formulário ao estado\n\nNa função do `submit`, troque o `console.log(sessao)` por:\n\n```js\nsessoes.push(sessao);\nrenderizar();\n```\n\n`push` acrescenta o objeto no final do array. Depois, redesenhamos. Registre três sessões e veja a lista crescer e o total subir.\n\n### Passo 5 — Mostre as anotações (desafio guiado)\n\nQuando a sessão tiver anotações, mostre-as numa linha abaixo, menor e mais clara. Dica: dentro do laço, crie um segundo elemento (`document.createElement(\"small\")`), coloque o texto das anotações e use `item.append(...)` para colocá-lo **dentro** do `<li>`. Só faça isso se `sessao.anotacoes` não estiver vazio (um `if` resolve). Estilize `.lista-sessoes small` no CSS com `display: block`.\n\n### Passo 6 — Mensagem de lista vazia\n\nQuando não houver sessões, mostre \"Nenhuma sessão registrada ainda. Que tal começar agora?\". Dica: no `renderizar`, logo depois de esvaziar a lista (e antes do laço), teste `if (sessoes.length === 0)`, crie um `<li>` com essa mensagem e use `return` para sair da função. Por isso o total fica na primeira linha: ele precisa ser atualizado mesmo quando a lista está vazia."
+      },
+      "estimatedMinutes": 75,
+      "resources": [
+        "mdn-dom-pt",
+        "javascript-info-pt",
+        "mdn-js-guide-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Os `<li>` escritos à mão saíram do HTML e a lista é criada pelo JavaScript"
+        },
+        {
+          "pt": "Registrar uma sessão a faz aparecer na lista sem repetir as anteriores"
+        },
+        {
+          "pt": "O total de horas é recalculado a cada registro"
+        },
+        {
+          "pt": "As anotações aparecem abaixo da sessão quando existem"
+        },
+        {
+          "pt": "Com a lista vazia, aparece uma mensagem convidando a registrar"
+        }
+      ],
+      "videos": [
+        "cev-javascript"
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "Cada registro duplica a lista inteira"
+          },
+          "solution": {
+            "pt": "Faltou esvaziar a lista no começo do `renderizar` (`lista.innerHTML = \"\"`)."
+          }
+        },
+        {
+          "problem": {
+            "pt": "O total mostra `NaN h`"
+          },
+          "solution": {
+            "pt": "`NaN` significa *Not a Number* (não é um número): você fez conta com algo que não é número. Quase sempre é o `Number()` faltando nos minutos, ou um nome de propriedade digitado diferente (`minuto` em vez de `minutos`)."
+          }
+        }
+      ]
+    },
+    {
+      "id": "salvar-localstorage",
+      "title": {
+        "pt": "Lembrando de tudo: localStorage e JSON"
+      },
+      "goal": {
+        "pt": "As sessões continuam na tela depois de recarregar a página ou fechar o navegador, porque são salvas no localStorage em formato JSON."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "localStorage"
+          },
+          "explanation": {
+            "pt": "Uma pequena área de armazenamento que **o navegador guarda para cada site**. Os dados ficam no computador da pessoa e sobrevivem a recarregar a página e a fechar o navegador."
+          }
+        },
+        {
+          "term": {
+            "pt": "Chave e valor"
+          },
+          "explanation": {
+            "pt": "O localStorage funciona como um armário de gavetas com etiqueta: você guarda um valor numa **chave** (`setItem(\"chave\", valor)`) e busca pela mesma chave (`getItem(\"chave\")`)."
+          }
+        },
+        {
+          "term": {
+            "pt": "JSON"
+          },
+          "explanation": {
+            "pt": "*JavaScript Object Notation*: um formato de **texto** para representar objetos e listas. O localStorage só guarda texto, então convertemos o array em texto para salvar e de volta para array ao ler."
+          }
+        },
+        {
+          "term": {
+            "pt": "`JSON.stringify` e `JSON.parse`"
+          },
+          "explanation": {
+            "pt": "`stringify` transforma objeto ou array em texto JSON. `parse` faz o caminho inverso, de texto para objeto ou array."
+          }
+        },
+        {
+          "term": {
+            "pt": "Persistência"
+          },
+          "explanation": {
+            "pt": "A capacidade de os dados **continuarem existindo** depois que o programa fecha. Sem persistência, todo app esqueceria tudo ao ser fechado."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Recarregue a página agora: as sessões somem. Isso acontece porque o array `sessoes` vive na **memória** da página, que é apagada a cada recarregamento. Vamos dar memória de verdade ao Diário.\n\n### Passo 1 — Entenda o JSON no console\n\nNo Console do navegador, digite:\n\n```js\nconst exemplo = [{ materia: \"Inglês\", minutos: 25 }];\nconst texto = JSON.stringify(exemplo);\ntexto\ntypeof texto\nJSON.parse(texto)\n```\n\n`texto` vira `'[{\"materia\":\"Inglês\",\"minutos\":25}]'`, um texto comum (repare no `typeof`, que responde `\"string\"`). O `JSON.parse` devolve o array original. Essa conversão de ida e volta é o que vamos fazer com o localStorage.\n\n### Passo 2 — Salve sempre que os dados mudarem\n\nNo `app.js`, crie uma constante com o nome da \"gaveta\" e uma função para salvar:\n\n```js\nconst CHAVE = \"diario-de-estudos\";\n\nfunction salvar() {\n  localStorage.setItem(CHAVE, JSON.stringify(sessoes));\n}\n```\n\nChame `salvar()` no `submit`, logo depois do `sessoes.push(sessao)`.\n\n### Passo 3 — Carregue ao abrir a página\n\nTroque `let sessoes = [];` por:\n\n```js\nlet sessoes = carregar();\n\nfunction carregar() {\n  const texto = localStorage.getItem(CHAVE);\n  if (texto === null) {\n    return [];\n  }\n  try {\n    return JSON.parse(texto);\n  } catch {\n    return [];\n  }\n}\n```\n\nNa primeira visita, ainda não há nada salvo e `getItem` devolve `null`: começamos com a lista vazia. O `try/catch` protege contra um texto corrompido: se o `parse` falhar, em vez de quebrar o app inteiro, começamos do zero.\n\n> Atenção à ordem: a constante `CHAVE` precisa estar escrita **acima** da linha `let sessoes = carregar();`, porque a função `carregar` usa a chave.\n\nE no **final** do arquivo, chame `renderizar();` uma vez, para desenhar as sessões carregadas assim que a página abrir.\n\n### Passo 4 — Veja os dados guardados\n\nNo DevTools, abra a aba **Application** (Aplicativo) → **Local Storage** → o endereço do seu site. Lá está a chave `diario-de-estudos` com o JSON das sessões. Registre uma sessão e veja o valor mudar.\n\n### Passo 5 — Entenda os limites\n\nO localStorage é ótimo para começar, mas tem limites que um profissional precisa conhecer: os dados ficam **só naquele navegador** (no celular não aparecem); se a pessoa limpar os dados do navegador, tudo some; e o espaço é pequeno (alguns megabytes). Na Parte 5 você vai conhecer os **bancos de dados**, a solução para esses problemas."
+      },
+      "estimatedMinutes": 60,
+      "resources": [
+        "mdn-dom-pt",
+        "javascript-info-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Converti um array em texto com `JSON.stringify` e de volta com `JSON.parse` no console"
+        },
+        {
+          "pt": "As sessões são salvas no localStorage a cada registro"
+        },
+        {
+          "pt": "Depois de recarregar a página (e de fechar o navegador), as sessões continuam lá"
+        },
+        {
+          "pt": "Encontrei os dados salvos na aba Application do DevTools"
+        }
+      ],
+      "videos": [
+        "cev-javascript"
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "Aparece `[object Object]` no localStorage"
+          },
+          "solution": {
+            "pt": "Você salvou o array direto, sem converter. O localStorage transforma tudo em texto do jeito dele, e um objeto vira `[object Object]`. Use `JSON.stringify(sessoes)` ao salvar."
+          }
+        },
+        {
+          "problem": {
+            "pt": "`ReferenceError: Cannot access 'CHAVE' before initialization`"
+          },
+          "solution": {
+            "pt": "A linha `let sessoes = carregar();` está acima de `const CHAVE`. Mova a constante para o topo do arquivo."
+          }
+        },
+        {
+          "problem": {
+            "pt": "Os dados somem quando abro a página pelo arquivo direto e não pelo Live Server"
+          },
+          "solution": {
+            "pt": "O localStorage é separado por endereço. `http://127.0.0.1:5500` e `file:///C:/...` são endereços diferentes, cada um com seus dados. Use sempre o mesmo jeito de abrir."
+          }
+        }
+      ]
+    },
+    {
+      "id": "remover-e-meta",
+      "title": {
+        "pt": "Remover sessões, validar e mostrar a meta"
+      },
+      "goal": {
+        "pt": "Cada sessão tem um botão para remover, entradas inválidas mostram mensagem na página e uma barra mostra o progresso da meta semanal."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "Identificador único (id)"
+          },
+          "explanation": {
+            "pt": "Um valor que identifica **um** item sem chance de confusão, como o RG de uma pessoa. Precisamos dele para saber exatamente qual sessão remover."
+          }
+        },
+        {
+          "term": {
+            "pt": "`filter`"
+          },
+          "explanation": {
+            "pt": "Um método de arrays que cria uma **nova lista só com os itens que passam num teste**. Para remover, filtramos todos menos o que queremos tirar."
+          }
+        },
+        {
+          "term": {
+            "pt": "Validação no JavaScript"
+          },
+          "explanation": {
+            "pt": "Conferir os dados por código além das regras do HTML. O HTML pega campos vazios; o JavaScript pode pegar regras do seu app, como \"não registrar uma data no futuro\"."
+          }
+        },
+        {
+          "term": {
+            "pt": "`aria-live`"
+          },
+          "explanation": {
+            "pt": "Atributo que avisa leitores de tela para **lerem em voz alta** quando o texto daquele elemento mudar. Ideal para mensagens de erro e de sucesso."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Último passo para o Diário ficar completo no navegador: corrigir enganos (remover), proteger contra dados ruins (validar) e motivar (a meta).\n\n### Passo 1 — Dê um id a cada sessão\n\nNa hora de montar o objeto no `submit`, acrescente:\n\n```js\nid: crypto.randomUUID(),\n```\n\n`crypto.randomUUID()` gera um texto aleatório e único, como `\"3b241101-e2bb-4255-8caf-4136c566a962\"`. As sessões já salvas antes não têm id; a forma mais simples de resolver é limpar o localStorage (aba Application → botão direito na chave → Delete) e registrar de novo.\n\n### Passo 2 — Um botão de remover em cada item\n\nNo `renderizar`, dentro do laço, depois de montar o texto do item:\n\n```js\nconst botao = document.createElement(\"button\");\nbotao.textContent = \"Remover\";\nbotao.type = \"button\";\nbotao.setAttribute(\"aria-label\", `Remover sessão de ${sessao.materia}`);\nbotao.addEventListener(\"click\", function () {\n  removerSessao(sessao.id);\n});\nitem.append(botao);\n```\n\nO `aria-label` dá um nome completo ao botão para leitores de tela (só \"Remover\" não diria **qual** sessão). E crie a função:\n\n```js\nfunction removerSessao(id) {\n  sessoes = sessoes.filter(function (sessao) {\n    return sessao.id !== id;\n  });\n  salvar();\n  renderizar();\n}\n```\n\nO `filter` passa por cada sessão e **mantém** as que devolvem `true` no teste. Como o teste é \"o id é diferente do que vou remover\", fica todo mundo menos ela. Repare no padrão que se repete: **muda o estado → salva → redesenha**.\n\n### Passo 3 — Validação com mensagem na página\n\nNo HTML, logo acima do botão de enviar, crie um parágrafo para mensagens:\n\n```html\n<p id=\"mensagem\" aria-live=\"polite\"></p>\n```\n\nNo `submit`, antes do `push`, recuse datas no futuro:\n\n```js\nconst hoje = new Date().toISOString().slice(0, 10);\nif (sessao.data > hoje) {\n  mensagem.textContent = \"A data não pode estar no futuro.\";\n  return;\n}\nmensagem.textContent = \"Sessão registrada!\";\n```\n\n(Crie a variável `mensagem` com `querySelector` junto com as outras.) `new Date().toISOString().slice(0, 10)` dá a data de hoje no formato `AAAA-MM-DD`, o mesmo do campo de data, e por isso dá para comparar os textos diretamente. O `return` sai da função sem registrar nada.\n\n> Esse jeito de pegar \"hoje\" usa o horário de Greenwich (UTC). Perto da meia-noite, o dia pode aparecer adiantado. Para um diário pessoal, tudo bem; em sistemas de verdade, datas e fusos horários merecem muito cuidado.\n\n### Passo 4 — A barra de progresso da meta\n\nNo resumo, acrescente:\n\n```html\n<div class=\"barra\"><div id=\"barra-progresso\" class=\"barra-preenchida\"></div></div>\n```\n\nNo CSS, `.barra` é uma caixa cinza com altura de `12px` e cantos arredondados; `.barra-preenchida` tem a cor principal, altura de `100%` e começa com `width: 0`. No `renderizar`, logo abaixo da linha que atualiza o total (antes do `return` da lista vazia, para a barra zerar quando você remover tudo):\n\n```js\nconst META_MINUTOS = 4 * 60;\nconst porcentagem = Math.min(100, (totalDeMinutos(sessoes) / META_MINUTOS) * 100);\ndocument.querySelector(\"#barra-progresso\").style.width = `${porcentagem}%`;\n```\n\n`Math.min(100, ...)` garante que a barra nunca passe de 100%, mesmo se você estudar mais que a meta.\n\n### Passo 5 — Teste como um usuário chato\n\nTente quebrar o seu app: registre uma data no futuro, remova todas as sessões, recarregue no meio, registre 600 minutos. Tudo deve continuar funcionando. Testar como alguém que quer achar defeitos é uma das habilidades mais valiosas de um dev."
+      },
+      "estimatedMinutes": 75,
+      "resources": [
+        "mdn-dom-pt",
+        "javascript-info-pt",
+        "mdn-a11y-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Cada sessão nova recebe um id gerado com `crypto.randomUUID()`"
+        },
+        {
+          "pt": "O botão Remover tira só a sessão certa e a remoção continua depois de recarregar"
+        },
+        {
+          "pt": "Datas no futuro são recusadas com uma mensagem na própria página"
+        },
+        {
+          "pt": "A barra de progresso mostra a porcentagem da meta e não passa de 100%"
+        },
+        {
+          "pt": "Tentei quebrar o app de vários jeitos e ele continuou funcionando"
+        }
+      ],
+      "videos": [
+        "cev-javascript"
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "Clicar em Remover apaga a sessão errada ou nenhuma"
+          },
+          "solution": {
+            "pt": "As sessões antigas não têm `id`. Limpe o localStorage e registre de novo. Confira também se o teste do `filter` usa `!==` (diferente)."
+          }
+        },
+        {
+          "problem": {
+            "pt": "`crypto.randomUUID is not a function`"
+          },
+          "solution": {
+            "pt": "Esse recurso só funciona em endereços seguros: `https://` ou `http://localhost`/`127.0.0.1`. Abra a página pelo Live Server, não com dois cliques no arquivo."
+          }
+        }
+      ],
+      "hint": {
+        "pt": "Se o código ficou grande, organize o `app.js` nesta ordem: (1) constantes e elementos da página, (2) estado (`let sessoes = carregar()`), (3) funções de cálculo, (4) `salvar`, `carregar`, `removerSessao`, (5) `renderizar`, (6) o `addEventListener` do formulário, (7) a chamada inicial `renderizar()`. Lembre que a função `carregar` pode ficar abaixo da linha que a usa, mas a constante `CHAVE`, não."
+      }
+    }
+  ],
+  "extraChallenges": [
+    {
+      "pt": "Mostre o total de minutos por matéria no resumo (você já tem a função da Parte 1)"
+    },
+    {
+      "pt": "Permita editar uma sessão (dica: preencha o formulário com os dados dela e troque o texto do botão)"
+    },
+    {
+      "pt": "Deixe a pessoa definir a própria meta semanal num campo e salve no localStorage"
+    }
+  ],
+  "portfolioTip": {
+    "pt": "Grave um GIF curto (com o ScreenToGif, gratuito) registrando e removendo uma sessão e recarregando a página. Mostrar o app funcionando convence muito mais do que descrever."
+  }
+}

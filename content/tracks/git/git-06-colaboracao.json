@@ -1,0 +1,385 @@
+{
+  "id": "git-06-colaboracao",
+  "track": "git",
+  "order": 6,
+  "title": {
+    "pt": "Parte 6: colaborando com issues, pull requests e forks"
+  },
+  "feature": {
+    "pt": "Uma melhoria do Diário entregue pelo fluxo profissional: issue, branch, pull request, revisão e merge"
+  },
+  "level": 2,
+  "stack": [
+    "Git",
+    "GitHub",
+    "Pull requests",
+    "Código aberto"
+  ],
+  "whatYouBuild": {
+    "pt": "O Diário de Estudos passa a ser desenvolvido como nas empresas: tarefas registradas em issues, cada mudança proposta num pull request, revisão de código antes do merge e, para fechar, sua primeira contribuição para um projeto de código aberto."
+  },
+  "whatYouLearn": [
+    {
+      "pt": "Organizar tarefas e bugs com issues e etiquetas"
+    },
+    {
+      "pt": "Propor mudanças com pull requests e fechar issues automaticamente"
+    },
+    {
+      "pt": "Revisar código e receber revisão com respeito"
+    },
+    {
+      "pt": "Fork e contribuição para projetos de outras pessoas"
+    },
+    {
+      "pt": "O fluxo completo de colaboração usado no mercado"
+    }
+  ],
+  "prerequisites": [
+    "git-05-github"
+  ],
+  "steps": [
+    {
+      "id": "issues",
+      "title": {
+        "pt": "Organizando o trabalho com issues"
+      },
+      "goal": {
+        "pt": "O repositório tem pelo menos três issues descrevendo melhorias e correções do Diário, com títulos claros e etiquetas."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "Issue"
+          },
+          "explanation": {
+            "pt": "Um \"cartão de tarefa\" no GitHub para registrar um bug, uma ideia ou uma melhoria. Cada issue tem um número (`#1`, `#2`...), uma conversa e pode ser fechada quando resolvida."
+          }
+        },
+        {
+          "term": {
+            "pt": "Label (etiqueta)"
+          },
+          "explanation": {
+            "pt": "Uma marcação colorida para classificar issues: `bug` (algo quebrado), `enhancement` (melhoria), `good first issue` (boa para iniciantes)."
+          }
+        },
+        {
+          "term": {
+            "pt": "Bug report"
+          },
+          "explanation": {
+            "pt": "Uma issue que descreve um defeito. Uma boa descrição diz: o que você fez, o que esperava que acontecesse e o que aconteceu de fato."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Em equipes, ninguém sai programando sem combinar o que vai ser feito. As tarefas ficam registradas, discutidas e distribuídas. No GitHub, isso é feito com **issues**.\n\n### Passo 1 — Encontre a aba Issues\n\nNo repositório do Diário, clique na aba **Issues** e em **New issue**.\n\n### Passo 2 — Escreva uma issue de melhoria\n\n- **Título:** curto e específico. Exemplo: \"Permitir que a pessoa defina a própria meta semanal\".\n- **Descrição:** explique o que e por quê. Você pode usar Markdown e até uma lista de tarefas:\n\n```markdown\nHoje a meta é fixa em 4 horas no código. Cada pessoa estuda num ritmo diferente.\n\n- [ ] Campo para digitar a meta em horas\n- [ ] Salvar a meta no localStorage\n- [ ] Barra de progresso usar a meta escolhida\n```\n\nNo painel da direita, em **Labels**, escolha `enhancement`. Clique em **Submit new issue**. Repare no número que ela ganhou, como `#1`.\n\n### Passo 3 — Escreva um relato de bug\n\nTeste o Diário procurando um defeito real (ou invente um plausível). Uma boa issue de bug:\n\n```markdown\n**O que eu fiz:** registrei uma sessão e recarreguei a página no celular.\n**O que eu esperava:** a sessão continuar na lista.\n**O que aconteceu:** a lista ficou vazia.\n**Onde:** Chrome no Android, site publicado no GitHub Pages.\n```\n\nEtiqueta: `bug`.\n\n### Passo 4 — Crie mais uma\n\nCrie pelo menos mais uma issue com uma ideia sua (talvez dos desafios extras dos Fundamentos). Na próxima etapa, você vai resolver uma delas com um **pull request**.\n\n> Em projetos de código aberto, issues bem escritas já são uma forma de contribuir. Muita gente começa na comunidade relatando bugs com clareza."
+      },
+      "estimatedMinutes": 30,
+      "resources": [
+        "github-docs-start-pt",
+        "github-hello-world-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Criei uma issue de melhoria com descrição e lista de tarefas"
+        },
+        {
+          "pt": "Criei uma issue de bug com o que fiz, o que esperava e o que aconteceu"
+        },
+        {
+          "pt": "Tenho pelo menos três issues abertas, cada uma com uma etiqueta"
+        }
+      ],
+      "videos": [
+        "cev-git-github"
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "Não aparece a aba Issues no repositório"
+          },
+          "solution": {
+            "pt": "Ela pode estar desativada. Em **Settings → General**, na seção **Features**, marque a caixa **Issues**."
+          }
+        }
+      ]
+    },
+    {
+      "id": "pull-request",
+      "title": {
+        "pt": "Pull request: propondo uma mudança"
+      },
+      "goal": {
+        "pt": "A issue da meta personalizada foi resolvida numa branch, enviada ao GitHub, proposta num pull request que fecha a issue automaticamente e juntada à `main`."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "Pull request (PR)"
+          },
+          "explanation": {
+            "pt": "Um **pedido para juntar** uma branch em outra (normalmente na `main`). Mostra todas as mudanças, permite conversar e revisar antes do merge. É o coração do trabalho em equipe no GitHub."
+          }
+        },
+        {
+          "term": {
+            "pt": "Branch remota"
+          },
+          "explanation": {
+            "pt": "Uma branch que existe no GitHub. Você cria a branch no seu computador e a envia com `git push -u origin nome-da-branch`."
+          }
+        },
+        {
+          "term": {
+            "pt": "Palavras de fechamento"
+          },
+          "explanation": {
+            "pt": "Escrever `Closes #1` na descrição do PR faz o GitHub **fechar a issue #1 automaticamente** quando o PR for juntado."
+          }
+        },
+        {
+          "term": {
+            "pt": "Merge pelo GitHub"
+          },
+          "explanation": {
+            "pt": "O botão **Merge pull request** faz o merge no próprio site. Depois, você traz o resultado para o seu computador com `git pull`."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Na Parte 4, você juntava branches com `git merge` no seu computador. Em equipe, a mudança passa por uma **revisão** antes de entrar na `main`, e isso é feito com um **pull request**.\n\n### Passo 1 — Comece pela main atualizada\n\n```powershell\ngit switch main\ngit pull\ngit switch -c meta-personalizada\n```\n\n### Passo 2 — Resolva a issue em commits pequenos\n\nImplemente a meta personalizada:\n\n1. no HTML, um campo `<input type=\"number\" id=\"meta-horas\" min=\"1\" max=\"60\">` com seu `<label>` na seção de resumo;\n2. no JavaScript, ao mudar o campo (evento `change`), salvar a meta no localStorage e chamar `renderizar()`;\n3. a barra de progresso passa a usar a meta salva no lugar do valor fixo.\n\nUm commit por passo, com boas mensagens. Teste tudo no navegador.\n\n### Passo 3 — Envie a branch para o GitHub\n\n```powershell\ngit push -u origin meta-personalizada\n```\n\nComo a branch é nova, o `-u` liga a branch local à remota.\n\n### Passo 4 — Abra o pull request\n\nNo GitHub, vai aparecer uma faixa amarela: **meta-personalizada had recent pushes**, com o botão **Compare & pull request**. Clique. Confira no topo: **base: main ← compare: meta-personalizada** (de onde vem e para onde vai).\n\n- **Título:** \"Permite definir a meta semanal\".\n- **Descrição:** explique o que mudou, como testar e termine com `Closes #1` (use o número da sua issue).\n\n```markdown\nAdiciona um campo para a pessoa escolher a meta semanal em horas.\nA meta fica salva no navegador e a barra de progresso usa o valor escolhido.\n\nComo testar: mude a meta para 2 h e registre 60 minutos; a barra deve marcar 50%.\n\nCloses #1\n```\n\nClique em **Create pull request**.\n\n### Passo 5 — Revise o seu próprio PR\n\nAbra a aba **Files changed**: lá está o diff de tudo o que a branch muda. Leia com atenção, como se fosse o trabalho de outra pessoa. Achou algo para melhorar? Corrija no seu computador, commite e faça `git push`: o PR é atualizado sozinho.\n\n### Passo 6 — Faça o merge e arrume a casa\n\nClique em **Merge pull request** e em **Confirm merge**. Depois, em **Delete branch** (apaga a branch no GitHub). Abra a aba Issues: a issue #1 foi **fechada automaticamente**. No seu computador:\n\n```powershell\ngit switch main\ngit pull\ngit branch -d meta-personalizada\n```\n\nEm um minuto, o GitHub Pages publica a versão nova. A meta personalizada está no ar!"
+      },
+      "estimatedMinutes": 60,
+      "resources": [
+        "github-hello-world-pt",
+        "fcc-primeiro-pull-request-pt",
+        "github-docs-start-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Criei a branch `meta-personalizada` a partir da `main` atualizada"
+        },
+        {
+          "pt": "Enviei a branch com `git push -u origin` e abri um pull request com descrição e `Closes #...`"
+        },
+        {
+          "pt": "Revisei a aba Files changed antes do merge"
+        },
+        {
+          "pt": "Juntei o PR pelo GitHub, a issue fechou sozinha e atualizei a `main` local com `git pull`"
+        },
+        {
+          "pt": "A meta personalizada está funcionando no site publicado"
+        }
+      ],
+      "videos": [
+        "cev-git-github",
+        "freecodecamp-git-github-crash"
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "A faixa amarela com \"Compare & pull request\" não apareceu"
+          },
+          "solution": {
+            "pt": "Vá na aba **Pull requests** → **New pull request**, escolha `base: main` e `compare: meta-personalizada`."
+          }
+        },
+        {
+          "problem": {
+            "pt": "O PR diz que há conflitos (*This branch has conflicts*)"
+          },
+          "solution": {
+            "pt": "A `main` mudou depois que você criou a branch. No seu computador: `git switch meta-personalizada`, `git pull origin main`, resolva os conflitos (como na Parte 4), commite e faça `git push`. O PR atualiza sozinho."
+          }
+        }
+      ]
+    },
+    {
+      "id": "revisao-de-codigo",
+      "title": {
+        "pt": "Revisão de código: dar e receber feedback"
+      },
+      "goal": {
+        "pt": "Você participou de uma revisão de código: deixou comentários em linhas específicas de um pull request (seu ou de um colega) e respondeu ou aplicou sugestões."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "Code review (revisão de código)"
+          },
+          "explanation": {
+            "pt": "Quando outra pessoa lê as suas mudanças antes do merge, procurando erros, pontos confusos e jeitos melhores. Nas empresas, quase todo código passa por revisão."
+          }
+        },
+        {
+          "term": {
+            "pt": "Colaborador"
+          },
+          "explanation": {
+            "pt": "Uma pessoa com permissão para enviar commits ao seu repositório. Você convida em **Settings → Collaborators**."
+          }
+        },
+        {
+          "term": {
+            "pt": "Aprovar, comentar ou pedir mudanças"
+          },
+          "explanation": {
+            "pt": "As três respostas de uma revisão no GitHub: **Approve** (pode juntar), **Comment** (só comentários) e **Request changes** (precisa mudar antes de juntar)."
+          }
+        },
+        {
+          "term": {
+            "pt": "Sugestão de código"
+          },
+          "explanation": {
+            "pt": "Um tipo de comentário em que o revisor escreve a linha corrigida; o autor aceita com um clique e vira um commit."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Revisar código é uma habilidade tão importante quanto escrever código. E receber críticas sem levar para o lado pessoal também é. Nesta etapa você pratica os dois lados.\n\n### Passo 1 — Encontre um parceiro (ou revise a si mesmo)\n\nO ideal é fazer em dupla com um colega que também está na DevCity ou na sua turma:\n\n1. cada um convida o outro como colaborador: **Settings → Collaborators → Add people**, digitando o usuário do GitHub;\n2. o convidado aceita pelo e-mail ou pelas notificações do GitHub.\n\nSe estiver estudando sozinho, faça a revisão no seu próprio PR. Vale o treino do olhar crítico.\n\n### Passo 2 — Abra um PR para ser revisado\n\nEscolha outra issue do seu Diário, resolva numa branch e abra um PR (como na etapa anterior). Desta vez, **não faça o merge**. No painel da direita, em **Reviewers**, escolha o seu colega.\n\n### Passo 3 — Revise o PR do colega\n\nNo PR que você vai revisar, abra a aba **Files changed**:\n\n1. passe o mouse sobre uma linha: aparece um **+** azul. Clique para comentar naquela linha específica;\n2. comente sobre o que vale a pena: um nome de variável confuso, um caso que pode dar erro, uma parte que ficou muito boa (elogios específicos também ensinam);\n3. para sugerir uma correção pronta, clique no ícone de sugestão (um quadradinho com `+-`) e escreva a linha como deveria ficar;\n4. no fim, clique em **Review changes** (ou \"Finish your review\"), escreva um resumo e escolha **Approve**, **Comment** ou **Request changes**.\n\n### Passo 4 — Como escrever um bom comentário\n\n- fale do **código**, não da pessoa: \"esta função pode dar erro com a lista vazia\" em vez de \"você esqueceu da lista vazia\";\n- **explique o porquê** e, se possível, sugira um caminho;\n- pergunte quando não entender: \"qual a ideia desta parte?\";\n- diferencie o essencial do opcional: comece comentários opcionais com \"Sugestão:\" ou \"Detalhe:\".\n\n### Passo 5 — Receba a revisão do seu PR\n\nLeia os comentários no seu PR. Para cada um: aplique a mudança (commit e push, ou o botão **Commit suggestion**), ou responda explicando sua escolha. Quando estiver tudo resolvido e aprovado, faça o merge.\n\n> Ninguém escreve código perfeito. Revisores encontram problemas no código de profissionais com 20 anos de carreira. O objetivo da revisão é o **código** ficar melhor, não provar quem está certo."
+      },
+      "estimatedMinutes": 45,
+      "resources": [
+        "github-docs-start-pt",
+        "github-hello-world-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Convidei um colega como colaborador (ou decidi revisar meu próprio PR)"
+        },
+        {
+          "pt": "Deixei pelo menos dois comentários em linhas específicas de um PR"
+        },
+        {
+          "pt": "Usei uma sugestão de código ou expliquei uma mudança com um exemplo"
+        },
+        {
+          "pt": "Respondi ou apliquei os comentários recebidos antes do merge"
+        }
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "Não consigo pedir revisão para o meu colega"
+          },
+          "solution": {
+            "pt": "Ele precisa ser colaborador do repositório e ter aceitado o convite. Confira em **Settings → Collaborators** se o convite ainda está pendente."
+          }
+        },
+        {
+          "problem": {
+            "pt": "No meu próprio PR, o GitHub não deixa escolher Approve"
+          },
+          "solution": {
+            "pt": "É uma regra do GitHub: ninguém aprova o próprio PR. Use **Comment** para registrar sua revisão."
+          }
+        }
+      ]
+    },
+    {
+      "id": "fork-e-contribuir",
+      "title": {
+        "pt": "Fork e sua primeira contribuição para um projeto de outra pessoa"
+      },
+      "goal": {
+        "pt": "Você fez um fork do repositório First Contributions, mudou algo numa branch do seu fork e abriu um pull request para o projeto original."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "Fork"
+          },
+          "explanation": {
+            "pt": "Uma **cópia de um repositório de outra pessoa** na sua conta do GitHub. Você pode mudar o seu fork à vontade e, se quiser, propor as mudanças de volta ao original com um pull request."
+          }
+        },
+        {
+          "term": {
+            "pt": "Código aberto (*open source*)"
+          },
+          "explanation": {
+            "pt": "Projetos cujo código é público e aceita contribuições de qualquer pessoa. Boa parte das ferramentas que você usou (VS Code, Node.js, Git) é de código aberto."
+          }
+        },
+        {
+          "term": {
+            "pt": "Upstream"
+          },
+          "explanation": {
+            "pt": "O nome que se costuma dar ao repositório **original** de onde o fork veio. O seu fork é o `origin`."
+          }
+        },
+        {
+          "term": {
+            "pt": "Mantenedor"
+          },
+          "explanation": {
+            "pt": "A pessoa (ou equipe) responsável pelo projeto, que revisa e decide se aceita os pull requests."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Até agora, você trabalhou no **seu** repositório. Mas e para contribuir com um projeto de outra pessoa, onde você não tem permissão de escrita? Aí entra o **fork**.\n\nO repositório **First Contributions** existe exatamente para treinar isso: você adiciona seu nome numa lista e abre um pull request de verdade, que os mantenedores juntam.\n\n### Passo 1 — Leia as instruções do projeto\n\nAbra o First Contributions (link nos recursos). O README tem uma lista de idiomas no topo: clique em **Português** para ler as instruções traduzidas. **Sempre leia o README e as regras de contribuição de um projeto antes de contribuir.**\n\n### Passo 2 — Faça o fork\n\nClique no botão **Fork** (canto superior direito) e em **Create fork**. Agora existe `github.com/seu-usuario/first-contributions`, uma cópia na sua conta.\n\n### Passo 3 — Clone o **seu fork**\n\nNo seu fork, clique no botão verde **Code** e copie a URL HTTPS. No terminal:\n\n```powershell\ncd $HOME/Documents\ngit clone https://github.com/seu-usuario/first-contributions.git\ncd first-contributions\n```\n\nRepare que você clona o **seu fork** (onde tem permissão para enviar), e não o original.\n\n### Passo 4 — Branch, mudança e commit\n\n```powershell\ngit switch -c adiciona-seu-nome\n```\n\nAbra o arquivo `Contributors.md`, acrescente seu nome numa linha (siga o formato das outras linhas e as instruções do README) e salve.\n\n```powershell\ngit add Contributors.md\ngit commit -m \"Adiciona Seu Nome aos contribuidores\"\ngit push -u origin adiciona-seu-nome\n```\n\n### Passo 5 — Abra o PR para o projeto original\n\nNo seu fork no GitHub, aparece **Compare & pull request**. Repare no topo: agora o PR vai **do seu fork para o repositório original** (`firstcontributions/first-contributions`, base `main`). Escreva o título, crie o PR e acompanhe: os mantenedores costumam juntar em pouco tempo, e você recebe uma notificação.\n\n### Passo 6 — E depois?\n\nProjetos de código aberto marcam tarefas boas para iniciantes com a etiqueta **good first issue**. Quando se sentir mais seguro, procure essas issues em projetos que você usa. Melhorar documentação e traduzir textos para o português também são contribuições muito bem-vindas.\n\n### Passo 7 — Fechamento do distrito\n\nVocê saiu do \"diario-final-v3\" e chegou ao fluxo profissional completo: commits com boas mensagens, branches, merges, conflitos resolvidos, um site publicado, issues, pull requests, revisão de código e uma contribuição para um projeto público. **Esse é o dia a dia de qualquer equipe de software.** Nos próximos distritos, todo projeto vai usar esse fluxo."
+      },
+      "estimatedMinutes": 60,
+      "resources": [
+        "first-contributions",
+        "fcc-primeiro-pull-request-pt",
+        "github-docs-start-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Li as instruções do First Contributions em português"
+        },
+        {
+          "pt": "Fiz um fork e clonei o meu fork (não o original)"
+        },
+        {
+          "pt": "Criei uma branch, acrescentei meu nome e enviei com `git push -u origin`"
+        },
+        {
+          "pt": "Abri um pull request do meu fork para o repositório original"
+        }
+      ],
+      "videos": [
+        "cev-git-github"
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "`Permission denied` ou erro 403 ao fazer push"
+          },
+          "solution": {
+            "pt": "Você clonou o repositório original em vez do seu fork. Confira com `git remote -v`: a URL deve ter o **seu** usuário. Corrija com `git remote set-url origin https://github.com/seu-usuario/first-contributions.git` e faça o push de novo."
+          }
+        },
+        {
+          "problem": {
+            "pt": "O PR mostra conflito no `Contributors.md`"
+          },
+          "solution": {
+            "pt": "Muita gente edita esse arquivo ao mesmo tempo. Siga a seção do README sobre manter o fork atualizado (o botão **Sync fork** no GitHub ajuda), atualize sua branch e resolva o conflito mantendo as linhas dos outros e a sua."
+          }
+        }
+      ]
+    }
+  ],
+  "extraChallenges": [
+    {
+      "pt": "Crie um quadro de projeto (aba Projects) com colunas A fazer, Fazendo e Feito e ligue as issues do Diário"
+    },
+    {
+      "pt": "Proteja a `main` (Settings → Branches) para que só entre código por pull request"
+    },
+    {
+      "pt": "Encontre uma issue com a etiqueta good first issue num projeto de código aberto em português e contribua"
+    }
+  ],
+  "portfolioTip": {
+    "pt": "Uma contribuição para um projeto de código aberto, mesmo pequena, aparece no seu perfil do GitHub e mostra que você sabe trabalhar no fluxo de equipe. Mencione no currículo: \"contribuí com o projeto X\"."
+  }
+}

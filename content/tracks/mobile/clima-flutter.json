@@ -42,7 +42,7 @@
   ],
   "prerequisites": [
     "lista-compras-expo",
-    "cli-api-http"
+    "diario-06-http"
   ],
   "steps": [
     {

@@ -1,0 +1,364 @@
+{
+  "id": "git-03-desfazer",
+  "track": "git",
+  "order": 3,
+  "title": {
+    "pt": "Parte 3: viajando no tempo, desfazer e voltar"
+  },
+  "feature": {
+    "pt": "Recuperar qualquer versão do Diário e desfazer erros sem medo"
+  },
+  "level": 2,
+  "stack": [
+    "Git"
+  ],
+  "whatYouBuild": {
+    "pt": "Com o Diário de Estudos versionado, você aprende a desfazer qualquer tipo de erro: descartar mudanças, tirar arquivos do staging, visitar versões antigas, reverter commits, refazer o último commit e guardar trabalho inacabado."
+  },
+  "whatYouLearn": [
+    {
+      "pt": "Descartar mudanças com git restore"
+    },
+    {
+      "pt": "Visitar versões antigas e recuperar arquivos de commits antigos"
+    },
+    {
+      "pt": "O que é HEAD e o modo detached HEAD"
+    },
+    {
+      "pt": "Desfazer commits com git revert e git reset"
+    },
+    {
+      "pt": "Salvar o dia com git reflog"
+    },
+    {
+      "pt": "Guardar trabalho inacabado com git stash"
+    }
+  ],
+  "prerequisites": [
+    "git-02-commits"
+  ],
+  "steps": [
+    {
+      "id": "restaurar-arquivos",
+      "title": {
+        "pt": "Desfazendo mudanças que ainda não foram commitadas"
+      },
+      "goal": {
+        "pt": "Você descarta mudanças de um arquivo com `git restore` e tira um arquivo do staging com `git restore --staged`."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "`git restore arquivo`"
+          },
+          "explanation": {
+            "pt": "Joga fora as mudanças da pasta de trabalho e deixa o arquivo **igual ao último commit**. Atenção: o que foi descartado não volta."
+          }
+        },
+        {
+          "term": {
+            "pt": "`git restore --staged arquivo`"
+          },
+          "explanation": {
+            "pt": "Tira o arquivo do staging, mas **mantém** as mudanças na pasta de trabalho. Desfaz um `git add`."
+          }
+        },
+        {
+          "term": {
+            "pt": "Mudança não commitada"
+          },
+          "explanation": {
+            "pt": "Uma alteração que existe só na pasta de trabalho ou no staging. O Git ainda não tem uma cópia dela no histórico."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Começou a mexer, estragou tudo e quer voltar ao que era? Se você ainda não commitou, o Git resolve em um comando.\n\n### Passo 1 — Estrague algo de propósito\n\nAbra o `app.js`, apague umas dez linhas e salve. Recarregue o Diário no navegador: ele quebrou. Rode:\n\n```powershell\ngit status\ngit diff app.js\n```\n\nO status mostra o `app.js` como *modified* e o diff mostra as linhas apagadas com `-`.\n\n### Passo 2 — Volte ao último commit\n\n```powershell\ngit restore app.js\n```\n\nOlhe o arquivo no VS Code: as linhas voltaram. O Diário funciona de novo. O `git restore` pegou a versão do último commit e colocou no lugar.\n\n> **Cuidado:** o `git restore` descarta as mudanças **para sempre**, porque elas não estavam salvas em nenhum commit. Use quando tiver certeza de que não quer aquelas mudanças.\n\n### Passo 3 — Desfaça um git add\n\nMude o `sobre.html` e o `style.css`, depois rode `git add .`. Ops: você queria commitar só o `sobre.html`. Tire o CSS do staging:\n\n```powershell\ngit restore --staged style.css\ngit status\n```\n\nAgora o `sobre.html` está em verde (staging) e o `style.css` em vermelho (modificado, fora do staging). **A mudança no CSS continua no arquivo**: o `--staged` só tirou da sala de espera. Commite o `sobre.html` e decida o que fazer com o CSS.\n\n### Passo 4 — Leia as dicas do próprio Git\n\nRode `git status` com arquivos modificados e leia com atenção: o Git escreve entre parênteses os comandos para desfazer cada situação, como `(use \"git restore <file>...\" to discard changes in working directory)`. **O `git status` é o seu GPS**: quando se perder, rode ele."
+      },
+      "estimatedMinutes": 30,
+      "resources": [
+        "pro-git-pt",
+        "atlassian-git-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Descartei mudanças de um arquivo com `git restore` e ele voltou ao último commit"
+        },
+        {
+          "pt": "Tirei um arquivo do staging com `git restore --staged` sem perder a mudança"
+        },
+        {
+          "pt": "Sei que mudanças descartadas com `git restore` não voltam"
+        }
+      ],
+      "videos": [
+        "cev-git-github"
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "Usei `git restore` e perdi algo que eu queria"
+          },
+          "solution": {
+            "pt": "Mudanças que nunca entraram num commit não ficam no histórico do Git. Tente o `Ctrl` + `Z` no VS Code (se o arquivo ainda estiver aberto) ou a **Linha do Tempo** (*Timeline*) do arquivo, no painel do Explorador do VS Code, que guarda versões locais. E fica a lição: commits frequentes protegem você."
+          }
+        }
+      ]
+    },
+    {
+      "id": "ver-versoes-antigas",
+      "title": {
+        "pt": "Visitando versões antigas do projeto"
+      },
+      "goal": {
+        "pt": "Você encontra um commit antigo no histórico, vê o que ele mudou, abre o projeto como ele era naquele momento e volta para a versão atual."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "`git show`"
+          },
+          "explanation": {
+            "pt": "Mostra os detalhes de um commit: autor, data, mensagem e as mudanças que ele fez."
+          }
+        },
+        {
+          "term": {
+            "pt": "HEAD"
+          },
+          "explanation": {
+            "pt": "Um marcador que diz **onde você está agora** no histórico. Normalmente aponta para o último commit da branch atual."
+          }
+        },
+        {
+          "term": {
+            "pt": "*Detached HEAD* (HEAD destacado)"
+          },
+          "explanation": {
+            "pt": "O estado em que você está visitando um commit antigo, fora de qualquer branch. Bom para olhar; não é lugar para trabalhar."
+          }
+        },
+        {
+          "term": {
+            "pt": "`git switch`"
+          },
+          "explanation": {
+            "pt": "O comando para trocar de branch (ou, com `--detach`, visitar um commit). Você vai usá-lo muito na Parte 4."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Uma das melhores coisas do Git: você pode **ver o projeto exatamente como ele era** em qualquer commit, e depois voltar ao presente.\n\n### Passo 1 — Encontre um commit antigo\n\n```powershell\ngit log --oneline\n```\n\nEscolha um dos primeiros commits e copie o hash (os 7 caracteres do começo da linha, como `9f8e7d6`).\n\n### Passo 2 — Veja o que aquele commit mudou\n\n```powershell\ngit show 9f8e7d6\n```\n\nAparece a mensagem, o autor, a data e o diff daquele commit. Use as setas para rolar e `q` para sair. Isso é ótimo para responder \"quando e por que essa linha mudou?\".\n\n### Passo 3 — Viaje no tempo\n\nAntes de viajar, garanta que não há mudanças pendentes (`git status` deve dizer *working tree clean*; se não disser, faça um commit ou desfaça). Então:\n\n```powershell\ngit switch --detach 9f8e7d6\n```\n\nO Git avisa que você está em **detached HEAD**. Olhe os arquivos no VS Code e abra o Diário no navegador: tudo está como era naquele commit! O `app.js` pode nem existir ainda, dependendo de qual commit você escolheu.\n\n### Passo 4 — Volte para o presente\n\n```powershell\ngit switch main\n```\n\nTudo volta a ser como no último commit. Nada se perdeu: os commits não foram apagados, você só estava visitando o passado.\n\n> **Regra de ouro:** no modo *detached HEAD*, só olhe. Se fizer commits ali, eles ficam \"soltos\", fora de qualquer branch, e é fácil perdê-los. Para trabalhar a partir de uma versão antiga, crie uma branch (você vai aprender na Parte 4).\n\n### Passo 5 — Recupere um arquivo antigo, só ele\n\nÀs vezes você não quer voltar o projeto inteiro, só **um arquivo**. Por exemplo, recuperar o `style.css` como era num commit antigo:\n\n```powershell\ngit restore --source 9f8e7d6 style.css\n```\n\nO arquivo volta à versão daquele commit e aparece como modificado. Se gostar, commite; se não, rode `git restore style.css` para voltar à versão atual."
+      },
+      "estimatedMinutes": 45,
+      "resources": [
+        "pro-git-pt",
+        "learn-git-branching"
+      ],
+      "checklist": [
+        {
+          "pt": "Usei `git show` para ver o que um commit antigo mudou"
+        },
+        {
+          "pt": "Visitei um commit antigo com `git switch --detach` e vi o Diário como era"
+        },
+        {
+          "pt": "Voltei para o presente com `git switch main`"
+        },
+        {
+          "pt": "Recuperei um único arquivo de um commit antigo com `git restore --source`"
+        }
+      ],
+      "videos": [
+        "freecodecamp-git-github-crash"
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "`error: Your local changes to the following files would be overwritten`"
+          },
+          "solution": {
+            "pt": "Você tem mudanças não commitadas e o Git não quer apagá-las ao trocar de versão. Faça um commit, descarte com `git restore`, ou guarde com `git stash` (última etapa desta parte)."
+          }
+        },
+        {
+          "problem": {
+            "pt": "Fiz commits no modo detached HEAD e voltei para a main"
+          },
+          "solution": {
+            "pt": "Os commits ainda existem por um tempo. Rode `git reflog`, encontre o hash do commit que você fez e crie uma branch nele: `git branch resgate HASH`. Depois você pode juntar essa branch à main."
+          }
+        }
+      ]
+    },
+    {
+      "id": "revert-e-reset",
+      "title": {
+        "pt": "Desfazendo commits: revert e reset"
+      },
+      "goal": {
+        "pt": "Você desfaz um commit com `git revert` (o jeito seguro) e entende quando usar `git reset --soft` e por que o `--hard` exige cuidado."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "`git revert`"
+          },
+          "explanation": {
+            "pt": "Cria um **commit novo que faz o contrário** de um commit antigo. O histórico fica completo, mostrando o erro e a correção. É o jeito seguro, principalmente depois de enviar ao GitHub."
+          }
+        },
+        {
+          "term": {
+            "pt": "`git reset --soft`"
+          },
+          "explanation": {
+            "pt": "Volta a branch para um commit anterior, mas **mantém as mudanças no staging**. Útil para refazer o último commit com uma mensagem melhor ou juntando mais arquivos."
+          }
+        },
+        {
+          "term": {
+            "pt": "`git reset --hard`"
+          },
+          "explanation": {
+            "pt": "Volta a branch para um commit anterior e **apaga** as mudanças da pasta de trabalho. Perigoso: mudanças não commitadas somem."
+          }
+        },
+        {
+          "term": {
+            "pt": "Reescrever o histórico"
+          },
+          "explanation": {
+            "pt": "Mudar commits que já existem (o reset faz isso). Tudo bem em commits que só estão no seu computador; em commits já compartilhados, atrapalha quem trabalha com você."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "E quando o erro já virou commit? Existem dois caminhos, e escolher o certo é questão de segurança.\n\n### Passo 1 — Crie um commit \"errado\"\n\nNo `index.html`, mude o título `<h1>` para algo bobo, como \"Diário de Estudos XYZ\". Commite:\n\n```powershell\ngit add index.html\ngit commit -m \"Muda o título (por engano)\"\n```\n\n### Passo 2 — Desfaça com revert (o jeito seguro)\n\nPegue o hash desse commit com `git log --oneline` e rode:\n\n```powershell\ngit revert a1b2c3d\n```\n\nO VS Code abre com uma mensagem pronta, como `Revert \"Muda o título (por engano)\"`. Feche a aba para confirmar. Veja o histórico:\n\n```text\nf6e5d4c Revert \"Muda o título (por engano)\"\na1b2c3d Muda o título (por engano)\n...\n```\n\nO commit errado **continua no histórico**, e um novo commit desfaz o que ele fez. O título voltou ao original. Por que isso é bom? Porque nada foi apagado: se alguém já tinha baixado o commit errado, o revert chega como uma mudança normal, sem confusão.\n\n### Passo 3 — Refaça o último commit com reset --soft\n\nFaça uma mudança pequena e um commit com uma mensagem ruim, como `git commit -m \"coisa\"`. Para refazer:\n\n```powershell\ngit reset --soft HEAD~1\ngit status\ngit commit -m \"Ajusta o espaçamento dos cartões\"\n```\n\n`HEAD~1` significa \"um commit antes de onde estou\". O `--soft` desfaz o commit, mas deixa as mudanças **no staging**, prontas para um commit novo, agora com uma boa mensagem.\n\n> Para corrigir **só a mensagem** do último commit, existe um atalho: `git commit --amend -m \"Mensagem nova\"`.\n\n### Passo 4 — Conheça (com respeito) o reset --hard\n\n```powershell\ngit reset --hard HEAD~1\n```\n\nEsse comando apaga o último commit **e** qualquer mudança não commitada, sem perguntar. Às vezes é exatamente o que você quer (jogar fora um experimento que deu errado), mas **leia duas vezes antes de apertar Enter**. Se usar por engano, o `git reflog` costuma salvar o dia: ele lista por onde o HEAD passou, e você pode voltar com `git reset --hard HASH`.\n\n### Passo 5 — A regra para decidir\n\n- O commit já foi enviado ao GitHub ou outras pessoas têm? **Use `git revert`.**\n- O commit só existe no seu computador e você quer refazê-lo? **`git reset --soft`** (ou `--amend`).\n- Quer jogar tudo fora e tem certeza absoluta? **`git reset --hard`**."
+      },
+      "estimatedMinutes": 45,
+      "resources": [
+        "pro-git-pt",
+        "atlassian-git-pt",
+        "learn-git-branching"
+      ],
+      "checklist": [
+        {
+          "pt": "Desfiz um commit com `git revert` e o histórico mostra o commit e a reversão"
+        },
+        {
+          "pt": "Refiz um commit com mensagem ruim usando `git reset --soft HEAD~1`"
+        },
+        {
+          "pt": "Sei o que `HEAD~1` significa"
+        },
+        {
+          "pt": "Sei explicar quando usar revert, reset --soft e reset --hard"
+        }
+      ],
+      "videos": [
+        "freecodecamp-git-github-crash"
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "Usei `git reset --hard` e perdi commits"
+          },
+          "solution": {
+            "pt": "Rode `git reflog`. Ele mostra uma lista como `a1b2c3d HEAD@{1}: commit: ...`. Encontre a linha de antes do reset e rode `git reset --hard a1b2c3d`. Mudanças que nunca foram commitadas, porém, não estão lá."
+          }
+        },
+        {
+          "problem": {
+            "pt": "O revert deu conflito"
+          },
+          "solution": {
+            "pt": "Acontece quando commits mais novos mexeram nas mesmas linhas. Você vai aprender a resolver conflitos na Parte 4. Por enquanto, para cancelar o revert: `git revert --abort`."
+          }
+        }
+      ]
+    },
+    {
+      "id": "stash",
+      "title": {
+        "pt": "Guardando mudanças na gaveta: git stash"
+      },
+      "goal": {
+        "pt": "Você guarda mudanças inacabadas com `git stash`, troca de tarefa e as traz de volta com `git stash pop`."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "`git stash`"
+          },
+          "explanation": {
+            "pt": "Guarda as mudanças não commitadas numa \"gaveta\" temporária e deixa a pasta de trabalho limpa, igual ao último commit."
+          }
+        },
+        {
+          "term": {
+            "pt": "`git stash pop`"
+          },
+          "explanation": {
+            "pt": "Tira as mudanças da gaveta e coloca de volta na pasta de trabalho."
+          }
+        },
+        {
+          "term": {
+            "pt": "`git stash list`"
+          },
+          "explanation": {
+            "pt": "Mostra o que está guardado. Dá para guardar várias coisas, empilhadas."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Cenário real: você está no meio de uma mudança grande no CSS e percebe um erro urgente no JavaScript. Não quer commitar um CSS pela metade, mas também não quer perder o trabalho. Solução: **guardar na gaveta**.\n\n### Passo 1 — Comece algo e não termine\n\nMude algumas cores no `style.css` (sem commitar). Confira com `git status`.\n\n### Passo 2 — Guarde na gaveta\n\n```powershell\ngit stash push -m \"cores novas em andamento\"\ngit status\n```\n\nO status agora diz *working tree clean*: as mudanças sumiram da pasta, mas estão guardadas. O `-m` dá um nome para você lembrar do que se trata.\n\n### Passo 3 — Resolva a urgência\n\nFaça uma correção pequena no `app.js` (por exemplo, melhore uma mensagem de erro) e commite. Como a pasta estava limpa, o commit leva só essa correção.\n\n### Passo 4 — Traga o trabalho de volta\n\n```powershell\ngit stash list\ngit stash pop\n```\n\nA lista mostra `stash@{0}: On main: cores novas em andamento`. O `pop` devolve as mudanças do CSS para a pasta de trabalho e remove da gaveta. Continue de onde parou.\n\n> Arquivos novos (nunca rastreados) não entram no stash por padrão. Para incluí-los, use `git stash push -u -m \"...\"`.\n\n### Passo 5 — Resumo da Parte 3\n\nEscreva no seu caderno (ou num arquivo `anotacoes-git.md`, que pode ir para o repositório) a sua \"cola\" de desfazer:\n\n- mudança não commitada que quero jogar fora: `git restore arquivo`;\n- desfazer um `git add`: `git restore --staged arquivo`;\n- desfazer um commit já compartilhado: `git revert HASH`;\n- refazer o último commit local: `git reset --soft HEAD~1`;\n- guardar o trabalho para depois: `git stash` e `git stash pop`;\n- perdi algo: `git reflog`."
+      },
+      "estimatedMinutes": 30,
+      "resources": [
+        "pro-git-pt",
+        "atlassian-git-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Guardei mudanças inacabadas com `git stash push -m` e a pasta ficou limpa"
+        },
+        {
+          "pt": "Fiz um commit de outra correção enquanto as mudanças estavam guardadas"
+        },
+        {
+          "pt": "Trouxe as mudanças de volta com `git stash pop`"
+        },
+        {
+          "pt": "Escrevi minha cola de comandos de desfazer"
+        }
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "O `git stash pop` deu conflito"
+          },
+          "solution": {
+            "pt": "A correção que você commitou mexeu nas mesmas linhas das mudanças guardadas. Resolva como um conflito (Parte 4). As mudanças continuam guardadas na gaveta até o conflito ser resolvido; depois, rode `git stash drop` para limpá-la."
+          }
+        }
+      ]
+    }
+  ],
+  "extraChallenges": [
+    {
+      "pt": "Use `git log -p style.css` para ver toda a história de mudanças de um arquivo"
+    },
+    {
+      "pt": "Use `git blame index.html` para descobrir em qual commit cada linha mudou pela última vez"
+    },
+    {
+      "pt": "Pratique as fases de desfazer no Learn Git Branching (nos recursos)"
+    }
+  ],
+  "portfolioTip": {
+    "pt": "Saber desfazer erros com segurança é o que dá coragem para experimentar. Em entrevistas, perguntas sobre a diferença entre revert e reset são comuns."
+  }
+}

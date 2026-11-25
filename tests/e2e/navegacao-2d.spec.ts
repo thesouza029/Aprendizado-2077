@@ -14,7 +14,7 @@ test("a Torre Central em 2D leva aos distritos", async ({ page }) => {
 });
 
 test("cada distrito lista todos os projetos da trilha", async ({ page }) => {
-  const expected = { fundamentos: 4, web: 5, backend: 7, mobile: 4, devops: 6, ia: 4 };
+  const expected = { fundamentos: 6, git: 6, web: 5, backend: 7, mobile: 4, devops: 6, ia: 4 };
   for (const [track, count] of Object.entries(expected)) {
     await page.goto(`/pt/tracks/${track}`);
     await expect(page.locator("ol article")).toHaveCount(count);
@@ -27,6 +27,20 @@ test("a página do projeto mostra as etapas e os recursos", async ({ page }) => 
   await expect(page.getByRole("button", { name: "Marcar como concluída" })).toHaveCount(8);
   // recursos da biblioteca abrem em nova aba
   await expect(page.locator('a[href="https://go.dev/tour/"]').first()).toBeVisible();
+});
+
+test("as etapas didáticas mostram conceitos, vídeos e erros comuns", async ({ page }) => {
+  await page.goto("/pt/tracks/git/git-02-commits");
+  await expect(page.getByText("Nova funcionalidade:")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Conceitos desta etapa" }).first()).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Vídeos recomendados" }).first()).toBeVisible();
+  await expect(page.getByText("Deu errado? Erros comuns e como resolver").first()).toBeVisible();
+});
+
+test("a página do distrito explica o projeto único", async ({ page }) => {
+  await page.goto("/pt/tracks/git");
+  await expect(page.getByText("O projeto do distrito")).toBeVisible();
+  await expect(page.getByRole("heading", { level: 2, name: "Diário de Estudos versionado e publicado" })).toBeVisible();
 });
 
 test("o cabeçalho leva à biblioteca e de volta à Torre Central", async ({ page }) => {

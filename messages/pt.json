@@ -63,7 +63,10 @@
     "bonus": "Bônus",
     "steps": "{count, plural, one {# etapa} other {# etapas}}",
     "completed": "Concluído",
-    "prerequisites": "Pré-requisitos"
+    "prerequisites": "Pré-requisitos",
+    "projectTitle": "O projeto do distrito",
+    "projectHow": "Cada prédio deste distrito acrescenta uma parte nova ao mesmo projeto. Faça na ordem: uma parte usa o que você construiu na anterior.",
+    "partLabel": "Parte {number}"
   },
   "project": {
     "whatYouBuild": "O que você vai construir",
@@ -82,7 +85,14 @@
     "extraChallenges": "Desafios extras",
     "portfolioTip": "Dica de portfólio",
     "projectComplete": "Projeto concluído! O letreiro deste prédio está aceso.",
-    "backToTrack": "Voltar para {track}"
+    "backToTrack": "Voltar para {track}",
+    "featureLabel": "Nova funcionalidade",
+    "concepts": "Conceitos desta etapa",
+    "commonErrors": "Deu errado? Erros comuns e como resolver",
+    "videos": "Vídeos recomendados",
+    "criteriaProgress": "{done} de {total}",
+    "criteriaAllDone": "Todos os critérios marcados. Pode concluir a etapa!",
+    "notTranslated": "Este conteúdo ainda não foi traduzido para o inglês, por isso aparece em português."
   },
   "library": {
     "eyebrow": "Arquivo Neon",

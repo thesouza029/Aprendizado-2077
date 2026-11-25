@@ -16,7 +16,7 @@
     { "pt": "System prompt, contexto da conversa e controle de custos", "en": "System prompt, conversation context and cost control" },
     { "pt": "Tratar erros e limites de serviços externos", "en": "Handling errors and limits of external services" }
   ],
-  "prerequisites": ["landing-page", "cli-api-http"],
+  "prerequisites": ["landing-page", "diario-06-http"],
   "steps": [
     {
       "id": "escolher-provedor",

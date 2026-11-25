@@ -6,7 +6,7 @@ import { TrackIdSchema, type TrackId } from "./schemas";
  * A store em /store/progress.ts usa estas funções; os testes também.
  */
 
-export const PROGRESS_SCHEMA_VERSION = 1;
+export const PROGRESS_SCHEMA_VERSION = 2;
 export const EXPORT_APP_ID = "devcity";
 
 export const resourceStatuses = ["want", "watching", "done"] as const;
@@ -31,6 +31,8 @@ export const ProgressDataSchema = z.object({
   schemaVersion: z.literal(PROGRESS_SCHEMA_VERSION),
   /** chave `${projectId}:${stepId}` → timestamp (ms) de quando foi concluída */
   completedSteps: z.record(z.string(), z.number()),
+  /** versão 2: critérios de pronto marcados, chave `${projectId}:${stepId}#${índice}` → timestamp */
+  checkedCriteria: z.record(z.string(), z.number()),
   resourceStatus: z.record(z.string(), ResourceStatusSchema),
   lastProject: z.object({ track: TrackIdSchema, projectId: z.string() }).nullable(),
   /** última posição da câmera na cidade (fase 3+) */
@@ -53,6 +55,7 @@ export function defaultProgress(): ProgressData {
   return {
     schemaVersion: PROGRESS_SCHEMA_VERSION,
     completedSteps: {},
+    checkedCriteria: {},
     resourceStatus: {},
     lastProject: null,
     lastPosition: null,
@@ -64,6 +67,11 @@ export function stepKey(projectId: string, stepId: string): string {
   return `${projectId}:${stepId}`;
 }
 
+/** Chave de um critério de pronto: a etapa + a posição do critério na lista */
+export function criterionKey(projectId: string, stepId: string, index: number): string {
+  return `${stepKey(projectId, stepId)}#${index}`;
+}
+
 function isObject(v: unknown): v is Record<string, unknown> {
   return typeof v === "object" && v !== null && !Array.isArray(v);
 }
@@ -71,7 +79,7 @@ function isObject(v: unknown): v is Record<string, unknown> {
 /**
  * Converte qualquer versão antiga (ou dado parcial/corrompido) para a versão atual.
  * Campos inválidos são descartados individualmente em vez de apagar tudo.
- * Ao criar a versão 2, adicione um bloco `if (version < 2) { ... }` aqui.
+ * Versão 2 só acrescentou `checkedCriteria`: dados da versão 1 chegam sem ele e ganham `{}`.
  */
 export function migrateProgress(raw: unknown): ProgressData {
   const base = defaultProgress();
@@ -81,6 +89,11 @@ export function migrateProgress(raw: unknown): ProgressData {
   for (const [k, v] of Object.entries(completed)) {
     if (typeof v === "number" && Number.isFinite(v)) base.completedSteps[k] = v;
     else if (v === true) base.completedSteps[k] = 0; // formato antigo: booleano
+  }
+
+  const criteria = isObject(raw.checkedCriteria) ? raw.checkedCriteria : {};
+  for (const [k, v] of Object.entries(criteria)) {
+    if (typeof v === "number" && Number.isFinite(v)) base.checkedCriteria[k] = v;
   }
 
   const statuses = isObject(raw.resourceStatus) ? raw.resourceStatus : {};

@@ -49,6 +49,17 @@ export default async function TrackPage({ params }: Props) {
         )}
       </header>
 
+      {track.project && (
+        <section aria-labelledby="district-project-title" className="panel p-6">
+          <p className="accent-text font-mono text-xs uppercase tracking-wider">{t("projectTitle")}</p>
+          <h2 id="district-project-title" className="font-display mt-1 text-2xl font-semibold text-white">
+            {tr(track.project.name, locale)}
+          </h2>
+          <p className="mt-3 max-w-3xl leading-relaxed text-zinc-200">{tr(track.project.summary, locale)}</p>
+          <p className="mt-3 max-w-3xl text-sm text-zinc-400">{t("projectHow")}</p>
+        </section>
+      )}
+
       <section aria-labelledby="why-title" className="panel accent-border grid gap-6 p-6 md:grid-cols-[2fr_1fr]">
         <div>
           <h2 id="why-title" className="font-display accent-text text-xl font-semibold">

@@ -4,6 +4,7 @@ import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import {
   PROGRESS_SCHEMA_VERSION,
+  criterionKey,
   defaultProgress,
   migrateProgress,
   stepKey,
@@ -15,6 +16,7 @@ import type { TrackId } from "@/lib/schemas";
 
 type Actions = {
   setStepDone: (projectId: string, stepId: string, done: boolean) => void;
+  setCriterionChecked: (projectId: string, stepId: string, index: number, checked: boolean) => void;
   setResourceStatus: (resourceId: string, status: ResourceStatus | null) => void;
   setLastProject: (track: TrackId, projectId: string) => void;
   setLastPosition: (pos: [number, number, number]) => void;
@@ -29,6 +31,7 @@ function pickData(s: ProgressStore): ProgressData {
   return {
     schemaVersion: s.schemaVersion,
     completedSteps: s.completedSteps,
+    checkedCriteria: s.checkedCriteria,
     resourceStatus: s.resourceStatus,
     lastProject: s.lastProject,
     lastPosition: s.lastPosition,
@@ -48,6 +51,15 @@ export const useProgressStore = create<ProgressStore>()(
           if (done) completedSteps[key] = Date.now();
           else delete completedSteps[key];
           return { completedSteps };
+        }),
+
+      setCriterionChecked: (projectId, stepId, index, checked) =>
+        set((s) => {
+          const key = criterionKey(projectId, stepId, index);
+          const checkedCriteria = { ...s.checkedCriteria };
+          if (checked) checkedCriteria[key] = Date.now();
+          else delete checkedCriteria[key];
+          return { checkedCriteria };
         }),
 
       setResourceStatus: (resourceId, status) =>

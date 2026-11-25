@@ -1,0 +1,281 @@
+{
+  "id": "git-01-instalar",
+  "track": "git",
+  "order": 1,
+  "title": {
+    "pt": "Parte 1: por que versionar, instalar e configurar o Git"
+  },
+  "feature": {
+    "pt": "O computador pronto para guardar o histórico do Diário de Estudos"
+  },
+  "level": 1,
+  "stack": [
+    "Git",
+    "Git Bash",
+    "Terminal"
+  ],
+  "whatYouBuild": {
+    "pt": "O começo do Diário de Estudos versionado: você entende o que é controle de versão e por que o mercado inteiro usa, instala o Git no Windows e configura sua identidade, deixando tudo pronto para o primeiro commit."
+  },
+  "whatYouLearn": [
+    {
+      "pt": "O que é controle de versão e qual problema ele resolve"
+    },
+    {
+      "pt": "A diferença entre Git e GitHub"
+    },
+    {
+      "pt": "O que são repositório e commit"
+    },
+    {
+      "pt": "Instalar o Git no Windows com as opções certas"
+    },
+    {
+      "pt": "Configurar nome, e-mail, branch padrão e editor"
+    }
+  ],
+  "prerequisites": [
+    "diario-06-http"
+  ],
+  "steps": [
+    {
+      "id": "o-que-e-versionar",
+      "title": {
+        "pt": "Por que versionar? Git, GitHub e repositórios"
+      },
+      "goal": {
+        "pt": "Você explica com suas palavras o que é controle de versão, a diferença entre Git e GitHub e o que é um repositório."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "Controle de versão"
+          },
+          "explanation": {
+            "pt": "Um sistema que **registra cada mudança** nos arquivos de um projeto: quem mudou, quando, o quê e por quê. Permite voltar a qualquer versão anterior, como uma máquina do tempo."
+          }
+        },
+        {
+          "term": {
+            "pt": "Git"
+          },
+          "explanation": {
+            "pt": "O programa de controle de versão mais usado do mundo. Ele roda **no seu computador**, funciona sem internet e foi criado em 2005 por Linus Torvalds, o mesmo criador do Linux."
+          }
+        },
+        {
+          "term": {
+            "pt": "GitHub"
+          },
+          "explanation": {
+            "pt": "Um **site** que guarda repositórios Git na nuvem e acrescenta ferramentas para trabalhar em equipe. Git e GitHub são coisas diferentes: o Git é a ferramenta, o GitHub é um lugar para hospedar (existem outros, como GitLab e Bitbucket)."
+          }
+        },
+        {
+          "term": {
+            "pt": "Repositório"
+          },
+          "explanation": {
+            "pt": "A pasta do projeto **com todo o histórico de versões** guardado junto. Costuma ser chamado de \"repo\"."
+          }
+        },
+        {
+          "term": {
+            "pt": "Commit"
+          },
+          "explanation": {
+            "pt": "Um **ponto salvo** no histórico, como uma foto do projeto inteiro num momento, com uma mensagem explicando o que mudou."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "No fim da Parte 1 dos Fundamentos, você fez uma cópia da pasta chamada `diario-parte-1` como backup. Imagine continuar assim: `diario-parte-2`, `diario-final`, `diario-final-agora-vai`, `diario-final-mesmo-v3`... Você não saberia o que mudou entre elas, ocuparia espaço à toa e, trabalhando em dupla, seria um caos. **É exatamente esse problema que o Git resolve.**\n\n### Passo 1 — Entenda a ideia com um videogame\n\nPense nos *save points* de um jogo. Antes de enfrentar o chefe, você salva. Se perder, volta para o último save, em vez de começar o jogo do zero. No Git, cada **commit** é um save point do seu projeto, e você pode ter quantos quiser, cada um com uma descrição (\"adicionei o formulário\", \"corrigi o total de horas\").\n\n### Passo 2 — Git e GitHub: a diferença que confunde todo mundo\n\n- O **Git** é como o seu **caderno** com todo o histórico: fica com você, funciona sem internet.\n- O **GitHub** é como uma **biblioteca na nuvem** onde você deixa uma cópia do caderno: serve de backup, deixa outras pessoas verem e ajudarem e mostra seu trabalho para recrutadores.\n\nVocê pode usar Git sem GitHub. Mas não dá para usar o GitHub de verdade sem o Git.\n\n### Passo 3 — O projeto deste distrito\n\nNeste distrito, você vai pegar o **Diário de Estudos** que construiu nos Fundamentos e:\n\n1. instalar e configurar o Git;\n2. transformar a pasta do Diário em um repositório e fazer seus primeiros commits;\n3. aprender a desfazer erros e voltar no tempo;\n4. testar ideias novas em ramificações (branches) sem medo de estragar nada;\n5. colocar o Diário no GitHub e **publicar o site na internet**, com um endereço que você pode mandar para qualquer pessoa;\n6. aprender o fluxo de trabalho em equipe usado nas empresas: issues, pull requests e revisão de código.\n\n### Passo 4 — Por que isso importa para a sua carreira\n\nPraticamente toda empresa de software usa Git. Em entrevistas de estágio, é comum pedirem o link do seu GitHub, e é ele que vai mostrar seus projetos. Saber Git bem é uma das habilidades que mais diferenciam quem está começando.\n\nAssista às primeiras aulas do curso de Git e GitHub recomendado. O professor explica a história e os conceitos com muita calma, o que ajuda bastante antes de pôr a mão na massa."
+      },
+      "estimatedMinutes": 30,
+      "resources": [
+        "pro-git-pt",
+        "atlassian-git-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Sei explicar o que é controle de versão com o exemplo do save point"
+        },
+        {
+          "pt": "Sei dizer a diferença entre Git e GitHub"
+        },
+        {
+          "pt": "Sei o que é um repositório e o que é um commit"
+        }
+      ],
+      "videos": [
+        "cev-git-github"
+      ]
+    },
+    {
+      "id": "instalar-git",
+      "title": {
+        "pt": "Instalando o Git no Windows"
+      },
+      "goal": {
+        "pt": "O Git está instalado, `git --version` responde no terminal do VS Code e você sabe abrir o Git Bash."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "Git for Windows"
+          },
+          "explanation": {
+            "pt": "O instalador oficial do Git para Windows. Além do Git, ele traz o **Git Bash** e o **Git Credential Manager**."
+          }
+        },
+        {
+          "term": {
+            "pt": "Git Bash"
+          },
+          "explanation": {
+            "pt": "Um terminal que imita o terminal do Linux dentro do Windows. Os comandos do Git funcionam igual no PowerShell e no Git Bash; o Bash é útil porque a maioria dos tutoriais usa comandos do Linux."
+          }
+        },
+        {
+          "term": {
+            "pt": "Branch padrão"
+          },
+          "explanation": {
+            "pt": "O nome do ramo principal do repositório. Hoje o padrão do mercado é **`main`** (versões antigas usavam `master`)."
+          }
+        },
+        {
+          "term": {
+            "pt": "Git Credential Manager"
+          },
+          "explanation": {
+            "pt": "Um ajudante que guarda seu login do GitHub com segurança, para você não precisar digitar senha a cada envio."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "### Passo 1 — Baixe o instalador\n\nAcesse `git-scm.com`, clique em **Downloads** e escolha **Windows**. Baixe a versão de 64 bits (o padrão).\n\n### Passo 2 — As telas do instalador\n\nO instalador tem muitas telas, e quase todas podem ficar no padrão. Preste atenção em três:\n\n1. **Choosing the default editor used by Git** (editor padrão): escolha **Use Visual Studio Code as Git's default editor**. Assim, quando o Git precisar que você escreva um texto longo, ele abre o VS Code em vez de um editor difícil de usar no terminal (o Vim).\n2. **Adjusting the name of the initial branch** (nome da branch inicial): escolha **Override the default branch name for new repositories** e deixe escrito **`main`**.\n3. **Adjusting your PATH environment** (PATH): deixe a opção recomendada, **Git from the command line and also from 3rd-party software**. Ela permite usar o Git no PowerShell e no VS Code.\n\nNas demais telas, apenas avance com **Next** e, no final, **Install**.\n\n### Passo 3 — Confirme a instalação\n\n**Feche e abra de novo o VS Code** (para o terminal enxergar o programa novo), abra o terminal integrado e digite:\n\n```powershell\ngit --version\n```\n\nA resposta deve ser algo como `git version 2.51.0.windows.1`. O número exato não importa.\n\n### Passo 4 — Conheça o Git Bash\n\nNo menu Iniciar, procure **Git Bash** e abra. É outro terminal, com comandos do Linux:\n\n```bash\npwd\nls\ncd ~/Documents\n```\n\nO `~` significa \"a sua pasta de usuário\". Você pode usar o Git Bash ou o PowerShell, como preferir: os comandos `git` são idênticos. Dentro do VS Code, dá até para escolher o Git Bash como terminal (na setinha ao lado do `+` do terminal)."
+      },
+      "estimatedMinutes": 30,
+      "resources": [
+        "pro-git-pt",
+        "git-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Instalei o Git com o VS Code como editor e `main` como nome da branch inicial"
+        },
+        {
+          "pt": "`git --version` mostra a versão no terminal do VS Code"
+        },
+        {
+          "pt": "Abri o Git Bash e naveguei até a pasta Documentos"
+        }
+      ],
+      "videos": [
+        "cev-git-github"
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "`git` não é reconhecido como comando"
+          },
+          "solution": {
+            "pt": "O terminal foi aberto antes da instalação. Feche **todas** as janelas do VS Code e abra de novo. Se persistir, reinicie o computador ou reinstale mantendo a opção recomendada na tela do PATH."
+          }
+        },
+        {
+          "problem": {
+            "pt": "Já tenho o Git instalado de antes e não sei se configurei a branch `main`"
+          },
+          "solution": {
+            "pt": "Sem problema: na próxima etapa você vai configurar isso com um comando, `git config --global init.defaultBranch main`."
+          }
+        }
+      ]
+    },
+    {
+      "id": "configurar-identidade",
+      "title": {
+        "pt": "Configurando sua identidade"
+      },
+      "goal": {
+        "pt": "O Git sabe seu nome e e-mail, usa `main` como branch padrão e o VS Code como editor, e você confere tudo com `git config --list`."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "`git config`"
+          },
+          "explanation": {
+            "pt": "O comando que guarda as configurações do Git. Com `--global`, a configuração vale para **todos os repositórios** do seu usuário."
+          }
+        },
+        {
+          "term": {
+            "pt": "Autor do commit"
+          },
+          "explanation": {
+            "pt": "Todo commit guarda **quem** fez a mudança: nome e e-mail. É assim que o histórico mostra quem fez o quê."
+          }
+        },
+        {
+          "term": {
+            "pt": "E-mail `noreply` do GitHub"
+          },
+          "explanation": {
+            "pt": "Um e-mail especial que o GitHub oferece para você não expor seu e-mail pessoal nos commits públicos. Você vai poder trocar para ele quando criar sua conta."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Antes do primeiro commit, o Git precisa saber **quem é você**, porque cada commit leva a assinatura do autor.\n\n### Passo 1 — Nome e e-mail\n\nNo terminal (PowerShell ou Git Bash), digite, trocando pelos seus dados:\n\n```powershell\ngit config --global user.name \"Seu Nome Completo\"\ngit config --global user.email \"seu-email@exemplo.com\"\n```\n\nUse o mesmo e-mail que você vai usar (ou já usa) no GitHub; é assim que o GitHub liga os commits ao seu perfil. As aspas são necessárias porque o nome tem espaços.\n\n> **Privacidade:** esse e-mail fica visível no histórico de repositórios públicos. Se preferir não expor seu e-mail pessoal, depois de criar a conta no GitHub (Parte 5) você pode usar o endereço `noreply` que ele oferece nas configurações de e-mail.\n\n### Passo 2 — Branch padrão e editor\n\n```powershell\ngit config --global init.defaultBranch main\ngit config --global core.editor \"code --wait\"\n```\n\nA primeira garante que todo repositório novo comece com a branch `main`. A segunda define o VS Code como editor; o `--wait` faz o Git **esperar** você fechar a aba do VS Code antes de continuar.\n\n### Passo 3 — Confira\n\n```powershell\ngit config --list\n```\n\nAparece uma lista de configurações. Procure `user.name`, `user.email`, `init.defaultbranch` e `core.editor`. Se no fim da lista aparecer `:` ou `(END)` e o terminal não voltar, aperte `q` para sair.\n\nPara ver só um valor:\n\n```powershell\ngit config user.name\n```\n\n### Passo 4 — Onde isso fica guardado\n\nEssas configurações ficam num arquivo de texto chamado `.gitconfig`, na sua pasta de usuário. Abra para ver:\n\n```powershell\ncode $HOME/.gitconfig\n```\n\n(`$HOME` é a sua pasta de usuário, e funciona tanto no PowerShell quanto no Git Bash.)\n\nVocê não precisa editar à mão, mas é bom saber que não tem mágica: o `git config` só escreve nesse arquivo."
+      },
+      "estimatedMinutes": 30,
+      "resources": [
+        "pro-git-pt",
+        "git-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Configurei `user.name` e `user.email` com `--global`"
+        },
+        {
+          "pt": "Configurei `main` como branch padrão e o VS Code como editor"
+        },
+        {
+          "pt": "Conferi as configurações com `git config --list`"
+        }
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "Errei o nome ou o e-mail"
+          },
+          "solution": {
+            "pt": "É só rodar o mesmo comando de novo com o valor certo. A configuração nova substitui a antiga."
+          }
+        },
+        {
+          "problem": {
+            "pt": "O `git config --list` travou e não volto para o terminal"
+          },
+          "solution": {
+            "pt": "A lista abriu num visualizador de páginas. Aperte `q` para sair."
+          }
+        }
+      ]
+    }
+  ],
+  "extraChallenges": [
+    {
+      "pt": "Rode `git help -a` e leia a lista de comandos do Git, só para conhecer o tamanho da ferramenta"
+    },
+    {
+      "pt": "Leia o capítulo 1 do livro Pro Git em português (nos recursos)"
+    }
+  ],
+  "portfolioTip": {
+    "pt": "Tudo o que você fizer daqui para frente vai contar uma história no seu GitHub. Comece com seu nome real configurado: é ele que recrutadores vão ver nos seus commits."
+  }
+}

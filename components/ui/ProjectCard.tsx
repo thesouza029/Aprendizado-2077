@@ -38,6 +38,9 @@ export async function ProjectCard({ project, locale, prerequisiteTitles }: Props
           {title}
         </Link>
       </h3>
+      {project.feature && (
+        <p className="accent-text text-sm font-semibold">+ {tr(project.feature, locale)}</p>
+      )}
       <p className="text-sm leading-relaxed text-zinc-300">{tr(project.whatYouBuild, locale)}</p>
 
       <ul className="flex flex-wrap gap-1.5" aria-label="Stack">

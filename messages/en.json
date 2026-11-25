@@ -63,7 +63,10 @@
     "bonus": "Bonus",
     "steps": "{count, plural, one {# step} other {# steps}}",
     "completed": "Completed",
-    "prerequisites": "Prerequisites"
+    "prerequisites": "Prerequisites",
+    "projectTitle": "The district project",
+    "projectHow": "Each building in this district adds a new part to the same project. Go in order: each part builds on the previous one.",
+    "partLabel": "Part {number}"
   },
   "project": {
     "whatYouBuild": "What you will build",
@@ -82,7 +85,14 @@
     "extraChallenges": "Extra challenges",
     "portfolioTip": "Portfolio tip",
     "projectComplete": "Project complete! This building's neon sign is lit.",
-    "backToTrack": "Back to {track}"
+    "backToTrack": "Back to {track}",
+    "featureLabel": "New feature",
+    "concepts": "Concepts in this step",
+    "commonErrors": "Something went wrong? Common errors and fixes",
+    "videos": "Recommended videos",
+    "criteriaProgress": "{done} of {total}",
+    "criteriaAllDone": "All criteria checked. You can mark the step as done!",
+    "notTranslated": "This content hasn't been translated to English yet, so it's shown in Portuguese."
   },
   "library": {
     "eyebrow": "Neon Archive",

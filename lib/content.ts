@@ -18,10 +18,18 @@ import resourcesMobile from "@/content/resources/mobile.json";
 import resourcesDevops from "@/content/resources/devops.json";
 import resourcesIa from "@/content/resources/ia.json";
 
-import fundamentosPerfilDev from "@/content/tracks/fundamentos/perfil-dev.json";
-import fundamentosCalculadora from "@/content/tracks/fundamentos/calculadora-jogo-da-velha.json";
-import fundamentosSql from "@/content/tracks/fundamentos/banco-biblioteca-sql.json";
-import fundamentosCli from "@/content/tracks/fundamentos/cli-api-http.json";
+import fundamentosTerminal from "@/content/tracks/fundamentos/diario-01-terminal.json";
+import fundamentosHtml from "@/content/tracks/fundamentos/diario-02-html.json";
+import fundamentosCss from "@/content/tracks/fundamentos/diario-03-css.json";
+import fundamentosJs from "@/content/tracks/fundamentos/diario-04-javascript.json";
+import fundamentosSql from "@/content/tracks/fundamentos/diario-05-sql.json";
+import fundamentosHttp from "@/content/tracks/fundamentos/diario-06-http.json";
+import gitInstalar from "@/content/tracks/git/git-01-instalar.json";
+import gitCommits from "@/content/tracks/git/git-02-commits.json";
+import gitDesfazer from "@/content/tracks/git/git-03-desfazer.json";
+import gitBranches from "@/content/tracks/git/git-04-branches.json";
+import gitGithub from "@/content/tracks/git/git-05-github.json";
+import gitColaboracao from "@/content/tracks/git/git-06-colaboracao.json";
 import webLanding from "@/content/tracks/web/landing-page.json";
 import webTarefas from "@/content/tracks/web/app-tarefas-react.json";
 import webBlog from "@/content/tracks/web/blog-nextjs-mdx.json";
@@ -65,10 +73,18 @@ const rawResources: unknown[] = [
   ...resourcesIa,
 ];
 const rawProjects: unknown[] = [
-  fundamentosPerfilDev,
-  fundamentosCalculadora,
+  fundamentosTerminal,
+  fundamentosHtml,
+  fundamentosCss,
+  fundamentosJs,
   fundamentosSql,
-  fundamentosCli,
+  fundamentosHttp,
+  gitInstalar,
+  gitCommits,
+  gitDesfazer,
+  gitBranches,
+  gitGithub,
+  gitColaboracao,
   webLanding,
   webTarefas,
   webBlog,
@@ -143,6 +159,11 @@ export function buildContent(
     for (const s of p.steps) {
       for (const r of s.resources) {
         if (!resourceIds.has(r)) errors.push(`${p.id}/${s.id}: recurso inexistente "${r}"`);
+      }
+      for (const v of s.videos ?? []) {
+        const video = resources.find((r) => r.id === v);
+        if (!video) errors.push(`${p.id}/${s.id}: vídeo inexistente "${v}"`);
+        else if (video.type !== "video") errors.push(`${p.id}/${s.id}: "${v}" não é do tipo vídeo`);
       }
     }
   }

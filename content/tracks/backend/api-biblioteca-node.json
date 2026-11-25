@@ -16,7 +16,7 @@
     { "pt": "Validação de entrada e segurança básica (SQL injection, segredos em variáveis de ambiente)", "en": "Input validation and basic security (SQL injection, secrets in environment variables)" },
     { "pt": "Testes de integração de API e deploy de backend", "en": "API integration tests and backend deployment" }
   ],
-  "prerequisites": ["banco-biblioteca-sql", "cli-api-http"],
+  "prerequisites": ["diario-05-sql", "diario-06-http"],
   "steps": [
     {
       "id": "planejar-api",

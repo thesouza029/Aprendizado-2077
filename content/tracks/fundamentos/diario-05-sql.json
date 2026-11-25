@@ -1,0 +1,550 @@
+{
+  "id": "diario-05-sql",
+  "track": "fundamentos",
+  "order": 5,
+  "title": {
+    "pt": "Parte 5: organizando os dados com SQL"
+  },
+  "feature": {
+    "pt": "Um banco de dados com matérias e sessões e relatórios de horas por matéria e por dia"
+  },
+  "level": 2,
+  "stack": [
+    "SQL",
+    "SQLite",
+    "DB Browser for SQLite"
+  ],
+  "whatYouBuild": {
+    "pt": "O banco de dados do Diário de Estudos: tabelas de matérias e sessões ligadas por chave estrangeira, regras que impedem dados errados e consultas SQL que respondem perguntas como \"quantas horas estudei de cada matéria?\" e \"quanto falta para a meta?\"."
+  },
+  "whatYouLearn": [
+    {
+      "pt": "O que é um banco de dados relacional e por que ele existe"
+    },
+    {
+      "pt": "Criar tabelas com tipos, chave primária, chave estrangeira e restrições"
+    },
+    {
+      "pt": "Inserir e consultar dados com INSERT e SELECT (WHERE, ORDER BY, LIMIT)"
+    },
+    {
+      "pt": "Atualizar e apagar com segurança, usando transações e backup"
+    },
+    {
+      "pt": "Relatórios com JOIN, funções de agregação, GROUP BY e HAVING"
+    }
+  ],
+  "prerequisites": [
+    "diario-04-javascript"
+  ],
+  "steps": [
+    {
+      "id": "o-que-e-banco",
+      "title": {
+        "pt": "O que é um banco de dados (e por que não só o localStorage)"
+      },
+      "goal": {
+        "pt": "O DB Browser for SQLite está instalado e existe o arquivo `diario.db` aberto nele, e você sabe explicar o que são tabela, linha e coluna."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "Banco de dados"
+          },
+          "explanation": {
+            "pt": "Um lugar organizado para **guardar dados e encontrá-los rápido**, mesmo quando são milhões. É onde ficam os usuários de uma rede social, os produtos de uma loja, as notas de uma escola."
+          }
+        },
+        {
+          "term": {
+            "pt": "Tabela"
+          },
+          "explanation": {
+            "pt": "A forma como um banco relacional guarda dados: como uma planilha, com **colunas** (os campos, como `materia` e `minutos`) e **linhas** (os registros, cada sessão de estudo)."
+          }
+        },
+        {
+          "term": {
+            "pt": "SGBD"
+          },
+          "explanation": {
+            "pt": "Sistema Gerenciador de Banco de Dados: o programa que cuida do banco. Exemplos: **SQLite**, PostgreSQL, MySQL. Neste projeto usamos o SQLite, que guarda o banco inteiro num único arquivo."
+          }
+        },
+        {
+          "term": {
+            "pt": "SQL"
+          },
+          "explanation": {
+            "pt": "*Structured Query Language* (linguagem de consulta estruturada). É a linguagem para **conversar com o banco**: criar tabelas, inserir, buscar, alterar e apagar dados. Quase todo banco relacional entende SQL."
+          }
+        },
+        {
+          "term": {
+            "pt": "Banco relacional"
+          },
+          "explanation": {
+            "pt": "Um banco que organiza dados em tabelas que **se relacionam** entre si. Por exemplo, cada sessão aponta para a matéria a que pertence."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Na Parte 4, o Diário guardou tudo no localStorage. Funcionou, mas lembra dos limites? Os dados ficam presos num navegador, somem se alguém limpar o histórico e não dá para fazer perguntas como \"quantas horas estudei de Matemática em março?\" sem escrever muito código. Bancos de dados resolvem isso, e quase todo sistema profissional tem um.\n\nNesta parte, você vai **desenhar e consultar o banco do Diário**. Ligar o site ao banco precisa de um servidor (back-end), e isso fica para o distrito Backend. Aqui o foco é aprender SQL, que é o que fica para a vida toda.\n\n### Passo 1 — Pense em planilhas\n\nSe você já usou Excel ou Google Planilhas, já entende metade dos bancos. Imagine uma planilha **sessoes**:\n\n```text\nid | materia    | minutos | data\n---+------------+---------+-----------\n1  | Matemática | 50      | 2026-03-02\n2  | História   | 30      | 2026-03-02\n3  | Matemática | 40      | 2026-03-03\n```\n\nCada **coluna** é um tipo de informação e cada **linha** é uma sessão. A coluna `id` dá um número único a cada linha. A diferença do banco para a planilha é que ele é **rígido**: cada coluna tem um tipo (número, texto) e regras, e isso evita bagunça.\n\n### Passo 2 — Instale o DB Browser for SQLite\n\nAcesse o site do DB Browser for SQLite (link nos recursos), baixe a versão para Windows e instale. Ele é um programa gratuito com janelas e botões para criar e ver bancos SQLite, e tem uma aba para você escrever SQL.\n\n### Passo 3 — Crie o banco do Diário\n\n1. Abra o DB Browser e clique em **Novo Banco de Dados** (*New Database*).\n2. Salve o arquivo como `diario.db` dentro da pasta `diario-de-estudos`.\n3. Ele vai abrir uma janela para criar uma tabela. Clique em **Cancelar**: vamos criar as tabelas com SQL, na próxima etapa, para você entender cada palavra.\n\nPronto: o banco inteiro mora nesse arquivo `diario.db`. Copiar o arquivo é copiar o banco. Essa simplicidade é o motivo de o SQLite estar dentro de celulares, navegadores e milhares de apps.\n\n### Passo 4 — Conheça as abas\n\n- **Estrutura do Banco de Dados**: mostra as tabelas e as colunas.\n- **Navegar Dados**: mostra o conteúdo das tabelas, como uma planilha.\n- **Executar SQL**: onde você escreve comandos SQL e roda com `Ctrl` + `Enter` (ou o botão de \"play\").\n\nEscreva na aba Executar SQL e rode:\n\n```sql\nSELECT 'Olá, banco!' AS mensagem;\n```\n\nO resultado aparece numa tabelinha embaixo. Seu primeiro comando SQL!"
+      },
+      "estimatedMinutes": 45,
+      "resources": [
+        "db-browser-sqlite",
+        "sqlite-docs",
+        "khan-sql"
+      ],
+      "checklist": [
+        {
+          "pt": "Sei explicar a diferença entre tabela, coluna e linha com o exemplo das sessões"
+        },
+        {
+          "pt": "Instalei o DB Browser for SQLite e criei o arquivo `diario.db` na pasta do projeto"
+        },
+        {
+          "pt": "Rodei um `SELECT` na aba Executar SQL e vi o resultado"
+        }
+      ],
+      "videos": [
+        "cev-mysql",
+        "fcc-curso-sql-video"
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "Rodei o SQL e nada aconteceu"
+          },
+          "solution": {
+            "pt": "Confira se você está na aba **Executar SQL** e se clicou no botão de executar (ou `Ctrl` + `Enter`). Se o cursor estiver numa linha vazia, alguns modos executam só a linha atual: selecione o comando inteiro antes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "criar-tabelas",
+      "title": {
+        "pt": "Criando as tabelas: matérias e sessões"
+      },
+      "goal": {
+        "pt": "O banco tem as tabelas `materias` e `sessoes`, com tipos, chave primária, campos obrigatórios e uma chave estrangeira ligando cada sessão à sua matéria."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "`CREATE TABLE`"
+          },
+          "explanation": {
+            "pt": "O comando que cria uma tabela. Você diz o nome dela e lista as colunas, cada uma com seu tipo e suas regras."
+          }
+        },
+        {
+          "term": {
+            "pt": "Tipos de dados no SQLite"
+          },
+          "explanation": {
+            "pt": "`INTEGER` (números inteiros), `REAL` (números com vírgula), `TEXT` (textos). Datas costumam ser guardadas como `TEXT` no formato `AAAA-MM-DD`, que ordena certinho."
+          }
+        },
+        {
+          "term": {
+            "pt": "Chave primária (`PRIMARY KEY`)"
+          },
+          "explanation": {
+            "pt": "A coluna que **identifica cada linha de forma única**, como o número de matrícula de um aluno. No SQLite, `INTEGER PRIMARY KEY` numera as linhas sozinho: 1, 2, 3..."
+          }
+        },
+        {
+          "term": {
+            "pt": "Chave estrangeira (`FOREIGN KEY`)"
+          },
+          "explanation": {
+            "pt": "Uma coluna que **aponta para a chave primária de outra tabela**. A coluna `materia_id` de uma sessão guarda o id da matéria. É o \"relacional\" do banco relacional."
+          }
+        },
+        {
+          "term": {
+            "pt": "Restrições"
+          },
+          "explanation": {
+            "pt": "Regras que o banco garante sozinho: `NOT NULL` (não pode ficar vazio), `UNIQUE` (não pode repetir) e `CHECK` (precisa passar num teste, como `minutos > 0`)."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Uma decisão importante antes de criar: por que **duas** tabelas, e não uma só com o nome da matéria escrito em cada sessão? Porque se você escrever \"Matemática\" em 200 sessões e um dia digitar \"Matematica\" (sem acento) numa delas, os relatórios vão contar errado. Com uma tabela de matérias, o nome existe **num lugar só**, e cada sessão aponta para ele. Isso se chama **normalização**: evitar dados repetidos.\n\n### Passo 1 — A tabela de matérias\n\nNa aba **Executar SQL**:\n\n```sql\nCREATE TABLE materias (\n  id INTEGER PRIMARY KEY,\n  nome TEXT NOT NULL UNIQUE,\n  meta_minutos INTEGER NOT NULL DEFAULT 120\n);\n```\n\nLeia como uma frase: \"crie a tabela `materias` com: um `id` inteiro que é a chave primária; um `nome` de texto, obrigatório e que não se repete; e uma `meta_minutos` inteira, obrigatória, que vale 120 se ninguém disser outro valor\". Execute e clique em **Escrever Alterações** (*Write Changes*, ou `Ctrl` + `S`) para salvar no arquivo.\n\n> **Muito importante:** o DB Browser só grava as mudanças no arquivo quando você clica em **Escrever Alterações**. Se fechar sem salvar, perde tudo o que fez.\n\n### Passo 2 — A tabela de sessões\n\n```sql\nCREATE TABLE sessoes (\n  id INTEGER PRIMARY KEY,\n  materia_id INTEGER NOT NULL,\n  minutos INTEGER NOT NULL CHECK (minutos BETWEEN 1 AND 600),\n  data TEXT NOT NULL,\n  anotacoes TEXT,\n  FOREIGN KEY (materia_id) REFERENCES materias (id)\n);\n```\n\nNovidades: o `CHECK` impede minutos fora de 1 a 600 (a mesma regra do formulário da Parte 2, agora garantida pelo banco); `anotacoes` não tem `NOT NULL`, então pode ficar vazia; a última linha diz que `materia_id` **referencia** o `id` da tabela `materias`.\n\n### Passo 3 — Ligue a fiscalização das chaves estrangeiras\n\nO SQLite, por compatibilidade com versões antigas, vem com a checagem de chave estrangeira **desligada**. Ligue com:\n\n```sql\nPRAGMA foreign_keys = ON;\n```\n\nEsse comando vale para a conexão aberta. No DB Browser, você também pode deixar ligado em **Editar → Preferências → Banco de Dados**, na opção de chaves estrangeiras.\n\n### Passo 4 — Confira a estrutura\n\nVá na aba **Estrutura do Banco de Dados**. As duas tabelas devem aparecer com suas colunas. Clique na setinha ao lado de cada uma para ver os tipos.\n\n### Passo 5 — Guarde o script\n\nCrie na pasta do projeto o arquivo `schema.sql` e cole nele os dois `CREATE TABLE`. Isso documenta como o banco foi criado e permite recriá-lo do zero em qualquer computador. Programadores sempre guardam a estrutura do banco em arquivos."
+      },
+      "estimatedMinutes": 60,
+      "resources": [
+        "sqlite-docs",
+        "sqlbolt",
+        "dbdiagram"
+      ],
+      "checklist": [
+        {
+          "pt": "Criei a tabela `materias` com id, nome único e meta com valor padrão"
+        },
+        {
+          "pt": "Criei a tabela `sessoes` com `CHECK` nos minutos e chave estrangeira para `materias`"
+        },
+        {
+          "pt": "Liguei as chaves estrangeiras com `PRAGMA foreign_keys = ON`"
+        },
+        {
+          "pt": "Cliquei em Escrever Alterações e as tabelas continuam lá depois de reabrir o arquivo"
+        },
+        {
+          "pt": "Guardei os comandos de criação no arquivo `schema.sql`"
+        }
+      ],
+      "videos": [
+        "cev-mysql"
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "`table materias already exists`"
+          },
+          "solution": {
+            "pt": "A tabela já foi criada antes. Para recomeçar, rode `DROP TABLE sessoes;` e depois `DROP TABLE materias;` (nessa ordem, porque sessões depende de matérias) e crie de novo. Cuidado: `DROP` apaga a tabela com todos os dados."
+          }
+        },
+        {
+          "problem": {
+            "pt": "Fechei o DB Browser e as tabelas sumiram"
+          },
+          "solution": {
+            "pt": "Faltou **Escrever Alterações** (`Ctrl` + `S`) antes de fechar. Rode os `CREATE TABLE` de novo (estão no seu `schema.sql`) e salve."
+          }
+        },
+        {
+          "problem": {
+            "pt": "`near \",\": syntax error`"
+          },
+          "solution": {
+            "pt": "Geralmente é uma vírgula sobrando depois da última coluna, ou faltando entre duas colunas. Cada coluna termina com vírgula, **menos** a última linha antes do `)`."
+          }
+        }
+      ]
+    },
+    {
+      "id": "inserir-e-consultar",
+      "title": {
+        "pt": "Inserindo e consultando dados"
+      },
+      "goal": {
+        "pt": "As tabelas têm matérias e pelo menos 10 sessões, e você consegue buscar sessões filtrando, ordenando e limitando o resultado."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "`INSERT INTO`"
+          },
+          "explanation": {
+            "pt": "O comando que **acrescenta linhas** numa tabela. Você diz em quais colunas e quais valores."
+          }
+        },
+        {
+          "term": {
+            "pt": "`SELECT`"
+          },
+          "explanation": {
+            "pt": "O comando que **busca dados**. É o mais usado de todos. `SELECT colunas FROM tabela` traz as colunas escolhidas de todas as linhas."
+          }
+        },
+        {
+          "term": {
+            "pt": "`WHERE`"
+          },
+          "explanation": {
+            "pt": "O filtro: traz só as linhas que passam numa condição, como `WHERE minutos >= 45`."
+          }
+        },
+        {
+          "term": {
+            "pt": "`ORDER BY`"
+          },
+          "explanation": {
+            "pt": "Ordena o resultado por uma coluna, em ordem crescente (`ASC`, o padrão) ou decrescente (`DESC`)."
+          }
+        },
+        {
+          "term": {
+            "pt": "`LIMIT`"
+          },
+          "explanation": {
+            "pt": "Limita quantas linhas voltam. `LIMIT 3` traz só as três primeiras."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Tabelas vazias não respondem perguntas. Vamos preenchê-las e aprender a **perguntar** ao banco.\n\n### Passo 1 — Cadastre as matérias\n\n```sql\nINSERT INTO materias (nome, meta_minutos) VALUES\n  ('Matemática', 240),\n  ('Português', 180),\n  ('História', 120),\n  ('Inglês', 120);\n```\n\nEm SQL, textos ficam entre **aspas simples** (`'Matemática'`). Não informamos o `id`: o banco numera sozinho. Confira na aba Navegar Dados.\n\n### Passo 2 — Cadastre sessões\n\n```sql\nINSERT INTO sessoes (materia_id, minutos, data, anotacoes) VALUES\n  (1, 50, '2026-03-02', 'Funções do 1º grau'),\n  (3, 30, '2026-03-02', NULL),\n  (1, 40, '2026-03-03', 'Exercícios de funções'),\n  (4, 25, '2026-03-03', 'Listening');\n```\n\nO `materia_id` 1 é Matemática, 3 é História, 4 é Inglês (confira os ids na tabela de matérias). `NULL` significa \"sem valor\". Acrescente mais sessões até ter **pelo menos 10**, em datas diferentes. Salve com **Escrever Alterações**.\n\n### Passo 3 — Teste as regras do banco\n\nTente inserir dados ruins e leia o erro:\n\n```sql\nINSERT INTO sessoes (materia_id, minutos, data) VALUES (1, 0, '2026-03-04');\nINSERT INTO sessoes (materia_id, minutos, data) VALUES (99, 30, '2026-03-04');\n```\n\nO primeiro falha no `CHECK` (0 minutos). O segundo falha na chave estrangeira (não existe matéria 99), desde que o `PRAGMA foreign_keys = ON` esteja ativo. **O banco é o último guarda**: mesmo que um bug no site deixe passar um dado ruim, o banco recusa.\n\n### Passo 4 — Faça perguntas com SELECT\n\nRode uma de cada vez e observe o resultado:\n\n```sql\nSELECT * FROM sessoes;\n\nSELECT data, minutos FROM sessoes;\n\nSELECT * FROM sessoes WHERE minutos >= 40;\n\nSELECT * FROM sessoes WHERE data = '2026-03-02';\n\nSELECT * FROM sessoes ORDER BY minutos DESC LIMIT 3;\n\nSELECT * FROM sessoes WHERE anotacoes IS NULL;\n```\n\nO `*` significa \"todas as colunas\". A quinta consulta responde \"quais foram as três sessões mais longas?\". A última encontra sessões sem anotação: para testar `NULL`, use sempre `IS NULL`, nunca `= NULL`.\n\n### Passo 5 — Combine condições\n\nUse `AND` (e) e `OR` (ou) para perguntas mais específicas. Escreva sozinho as consultas para:\n\n1. sessões de Matemática (`materia_id = 1`) com mais de 30 minutos;\n2. sessões de março de 2026 (dica: `data BETWEEN '2026-03-01' AND '2026-03-31'`);\n3. sessões que tenham a palavra \"função\" nas anotações (dica: `anotacoes LIKE '%funç%'`, onde `%` significa \"qualquer texto\").\n\nGuarde suas consultas num arquivo `consultas.sql`, com um comentário (`-- explicação`) acima de cada uma."
+      },
+      "estimatedMinutes": 60,
+      "resources": [
+        "sqlbolt",
+        "w3schools-sql",
+        "sqlite-docs"
+      ],
+      "checklist": [
+        {
+          "pt": "Cadastrei quatro matérias e pelo menos 10 sessões em datas diferentes"
+        },
+        {
+          "pt": "Vi o banco recusar 0 minutos e uma matéria inexistente"
+        },
+        {
+          "pt": "Rodei consultas com `WHERE`, `ORDER BY` e `LIMIT` e entendi cada resultado"
+        },
+        {
+          "pt": "Escrevi sozinho as três consultas do Passo 5 e guardei em `consultas.sql`"
+        }
+      ],
+      "videos": [
+        "cev-mysql"
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "`no such column: Matemática`"
+          },
+          "solution": {
+            "pt": "Você usou aspas duplas ou esqueceu as aspas no texto. Em SQL, **texto vai entre aspas simples**: `'Matemática'`. Aspas duplas são para nomes de colunas e tabelas."
+          }
+        },
+        {
+          "problem": {
+            "pt": "A inserção com a matéria 99 funcionou, mas não deveria"
+          },
+          "solution": {
+            "pt": "As chaves estrangeiras estão desligadas. Rode `PRAGMA foreign_keys = ON;` antes do `INSERT` (ou ligue nas preferências do DB Browser) e apague a linha errada com `DELETE FROM sessoes WHERE materia_id = 99;`."
+          }
+        }
+      ]
+    },
+    {
+      "id": "atualizar-apagar",
+      "title": {
+        "pt": "Atualizando e apagando com segurança"
+      },
+      "goal": {
+        "pt": "Você corrige e apaga sessões com `UPDATE` e `DELETE`, sempre com `WHERE`, confere antes com um `SELECT` e sabe desfazer com uma transação."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "`UPDATE`"
+          },
+          "explanation": {
+            "pt": "Altera valores de linhas que já existem: `UPDATE tabela SET coluna = valor WHERE condição`."
+          }
+        },
+        {
+          "term": {
+            "pt": "`DELETE`"
+          },
+          "explanation": {
+            "pt": "Apaga linhas: `DELETE FROM tabela WHERE condição`."
+          }
+        },
+        {
+          "term": {
+            "pt": "O perigo do `WHERE` esquecido"
+          },
+          "explanation": {
+            "pt": "`UPDATE` e `DELETE` **sem `WHERE` afetam todas as linhas da tabela**. É um dos acidentes mais famosos da profissão."
+          }
+        },
+        {
+          "term": {
+            "pt": "Transação"
+          },
+          "explanation": {
+            "pt": "Um pacote de comandos que acontece **por inteiro ou não acontece**. Você começa com `BEGIN`, confere o resultado e decide: `COMMIT` (confirma) ou `ROLLBACK` (desfaz tudo)."
+          }
+        },
+        {
+          "term": {
+            "pt": "Backup"
+          },
+          "explanation": {
+            "pt": "Uma cópia de segurança. Com SQLite, basta copiar o arquivo `.db` antes de mexer em algo importante."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Corrigir e apagar dados faz parte da vida de qualquer sistema. Mas aqui mora o perigo, então vamos aprender junto com **hábitos de segurança** que os profissionais usam.\n\n### Passo 1 — Faça um backup\n\nFeche o DB Browser e copie o arquivo `diario.db` para `diario-backup.db`. Pronto: se algo der muito errado, você tem para onde voltar.\n\n### Passo 2 — A regra do SELECT antes\n\nAntes de alterar ou apagar, **rode um `SELECT` com o mesmo `WHERE`** para ver exatamente quais linhas serão afetadas:\n\n```sql\nSELECT * FROM sessoes WHERE id = 2;\n```\n\nViu que é a linha certa? Agora sim:\n\n```sql\nUPDATE sessoes SET minutos = 35, anotacoes = 'Revolução Francesa' WHERE id = 2;\n```\n\nO `SET` pode mudar várias colunas de uma vez, separadas por vírgula. Rode o `SELECT` de novo para conferir.\n\n### Passo 3 — Apague com o mesmo cuidado\n\n```sql\nSELECT * FROM sessoes WHERE minutos < 30;\nDELETE FROM sessoes WHERE minutos < 30;\n```\n\nLeia o `SELECT`, confira as linhas e só então rode o `DELETE`.\n\n### Passo 4 — Treine o desfazer com uma transação\n\nVamos simular o acidente clássico, mas dentro de uma rede de proteção:\n\n```sql\nBEGIN;\nDELETE FROM sessoes;\nSELECT COUNT(*) FROM sessoes;\n```\n\nO `COUNT(*)` conta as linhas: deu **0**. Você apagou tudo! Mas calma:\n\n```sql\nROLLBACK;\nSELECT COUNT(*) FROM sessoes;\n```\n\nTudo voltou. Dentro de uma transação, nada é definitivo até o `COMMIT`. Em sistemas de verdade, operações delicadas (como transferir dinheiro de uma conta para outra) sempre usam transações, para nunca ficarem pela metade.\n\n> No DB Browser, o botão **Reverter Alterações** (*Revert Changes*) também desfaz tudo o que ainda não foi gravado com Escrever Alterações. Mas não conte com isso em outros bancos: aprenda o `BEGIN`/`ROLLBACK`.\n\n### Passo 5 — Tente apagar uma matéria que tem sessões\n\n```sql\nDELETE FROM materias WHERE id = 1;\n```\n\nCom as chaves estrangeiras ligadas, o banco **recusa**: existem sessões apontando para a matéria 1, e apagá-la deixaria essas sessões \"órfãs\". O banco protegendo a integridade dos seus dados."
+      },
+      "estimatedMinutes": 45,
+      "resources": [
+        "sqlite-docs",
+        "sqlbolt",
+        "khan-sql"
+      ],
+      "checklist": [
+        {
+          "pt": "Fiz um backup do `diario.db` antes de começar"
+        },
+        {
+          "pt": "Corrigi uma sessão com `UPDATE` usando `WHERE`, conferindo antes e depois com `SELECT`"
+        },
+        {
+          "pt": "Apaguei sessões com `DELETE` e `WHERE`, conferindo antes com `SELECT`"
+        },
+        {
+          "pt": "Apaguei tudo dentro de uma transação e recuperei com `ROLLBACK`"
+        },
+        {
+          "pt": "Vi o banco recusar apagar uma matéria que tem sessões"
+        }
+      ],
+      "videos": [
+        "cev-mysql"
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "`cannot start a transaction within a transaction`"
+          },
+          "solution": {
+            "pt": "O DB Browser já abriu uma transação por conta própria por causa de alterações não gravadas. Clique em **Escrever Alterações** ou **Reverter Alterações** e rode o `BEGIN` de novo."
+          }
+        },
+        {
+          "problem": {
+            "pt": "Apaguei dados sem querer (sem transação)"
+          },
+          "solution": {
+            "pt": "Se ainda não clicou em Escrever Alterações, use **Reverter Alterações**. Se já gravou, feche o DB Browser e restaure o `diario-backup.db` (renomeie para `diario.db`). É para isso que serve o backup!"
+          }
+        }
+      ]
+    },
+    {
+      "id": "relatorios-join-group",
+      "title": {
+        "pt": "Relatórios: JOIN, SUM e GROUP BY"
+      },
+      "goal": {
+        "pt": "Você escreve consultas que mostram o nome da matéria em cada sessão, o total de horas por matéria comparado com a meta e o total por dia."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "`JOIN`"
+          },
+          "explanation": {
+            "pt": "Junta linhas de duas tabelas que combinam entre si. Aqui, cada sessão com a sua matéria, ligando `sessoes.materia_id` a `materias.id`."
+          }
+        },
+        {
+          "term": {
+            "pt": "Funções de agregação"
+          },
+          "explanation": {
+            "pt": "Calculam um valor a partir de várias linhas: `SUM` (soma), `COUNT` (conta), `AVG` (média), `MIN` e `MAX` (menor e maior)."
+          }
+        },
+        {
+          "term": {
+            "pt": "`GROUP BY`"
+          },
+          "explanation": {
+            "pt": "Separa as linhas em grupos (por matéria, por dia) para calcular uma agregação **por grupo**, em vez de uma só para a tabela toda."
+          }
+        },
+        {
+          "term": {
+            "pt": "Apelido (`AS`)"
+          },
+          "explanation": {
+            "pt": "Um nome temporário para uma coluna ou tabela no resultado, para deixar a consulta mais legível: `SUM(minutos) AS total`."
+          }
+        },
+        {
+          "term": {
+            "pt": "`HAVING`"
+          },
+          "explanation": {
+            "pt": "Filtro aplicado **depois** do agrupamento. O `WHERE` filtra linhas; o `HAVING` filtra grupos, como \"só matérias com mais de 2 horas\"."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Lembra do relatório por matéria que você fez na Parte 1, com laços e `if`? Agora vamos fazer o mesmo relatório com **uma única consulta SQL**. É aqui que os bancos mostram todo o seu poder.\n\n### Passo 1 — Juntando as tabelas com JOIN\n\nA tabela de sessões só tem o **número** da matéria. Para ver o nome, juntamos:\n\n```sql\nSELECT sessoes.data, materias.nome, sessoes.minutos\nFROM sessoes\nJOIN materias ON materias.id = sessoes.materia_id\nORDER BY sessoes.data;\n```\n\nLeia: \"das sessões, juntando com matérias onde o id da matéria é igual ao `materia_id` da sessão, mostre a data, o nome da matéria e os minutos\". Como as duas tabelas têm coluna `id`, escrevemos `tabela.coluna` para não haver confusão.\n\nPara escrever menos, use apelidos de tabela:\n\n```sql\nSELECT s.data, m.nome, s.minutos\nFROM sessoes AS s\nJOIN materias AS m ON m.id = s.materia_id\nORDER BY s.data;\n```\n\n### Passo 2 — Total geral\n\n```sql\nSELECT SUM(minutos) AS total_minutos, COUNT(*) AS quantidade, AVG(minutos) AS media\nFROM sessoes;\n```\n\nUma linha só: o total, a quantidade de sessões e a média. Compare com quanto código isso custou na Parte 1!\n\n### Passo 3 — Total por matéria com GROUP BY\n\n```sql\nSELECT m.nome, SUM(s.minutos) AS total_minutos\nFROM sessoes AS s\nJOIN materias AS m ON m.id = s.materia_id\nGROUP BY m.nome\nORDER BY total_minutos DESC;\n```\n\nO `GROUP BY m.nome` separa as sessões em grupos (um por matéria) e o `SUM` soma dentro de cada grupo. Esse é exatamente o relatório da Parte 1.\n\n### Passo 4 — Compare com a meta\n\nMostre o total em horas e quanto falta para a meta de cada matéria:\n\n```sql\nSELECT\n  m.nome,\n  ROUND(SUM(s.minutos) / 60.0, 1) AS horas,\n  ROUND(m.meta_minutos / 60.0, 1) AS meta_horas,\n  m.meta_minutos - SUM(s.minutos) AS minutos_faltando\nFROM sessoes AS s\nJOIN materias AS m ON m.id = s.materia_id\nGROUP BY m.id;\n```\n\nPor que `60.0` e não `60`? Porque no SQL, inteiro dividido por inteiro dá inteiro (`50 / 60` dá `0`!). Com `60.0`, a conta é feita com casas decimais. O `ROUND(..., 1)` arredonda para uma casa.\n\n### Passo 5 — Seus relatórios (desafio)\n\nEscreva sozinho e guarde no `consultas.sql`:\n\n1. o total de minutos **por dia** (`GROUP BY s.data`);\n2. só as matérias com **mais de 60 minutos** no total (use `HAVING SUM(s.minutos) > 60`);\n3. a sessão mais longa de cada matéria (use `MAX`).\n\n### Passo 6 — Ligue os pontos\n\nVocê agora tem duas versões do Diário: o **site** (Partes 2 a 4), que guarda dados no navegador, e o **banco** (esta parte), com tabelas e relatórios. No distrito **Backend**, você vai construir o servidor que liga as duas coisas: o site manda as sessões para o servidor, que grava no banco. Guarde o `schema.sql` e o `consultas.sql`: eles vão ser úteis lá."
+      },
+      "estimatedMinutes": 75,
+      "resources": [
+        "sqlbolt",
+        "select-star-sql",
+        "sql-murder-mystery"
+      ],
+      "checklist": [
+        {
+          "pt": "Escrevi um `JOIN` que mostra o nome da matéria em cada sessão"
+        },
+        {
+          "pt": "Calculei total, quantidade e média com uma consulta só"
+        },
+        {
+          "pt": "Fiz o relatório de minutos por matéria com `GROUP BY`"
+        },
+        {
+          "pt": "Comparei o total de cada matéria com a meta, em horas, usando `60.0`"
+        },
+        {
+          "pt": "Resolvi os três desafios do Passo 5 e guardei no `consultas.sql`"
+        }
+      ],
+      "videos": [
+        "cev-mysql",
+        "fcc-curso-sql-video"
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "`ambiguous column name: id`"
+          },
+          "solution": {
+            "pt": "As duas tabelas têm uma coluna `id` e o banco não sabe qual você quer. Escreva o nome da tabela (ou o apelido) antes: `m.id` ou `s.id`."
+          }
+        },
+        {
+          "problem": {
+            "pt": "As horas aparecem como `0` ou números inteiros estranhos"
+          },
+          "solution": {
+            "pt": "É a divisão de inteiros. Troque `/ 60` por `/ 60.0`."
+          }
+        },
+        {
+          "problem": {
+            "pt": "Erro dizendo que a coluna precisa estar no `GROUP BY`"
+          },
+          "solution": {
+            "pt": "Toda coluna no `SELECT` que **não** está dentro de uma função de agregação (`SUM`, `COUNT`...) precisa aparecer no `GROUP BY`. O SQLite é tolerante com isso, mas outros bancos, como o PostgreSQL, recusam."
+          }
+        }
+      ],
+      "hint": {
+        "pt": "Para o desafio 2 do Passo 5, a estrutura é: `SELECT m.nome, SUM(s.minutos) AS total FROM sessoes AS s JOIN materias AS m ON m.id = s.materia_id GROUP BY m.nome HAVING SUM(s.minutos) > 60;`. Repare que o `HAVING` vem **depois** do `GROUP BY`."
+      }
+    }
+  ],
+  "extraChallenges": [
+    {
+      "pt": "Crie uma tabela `metas_semanais` (semana, minutos) e um relatório que compare cada semana com a meta"
+    },
+    {
+      "pt": "Resolva o SQL Murder Mystery (nos recursos), um jogo de detetive com SQL"
+    },
+    {
+      "pt": "Desenhe o diagrama das tabelas no dbdiagram.io e coloque a imagem na pasta do projeto"
+    }
+  ],
+  "portfolioTip": {
+    "pt": "Inclua no portfólio o `schema.sql` e o `consultas.sql` com comentários explicando cada consulta. Muitas vagas de estágio têm teste de SQL, e mostrar que você domina JOIN e GROUP BY já é meio caminho andado."
+  }
+}

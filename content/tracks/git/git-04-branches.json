@@ -1,0 +1,392 @@
+{
+  "id": "git-04-branches",
+  "track": "git",
+  "order": 4,
+  "title": {
+    "pt": "Parte 4: branches, trabalhando em paralelo"
+  },
+  "feature": {
+    "pt": "Um tema escuro testado sem riscos e funcionalidades novas feitas em branches próprias"
+  },
+  "level": 2,
+  "stack": [
+    "Git",
+    "VS Code"
+  ],
+  "whatYouBuild": {
+    "pt": "O Diário de Estudos ganha um tema escuro e o total por matéria, cada um desenvolvido numa branch separada: você aprende a criar e alternar branches, juntar trabalho com merge, resolver conflitos e seguir o fluxo de uma branch por funcionalidade."
+  },
+  "whatYouLearn": [
+    {
+      "pt": "O que são branches e por que as equipes usam"
+    },
+    {
+      "pt": "Criar, alternar e apagar branches"
+    },
+    {
+      "pt": "Merge fast-forward e commit de merge"
+    },
+    {
+      "pt": "Resolver conflitos de merge"
+    },
+    {
+      "pt": "Fluxo de trabalho com uma branch por funcionalidade"
+    }
+  ],
+  "prerequisites": [
+    "git-03-desfazer"
+  ],
+  "steps": [
+    {
+      "id": "o-que-e-branch",
+      "title": {
+        "pt": "Branches: universos paralelos do projeto"
+      },
+      "goal": {
+        "pt": "Você criou a branch `tema-escuro`, fez commits nela sem afetar a `main` e sabe alternar entre as duas."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "Branch (ramificação)"
+          },
+          "explanation": {
+            "pt": "Uma **linha do tempo paralela** do projeto. Você cria uma branch para testar uma ideia; se der certo, junta com a principal; se der errado, joga fora. A `main` fica sempre funcionando."
+          }
+        },
+        {
+          "term": {
+            "pt": "`main`"
+          },
+          "explanation": {
+            "pt": "A branch principal, que costuma guardar a versão estável, a que está \"no ar\"."
+          }
+        },
+        {
+          "term": {
+            "pt": "`git branch`"
+          },
+          "explanation": {
+            "pt": "Lista as branches (a atual tem um `*`). Com um nome (`git branch tema-escuro`), cria uma branch nova."
+          }
+        },
+        {
+          "term": {
+            "pt": "`git switch -c`"
+          },
+          "explanation": {
+            "pt": "Cria uma branch nova **e** já muda para ela, num comando só."
+          }
+        },
+        {
+          "term": {
+            "pt": "Ponteiro"
+          },
+          "explanation": {
+            "pt": "No Git, uma branch é só uma etiqueta que aponta para um commit. Criar uma branch é instantâneo e não copia arquivos."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Você quer testar um **tema escuro** no Diário. Pode dar certo ou ficar horrível, e você não quer arriscar a versão que funciona. É para isso que existem as branches.\n\n### Passo 1 — Veja onde você está\n\n```powershell\ngit branch\n```\n\nAparece `* main`. Só existe uma branch, e o asterisco mostra que você está nela.\n\n### Passo 2 — Crie a branch do experimento\n\n```powershell\ngit switch -c tema-escuro\ngit branch\n```\n\nAgora aparecem duas branches, com o `*` em `tema-escuro`. Repare que os arquivos não mudaram: a branch nova começa **exatamente** onde a `main` estava. O VS Code mostra o nome da branch atual no canto inferior esquerdo.\n\n### Passo 3 — Trabalhe na branch\n\nNo `style.css`, troque as variáveis de cor do `:root` por cores escuras (por exemplo, fundo `#111827`, cartão `#1f2937` e texto `#f3f4f6`). Teste no navegador e confira o contraste. Commite:\n\n```powershell\ngit add style.css\ngit commit -m \"Testa um tema escuro\"\n```\n\nFaça mais um ajuste (por exemplo, a cor dos campos do formulário) e mais um commit.\n\n### Passo 4 — Alterne entre os universos\n\n```powershell\ngit switch main\n```\n\nOlhe o navegador (recarregue): o Diário voltou ao tema claro! Os commits do tema escuro **não existem** na `main`. Agora volte:\n\n```powershell\ngit switch tema-escuro\n```\n\nO tema escuro está de volta. Você acabou de alternar entre duas versões do projeto em segundos.\n\n### Passo 5 — Visualize as linhas do tempo\n\n```powershell\ngit log --oneline --graph --all\n```\n\nO `--graph` desenha as ramificações e o `--all` mostra todas as branches. Você vê a `main` parada num commit e a `tema-escuro` dois commits à frente.\n\n> **Por que isso é tão usado nas empresas?** Porque várias pessoas trabalham no mesmo projeto ao mesmo tempo, cada uma na sua branch, sem atrapalhar as outras. Quando uma funcionalidade fica pronta, ela é juntada à `main`."
+      },
+      "estimatedMinutes": 45,
+      "resources": [
+        "learn-git-branching",
+        "pro-git-pt",
+        "atlassian-git-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Criei a branch `tema-escuro` com `git switch -c`"
+        },
+        {
+          "pt": "Fiz pelo menos dois commits na branch `tema-escuro`"
+        },
+        {
+          "pt": "Alternei para a `main` e vi que o tema escuro não estava lá"
+        },
+        {
+          "pt": "Vi as duas linhas do tempo com `git log --oneline --graph --all`"
+        }
+      ],
+      "videos": [
+        "cev-git-github",
+        "freecodecamp-git-github-crash"
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "`git switch` não é reconhecido"
+          },
+          "solution": {
+            "pt": "Sua versão do Git é muito antiga (o `switch` existe desde 2019). Atualize o Git ou use o comando antigo equivalente: `git checkout -b tema-escuro` para criar e `git checkout main` para trocar."
+          }
+        },
+        {
+          "problem": {
+            "pt": "O Git não deixa trocar de branch"
+          },
+          "solution": {
+            "pt": "Você tem mudanças não commitadas que seriam sobrescritas. Faça um commit ou guarde com `git stash` antes de trocar."
+          }
+        }
+      ]
+    },
+    {
+      "id": "merge",
+      "title": {
+        "pt": "Juntando o trabalho: merge"
+      },
+      "goal": {
+        "pt": "O tema escuro foi juntado à `main` com `git merge`, a branch do experimento foi apagada e você entende a diferença entre merge *fast-forward* e merge com commit."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "`git merge`"
+          },
+          "explanation": {
+            "pt": "Junta o trabalho de outra branch **na branch em que você está**. Por isso, primeiro você vai para a branch que vai receber (`git switch main`) e depois faz o merge."
+          }
+        },
+        {
+          "term": {
+            "pt": "*Fast-forward*"
+          },
+          "explanation": {
+            "pt": "Quando a `main` não andou desde que a outra branch foi criada, o Git só **avança o ponteiro** da main até o último commit da branch. Nenhum commit novo é criado."
+          }
+        },
+        {
+          "term": {
+            "pt": "Commit de merge"
+          },
+          "explanation": {
+            "pt": "Quando as duas branches andaram, o Git cria um commit especial que **une as duas linhas do tempo**. Ele tem dois \"pais\"."
+          }
+        },
+        {
+          "term": {
+            "pt": "`git branch -d`"
+          },
+          "explanation": {
+            "pt": "Apaga uma branch que já foi juntada. Os commits não se perdem, porque agora fazem parte da `main`."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "O tema escuro ficou bom? Hora de trazer para a versão principal.\n\n### Passo 1 — Vá para a branch que vai receber\n\n```powershell\ngit switch main\n```\n\nIsso é importante: o `merge` traz o trabalho **para onde você está**.\n\n### Passo 2 — Faça o merge\n\n```powershell\ngit merge tema-escuro\n```\n\nA resposta deve incluir a palavra **Fast-forward**. Como a `main` não teve commits novos desde que você criou a branch, o Git só precisou avançar a etiqueta `main` até o último commit do tema escuro. Confira com `git log --oneline --graph --all`.\n\n### Passo 3 — Apague a branch que já foi juntada\n\n```powershell\ngit branch -d tema-escuro\n```\n\nOs commits continuam lá, agora na `main`. Manter branches velhas só causa confusão.\n\n### Passo 4 — Agora um merge com as duas linhas andando\n\nVamos simular duas tarefas em paralelo:\n\n```powershell\ngit switch -c rodape-novo\n```\n\nNa `rodape-novo`, mude o texto do rodapé no `index.html` e commite. Volte para a `main` e, **antes do merge**, faça outra mudança em outro arquivo (por exemplo, acrescente uma frase no `sobre.html`) e commite.\n\nAgora as duas branches andaram. Faça o merge:\n\n```powershell\ngit merge rodape-novo\n```\n\nComo não dá para só avançar o ponteiro, o Git cria um **commit de merge** e abre o VS Code com a mensagem `Merge branch 'rodape-novo'`. Feche a aba para confirmar. Veja o desenho:\n\n```powershell\ngit log --oneline --graph --all\n```\n\nAs duas linhas se juntam num commit. Apague a branch com `git branch -d rodape-novo`.\n\n### Passo 5 — Pratique no Learn Git Branching\n\nAbra o **Learn Git Branching** (nos recursos) e faça as fases da seção \"Introdução\" (commits, branches, merge e rebase). Ele desenha a árvore de commits enquanto você digita os comandos, e é a melhor forma de enxergar o que está acontecendo."
+      },
+      "estimatedMinutes": 45,
+      "resources": [
+        "learn-git-branching",
+        "pro-git-pt",
+        "atlassian-git-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Juntei a `tema-escuro` na `main` com um merge fast-forward"
+        },
+        {
+          "pt": "Apaguei a branch juntada com `git branch -d`"
+        },
+        {
+          "pt": "Fiz um merge em que as duas branches tinham andado e vi o commit de merge no gráfico"
+        },
+        {
+          "pt": "Completei as fases de introdução do Learn Git Branching"
+        }
+      ],
+      "videos": [
+        "freecodecamp-git-github-crash"
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "Fiz o merge na direção errada (juntei a main na branch)"
+          },
+          "solution": {
+            "pt": "Sem problema: volte para a `main` (`git switch main`) e faça o merge da branch nela. Se a branch ficou com um commit de merge desnecessário, tudo bem; ele não atrapalha."
+          }
+        },
+        {
+          "problem": {
+            "pt": "`error: The branch 'x' is not fully merged`"
+          },
+          "solution": {
+            "pt": "O Git protege você: a branch tem commits que ainda não estão em nenhum outro lugar. Se quiser mesmo jogá-la fora, use `-D` (maiúsculo): `git branch -D x`."
+          }
+        }
+      ]
+    },
+    {
+      "id": "conflitos",
+      "title": {
+        "pt": "Conflitos: quando duas mudanças brigam"
+      },
+      "goal": {
+        "pt": "Você provocou um conflito de merge de propósito, resolveu escolhendo o conteúdo certo no VS Code e concluiu o merge com um commit."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "Conflito de merge"
+          },
+          "explanation": {
+            "pt": "Acontece quando duas branches mudaram **a mesma linha** de formas diferentes. O Git não adivinha qual versão é a certa e pede para você decidir."
+          }
+        },
+        {
+          "term": {
+            "pt": "Marcadores de conflito"
+          },
+          "explanation": {
+            "pt": "As linhas `<<<<<<<`, `=======` e `>>>>>>>` que o Git coloca no arquivo para mostrar as duas versões que brigaram."
+          }
+        },
+        {
+          "term": {
+            "pt": "Resolver um conflito"
+          },
+          "explanation": {
+            "pt": "Editar o arquivo para ficar com a versão certa (uma, outra ou uma mistura das duas), apagar os marcadores, fazer `git add` e concluir com `git commit`."
+          }
+        },
+        {
+          "term": {
+            "pt": "`git merge --abort`"
+          },
+          "explanation": {
+            "pt": "Cancela o merge em andamento e volta tudo como estava antes. A saída de emergência."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Conflitos assustam quem está começando, mas são normais e fáceis de resolver quando você entende o que está acontecendo. A melhor forma de perder o medo é **provocar um de propósito**.\n\n### Passo 1 — Crie a briga\n\n```powershell\ngit switch -c titulo-a\n```\n\nNo `index.html`, mude o `<h1>` para `Diário de Estudos da Bia` (use seu nome). Commite.\n\n```powershell\ngit switch main\n```\n\nNa `main`, mude o **mesmo** `<h1>` para `Meu Diário de Estudos`. Commite.\n\nAgora a mesma linha foi mudada de jeitos diferentes nas duas branches.\n\n### Passo 2 — Tente o merge\n\n```powershell\ngit merge titulo-a\n```\n\nO Git responde:\n\n```text\nCONFLICT (content): Merge conflict in index.html\nAutomatic merge failed; fix conflicts and then commit the result.\n```\n\nNão entre em pânico. Rode `git status`: ele diz que você está no meio de um merge e que o `index.html` tem conflito (*both modified*).\n\n### Passo 3 — Leia os marcadores\n\nAbra o `index.html`. Na linha do título, você vê algo assim:\n\n```text\n<<<<<<< HEAD\n    <h1>Meu Diário de Estudos</h1>\n=======\n    <h1>Diário de Estudos da Bia</h1>\n>>>>>>> titulo-a\n```\n\nEntre `<<<<<<< HEAD` e `=======` está a versão da branch onde você está (a `main`). Entre `=======` e `>>>>>>> titulo-a` está a versão que está chegando.\n\n### Passo 4 — Resolva\n\nO VS Code mostra botões em cima do conflito: **Accept Current Change** (fica com a sua), **Accept Incoming Change** (fica com a que chega), **Accept Both Changes** (fica com as duas). Você também pode simplesmente **editar o texto à mão** para ficar como quiser, por exemplo `<h1>Meu Diário de Estudos</h1>`, apagando as linhas com `<<<<<<<`, `=======` e `>>>>>>>`.\n\nConfira se **nenhum marcador sobrou** no arquivo e se a página funciona no navegador.\n\n### Passo 5 — Conclua o merge\n\n```powershell\ngit add index.html\ngit commit\n```\n\nO VS Code abre com a mensagem de merge pronta. Feche a aba. Rode `git log --oneline --graph --all` e apague a branch com `git branch -d titulo-a`.\n\n### Passo 6 — Como evitar conflitos grandes\n\n- faça commits e merges **com frequência**: branches que ficam semanas separadas acumulam conflitos;\n- converse com a equipe sobre quem está mexendo em quê;\n- mantenha cada branch focada em **uma** tarefa.\n\n> Se em algum momento você se perder no meio de um conflito, `git merge --abort` cancela tudo e volta ao estado de antes do merge. Respire e tente de novo."
+      },
+      "estimatedMinutes": 60,
+      "resources": [
+        "pro-git-pt",
+        "atlassian-git-pt",
+        "learn-git-branching"
+      ],
+      "checklist": [
+        {
+          "pt": "Provoquei um conflito mudando a mesma linha em duas branches"
+        },
+        {
+          "pt": "Li os marcadores `<<<<<<<`, `=======` e `>>>>>>>` e entendi de onde vem cada versão"
+        },
+        {
+          "pt": "Resolvi o conflito, sem sobrar marcadores, e concluí com `git add` e `git commit`"
+        },
+        {
+          "pt": "Sei cancelar um merge com `git merge --abort`"
+        }
+      ],
+      "videos": [
+        "cev-git-github"
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "Commitei com os marcadores `<<<<<<<` ainda no arquivo"
+          },
+          "solution": {
+            "pt": "O Git não impede isso. Abra o arquivo, apague os marcadores e deixe o conteúdo certo, depois faça um novo commit corrigindo. Antes de concluir um merge, procure por `<<<<<<<` com `Ctrl` + `F`."
+          }
+        },
+        {
+          "problem": {
+            "pt": "Não aparecem os botões de resolver no VS Code"
+          },
+          "solution": {
+            "pt": "Confira se o arquivo está salvo e se o Git realmente indicou conflito nele (`git status`). Se preferir, edite o texto à mão: os botões são só um atalho."
+          }
+        }
+      ]
+    },
+    {
+      "id": "fluxo-com-branches",
+      "title": {
+        "pt": "Um fluxo de trabalho com branches"
+      },
+      "goal": {
+        "pt": "A próxima funcionalidade do Diário (o total por matéria no resumo) foi feita do começo ao fim numa branch própria e juntada à `main`."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "Branch por funcionalidade (*feature branch*)"
+          },
+          "explanation": {
+            "pt": "O costume de criar **uma branch para cada tarefa** (uma funcionalidade nova, uma correção). A `main` só recebe trabalho terminado."
+          }
+        },
+        {
+          "term": {
+            "pt": "Nomes de branch"
+          },
+          "explanation": {
+            "pt": "Nomes curtos e descritivos, em minúsculas e com hífens: `total-por-materia`, `corrige-data-futura`. Muitas equipes usam prefixos como `feat/` e `fix/`."
+          }
+        },
+        {
+          "term": {
+            "pt": "`main` estável"
+          },
+          "explanation": {
+            "pt": "A regra de que a `main` sempre funciona. Se alguém baixar a `main` a qualquer momento, o projeto tem que rodar."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Você já sabe criar branches, fazer merge e resolver conflitos. Agora vamos juntar tudo num **fluxo de trabalho de verdade**, do jeito que as equipes trabalham.\n\n### Passo 1 — Escolha a tarefa\n\nA funcionalidade: mostrar no resumo do Diário **o total de minutos de cada matéria**. (Você já tem a função `minutosDaMateria` da Parte 1 dos Fundamentos.)\n\n### Passo 2 — Comece pela main atualizada\n\n```powershell\ngit switch main\ngit status\ngit switch -c total-por-materia\n```\n\nSempre crie a branch nova a partir da `main` limpa e atualizada.\n\n### Passo 3 — Trabalhe em commits pequenos\n\nDivida a tarefa e faça **um commit por passo**:\n\n1. acrescente no HTML uma lista vazia `<ul id=\"totais-materias\"></ul>` dentro do resumo → commit;\n2. traga a função `minutosDaMateria` para o `app.js` → commit;\n3. no `renderizar`, crie um `<li>` para cada matéria com o total em horas → commit;\n4. estilize a lista no CSS → commit.\n\nTeste no navegador a cada passo. Rode `git log --oneline` no fim: o histórico conta a história da funcionalidade.\n\n### Passo 4 — Revise antes de juntar\n\nAntes do merge, veja **tudo** o que a branch mudou em relação à `main`:\n\n```powershell\ngit diff main\n```\n\nLeia com olhos de revisor: sobrou algum `console.log` de teste? Algum código comentado sem motivo? Corrija e commite.\n\n### Passo 5 — Junte e limpe\n\n```powershell\ngit switch main\ngit merge total-por-materia\ngit branch -d total-por-materia\n```\n\n### Passo 6 — Olhe o gráfico do projeto\n\n```powershell\ngit log --oneline --graph --all\n```\n\nO histórico do Diário agora mostra experimentos, merges e funcionalidades inteiras. Na Parte 5, tudo isso vai para o GitHub, e na Parte 6 você vai fazer esse mesmo fluxo com **pull requests**, o jeito como as empresas revisam código antes de entrar na `main`."
+      },
+      "estimatedMinutes": 60,
+      "resources": [
+        "pro-git-pt",
+        "atlassian-git-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Criei uma branch a partir da `main` limpa para a funcionalidade"
+        },
+        {
+          "pt": "Fiz a funcionalidade em pelo menos quatro commits pequenos"
+        },
+        {
+          "pt": "Revisei a branch inteira com `git diff main` antes do merge"
+        },
+        {
+          "pt": "Juntei na `main`, apaguei a branch e o resumo mostra o total por matéria"
+        }
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "Esqueci de criar a branch e fiz commits direto na main"
+          },
+          "solution": {
+            "pt": "Se ainda não juntou nada com ninguém, crie a branch ali mesmo (`git branch total-por-materia`): ela vai apontar para os commits feitos. Depois, volte a `main` para antes deles com `git reset --hard HASH-DE-ANTES` (confira o hash no `git log` com atenção) e continue na branch."
+          }
+        }
+      ]
+    }
+  ],
+  "extraChallenges": [
+    {
+      "pt": "Aprenda `git rebase` no Learn Git Branching e compare com o merge"
+    },
+    {
+      "pt": "Use o painel de Controle do Código-Fonte do VS Code para criar branches e fazer merge sem o terminal"
+    },
+    {
+      "pt": "Faça um tema escuro automático com `prefers-color-scheme` numa branch nova"
+    }
+  ],
+  "portfolioTip": {
+    "pt": "No README do projeto, descreva o fluxo que você usou (uma branch por funcionalidade). Mostrar que você trabalha como uma equipe trabalha conta pontos."
+  }
+}

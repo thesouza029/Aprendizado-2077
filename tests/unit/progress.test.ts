@@ -77,6 +77,14 @@ describe("migração", () => {
     expect(migrated.preferences.graphics).toBe("auto");
     expect(migrated.schemaVersion).toBe(PROGRESS_SCHEMA_VERSION);
   });
+
+  it("versão 1 (sem critérios marcados) ganha a lista vazia; critérios válidos são mantidos", () => {
+    const v1 = migrateProgress({ schemaVersion: 1, completedSteps: { "a:s1": 5 } });
+    expect(v1.checkedCriteria).toEqual({});
+    expect(v1.completedSteps).toEqual({ "a:s1": 5 });
+    const v2 = migrateProgress({ checkedCriteria: { "a:s1#0": 10, "a:s1#1": "sim" } });
+    expect(v2.checkedCriteria).toEqual({ "a:s1#0": 10 });
+  });
 });
 
 describe("exportar e importar", () => {

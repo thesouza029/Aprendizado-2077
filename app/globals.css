@@ -11,6 +11,7 @@
   --color-hub: #67e8f9;
   --color-library: #c084fc;
   --color-fundamentos: #facc15;
+  --color-git: #f87171;
   --color-web: #22d3ee;
   --color-backend: #4ade80;
   --color-mobile: #f472b6;
@@ -180,4 +181,46 @@ dialog::backdrop {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* Etapas didáticas: títulos dos passos, blocos de código e avisos */
+.md h2,
+.md h3 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #fff;
+  margin-top: 1.6em;
+}
+.md h4 {
+  font-weight: 600;
+  color: var(--color-zinc-50);
+  margin-top: 1.2em;
+}
+.md pre {
+  background: rgb(0 0 0 / 0.45);
+  border: 1px solid rgb(255 255 255 / 0.1);
+  border-radius: 0.6rem;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+}
+.md pre code {
+  padding: 0;
+  background: none;
+  border: 0;
+  font-size: 0.85em;
+  line-height: 1.6;
+  white-space: pre;
+}
+.md blockquote {
+  border-left: 3px solid var(--accent, var(--color-hub));
+  background: rgb(255 255 255 / 0.04);
+  border-radius: 0 0.5rem 0.5rem 0;
+  padding: 0.6rem 0.9rem;
+}
+.md hr {
+  border-color: rgb(255 255 255 / 0.1);
+}
+.accent-checkbox {
+  accent-color: var(--accent, var(--color-hub));
 }

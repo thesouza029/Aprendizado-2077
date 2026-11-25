@@ -9,6 +9,8 @@ const pages = [
   "/pt/tracks/web",
   "/pt/tracks/web/mini-saas",
   "/en/tracks/ia/rag-pdfs",
+  "/pt/tracks/fundamentos/diario-04-javascript",
+  "/en/tracks/git/git-02-commits",
   "/pt/rua-que-nao-existe",
 ];
 

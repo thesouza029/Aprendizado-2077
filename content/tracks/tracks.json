@@ -2,10 +2,13 @@
   {
     "id": "fundamentos",
     "order": 1,
-    "name": { "pt": "Distrito Fundamentos", "en": "Fundamentals District" },
+    "name": {
+      "pt": "Distrito Fundamentos",
+      "en": "Fundamentals District"
+    },
     "tagline": {
-      "pt": "Lógica, terminal, Git/GitHub, HTML/CSS, SQL e HTTP. Comece por aqui.",
-      "en": "Logic, terminal, Git/GitHub, HTML/CSS, SQL and HTTP. Start here."
+      "pt": "Lógica, terminal, HTML, CSS, JavaScript, SQL e HTTP, construindo um projeto só. Comece por aqui.",
+      "en": "Logic, terminal, HTML, CSS, JavaScript, SQL and HTTP, building a single project. Start here."
     },
     "color": "#facc15",
     "recommendedFirst": true,
@@ -16,28 +19,108 @@
           "en": "JavaScript (~66%), HTML/CSS and SQL are among the most used languages by developers worldwide."
         },
         {
-          "pt": "Git é pré-requisito em praticamente toda vaga: é como times guardam e revisam código.",
-          "en": "Git is a prerequisite for virtually every job: it is how teams store and review code."
-        },
-        {
           "pt": "Entender HTTP e terminal deixa todas as outras trilhas (web, backend, cloud) muito mais fáceis.",
           "en": "Understanding HTTP and the terminal makes every other track (web, backend, cloud) much easier."
         }
       ],
       "jobs": [
-        { "pt": "Estágio em desenvolvimento", "en": "Software development internship" },
-        { "pt": "Dev júnior (qualquer área)", "en": "Junior developer (any area)" },
-        { "pt": "Suporte técnico / QA júnior", "en": "Technical support / junior QA" }
+        {
+          "pt": "Estágio em desenvolvimento",
+          "en": "Software development internship"
+        },
+        {
+          "pt": "Dev júnior (qualquer área)",
+          "en": "Junior developer (any area)"
+        },
+        {
+          "pt": "Suporte técnico / QA júnior",
+          "en": "Technical support / junior QA"
+        }
       ],
       "sources": [
-        { "label": "Stack Overflow Developer Survey 2025", "url": "https://survey.stackoverflow.co/2025/technology/" }
+        {
+          "label": "Stack Overflow Developer Survey 2025",
+          "url": "https://survey.stackoverflow.co/2025/technology/"
+        }
       ]
+    },
+    "project": {
+      "name": {
+        "pt": "Diário de Estudos"
+      },
+      "summary": {
+        "pt": "Um site para registrar suas sessões de estudo: qual matéria, por quanto tempo e quanto falta para a meta da semana. Ele começa como um programa no terminal e, prédio a prédio, vira uma página com HTML, ganha visual com CSS, fica interativo com JavaScript, ganha um banco de dados desenhado com SQL e passa a buscar informações na internet. No distrito Git e GitHub, você coloca esse mesmo projeto na nuvem e publica para o mundo."
+      }
+    }
+  },
+  {
+    "id": "git",
+    "order": 2,
+    "name": {
+      "pt": "Distrito Git e GitHub",
+      "en": "Git & GitHub District"
+    },
+    "tagline": {
+      "pt": "Versionar, desfazer erros, trabalhar com branches, publicar no GitHub e colaborar com pull requests.",
+      "en": "Version control, undoing mistakes, branches, publishing on GitHub and collaborating with pull requests."
+    },
+    "color": "#f87171",
+    "whyLearn": {
+      "points": [
+        {
+          "pt": "Git é a ferramenta de controle de versão padrão do mercado: é assim que equipes guardam, revisam e juntam código.",
+          "en": "Git is the industry-standard version control tool: it is how teams store, review and merge code."
+        },
+        {
+          "pt": "O seu perfil do GitHub funciona como portfólio: é comum recrutadores pedirem o link em vagas de estágio.",
+          "en": "Your GitHub profile works as a portfolio: recruiters often ask for the link in internship applications."
+        },
+        {
+          "pt": "Issues, pull requests e revisão de código são o dia a dia de qualquer equipe de software, do estágio ao nível sênior.",
+          "en": "Issues, pull requests and code review are the daily routine of any software team, from intern to senior."
+        }
+      ],
+      "jobs": [
+        {
+          "pt": "Estágio em desenvolvimento",
+          "en": "Software development internship"
+        },
+        {
+          "pt": "Dev júnior (qualquer área)",
+          "en": "Junior developer (any area)"
+        },
+        {
+          "pt": "Contribuidor de código aberto",
+          "en": "Open source contributor"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Pro Git (livro oficial, em português)",
+          "url": "https://git-scm.com/book/pt-br/v2"
+        },
+        {
+          "label": "GitHub Docs: Olá, Mundo",
+          "url": "https://docs.github.com/pt/get-started/quickstart/hello-world"
+        }
+      ]
+    },
+    "project": {
+      "name": {
+        "pt": "Diário de Estudos versionado e publicado"
+      },
+      "summary": {
+        "pt": "Você pega o Diário de Estudos que construiu nos Fundamentos e coloca sob controle de versão: cada mudança vira um ponto salvo que dá para revisar e desfazer. Depois testa ideias em branches sem medo de estragar nada, envia o projeto para o GitHub, publica o site com o GitHub Pages num endereço que qualquer pessoa abre e aprende o fluxo de trabalho em equipe com issues, pull requests e revisão de código."
+      }
     }
   },
   {
     "id": "web",
-    "order": 2,
-    "name": { "pt": "Distrito Web", "en": "Web District" },
+    "order": 3,
+    "name": {
+      "pt": "Distrito Web",
+      "en": "Web District"
+    },
     "tagline": {
       "pt": "Front-end e Fullstack com JavaScript e TypeScript.",
       "en": "Front-end and Fullstack with JavaScript and TypeScript."
@@ -59,24 +142,42 @@
         }
       ],
       "jobs": [
-        { "pt": "Dev front-end júnior", "en": "Junior front-end developer" },
-        { "pt": "Dev fullstack júnior", "en": "Junior fullstack developer" },
-        { "pt": "Dev React / Next.js", "en": "React / Next.js developer" }
+        {
+          "pt": "Dev front-end júnior",
+          "en": "Junior front-end developer"
+        },
+        {
+          "pt": "Dev fullstack júnior",
+          "en": "Junior fullstack developer"
+        },
+        {
+          "pt": "Dev React / Next.js",
+          "en": "React / Next.js developer"
+        }
       ],
       "sources": [
         {
           "label": "GitHub Octoverse 2025",
           "url": "https://github.blog/news-insights/octoverse/octoverse-a-new-developer-joins-github-every-second-as-ai-leads-typescript-to-1/"
         },
-        { "label": "Stack Overflow Developer Survey 2025", "url": "https://survey.stackoverflow.co/2025/technology/" },
-        { "label": "State of JavaScript 2025", "url": "https://2025.stateofjs.com/en-US/" }
+        {
+          "label": "Stack Overflow Developer Survey 2025",
+          "url": "https://survey.stackoverflow.co/2025/technology/"
+        },
+        {
+          "label": "State of JavaScript 2025",
+          "url": "https://2025.stateofjs.com/en-US/"
+        }
       ]
     }
   },
   {
     "id": "backend",
-    "order": 3,
-    "name": { "pt": "Distrito Backend", "en": "Backend District" },
+    "order": 4,
+    "name": {
+      "pt": "Distrito Backend",
+      "en": "Backend District"
+    },
     "tagline": {
       "pt": "APIs em Node, Python, Java, C#, PHP e Go. A mesma ideia em várias linguagens.",
       "en": "APIs in Node, Python, Java, C#, PHP and Go. The same idea in several languages."
@@ -98,19 +199,34 @@
         }
       ],
       "jobs": [
-        { "pt": "Dev backend júnior", "en": "Junior backend developer" },
-        { "pt": "Dev Java / C# em empresas", "en": "Enterprise Java / C# developer" },
-        { "pt": "Dev PHP / Laravel", "en": "PHP / Laravel developer" }
+        {
+          "pt": "Dev backend júnior",
+          "en": "Junior backend developer"
+        },
+        {
+          "pt": "Dev Java / C# em empresas",
+          "en": "Enterprise Java / C# developer"
+        },
+        {
+          "pt": "Dev PHP / Laravel",
+          "en": "PHP / Laravel developer"
+        }
       ],
       "sources": [
-        { "label": "Stack Overflow Developer Survey 2025", "url": "https://survey.stackoverflow.co/2025/technology/" }
+        {
+          "label": "Stack Overflow Developer Survey 2025",
+          "url": "https://survey.stackoverflow.co/2025/technology/"
+        }
       ]
     }
   },
   {
     "id": "mobile",
-    "order": 4,
-    "name": { "pt": "Distrito Mobile", "en": "Mobile District" },
+    "order": 5,
+    "name": {
+      "pt": "Distrito Mobile",
+      "en": "Mobile District"
+    },
     "tagline": {
       "pt": "Apps com React Native, Flutter e Kotlin.",
       "en": "Apps with React Native, Flutter and Kotlin."
@@ -132,19 +248,34 @@
         }
       ],
       "jobs": [
-        { "pt": "Dev mobile júnior", "en": "Junior mobile developer" },
-        { "pt": "Dev React Native", "en": "React Native developer" },
-        { "pt": "Dev Android (Kotlin)", "en": "Android developer (Kotlin)" }
+        {
+          "pt": "Dev mobile júnior",
+          "en": "Junior mobile developer"
+        },
+        {
+          "pt": "Dev React Native",
+          "en": "React Native developer"
+        },
+        {
+          "pt": "Dev Android (Kotlin)",
+          "en": "Android developer (Kotlin)"
+        }
       ],
       "sources": [
-        { "label": "Stack Overflow Developer Survey 2025", "url": "https://survey.stackoverflow.co/2025/technology/" }
+        {
+          "label": "Stack Overflow Developer Survey 2025",
+          "url": "https://survey.stackoverflow.co/2025/technology/"
+        }
       ]
     }
   },
   {
     "id": "devops",
-    "order": 5,
-    "name": { "pt": "Distrito Cloud & DevOps", "en": "Cloud & DevOps District" },
+    "order": 6,
+    "name": {
+      "pt": "Distrito Cloud & DevOps",
+      "en": "Cloud & DevOps District"
+    },
     "tagline": {
       "pt": "Linux, Docker, CI/CD, nuvem e observabilidade.",
       "en": "Linux, Docker, CI/CD, cloud and observability."
@@ -166,19 +297,34 @@
         }
       ],
       "jobs": [
-        { "pt": "DevOps / SRE júnior", "en": "Junior DevOps / SRE" },
-        { "pt": "Analista de infraestrutura cloud", "en": "Cloud infrastructure analyst" },
-        { "pt": "Dev backend com foco em plataforma", "en": "Platform-focused backend developer" }
+        {
+          "pt": "DevOps / SRE júnior",
+          "en": "Junior DevOps / SRE"
+        },
+        {
+          "pt": "Analista de infraestrutura cloud",
+          "en": "Cloud infrastructure analyst"
+        },
+        {
+          "pt": "Dev backend com foco em plataforma",
+          "en": "Platform-focused backend developer"
+        }
       ],
       "sources": [
-        { "label": "Stack Overflow Developer Survey 2025", "url": "https://survey.stackoverflow.co/2025/technology/" }
+        {
+          "label": "Stack Overflow Developer Survey 2025",
+          "url": "https://survey.stackoverflow.co/2025/technology/"
+        }
       ]
     }
   },
   {
     "id": "ia",
-    "order": 6,
-    "name": { "pt": "Distrito IA", "en": "AI District" },
+    "order": 7,
+    "name": {
+      "pt": "Distrito IA",
+      "en": "AI District"
+    },
     "tagline": {
       "pt": "Apps com LLM, RAG, agentes e APIs de IA.",
       "en": "LLM apps, RAG, agents and AI APIs."
@@ -200,16 +346,28 @@
         }
       ],
       "jobs": [
-        { "pt": "Dev de aplicações com IA", "en": "AI application developer" },
-        { "pt": "Engenheiro(a) de IA júnior", "en": "Junior AI engineer" },
-        { "pt": "Dev fullstack com IA", "en": "Fullstack developer with AI" }
+        {
+          "pt": "Dev de aplicações com IA",
+          "en": "AI application developer"
+        },
+        {
+          "pt": "Engenheiro(a) de IA júnior",
+          "en": "Junior AI engineer"
+        },
+        {
+          "pt": "Dev fullstack com IA",
+          "en": "Fullstack developer with AI"
+        }
       ],
       "sources": [
         {
           "label": "GitHub Octoverse 2025",
           "url": "https://github.blog/news-insights/octoverse/octoverse-a-new-developer-joins-github-every-second-as-ai-leads-typescript-to-1/"
         },
-        { "label": "Stack Overflow Developer Survey 2025", "url": "https://survey.stackoverflow.co/2025/technology/" }
+        {
+          "label": "Stack Overflow Developer Survey 2025",
+          "url": "https://survey.stackoverflow.co/2025/technology/"
+        }
       ]
     }
   }

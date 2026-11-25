@@ -16,7 +16,7 @@
     { "pt": "Processos, portas e serviços", "en": "Processes, ports and services" },
     { "pt": "Chaves SSH e scripts em Bash", "en": "SSH keys and Bash scripts" }
   ],
-  "prerequisites": ["cli-api-http"],
+  "prerequisites": ["diario-06-http"],
   "steps": [
     {
       "id": "ambiente-linux",

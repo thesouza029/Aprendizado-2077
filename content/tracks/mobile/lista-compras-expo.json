@@ -16,7 +16,7 @@
     { "pt": "Navegação entre telas com Expo Router", "en": "Navigation between screens with Expo Router" },
     { "pt": "Acessibilidade mobile e geração de builds de teste", "en": "Mobile accessibility and building test releases" }
   ],
-  "prerequisites": ["calculadora-jogo-da-velha"],
+  "prerequisites": ["diario-04-javascript"],
   "steps": [
     {
       "id": "setup-expo",

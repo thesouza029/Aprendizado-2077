@@ -7,7 +7,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test("marcar uma etapa persiste depois de recarregar", async ({ page }) => {
-  await page.goto("/pt/tracks/fundamentos/perfil-dev");
+  await page.goto("/pt/tracks/fundamentos/diario-01-terminal");
   const first = page.getByRole("button", { name: "Marcar como concluída" }).first();
   await first.click();
   const done = page.getByRole("button", { name: /Concluída/ }).first();
@@ -16,12 +16,28 @@ test("marcar uma etapa persiste depois de recarregar", async ({ page }) => {
   await page.reload();
   await expect(page.getByRole("button", { name: /Concluída/ }).first()).toHaveAttribute("aria-pressed", "true");
 
-  // a barra do projeto conta a etapa (1 de 7)
-  await expect(page.getByText("1 de 7 etapas").first()).toBeVisible();
+  // a barra do projeto conta a etapa (1 de 6)
+  await expect(page.getByText("1 de 6 etapas").first()).toBeVisible();
+});
+
+test("os critérios de pronto são caixinhas que ficam marcadas", async ({ page }) => {
+  await page.goto("/pt/tracks/fundamentos/diario-01-terminal");
+  const firstStep = page.locator("#step-o-que-e-programar");
+  const first = firstStep.getByRole("checkbox").first();
+  await expect(first).toBeEnabled();
+  await first.check();
+  await expect(first).toBeChecked();
+
+  await page.reload();
+  await expect(firstStep.getByRole("checkbox").first()).toBeChecked();
+
+  // marcar todos os critérios da primeira etapa sugere concluí-la
+  for (const box of await firstStep.getByRole("checkbox").all()) await box.check();
+  await expect(firstStep.getByText("Todos os critérios marcados. Pode concluir a etapa!")).toBeVisible();
 });
 
 test("exportar e importar o progresso", async ({ page }, testInfo) => {
-  await page.goto("/pt/tracks/fundamentos/perfil-dev");
+  await page.goto("/pt/tracks/fundamentos/diario-01-terminal");
   await page.getByRole("button", { name: "Marcar como concluída" }).first().click();
 
   await page.goto("/pt");
@@ -40,7 +56,7 @@ test("exportar e importar o progresso", async ({ page }, testInfo) => {
   await page.locator('input[type="file"]').setInputFiles(file);
   await expect(page.getByText("Progresso importado com sucesso.")).toBeVisible();
 
-  await page.goto("/pt/tracks/fundamentos/perfil-dev");
+  await page.goto("/pt/tracks/fundamentos/diario-01-terminal");
   await expect(page.getByRole("button", { name: /Concluída/ }).first()).toHaveAttribute("aria-pressed", "true");
 });
 

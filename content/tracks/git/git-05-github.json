@@ -1,0 +1,466 @@
+{
+  "id": "git-05-github",
+  "track": "git",
+  "order": 5,
+  "title": {
+    "pt": "Parte 5: GitHub, o Diário na nuvem e no ar"
+  },
+  "feature": {
+    "pt": "O Diário publicado num endereço público com o GitHub Pages, com README e histórico na nuvem"
+  },
+  "level": 2,
+  "stack": [
+    "Git",
+    "GitHub",
+    "GitHub Pages",
+    "Markdown"
+  ],
+  "whatYouBuild": {
+    "pt": "O Diário de Estudos vai para a nuvem e para a internet: você cria sua conta no GitHub, envia o repositório com todo o histórico, escreve um README caprichado em Markdown, publica o site com o GitHub Pages e aprende a sincronizar o projeto entre lugares diferentes."
+  },
+  "whatYouLearn": [
+    {
+      "pt": "Criar e proteger uma conta no GitHub"
+    },
+    {
+      "pt": "Repositórios remotos, origin e git push"
+    },
+    {
+      "pt": "Escrever um README em Markdown"
+    },
+    {
+      "pt": "Publicar um site estático com o GitHub Pages"
+    },
+    {
+      "pt": "git clone, git pull e git fetch"
+    }
+  ],
+  "prerequisites": [
+    "git-04-branches"
+  ],
+  "steps": [
+    {
+      "id": "conta-github",
+      "title": {
+        "pt": "Sua conta no GitHub"
+      },
+      "goal": {
+        "pt": "Você tem uma conta no GitHub com perfil preenchido, verificação em duas etapas ativa e sabe qual e-mail está usando nos commits."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "Perfil do GitHub"
+          },
+          "explanation": {
+            "pt": "A sua página pública (`github.com/seu-usuario`), com foto, biografia, repositórios e um gráfico de atividade. Funciona como um portfólio de programador."
+          }
+        },
+        {
+          "term": {
+            "pt": "Verificação em duas etapas (2FA)"
+          },
+          "explanation": {
+            "pt": "Uma proteção extra: além da senha, o login pede um código gerado no seu celular. O GitHub exige 2FA de quem publica código."
+          }
+        },
+        {
+          "term": {
+            "pt": "Repositório público e privado"
+          },
+          "explanation": {
+            "pt": "Público: qualquer pessoa vê (mas só você e quem você autorizar pode alterar). Privado: só você e convidados veem."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Até aqui, o histórico do Diário mora só no seu computador. Se o HD estragar, adeus. Nesta parte, ele vai para a nuvem e, de quebra, o site vai ser **publicado na internet**.\n\n### Passo 1 — Crie a conta\n\nAcesse `github.com` e clique em **Sign up**. Algumas dicas:\n\n- **nome de usuário:** ele vai aparecer em todos os seus links (`github.com/usuario` e, mais tarde, `usuario.github.io`). Prefira algo profissional, como seu nome e sobrenome, em vez de apelidos de jogo;\n- **e-mail:** use o mesmo que você configurou no Git (`git config user.email`), para os commits aparecerem ligados ao seu perfil.\n\n### Passo 2 — Ative a verificação em duas etapas\n\nEm **Settings → Password and authentication**, ative a autenticação em dois fatores com um aplicativo autenticador no celular (como Google Authenticator ou Microsoft Authenticator). Guarde os **códigos de recuperação** num lugar seguro: são eles que salvam sua conta se você perder o celular.\n\n### Passo 3 — Decida sobre a privacidade do e-mail\n\nEm **Settings → Emails**, existe a opção **Keep my email addresses private** (manter meus e-mails privados). Ativando, o GitHub mostra um endereço do tipo `12345678+usuario@users.noreply.github.com`. Se quiser usar esse endereço nos commits (para não expor seu e-mail pessoal em repositórios públicos), configure:\n\n```powershell\ngit config --global user.email \"12345678+usuario@users.noreply.github.com\"\n```\n\n(Copie o endereço exato que aparece na sua página de e-mails.)\n\n### Passo 4 — Prepare o perfil\n\nColoque uma foto (pode ser um avatar), seu nome e uma biografia curta, como \"Estudante de programação, aprendendo desenvolvimento web\". Recrutadores olham isso."
+      },
+      "estimatedMinutes": 30,
+      "resources": [
+        "github-docs-start-pt",
+        "github-hello-world-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Criei a conta no GitHub com um nome de usuário profissional"
+        },
+        {
+          "pt": "Ativei a verificação em duas etapas e guardei os códigos de recuperação"
+        },
+        {
+          "pt": "O e-mail do `git config` é o mesmo da conta (ou o endereço noreply)"
+        },
+        {
+          "pt": "Meu perfil tem foto, nome e biografia"
+        }
+      ],
+      "videos": [
+        "cev-git-github"
+      ]
+    },
+    {
+      "id": "primeiro-push",
+      "title": {
+        "pt": "Enviando o Diário para o GitHub: remote e push"
+      },
+      "goal": {
+        "pt": "O repositório `diario-de-estudos` existe no GitHub com todo o histórico de commits, enviado com `git push`."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "Repositório remoto"
+          },
+          "explanation": {
+            "pt": "Uma cópia do repositório em outro lugar, normalmente num servidor como o GitHub. O seu computador tem o repositório **local**; o GitHub tem o **remoto**."
+          }
+        },
+        {
+          "term": {
+            "pt": "`origin`"
+          },
+          "explanation": {
+            "pt": "O apelido padrão do repositório remoto principal. Em vez de digitar a URL toda vez, você escreve `origin`."
+          }
+        },
+        {
+          "term": {
+            "pt": "`git push`"
+          },
+          "explanation": {
+            "pt": "**Envia** os commits do repositório local para o remoto."
+          }
+        },
+        {
+          "term": {
+            "pt": "`-u` (*upstream*)"
+          },
+          "explanation": {
+            "pt": "No primeiro push de uma branch, liga a branch local à remota. Depois disso, basta digitar `git push`, sem mais nada."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "### Passo 1 — Crie o repositório vazio no GitHub\n\nNo GitHub, clique no **+** (canto superior direito) → **New repository**:\n\n- **Repository name:** `diario-de-estudos`;\n- **Description:** \"Diário para registrar sessões de estudo, feito na DevCity\";\n- marque **Public** (precisamos de público para o GitHub Pages gratuito, na etapa 4);\n- **não** marque \"Add a README file\", nem `.gitignore`, nem licença: o seu repositório local já tem conteúdo, e criar arquivos lá causaria um conflito logo no primeiro envio.\n\nClique em **Create repository**. O GitHub mostra uma página com instruções. Usaremos a seção **\"…or push an existing repository from the command line\"**.\n\n### Passo 2 — Ligue o local ao remoto\n\nNo terminal do VS Code, na pasta do Diário (troque `seu-usuario` pelo seu):\n\n```powershell\ngit remote add origin https://github.com/seu-usuario/diario-de-estudos.git\ngit remote -v\n```\n\nO `remote add` cria o apelido `origin` apontando para a URL. O `remote -v` confirma, mostrando a URL duas vezes (uma para buscar, outra para enviar).\n\n### Passo 3 — O primeiro push\n\n```powershell\ngit branch -M main\ngit push -u origin main\n```\n\nO `branch -M main` só garante que a sua branch se chama `main`. O `push -u origin main` envia a branch `main` para o `origin` e liga as duas.\n\nNa primeira vez, o **Git Credential Manager** abre uma janela pedindo para entrar no GitHub. Escolha **Sign in with your browser**, faça login e autorize. Ele guarda a autorização com segurança, e você não precisa repetir.\n\n### Passo 4 — Confira no GitHub\n\nRecarregue a página do repositório. Estão lá: seus arquivos e, clicando em **commits** (o relógio com um número), **todo o histórico**, com as mensagens que você escreveu desde a Parte 2. O seu trabalho agora está seguro na nuvem.\n\n### Passo 5 — O ciclo completo\n\nA partir de agora, o ciclo de trabalho ganha um passo:\n\n```text\neditar → git add → git commit → git push\n```\n\nFaça uma mudança pequena (por exemplo, no `sobre.html`), commite e rode só `git push`. Confira no GitHub que o commit chegou."
+      },
+      "estimatedMinutes": 45,
+      "resources": [
+        "github-docs-start-pt",
+        "pro-git-pt",
+        "github-hello-world-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Criei o repositório `diario-de-estudos` público e vazio no GitHub"
+        },
+        {
+          "pt": "Liguei o repositório local ao remoto com `git remote add origin`"
+        },
+        {
+          "pt": "Enviei a `main` com `git push -u origin main` e todo o histórico aparece no GitHub"
+        },
+        {
+          "pt": "Fiz mais um commit e enviei só com `git push`"
+        }
+      ],
+      "videos": [
+        "cev-git-github",
+        "freecodecamp-git-github-crash"
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "`remote origin already exists`"
+          },
+          "solution": {
+            "pt": "Você já tinha adicionado o remoto antes. Confira com `git remote -v`. Se a URL estiver errada, corrija com `git remote set-url origin URL-CERTA`."
+          }
+        },
+        {
+          "problem": {
+            "pt": "`! [rejected] main -> main (fetch first)`"
+          },
+          "solution": {
+            "pt": "O repositório do GitHub tem algo que o seu local não tem (por exemplo, você marcou \"Add a README\" ao criar). Rode `git pull origin main --allow-unrelated-histories`, resolva conflitos se aparecerem e faça o push de novo."
+          }
+        },
+        {
+          "problem": {
+            "pt": "`Authentication failed` ou pedido de senha no terminal"
+          },
+          "solution": {
+            "pt": "O GitHub não aceita a senha da conta no terminal. Deixe o Git Credential Manager abrir o navegador (ele vem com o Git for Windows). Se a janela não abrir, atualize o Git e tente de novo."
+          }
+        }
+      ]
+    },
+    {
+      "id": "readme-markdown",
+      "title": {
+        "pt": "O cartão de visitas do projeto: README em Markdown"
+      },
+      "goal": {
+        "pt": "O repositório tem um `README.md` com descrição, funcionalidades, tecnologias, como usar e um print do Diário, escrito em Markdown."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "README"
+          },
+          "explanation": {
+            "pt": "O arquivo que o GitHub mostra na página inicial do repositório. É a primeira coisa que alguém lê: o que é o projeto, como usar e como foi feito."
+          }
+        },
+        {
+          "term": {
+            "pt": "Markdown"
+          },
+          "explanation": {
+            "pt": "Um jeito simples de formatar texto com símbolos: `#` para títulos, `-` para listas, `**negrito**`, crases para código. Arquivos Markdown terminam em `.md`."
+          }
+        },
+        {
+          "term": {
+            "pt": "Imagem no Markdown"
+          },
+          "explanation": {
+            "pt": "Escrita como `![texto alternativo](caminho/da/imagem.png)`. O texto alternativo tem a mesma função do `alt` no HTML."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Um repositório sem README é como um livro sem capa: ninguém sabe do que se trata. E é o README que recrutadores leem primeiro.\n\n### Passo 1 — Aprenda o Markdown básico\n\n```markdown\n# Título principal\n## Subtítulo\n\nUm parágrafo com **negrito**, *itálico* e `código`.\n\n- item de lista\n- outro item\n\n1. passo um\n2. passo dois\n\n[Um link](https://github.com)\n![Descrição da imagem](imagens/print.png)\n```\n\nRepare que este texto que você está lendo agora, na DevCity, também é escrito em Markdown.\n\n### Passo 2 — Tire um print do Diário\n\nAbra o Diário com algumas sessões registradas e tire um print (`Windows` + `Shift` + `S`). Salve em `imagens/print.png`.\n\n### Passo 3 — Escreva o README\n\nCrie `README.md` na raiz do projeto. Uma estrutura que funciona bem:\n\n```markdown\n# Diário de Estudos\n\nAplicativo web para registrar sessões de estudo e acompanhar a meta semanal.\nProjeto feito na trilha Fundamentos da DevCity.\n\n![Tela do Diário de Estudos](imagens/print.png)\n\n## Funcionalidades\n\n- Registrar sessões com matéria, minutos, data e anotações\n- Total de horas da semana e barra de progresso da meta\n- Remover sessões\n- Dados salvos no navegador (localStorage)\n- Próximos feriados nacionais vindos da BrasilAPI\n\n## Tecnologias\n\nHTML, CSS, JavaScript, SQL (SQLite) e Git.\n\n## Como usar\n\n1. Clone o repositório\n2. Abra o `index.html` no navegador (ou use a extensão Live Server do VS Code)\n\n## O que aprendi\n\nConte, com suas palavras, o que foi mais difícil e como você resolveu.\n```\n\nAdapte tudo para o que **o seu** Diário faz. A seção \"O que aprendi\" é a mais pessoal, e por isso a que mais chama atenção: escreva de verdade.\n\n### Passo 4 — Visualize antes de enviar\n\nNo VS Code, abra o `README.md` e aperte `Ctrl` + `Shift` + `V`: aparece a pré-visualização formatada. Ajuste até ficar bom.\n\n### Passo 5 — Commite e envie\n\n```powershell\ngit add README.md imagens/print.png\ngit commit -m \"Adiciona README com descrição e print do projeto\"\ngit push\n```\n\nAbra o repositório no GitHub: o README aparece formatado, com a imagem, logo abaixo da lista de arquivos."
+      },
+      "estimatedMinutes": 45,
+      "resources": [
+        "github-docs-start-pt",
+        "github-hello-world-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Escrevi o `README.md` com descrição, funcionalidades, tecnologias e como usar"
+        },
+        {
+          "pt": "O README tem um print do Diário que aparece no GitHub"
+        },
+        {
+          "pt": "A seção \"O que aprendi\" foi escrita com minhas palavras"
+        },
+        {
+          "pt": "Pré-visualizei no VS Code e o README aparece formatado no GitHub"
+        }
+      ],
+      "videos": [
+        "cev-git-github"
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "A imagem não aparece no GitHub"
+          },
+          "solution": {
+            "pt": "Ou o arquivo da imagem não foi commitado (confira com `git status`), ou o caminho está diferente (maiúsculas contam: `Print.png` é diferente de `print.png`)."
+          }
+        }
+      ]
+    },
+    {
+      "id": "github-pages",
+      "title": {
+        "pt": "Publicando o Diário na internet com o GitHub Pages"
+      },
+      "goal": {
+        "pt": "O Diário de Estudos está no ar num endereço público `https://seu-usuario.github.io/diario-de-estudos/`, funcionando no computador e no celular."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "Hospedagem"
+          },
+          "explanation": {
+            "pt": "Deixar um site num computador ligado o tempo todo e acessível pela internet, para qualquer pessoa abrir."
+          }
+        },
+        {
+          "term": {
+            "pt": "GitHub Pages"
+          },
+          "explanation": {
+            "pt": "Um serviço gratuito do GitHub que **publica sites estáticos** (HTML, CSS e JavaScript) direto de um repositório público."
+          }
+        },
+        {
+          "term": {
+            "pt": "Site estático"
+          },
+          "explanation": {
+            "pt": "Um site feito só de arquivos que vão prontos para o navegador, sem um servidor rodando código. O Diário é estático: até os feriados são buscados pelo próprio navegador."
+          }
+        },
+        {
+          "term": {
+            "pt": "Deploy"
+          },
+          "explanation": {
+            "pt": "O ato de **publicar** uma versão do projeto para as pessoas usarem. Com o GitHub Pages, cada `git push` na `main` faz um novo deploy."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Chegou o momento mais legal do distrito: colocar o Diário **no ar**, com um link que você pode mandar para a família, amigos e recrutadores.\n\n### Passo 1 — Ative o GitHub Pages\n\nNo repositório, vá em **Settings** → **Pages** (no menu da esquerda). Em **Build and deployment**:\n\n1. em **Source**, escolha **Deploy from a branch**;\n2. em **Branch**, escolha **main** e a pasta **/ (root)**;\n3. clique em **Save**.\n\n### Passo 2 — Espere o primeiro deploy\n\nEm um ou dois minutos, a mesma página mostra a mensagem **Your site is live at** com o endereço, no formato:\n\n```text\nhttps://seu-usuario.github.io/diario-de-estudos/\n```\n\nVocê pode acompanhar o processo na aba **Actions** do repositório. Quando terminar, abra o endereço: é o seu Diário, na internet!\n\n### Passo 3 — Teste no celular\n\nAbra o link no celular (pelo 4G, fora do seu Wi-Fi, para ter certeza de que está mesmo público). Registre uma sessão. Repare que os dados do celular são diferentes dos do computador: lembra do localStorage? Cada navegador tem a sua gaveta.\n\n### Passo 4 — Atualize o site com um push\n\nFaça uma mudança visível (por exemplo, no texto do cabeçalho), commite e rode `git push`. Espere um minuto e recarregue o site: a mudança está no ar. **Cada push na `main` publica uma versão nova.** Isso tem um nome no mercado: entrega contínua.\n\n### Passo 5 — Coloque o link em todo lugar\n\n- No GitHub, na página do repositório, clique na engrenagem ao lado de **About** e cole o endereço do site no campo **Website**.\n- No `README.md`, acrescente uma linha logo abaixo do título: `Acesse: https://seu-usuario.github.io/diario-de-estudos/`.\n\n> Se alguma imagem ou arquivo não carregar no site publicado, mas funcionar no seu computador, desconfie de **maiúsculas e minúsculas**: o Windows não diferencia `Logo.png` de `logo.png`, mas o servidor do GitHub diferencia."
+      },
+      "estimatedMinutes": 30,
+      "resources": [
+        "github-pages-quickstart-pt",
+        "github-docs-start-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Ativei o GitHub Pages com a branch `main` e a pasta raiz"
+        },
+        {
+          "pt": "O Diário abre no endereço `seu-usuario.github.io/diario-de-estudos`"
+        },
+        {
+          "pt": "Testei o site publicado no celular, fora do meu Wi-Fi"
+        },
+        {
+          "pt": "Fiz um push e vi a mudança aparecer no site publicado"
+        },
+        {
+          "pt": "O link do site está no About do repositório e no README"
+        }
+      ],
+      "videos": [
+        "cev-git-github"
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "O endereço dá erro 404"
+          },
+          "solution": {
+            "pt": "Espere alguns minutos depois de ativar e confira na aba **Actions** se o deploy terminou (sinal verde). Confira também se o arquivo principal se chama exatamente `index.html` e está na raiz do repositório, não dentro de uma subpasta."
+          }
+        },
+        {
+          "problem": {
+            "pt": "A opção Pages diz que precisa de um plano pago"
+          },
+          "solution": {
+            "pt": "O GitHub Pages gratuito exige repositório **público**. Em Settings → General, no fim da página (Danger Zone), mude a visibilidade para Public."
+          }
+        },
+        {
+          "problem": {
+            "pt": "O site abre sem CSS (tudo branco e sem estilo)"
+          },
+          "solution": {
+            "pt": "O caminho no `<link>` não bate com o arquivo, geralmente por maiúsculas e minúsculas, ou o `style.css` não foi commitado. Confira a aba Network do DevTools no site publicado."
+          }
+        }
+      ]
+    },
+    {
+      "id": "clone-e-pull",
+      "title": {
+        "pt": "Trabalhando de dois lugares: clone e pull"
+      },
+      "goal": {
+        "pt": "Você baixou o repositório numa pasta nova com `git clone`, editou um arquivo pelo site do GitHub e trouxe a mudança para o computador com `git pull`."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "`git clone`"
+          },
+          "explanation": {
+            "pt": "Baixa um repositório remoto inteiro, **com todo o histórico**, numa pasta nova. É assim que você começa a trabalhar num projeto que já existe."
+          }
+        },
+        {
+          "term": {
+            "pt": "`git pull`"
+          },
+          "explanation": {
+            "pt": "Busca os commits novos do remoto e junta na sua branch local. É o contrário do `push`."
+          }
+        },
+        {
+          "term": {
+            "pt": "`git fetch`"
+          },
+          "explanation": {
+            "pt": "Só **busca** as novidades do remoto, sem juntar. Útil para ver o que mudou antes de decidir. O `pull` é um `fetch` seguido de um `merge`."
+          }
+        },
+        {
+          "term": {
+            "pt": "Sincronizar"
+          },
+          "explanation": {
+            "pt": "Manter o local e o remoto iguais: `pull` antes de começar a trabalhar e `push` quando terminar."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Imagine que você estudou no computador da escola e quer continuar em casa. Ou que um colega mudou o projeto. O caminho de volta, do GitHub para o seu computador, é o **pull** (e, numa máquina nova, o **clone**).\n\n### Passo 1 — Clone o Diário numa pasta nova\n\nSimule um \"outro computador\" usando outra pasta. No terminal, vá para Documentos e clone:\n\n```powershell\ncd $HOME/Documents\ngit clone https://github.com/seu-usuario/diario-de-estudos.git diario-clone\ncd diario-clone\ngit log --oneline\n```\n\nO último argumento (`diario-clone`) é o nome da pasta que vai ser criada. O `git log` mostra **todo** o histórico: o clone não traz só os arquivos, traz a máquina do tempo junto. E o `origin` já vem configurado.\n\n### Passo 2 — Mude algo pelo site do GitHub\n\nNo GitHub, abra o `README.md` do repositório, clique no **lápis** (Edit this file), acrescente uma linha qualquer e clique em **Commit changes** (escreva uma mensagem de commit, como em qualquer commit). Agora o remoto tem um commit que nenhuma das suas pastas tem.\n\n### Passo 3 — Traga a mudança com pull\n\nVolte para a pasta original do Diário (`cd ../diario-de-estudos`) e rode:\n\n```powershell\ngit pull\ngit log --oneline\n```\n\nO commit feito no site aparece no seu histórico e o README local foi atualizado. Faça o mesmo na pasta `diario-clone`.\n\n### Passo 4 — O hábito que evita conflitos\n\nSempre que for trabalhar num projeto que está no GitHub:\n\n1. **comece com `git pull`** (para ter a versão mais recente);\n2. trabalhe e faça seus commits;\n3. **termine com `git push`**.\n\nSe você esquecer o pull e o remoto tiver novidades, o push é recusado com a mensagem `rejected ... (fetch first)`. A solução é fazer `git pull` (resolvendo conflitos, se houver) e depois o push.\n\n### Passo 5 — Espie antes de juntar com fetch\n\nFaça outra edição pelo site do GitHub. Desta vez, no terminal:\n\n```powershell\ngit fetch\ngit status\n```\n\nO status avisa `Your branch is behind 'origin/main' by 1 commit` (sua branch está 1 commit atrás). Veja o que chegou com `git log --oneline main..origin/main` e, quando quiser juntar, rode `git pull`.\n\nPode apagar a pasta `diario-clone` quando terminar: ela foi só um treino."
+      },
+      "estimatedMinutes": 45,
+      "resources": [
+        "pro-git-pt",
+        "github-docs-start-pt"
+      ],
+      "checklist": [
+        {
+          "pt": "Clonei o repositório numa pasta nova e o histórico completo veio junto"
+        },
+        {
+          "pt": "Editei um arquivo pelo site do GitHub com uma mensagem de commit"
+        },
+        {
+          "pt": "Trouxe a mudança para o computador com `git pull`"
+        },
+        {
+          "pt": "Usei `git fetch` e `git status` para ver que estava atrás do remoto antes de juntar"
+        }
+      ],
+      "videos": [
+        "freecodecamp-git-github-crash"
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "O `git pull` abriu o VS Code pedindo uma mensagem de merge"
+          },
+          "solution": {
+            "pt": "Você tinha commits locais e o remoto também tinha novidades, então o Git precisou criar um commit de merge. Feche a aba para aceitar a mensagem padrão."
+          }
+        },
+        {
+          "problem": {
+            "pt": "`fatal: destination path 'diario-clone' already exists`"
+          },
+          "solution": {
+            "pt": "Já existe uma pasta com esse nome. Escolha outro nome no final do `git clone` ou apague a pasta antiga."
+          }
+        }
+      ]
+    }
+  ],
+  "extraChallenges": [
+    {
+      "pt": "Crie o README do seu perfil: um repositório com o mesmo nome do seu usuário vira a página inicial do perfil"
+    },
+    {
+      "pt": "Fixe o Diário nos repositórios em destaque do seu perfil (Customize your pins)"
+    },
+    {
+      "pt": "Acrescente uma licença ao repositório (por exemplo, MIT) e entenda o que ela permite"
+    }
+  ],
+  "portfolioTip": {
+    "pt": "O link do Diário publicado é a melhor prova do que você aprendeu nos Fundamentos. Coloque o endereço no currículo e no LinkedIn: um projeto que abre com um clique vale mais que dez descrições."
+  }
+}

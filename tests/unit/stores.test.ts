@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import type { Destination } from "@/lib/city-layout";
 import { OVERVIEW_ID } from "@/lib/city-layout";
-import { defaultProgress } from "@/lib/progress";
+import { PROGRESS_SCHEMA_VERSION, criterionKey, defaultProgress } from "@/lib/progress";
 
 /** Storage em memória: os testes rodam no Node, sem navegador */
 class MemoryStorage {
@@ -48,10 +48,23 @@ beforeEach(() => {
 describe("store de progresso", () => {
   it("marca e desmarca etapas", () => {
     const { setStepDone } = useProgressStore.getState();
-    setStepDone("perfil-dev", "planejar", true);
-    expect("perfil-dev:planejar" in useProgressStore.getState().completedSteps).toBe(true);
-    setStepDone("perfil-dev", "planejar", false);
-    expect("perfil-dev:planejar" in useProgressStore.getState().completedSteps).toBe(false);
+    setStepDone("diario-01-terminal", "o-que-e-programar", true);
+    expect("diario-01-terminal:o-que-e-programar" in useProgressStore.getState().completedSteps).toBe(true);
+    setStepDone("diario-01-terminal", "o-que-e-programar", false);
+    expect("diario-01-terminal:o-que-e-programar" in useProgressStore.getState().completedSteps).toBe(false);
+  });
+
+  it("marca e desmarca critérios de pronto, um por um", () => {
+    const { setCriterionChecked } = useProgressStore.getState();
+    setCriterionChecked("git-02-commits", "add-e-commit", 0, true);
+    setCriterionChecked("git-02-commits", "add-e-commit", 2, true);
+    const checked = useProgressStore.getState().checkedCriteria;
+    expect(criterionKey("git-02-commits", "add-e-commit", 0) in checked).toBe(true);
+    expect(criterionKey("git-02-commits", "add-e-commit", 1) in checked).toBe(false);
+    setCriterionChecked("git-02-commits", "add-e-commit", 0, false);
+    expect(criterionKey("git-02-commits", "add-e-commit", 0) in useProgressStore.getState().checkedCriteria).toBe(false);
+    // marcar critérios não conclui a etapa sozinho
+    expect("git-02-commits:add-e-commit" in useProgressStore.getState().completedSteps).toBe(false);
   });
 
   it("guarda e remove o status de um recurso", () => {
@@ -73,7 +86,7 @@ describe("store de progresso", () => {
   it("salva no localStorage só os dados, com versão", () => {
     useProgressStore.getState().setStepDone("chat-go", "go-setup", true);
     const file = saved();
-    expect(file.version).toBe(1);
+    expect(file.version).toBe(PROGRESS_SCHEMA_VERSION);
     expect(Object.keys(file.state).sort()).toEqual(Object.keys(defaultProgress()).sort());
     expect("chat-go:go-setup" in (file.state.completedSteps as Record<string, number>)).toBe(true);
   });

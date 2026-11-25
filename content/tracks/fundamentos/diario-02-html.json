@@ -1,0 +1,433 @@
+{
+  "id": "diario-02-html",
+  "track": "fundamentos",
+  "order": 2,
+  "title": {
+    "pt": "Parte 2: a página do Diário com HTML"
+  },
+  "feature": {
+    "pt": "A página do Diário: cabeçalho, formulário de registro, lista de sessões e página Sobre"
+  },
+  "level": 1,
+  "stack": [
+    "HTML",
+    "VS Code",
+    "Live Server"
+  ],
+  "whatYouBuild": {
+    "pt": "O Diário de Estudos sai do terminal e vira uma página web: um cabeçalho com logotipo, um formulário acessível para registrar sessões, a lista de sessões, o resumo da semana e uma página Sobre, tudo com HTML semântico e validado."
+  },
+  "whatYouLearn": [
+    {
+      "pt": "O que é HTML, tags, elementos e atributos"
+    },
+    {
+      "pt": "Estrutura básica de uma página e para que serve cada linha"
+    },
+    {
+      "pt": "Tags semânticas e hierarquia de títulos"
+    },
+    {
+      "pt": "Formulários acessíveis com validação do navegador"
+    },
+    {
+      "pt": "Links, imagens, caminhos relativos e texto alternativo"
+    },
+    {
+      "pt": "Navegar pelo teclado e validar o HTML"
+    }
+  ],
+  "prerequisites": [
+    "diario-01-terminal"
+  ],
+  "steps": [
+    {
+      "id": "primeira-pagina",
+      "title": {
+        "pt": "O que é HTML e a sua primeira página"
+      },
+      "goal": {
+        "pt": "O arquivo `index.html` abre no navegador com o título \"Diário de Estudos\" e você sabe explicar cada linha da estrutura básica."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "HTML"
+          },
+          "explanation": {
+            "pt": "Sigla de *HyperText Markup Language* (linguagem de marcação de hipertexto). Não é linguagem de programação: ela não faz contas nem decisões. Ela **descreve o conteúdo** da página: isto é um título, isto é um parágrafo, isto é um botão."
+          }
+        },
+        {
+          "term": {
+            "pt": "Tag"
+          },
+          "explanation": {
+            "pt": "Uma marcação entre os sinais `<` e `>`. A maioria vem em par: `<p>` abre e `</p>` fecha (repare na barra). O que fica entre elas é o conteúdo."
+          }
+        },
+        {
+          "term": {
+            "pt": "Elemento"
+          },
+          "explanation": {
+            "pt": "O conjunto completo: tag de abertura, conteúdo e tag de fechamento. `<h1>Diário</h1>` é um elemento de título."
+          }
+        },
+        {
+          "term": {
+            "pt": "Atributo"
+          },
+          "explanation": {
+            "pt": "Uma informação extra escrita dentro da tag de abertura, no formato `nome=\"valor\"`. Em `<html lang=\"pt-BR\">`, o atributo `lang` diz que a página está em português do Brasil."
+          }
+        },
+        {
+          "term": {
+            "pt": "Navegador"
+          },
+          "explanation": {
+            "pt": "O programa (Chrome, Edge, Firefox) que lê o HTML e desenha a página na tela. Ele é tolerante: mesmo com erros, tenta mostrar algo. Por isso é importante validar o código."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Na Parte 1 o Diário vivia no terminal. Agora ele vai ganhar uma **página web**. Toda página que você já visitou começa com HTML. Pense no HTML como o **esqueleto** da página; o CSS (Parte 3) será a **roupa** e o JavaScript (Parte 4), os **músculos**.\n\n### Passo 1 — Prepare o VS Code\n\nInstale a extensão **Live Server** (de Ritwick Dey) no VS Code. Ela abre a página no navegador e **atualiza sozinha** toda vez que você salva. Isso economiza muito tempo.\n\n### Passo 2 — Crie o arquivo e use o atalho mágico\n\nNa pasta `diario-de-estudos`, crie o arquivo `index.html`. O nome `index` é especial: é a página que os servidores abrem primeiro. Dentro dele, digite só um ponto de exclamação `!` e aperte `Tab`. O VS Code escreve a estrutura básica para você (esse recurso se chama **Emmet**). Ajuste para ficar assim:\n\n```html\n<!DOCTYPE html>\n<html lang=\"pt-BR\">\n  <head>\n    <meta charset=\"UTF-8\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n    <title>Diário de Estudos</title>\n  </head>\n  <body>\n    <h1>Diário de Estudos</h1>\n    <p>Registre o que você estudou e acompanhe a sua meta da semana.</p>\n  </body>\n</html>\n```\n\n### Passo 3 — Entenda linha por linha\n\n- `<!DOCTYPE html>`: avisa ao navegador que é um documento HTML moderno.\n- `<html lang=\"pt-BR\">`: o elemento que envolve tudo. O `lang` ajuda leitores de tela a pronunciar certo e o Google a entender o idioma.\n- `<head>`: a \"cabeça\" da página, com informações **sobre** ela, que não aparecem no corpo.\n- `<meta charset=\"UTF-8\" />`: garante que acentos e cedilha apareçam certos. Sem ele, \"Diário\" pode virar \"DiÃ¡rio\".\n- `<meta name=\"viewport\" ...>`: faz a página se ajustar à largura do celular. Vamos precisar dele na Parte 3.\n- `<title>`: o texto que aparece na aba do navegador.\n- `<body>`: o corpo, tudo o que aparece na tela.\n- `<h1>`: o título principal. `<p>`: um parágrafo.\n\nRepare na **indentação** (os espaços no começo das linhas): elementos de dentro ficam mais para a direita. O navegador não precisa disso, mas **pessoas precisam** para entender o que está dentro do quê.\n\n### Passo 4 — Abra no navegador\n\nClique com o botão direito no `index.html` e escolha **Open with Live Server**. O navegador abre num endereço parecido com `http://127.0.0.1:5500/index.html`. Mude o texto do parágrafo, salve e veja a página atualizar sozinha.\n\n### Passo 5 — Espie o código de qualquer site\n\nEm qualquer site, aperte `Ctrl` + `U` para ver o HTML dele. Vai parecer muito mais complicado que o seu, mas procure: lá estão o `<head>`, o `<title>` e o `<body>`. Todo site do mundo tem essa mesma base."
+      },
+      "estimatedMinutes": 45,
+      "resources": [
+        "mdn-html-pt",
+        "web-dev-learn-html"
+      ],
+      "checklist": [
+        {
+          "pt": "Criei `index.html` com a estrutura básica (doctype, html, head, body)"
+        },
+        {
+          "pt": "A aba do navegador mostra \"Diário de Estudos\" e os acentos aparecem certos"
+        },
+        {
+          "pt": "Abri a página com o Live Server e ela atualiza quando salvo"
+        },
+        {
+          "pt": "Sei explicar para que servem `lang`, `charset`, `viewport` e `title`"
+        }
+      ],
+      "videos": [
+        "curso-em-video-html-css"
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "Os acentos aparecem como `Ã¡` ou `ï¿½`"
+          },
+          "solution": {
+            "pt": "Falta a linha `<meta charset=\"UTF-8\" />` dentro do `<head>`, ou o arquivo não foi salvo em UTF-8. No VS Code, olhe no canto inferior direito: deve estar escrito `UTF-8`. Se não estiver, clique e escolha \"Salvar com Codificação\" → UTF-8."
+          }
+        },
+        {
+          "problem": {
+            "pt": "A opção \"Open with Live Server\" não aparece"
+          },
+          "solution": {
+            "pt": "A extensão não foi instalada ou o VS Code precisa ser reiniciado. Outra saída: dê dois cliques no `index.html` pelo Explorador de Arquivos do Windows; ele abre no navegador (só não atualiza sozinho)."
+          }
+        }
+      ]
+    },
+    {
+      "id": "estrutura-semantica",
+      "title": {
+        "pt": "Estrutura da página: cabeçalho, conteúdo e rodapé"
+      },
+      "goal": {
+        "pt": "A página do Diário tem cabeçalho, área principal com três seções (registrar, sessões e resumo) e rodapé, usando tags semânticas e títulos em ordem."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "HTML semântico"
+          },
+          "explanation": {
+            "pt": "Usar a tag que **descreve o significado** do conteúdo, e não só a aparência. Um rodapé vai em `<footer>`, não numa caixa genérica. Isso ajuda leitores de tela, buscadores e quem for ler seu código."
+          }
+        },
+        {
+          "term": {
+            "pt": "Hierarquia de títulos"
+          },
+          "explanation": {
+            "pt": "Títulos vão de `<h1>` (mais importante) a `<h6>`. Use **um** `<h1>` por página e não pule níveis: depois de um `<h2>`, o próximo nível é `<h3>`. É como o sumário de um livro."
+          }
+        },
+        {
+          "term": {
+            "pt": "Listas"
+          },
+          "explanation": {
+            "pt": "`<ul>` cria uma lista com marcadores (sem ordem) e `<ol>`, uma lista numerada. Cada item fica dentro de um `<li>`."
+          }
+        },
+        {
+          "term": {
+            "pt": "`<div>` e `<span>`"
+          },
+          "explanation": {
+            "pt": "Caixas genéricas, sem significado. `<div>` ocupa a linha toda (bloco) e `<span>` fica no meio do texto (em linha). Use só quando nenhuma tag semântica servir."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Uma página bem organizada é como um jornal: tem **cabeçalho**, **matérias divididas em seções** e **rodapé**. O HTML tem tags com exatamente esses nomes.\n\n### Passo 1 — Desenhe antes de codar\n\nPegue um papel e rabisque a página do Diário em caixas: no topo, o nome e uma frase; no meio, três blocos (\"Registrar sessão\", \"Minhas sessões\", \"Resumo da semana\"); embaixo, um rodapé. Profissionais fazem isso o tempo todo e chamam de **wireframe**.\n\n### Passo 2 — Transforme o desenho em tags\n\nSubstitua o conteúdo do `<body>` por:\n\n```html\n<header>\n  <h1>Diário de Estudos</h1>\n  <p>Registre o que você estudou e acompanhe a sua meta da semana.</p>\n</header>\n\n<main>\n  <section>\n    <h2>Registrar sessão</h2>\n    <p>O formulário vem na próxima etapa.</p>\n  </section>\n\n  <section>\n    <h2>Minhas sessões</h2>\n    <ul>\n      <li>Matemática: 50 minutos</li>\n      <li>História: 30 minutos</li>\n    </ul>\n  </section>\n\n  <section>\n    <h2>Resumo da semana</h2>\n    <p>Total: <strong>1,3 h</strong> de 4 h da meta.</p>\n  </section>\n</main>\n\n<footer>\n  <p>Feito por Seu Nome, na DevCity.</p>\n</footer>\n```\n\n### Passo 3 — Entenda as escolhas\n\n- `<header>`: o cabeçalho, com a identidade da página.\n- `<main>`: o conteúdo principal. Só existe **um** por página, e leitores de tela permitem pular direto para ele.\n- `<section>`: uma seção temática, que **sempre tem um título** (`<h2>`).\n- `<ul>` e `<li>`: a lista de sessões. Por enquanto os itens estão escritos à mão; na Parte 4 o JavaScript vai criar cada `<li>` sozinho a partir dos dados.\n- `<strong>`: destaca um texto **importante** (aparece em negrito).\n- `<footer>`: o rodapé, com autoria.\n\n### Passo 4 — Confira a estrutura no navegador\n\nAperte `F12` no navegador para abrir as **Ferramentas do Desenvolvedor (DevTools)** e clique na aba **Elements** (ou \"Elementos\"). Você vê seu HTML em forma de árvore: o `<main>` contém três `<section>`, cada `<section>` contém um `<h2>`... Essa árvore se chama **DOM** e vai ser muito importante na Parte 4.\n\n### Passo 5 — Complete com conteúdo seu\n\nColoque suas matérias de verdade (as do seu curso ou do ENEM) e pelo menos quatro sessões na lista. Conteúdo real deixa o projeto mais interessante de mostrar."
+      },
+      "estimatedMinutes": 60,
+      "resources": [
+        "mdn-html-pt",
+        "mdn-a11y-pt",
+        "web-dev-learn-html"
+      ],
+      "checklist": [
+        {
+          "pt": "A página tem `<header>`, `<main>` com três `<section>` e `<footer>`"
+        },
+        {
+          "pt": "Existe só um `<h1>` e cada seção tem seu `<h2>`, sem pular níveis"
+        },
+        {
+          "pt": "A lista de sessões usa `<ul>` e `<li>` com pelo menos quatro itens"
+        },
+        {
+          "pt": "Abri o DevTools (F12) e encontrei a árvore de elementos da página"
+        }
+      ],
+      "videos": [
+        "curso-em-video-html-css"
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "A página ficou com um pedaço todo em negrito ou dentro de outro bloco"
+          },
+          "solution": {
+            "pt": "Alguma tag abriu e não fechou. O VS Code ajuda: clique numa tag e ele destaca o par dela. Se uma tag não tem par destacado, achou o problema."
+          }
+        },
+        {
+          "problem": {
+            "pt": "Os títulos ficaram com tamanhos que eu não queria"
+          },
+          "solution": {
+            "pt": "Não escolha `<h3>` porque ele é \"menor\". O nível do título é sobre **importância**, não tamanho. O tamanho a gente ajusta com CSS na Parte 3."
+          }
+        }
+      ]
+    },
+    {
+      "id": "formulario-de-registro",
+      "title": {
+        "pt": "O formulário de registro de estudo"
+      },
+      "goal": {
+        "pt": "A seção \"Registrar sessão\" tem um formulário com matéria, minutos, data e anotações, cada campo com seu rótulo, e o navegador impede enviar campos obrigatórios vazios."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "Formulário (`<form>`)"
+          },
+          "explanation": {
+            "pt": "A área onde a pessoa digita ou escolhe dados para enviar. Agrupa os campos e o botão de enviar."
+          }
+        },
+        {
+          "term": {
+            "pt": "Campo (`<input>`)"
+          },
+          "explanation": {
+            "pt": "Uma caixa de entrada de dados. O atributo `type` muda o campo: `text` (texto), `number` (número), `date` (calendário), `email` e outros. O `<input>` não tem tag de fechamento."
+          }
+        },
+        {
+          "term": {
+            "pt": "Rótulo (`<label>`)"
+          },
+          "explanation": {
+            "pt": "O texto que diz o que vai em cada campo. Ligue o rótulo ao campo com `for` no label e o mesmo valor em `id` no campo: assim, clicar no texto foca o campo, e leitores de tela leem o rótulo."
+          }
+        },
+        {
+          "term": {
+            "pt": "`name`"
+          },
+          "explanation": {
+            "pt": "O nome do dado quando o formulário é enviado. É com esse nome que o JavaScript (e servidores) vão ler o valor."
+          }
+        },
+        {
+          "term": {
+            "pt": "Validação nativa"
+          },
+          "explanation": {
+            "pt": "Atributos como `required` (obrigatório), `min` e `max` fazem o próprio navegador conferir os dados antes de enviar, sem uma linha de JavaScript."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "O coração do Diário é **registrar sessões**. Para isso, precisamos de um formulário. Nesta etapa ele ainda não salva nada (isso é trabalho do JavaScript na Parte 4), mas vai ficar completo e acessível.\n\n### Passo 1 — O formulário e o primeiro campo\n\nNa seção \"Registrar sessão\", troque o parágrafo provisório por:\n\n```html\n<form id=\"form-sessao\">\n  <label for=\"materia\">Matéria</label>\n  <select id=\"materia\" name=\"materia\" required>\n    <option value=\"\">Escolha uma matéria</option>\n    <option>Matemática</option>\n    <option>Português</option>\n    <option>História</option>\n    <option>Inglês</option>\n  </select>\n</form>\n```\n\nO `<select>` cria uma lista suspensa, e cada `<option>` é uma opção. A primeira opção tem `value=\"\"` (vazio) de propósito: como o campo é `required`, o navegador não deixa enviar enquanto a pessoa não escolher uma matéria de verdade.\n\n### Passo 2 — Minutos, data e anotações\n\nLogo abaixo do `</select>` (ainda dentro do `<form>`), acrescente:\n\n```html\n<label for=\"minutos\">Minutos estudados</label>\n<input id=\"minutos\" name=\"minutos\" type=\"number\" min=\"1\" max=\"600\" required />\n\n<label for=\"data\">Data</label>\n<input id=\"data\" name=\"data\" type=\"date\" required />\n\n<label for=\"anotacoes\">Anotações (opcional)</label>\n<textarea id=\"anotacoes\" name=\"anotacoes\" rows=\"3\"></textarea>\n\n<button type=\"submit\">Registrar sessão</button>\n```\n\nRepare em cada detalhe:\n\n- `type=\"number\"` mostra um campo que só aceita números (no celular, abre o teclado numérico). `min=\"1\"` e `max=\"600\"` impedem valores absurdos.\n- `type=\"date\"` abre um calendário. O navegador entrega a data no formato `AAAA-MM-DD`, que é ótimo para guardar.\n- `<textarea>` é um campo de várias linhas e **tem** tag de fechamento.\n- O `<button type=\"submit\">` envia o formulário.\n- Cada `label` tem um `for` igual ao `id` do seu campo. **Clique no texto \"Minutos estudados\"**: o cursor vai para o campo. Isso prova que a ligação funcionou.\n\n### Passo 3 — Teste a validação\n\nClique em \"Registrar sessão\" com tudo vazio. O navegador mostra um balão pedindo para preencher. Digite `0` nos minutos e tente de novo: ele reclama do mínimo. Você ganhou validação sem programar nada.\n\n> Ao enviar com tudo preenchido, a página recarrega e os dados aparecem no endereço (algo como `?materia=Matemática&minutos=50`). Isso acontece porque o formulário ainda não sabe para onde mandar os dados. Na Parte 4, o JavaScript vai assumir esse envio.\n\n### Passo 4 — Um toque de acessibilidade\n\nAgrupe os campos com `<fieldset>` e dê um título ao grupo com `<legend>`:\n\n```html\n<fieldset>\n  <legend>Nova sessão de estudo</legend>\n  <!-- seus labels, campos e o botão aqui dentro -->\n</fieldset>\n```\n\nO `<!-- ... -->` é um **comentário em HTML**: o navegador ignora."
+      },
+      "estimatedMinutes": 60,
+      "resources": [
+        "mdn-html-pt",
+        "mdn-a11y-pt",
+        "web-dev-learn-html"
+      ],
+      "checklist": [
+        {
+          "pt": "O formulário tem matéria (select), minutos (number), data (date) e anotações (textarea)"
+        },
+        {
+          "pt": "Cada campo tem um `<label>` ligado pelo `for`/`id` e clicar no rótulo foca o campo"
+        },
+        {
+          "pt": "Campos obrigatórios têm `required` e o navegador impede enviar vazio"
+        },
+        {
+          "pt": "Os minutos aceitam só valores entre 1 e 600"
+        }
+      ],
+      "videos": [
+        "curso-em-video-html-css"
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "Clicar no rótulo não foca o campo"
+          },
+          "solution": {
+            "pt": "O valor do `for` precisa ser **idêntico** ao `id` do campo, inclusive maiúsculas. `for=\"Minutos\"` não liga com `id=\"minutos\"`."
+          }
+        },
+        {
+          "problem": {
+            "pt": "A validação não funciona"
+          },
+          "solution": {
+            "pt": "O botão precisa estar **dentro** do `<form>` e ser do tipo `submit`. Confira também se você escreveu `required` dentro da tag de abertura do campo."
+          }
+        }
+      ]
+    },
+    {
+      "id": "links-imagens-acessibilidade",
+      "title": {
+        "pt": "Links, imagens, uma segunda página e validação"
+      },
+      "goal": {
+        "pt": "O Diário tem uma página \"Sobre\" ligada por links nas duas direções, uma imagem com texto alternativo e o HTML passa no validador sem erros."
+      },
+      "concepts": [
+        {
+          "term": {
+            "pt": "Link (`<a>`)"
+          },
+          "explanation": {
+            "pt": "A âncora que leva para outro lugar. O destino vai no atributo `href`. É o \"hiper\" do hipertexto: foi o que fez a web ser uma teia de páginas ligadas."
+          }
+        },
+        {
+          "term": {
+            "pt": "Caminho relativo"
+          },
+          "explanation": {
+            "pt": "Um endereço que parte da página atual. `sobre.html` significa \"o arquivo `sobre.html` na mesma pasta\"; `imagens/logo.png`, \"dentro da pasta imagens\"."
+          }
+        },
+        {
+          "term": {
+            "pt": "Imagem (`<img>`)"
+          },
+          "explanation": {
+            "pt": "Insere uma figura. `src` diz onde está o arquivo e `alt` descreve a imagem com palavras. Não tem tag de fechamento."
+          }
+        },
+        {
+          "term": {
+            "pt": "Texto alternativo (`alt`)"
+          },
+          "explanation": {
+            "pt": "A descrição lida por leitores de tela para pessoas cegas e mostrada quando a imagem não carrega. Imagens só decorativas usam `alt=\"\"` (vazio) para serem ignoradas."
+          }
+        },
+        {
+          "term": {
+            "pt": "Validador"
+          },
+          "explanation": {
+            "pt": "Uma ferramenta que confere se o HTML segue as regras. O navegador esconde erros; o validador mostra todos."
+          }
+        }
+      ],
+      "instructions": {
+        "pt": "Um site raramente tem uma página só. Vamos criar a página **\"Sobre\"** e ligar as duas.\n\n### Passo 1 — Organize as pastas\n\nCrie a pasta `imagens` dentro de `diario-de-estudos` e coloque nela uma imagem sua, um ícone ou um logotipo simples (pode criar um no Canva ou baixar um ícone gratuito). Renomeie para `logo.png`, sem espaços e sem acentos.\n\n### Passo 2 — A imagem no cabeçalho\n\nNo `<header>` do `index.html`, antes do `<h1>`:\n\n```html\n<img src=\"imagens/logo.png\" alt=\"Logotipo do Diário de Estudos: um caderno aberto\" width=\"64\" height=\"64\" />\n```\n\nO `alt` descreve o que a imagem **mostra**. Definir `width` e `height` evita que a página \"pule\" enquanto a imagem carrega.\n\n### Passo 3 — A página Sobre\n\nCrie `sobre.html` com a mesma estrutura básica (lembre do `!` + `Tab`) e conte por que você criou o Diário, quais matérias estuda e o que pretende aprender na DevCity. Use um `<h1>`, alguns `<p>` e uma lista.\n\n### Passo 4 — Ligue as páginas\n\nNo `<header>` das duas páginas, crie um menu de navegação:\n\n```html\n<nav>\n  <a href=\"index.html\">Diário</a>\n  <a href=\"sobre.html\">Sobre</a>\n</nav>\n```\n\nO `<nav>` avisa que aquilo é um menu. Teste: clique em \"Sobre\", depois em \"Diário\".\n\nPara links que saem do seu site, acrescente `target=\"_blank\"` (abre em nova aba) e `rel=\"noopener\"` (uma proteção de segurança). Exemplo no rodapé:\n\n```html\n<a href=\"https://developer.mozilla.org/pt-BR/\" target=\"_blank\" rel=\"noopener\">Aprendi com o MDN</a>\n```\n\n### Passo 5 — Teste com o teclado\n\nClique na barra de endereço e aperte `Tab` várias vezes. O foco deve passar por todos os links, campos e o botão, em uma ordem que faça sentido. Muitas pessoas navegam só pelo teclado. Se você consegue usar o Diário sem mouse, está no caminho certo.\n\n### Passo 6 — Passe no validador\n\nAcesse o validador do W3C (`validator.w3.org`), escolha a aba **Validate by Direct Input**, cole o conteúdo do `index.html` e clique em **Check**. Corrija o que aparecer como *Error* e repita com o `sobre.html`. Avisos (*Warning*) valem a leitura, mas não são obrigatórios."
+      },
+      "estimatedMinutes": 60,
+      "resources": [
+        "mdn-html-pt",
+        "mdn-a11y-pt",
+        "web-dev-learn-a11y"
+      ],
+      "checklist": [
+        {
+          "pt": "Existe uma página `sobre.html` e um menu `<nav>` liga as duas páginas nos dois sentidos"
+        },
+        {
+          "pt": "A imagem do cabeçalho tem um `alt` que descreve o que ela mostra"
+        },
+        {
+          "pt": "Links externos abrem em nova aba com `rel=\"noopener\"`"
+        },
+        {
+          "pt": "Consigo usar a página inteira só com a tecla Tab"
+        },
+        {
+          "pt": "O validador do W3C não mostra erros nas duas páginas"
+        }
+      ],
+      "videos": [
+        "curso-em-video-html-css"
+      ],
+      "commonErrors": [
+        {
+          "problem": {
+            "pt": "A imagem aparece quebrada"
+          },
+          "solution": {
+            "pt": "O caminho no `src` não bate com o arquivo. Confira: a pasta é `imagens` mesmo? O arquivo é `logo.png` ou `logo.PNG`? Em servidores de verdade, maiúsculas e minúsculas fazem diferença."
+          }
+        },
+        {
+          "problem": {
+            "pt": "O link para a página Sobre dá erro 404 (não encontrado)"
+          },
+          "solution": {
+            "pt": "O nome no `href` está diferente do arquivo, ou o arquivo está em outra pasta. Os dois arquivos devem estar lado a lado na pasta `diario-de-estudos`."
+          }
+        }
+      ]
+    }
+  ],
+  "extraChallenges": [
+    {
+      "pt": "Crie uma página `metas.html` com uma lista numerada das suas metas de estudo"
+    },
+    {
+      "pt": "Adicione uma tabela com o horário semanal de estudos (pesquise as tags `<table>`, `<tr>`, `<th>` e `<td>`)"
+    },
+    {
+      "pt": "Acrescente um campo \"Como foi a sessão?\" com botões de opção (`type=\"radio\"`)"
+    }
+  ],
+  "portfolioTip": {
+    "pt": "Uma página simples, semântica e acessível vale mais que uma página cheia de efeitos e confusa. Diga no portfólio que seu HTML passa no validador e funciona só com o teclado: pouca gente júnior se preocupa com isso."
+  }
+}

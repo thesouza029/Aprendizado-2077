@@ -43,7 +43,7 @@
   ],
   "prerequisites": [
     "landing-page",
-    "calculadora-jogo-da-velha"
+    "diario-04-javascript"
   ],
   "steps": [
     {

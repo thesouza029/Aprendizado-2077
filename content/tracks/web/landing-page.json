@@ -16,7 +16,7 @@
     { "pt": "Performance, SEO básico e auditoria com Lighthouse", "en": "Performance, basic SEO and auditing with Lighthouse" },
     { "pt": "Deploy contínuo na Vercel a partir do GitHub", "en": "Continuous deployment on Vercel from GitHub" }
   ],
-  "prerequisites": ["perfil-dev"],
+  "prerequisites": ["git-05-github"],
   "steps": [
     {
       "id": "planejar",
